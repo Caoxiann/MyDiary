@@ -3,7 +3,7 @@ iOS组小伙伴们的寒假作业，要还原《你的名字》中的日记app�
 
 ##1、设计图
 设计图如下，红色蓝色都可以哟。
-![http://img.ui.cn/data/file/4/6/7/924764.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/]()
+![设计图](http://img.ui.cn/data/file/4/6/7/924764.png?imageMogr2/auto-orient/format/jpg/strip/thumbnail/!1800%3E/quality/90/)
 设计图版权所有：@GrapeK （非商业用途）
 
 ##2、功能要求
