@@ -1,0 +1,619 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0537F65A1E2B0DD300A33D34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6591E2B0DD300A33D34 /* main.m */; };
+		0537F65D1E2B0DD300A33D34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F65C1E2B0DD300A33D34 /* AppDelegate.m */; };
+		0537F6631E2B0DD400A33D34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0537F6611E2B0DD400A33D34 /* Main.storyboard */; };
+		0537F6651E2B0DD400A33D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0537F6641E2B0DD400A33D34 /* Assets.xcassets */; };
+		0537F6681E2B0DD400A33D34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0537F6661E2B0DD400A33D34 /* LaunchScreen.storyboard */; };
+		0537F6731E2B0DD400A33D34 /* MyDiaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6721E2B0DD400A33D34 /* MyDiaryTests.m */; };
+		0537F67E1E2B0DD400A33D34 /* MyDiaryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F67D1E2B0DD400A33D34 /* MyDiaryUITests.m */; };
+		0537F6981E2B226F00A33D34 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F68D1E2B226F00A33D34 /* FMDatabase.m */; };
+		0537F6991E2B226F00A33D34 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F68F1E2B226F00A33D34 /* FMDatabaseAdditions.m */; };
+		0537F69A1E2B226F00A33D34 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6911E2B226F00A33D34 /* FMDatabasePool.m */; };
+		0537F69B1E2B226F00A33D34 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6931E2B226F00A33D34 /* FMDatabaseQueue.m */; };
+		0537F69C1E2B226F00A33D34 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6961E2B226F00A33D34 /* FMResultSet.m */; };
+		0537F69D1E2B226F00A33D34 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0537F6971E2B226F00A33D34 /* Info.plist */; };
+		0537F6A01E2B236B00A33D34 /* SqlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F69F1E2B236B00A33D34 /* SqlService.m */; };
+		0537F6A31E2B237700A33D34 /* TimeDealler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6A21E2B237700A33D34 /* TimeDealler.m */; };
+		0537F6AB1E2B253000A33D34 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6AA1E2B253000A33D34 /* Item.m */; };
+		0537F6AE1E2B254500A33D34 /* Diary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0537F6AD1E2B254500A33D34 /* Diary.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0537F66F1E2B0DD400A33D34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0537F64D1E2B0DD300A33D34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0537F6541E2B0DD300A33D34;
+			remoteInfo = MyDiary;
+		};
+		0537F67A1E2B0DD400A33D34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0537F64D1E2B0DD300A33D34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0537F6541E2B0DD300A33D34;
+			remoteInfo = MyDiary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0537F6551E2B0DD300A33D34 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0537F6591E2B0DD300A33D34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0537F65B1E2B0DD300A33D34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0537F65C1E2B0DD300A33D34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0537F6621E2B0DD400A33D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0537F6641E2B0DD400A33D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0537F6671E2B0DD400A33D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0537F6691E2B0DD400A33D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0537F66E1E2B0DD400A33D34 /* MyDiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0537F6721E2B0DD400A33D34 /* MyDiaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryTests.m; sourceTree = "<group>"; };
+		0537F6741E2B0DD400A33D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0537F6791E2B0DD400A33D34 /* MyDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0537F67D1E2B0DD400A33D34 /* MyDiaryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryUITests.m; sourceTree = "<group>"; };
+		0537F67F1E2B0DD400A33D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0537F68C1E2B226F00A33D34 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		0537F68D1E2B226F00A33D34 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		0537F68E1E2B226F00A33D34 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		0537F68F1E2B226F00A33D34 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		0537F6901E2B226F00A33D34 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		0537F6911E2B226F00A33D34 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		0537F6921E2B226F00A33D34 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		0537F6931E2B226F00A33D34 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		0537F6941E2B226F00A33D34 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		0537F6951E2B226F00A33D34 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		0537F6961E2B226F00A33D34 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		0537F6971E2B226F00A33D34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0537F69E1E2B236B00A33D34 /* SqlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqlService.h; sourceTree = "<group>"; };
+		0537F69F1E2B236B00A33D34 /* SqlService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqlService.m; sourceTree = "<group>"; };
+		0537F6A11E2B237700A33D34 /* TimeDealler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDealler.h; path = fmdb/TimeDealler.h; sourceTree = "<group>"; };
+		0537F6A21E2B237700A33D34 /* TimeDealler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeDealler.m; path = fmdb/TimeDealler.m; sourceTree = "<group>"; };
+		0537F6A91E2B253000A33D34 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		0537F6AA1E2B253000A33D34 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		0537F6AC1E2B254500A33D34 /* Diary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diary.h; sourceTree = "<group>"; };
+		0537F6AD1E2B254500A33D34 /* Diary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Diary.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0537F6521E2B0DD300A33D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F66B1E2B0DD400A33D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F6761E2B0DD400A33D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0537F64C1E2B0DD300A33D34 = {
+			isa = PBXGroup;
+			children = (
+				0537F6571E2B0DD300A33D34 /* MyDiary */,
+				0537F6711E2B0DD400A33D34 /* MyDiaryTests */,
+				0537F67C1E2B0DD400A33D34 /* MyDiaryUITests */,
+				0537F6561E2B0DD300A33D34 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0537F6561E2B0DD300A33D34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0537F6551E2B0DD300A33D34 /* MyDiary.app */,
+				0537F66E1E2B0DD400A33D34 /* MyDiaryTests.xctest */,
+				0537F6791E2B0DD400A33D34 /* MyDiaryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0537F6571E2B0DD300A33D34 /* MyDiary */ = {
+			isa = PBXGroup;
+			children = (
+				0537F65B1E2B0DD300A33D34 /* AppDelegate.h */,
+				0537F65C1E2B0DD300A33D34 /* AppDelegate.m */,
+				0537F6641E2B0DD400A33D34 /* Assets.xcassets */,
+				0537F6691E2B0DD400A33D34 /* Info.plist */,
+				0537F6A41E2B239800A33D34 /* Model */,
+				0537F6A51E2B239D00A33D34 /* View */,
+				0537F6A61E2B23A200A33D34 /* Controller */,
+				0537F6581E2B0DD300A33D34 /* Supporting Files */,
+			);
+			path = MyDiary;
+			sourceTree = "<group>";
+		};
+		0537F6581E2B0DD300A33D34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0537F6591E2B0DD300A33D34 /* main.m */,
+				0537F68B1E2B226F00A33D34 /* fmdb */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0537F6711E2B0DD400A33D34 /* MyDiaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				0537F6721E2B0DD400A33D34 /* MyDiaryTests.m */,
+				0537F6741E2B0DD400A33D34 /* Info.plist */,
+			);
+			path = MyDiaryTests;
+			sourceTree = "<group>";
+		};
+		0537F67C1E2B0DD400A33D34 /* MyDiaryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0537F67D1E2B0DD400A33D34 /* MyDiaryUITests.m */,
+				0537F67F1E2B0DD400A33D34 /* Info.plist */,
+			);
+			path = MyDiaryUITests;
+			sourceTree = "<group>";
+		};
+		0537F68B1E2B226F00A33D34 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				0537F69E1E2B236B00A33D34 /* SqlService.h */,
+				0537F69F1E2B236B00A33D34 /* SqlService.m */,
+				0537F68C1E2B226F00A33D34 /* FMDatabase.h */,
+				0537F68D1E2B226F00A33D34 /* FMDatabase.m */,
+				0537F68E1E2B226F00A33D34 /* FMDatabaseAdditions.h */,
+				0537F68F1E2B226F00A33D34 /* FMDatabaseAdditions.m */,
+				0537F6901E2B226F00A33D34 /* FMDatabasePool.h */,
+				0537F6911E2B226F00A33D34 /* FMDatabasePool.m */,
+				0537F6921E2B226F00A33D34 /* FMDatabaseQueue.h */,
+				0537F6931E2B226F00A33D34 /* FMDatabaseQueue.m */,
+				0537F6941E2B226F00A33D34 /* FMDB.h */,
+				0537F6951E2B226F00A33D34 /* FMResultSet.h */,
+				0537F6961E2B226F00A33D34 /* FMResultSet.m */,
+				0537F6971E2B226F00A33D34 /* Info.plist */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		0537F6A41E2B239800A33D34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0537F6A91E2B253000A33D34 /* Item.h */,
+				0537F6AA1E2B253000A33D34 /* Item.m */,
+				0537F6AC1E2B254500A33D34 /* Diary.h */,
+				0537F6AD1E2B254500A33D34 /* Diary.m */,
+				0537F6A11E2B237700A33D34 /* TimeDealler.h */,
+				0537F6A21E2B237700A33D34 /* TimeDealler.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0537F6A51E2B239D00A33D34 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0537F6661E2B0DD400A33D34 /* LaunchScreen.storyboard */,
+				0537F6611E2B0DD400A33D34 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		0537F6A61E2B23A200A33D34 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0537F6541E2B0DD300A33D34 /* MyDiary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0537F6821E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiary" */;
+			buildPhases = (
+				0537F6511E2B0DD300A33D34 /* Sources */,
+				0537F6521E2B0DD300A33D34 /* Frameworks */,
+				0537F6531E2B0DD300A33D34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyDiary;
+			productName = MyDiary;
+			productReference = 0537F6551E2B0DD300A33D34 /* MyDiary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0537F66D1E2B0DD400A33D34 /* MyDiaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0537F6851E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiaryTests" */;
+			buildPhases = (
+				0537F66A1E2B0DD400A33D34 /* Sources */,
+				0537F66B1E2B0DD400A33D34 /* Frameworks */,
+				0537F66C1E2B0DD400A33D34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0537F6701E2B0DD400A33D34 /* PBXTargetDependency */,
+			);
+			name = MyDiaryTests;
+			productName = MyDiaryTests;
+			productReference = 0537F66E1E2B0DD400A33D34 /* MyDiaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0537F6781E2B0DD400A33D34 /* MyDiaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0537F6881E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiaryUITests" */;
+			buildPhases = (
+				0537F6751E2B0DD400A33D34 /* Sources */,
+				0537F6761E2B0DD400A33D34 /* Frameworks */,
+				0537F6771E2B0DD400A33D34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0537F67B1E2B0DD400A33D34 /* PBXTargetDependency */,
+			);
+			name = MyDiaryUITests;
+			productName = MyDiaryUITests;
+			productReference = 0537F6791E2B0DD400A33D34 /* MyDiaryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0537F64D1E2B0DD300A33D34 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = yaoyaoi;
+				TargetAttributes = {
+					0537F6541E2B0DD300A33D34 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					0537F66D1E2B0DD400A33D34 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0537F6541E2B0DD300A33D34;
+					};
+					0537F6781E2B0DD400A33D34 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0537F6541E2B0DD300A33D34;
+					};
+				};
+			};
+			buildConfigurationList = 0537F6501E2B0DD300A33D34 /* Build configuration list for PBXProject "MyDiary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0537F64C1E2B0DD300A33D34;
+			productRefGroup = 0537F6561E2B0DD300A33D34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0537F6541E2B0DD300A33D34 /* MyDiary */,
+				0537F66D1E2B0DD400A33D34 /* MyDiaryTests */,
+				0537F6781E2B0DD400A33D34 /* MyDiaryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0537F6531E2B0DD300A33D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0537F69D1E2B226F00A33D34 /* Info.plist in Resources */,
+				0537F6681E2B0DD400A33D34 /* LaunchScreen.storyboard in Resources */,
+				0537F6651E2B0DD400A33D34 /* Assets.xcassets in Resources */,
+				0537F6631E2B0DD400A33D34 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F66C1E2B0DD400A33D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F6771E2B0DD400A33D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0537F6511E2B0DD300A33D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0537F6A01E2B236B00A33D34 /* SqlService.m in Sources */,
+				0537F69A1E2B226F00A33D34 /* FMDatabasePool.m in Sources */,
+				0537F6AE1E2B254500A33D34 /* Diary.m in Sources */,
+				0537F65D1E2B0DD300A33D34 /* AppDelegate.m in Sources */,
+				0537F69B1E2B226F00A33D34 /* FMDatabaseQueue.m in Sources */,
+				0537F65A1E2B0DD300A33D34 /* main.m in Sources */,
+				0537F6981E2B226F00A33D34 /* FMDatabase.m in Sources */,
+				0537F6AB1E2B253000A33D34 /* Item.m in Sources */,
+				0537F69C1E2B226F00A33D34 /* FMResultSet.m in Sources */,
+				0537F6A31E2B237700A33D34 /* TimeDealler.m in Sources */,
+				0537F6991E2B226F00A33D34 /* FMDatabaseAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F66A1E2B0DD400A33D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0537F6731E2B0DD400A33D34 /* MyDiaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0537F6751E2B0DD400A33D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0537F67E1E2B0DD400A33D34 /* MyDiaryUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0537F6701E2B0DD400A33D34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0537F6541E2B0DD300A33D34 /* MyDiary */;
+			targetProxy = 0537F66F1E2B0DD400A33D34 /* PBXContainerItemProxy */;
+		};
+		0537F67B1E2B0DD400A33D34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0537F6541E2B0DD300A33D34 /* MyDiary */;
+			targetProxy = 0537F67A1E2B0DD400A33D34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0537F6611E2B0DD400A33D34 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0537F6621E2B0DD400A33D34 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0537F6661E2B0DD400A33D34 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0537F6671E2B0DD400A33D34 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0537F6801E2B0DD400A33D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0537F6811E2B0DD400A33D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0537F6831E2B0DD400A33D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MyDiary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0537F6841E2B0DD400A33D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MyDiary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0537F6861E2B0DD400A33D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDiary.app/MyDiary";
+			};
+			name = Debug;
+		};
+		0537F6871E2B0DD400A33D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MyDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDiary.app/MyDiary";
+			};
+			name = Release;
+		};
+		0537F6891E2B0DD400A33D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MyDiaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyDiary;
+			};
+			name = Debug;
+		};
+		0537F68A1E2B0DD400A33D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MyDiaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyDiary;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0537F6501E2B0DD300A33D34 /* Build configuration list for PBXProject "MyDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0537F6801E2B0DD400A33D34 /* Debug */,
+				0537F6811E2B0DD400A33D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0537F6821E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0537F6831E2B0DD400A33D34 /* Debug */,
+				0537F6841E2B0DD400A33D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0537F6851E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0537F6861E2B0DD400A33D34 /* Debug */,
+				0537F6871E2B0DD400A33D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0537F6881E2B0DD400A33D34 /* Build configuration list for PBXNativeTarget "MyDiaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0537F6891E2B0DD400A33D34 /* Debug */,
+				0537F68A1E2B0DD400A33D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0537F64D1E2B0DD300A33D34 /* Project object */;
+}
