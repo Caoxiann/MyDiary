@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  CalenderViewController.h
 //  MyDiary
 //
 //  Created by Wujianyun on 16/01/2017.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface CalenderViewController : UIViewController
 
 @end
-

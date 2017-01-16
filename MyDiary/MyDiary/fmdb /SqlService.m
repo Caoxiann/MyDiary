@@ -8,7 +8,7 @@
 
 #import "SqlService.h"
 #import "Diary.h"
-#import "Item.h"
+#import "Element.h"
 #import "FMDatabase.h"
 
 static SqlService *sqlService;
@@ -60,10 +60,10 @@ static SqlService *sqlService;
 }
 //--------------------------------------------------------
 #pragma mark - Table
--(void)createItemTable
+-(void)createElementTable
 {
     if([db open]){
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ITEMTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,DATE TEXT)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ElEMENTTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,DATE TEXT)"];
         BOOL res = [db executeUpdate:sqlCreateTable];
         
         if(!res){
@@ -93,11 +93,11 @@ static SqlService *sqlService;
     }
 }
 
--(void)insertItemDBtable:(Item *)item{
-    [self createItemTable];
+-(void)insertElementDBtable:(Element *)element{
+    [self createElementTable];
     
     if([db open]){
-        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@')VALUES ('%@','%@','%@')",@"itemtable",@"content",@"time",@"date",item.content,item.time,item.date];
+        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@')VALUES ('%@','%@','%@')",@"elementtable",@"content",@"time",@"date",element.content,element.time,element.date];
         BOOL res = [db executeUpdate:sqlInsertTable];
         if(!res){
             NSLog(@"插入失败");
@@ -125,9 +125,9 @@ static SqlService *sqlService;
     }
 }
 
--(void)updateItemDBtable:(Item *)item{
+-(void)updateElementDBtable:(Element *)element{
     if([db open]){
-        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@' WHERE %@ = %ld",@"itemtable",@"content",item.content,@"time",item.time,@"date",item.date,@"ID",(long)item.itemID];
+        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@' WHERE %@ = %ld",@"elementtable",@"content",element.content,@"time",element.time,@"date",element.date,@"ID",(long)element.elementID];
         NSLog(@"%@",sqlUpdeteTable);
         BOOL res = [db executeUpdate:sqlUpdeteTable];
         if(!res){
@@ -154,10 +154,10 @@ static SqlService *sqlService;
     }
 }
 
--(BOOL)deleteItem:(Item *) item{
+-(BOOL)deleteElement:(Element *) element{
     if([db open]){
         
-        NSString *sqlDelete = [NSString stringWithFormat:@"delete from %@ where %@ = %ld",@"itemtable",@"id",(long)item.itemID];
+        NSString *sqlDelete = [NSString stringWithFormat:@"delete from %@ where %@ = %ld",@"elementtable",@"id",(long)element.elementID];
         BOOL res = [db executeUpdate:sqlDelete];
         if(res){
             NSLog(@"delete success");
@@ -186,21 +186,21 @@ static SqlService *sqlService;
 }
 
 
--(NSArray *)queryItemDBtable{
-    [self createItemTable];
+-(NSArray *)queryElementDBtable{
+    [self createElementTable];
     
     NSMutableArray *array  = [NSMutableArray array];
     
     if([db open]){
-        NSString *sql = [NSString stringWithFormat:@"SELECT *FROM %@",@"itemtable"];;
+        NSString *sql = [NSString stringWithFormat:@"SELECT *FROM %@",@"elementtable"];;
         FMResultSet *rs = [db executeQuery:sql];
         while ([rs next]) {
-            Item*item=[[Item alloc]init];
-            item.itemID = [rs intForColumn:@"id"];
-            item.content = [rs stringForColumn:@"content"];
-            item.time = [rs stringForColumn:@"time"];
-            item.date= [rs stringForColumn:@"date"];
-            [array addObject:item];
+            Element*element=[[Element alloc]init];
+            element.elementID = [rs intForColumn:@"id"];
+            element.content = [rs stringForColumn:@"content"];
+            element.time = [rs stringForColumn:@"time"];
+            element.date= [rs stringForColumn:@"date"];
+            [array addObject:element];
         }
         [db close];
         return [array copy];

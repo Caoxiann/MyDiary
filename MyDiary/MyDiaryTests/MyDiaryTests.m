@@ -2,7 +2,7 @@
 //  MyDiaryTests.m
 //  MyDiaryTests
 //
-//  Created by Wujianyun on 15/01/2017.
+//  Created by Wujianyun on 16/01/2017.
 //  Copyright © 2017 yaoyaoi. All rights reserved.
 //
 

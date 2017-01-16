@@ -7,21 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Item.h"
+#import "Element.h"
 #import "Diary.h"
 
 @interface SqlService : NSObject
 +(SqlService *)sqlInstance;
 
--(void)insertItemDBtable:(Item *)item;
+-(void)insertElementDBtable:(Element *)element;
 -(void)insertDiaryDBtable:(Diary *)diary;
 
--(void)updateItemDBtable:(Item *)item;
+-(void)updateElementDBtable:(Element *)element;
 -(void)updateDiaryDBtable:(Diary *)diary;
 
--(BOOL)deleteItem:(Item *) item;
+-(BOOL)deleteElement:(Element *) element;
 -(BOOL)deleteDiary:(Diary *)diary;
 
--(NSArray *)queryItemDBtable;
+-(NSArray *)queryElementDBtable;
 -(NSArray *)queryDiaryDBtable;
 @end
