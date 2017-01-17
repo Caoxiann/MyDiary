@@ -9,10 +9,30 @@
 #import "timeDealler.h"
 
 @implementation TimeDealler
-+(NSString *)getCurrentTime{
++(NSMutableDictionary *)getCurrentTime{
+    NSMutableDictionary *dateDic=[[NSMutableDictionary alloc]init];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateTime = [formatter stringFromDate:[NSDate date]];
-    return dateTime;
+    [formatter setDateFormat:@"yyyy"];
+    NSString * year = [formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"MM"];
+    NSString * month=[formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"dd"];
+    NSString * day=[formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"HH"];
+    NSString * hour=[formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"mm"];
+    NSString * minute=[formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"ss"];
+    NSString * second=[formatter stringFromDate:[NSDate date]];
+
+    [dateDic setObject:year forKey:@"year"];
+    [dateDic setObject:month forKey:@"month"];
+    [dateDic setObject:day forKey:@"day"];
+    [dateDic setObject:hour forKey:@"hour"];
+    [dateDic setObject:minute forKey:@"minute"];
+    [dateDic setObject:second forKey:@"second"];
+    
+    
+    return dateDic;
 }
 @end

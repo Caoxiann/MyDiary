@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface TimeDealler : NSObject
-+(NSString *)getCurrentTime;
++(NSMutableDictionary *)getCurrentTime;
 @end

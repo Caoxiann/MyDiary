@@ -7,17 +7,17 @@
 //
 
 #import "ViewController.h"
-
+#import "TimeDealler.h"
 
 @interface ViewController ()
-
+@property (nonatomic, assign) NSInteger currentPage;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -25,7 +25,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - segment
 - (IBAction)segment:(UISegmentedControl *)sender {
+    //pageSwitch
     switch (sender.selectedSegmentIndex) {
         case 0:
             _topLabel.text=@"ELEMENTS";
@@ -40,8 +43,10 @@
             NSLog(@"segment error");
             break;
     }
+    _currentPage=sender.selectedSegmentIndex;
 }
 
+#pragma mark - Buttons
 - (IBAction)setButton:(UIButton *)sender {
 }
 

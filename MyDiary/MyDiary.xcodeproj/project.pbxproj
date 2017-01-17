@@ -26,6 +26,16 @@
 		0558FC071E2CEA25001C328D /* TimeDealler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FC001E2CEA25001C328D /* TimeDealler.m */; };
 		0558FC141E2CEBD7001C328D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0558FC131E2CEBD7001C328D /* libsqlite3.tbd */; };
 		0558FC1A1E2CEFAB001C328D /* CalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FC191E2CEFAB001C328D /* CalenderViewController.m */; };
+		0558FCA21E2DEBFA001C328D /* ElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCA01E2DEBFA001C328D /* ElementViewController.m */; };
+		0558FCA31E2DEBFA001C328D /* ElementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCA11E2DEBFA001C328D /* ElementViewController.xib */; };
+		0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCE51E2E062C001C328D /* myTableViewCell.m */; };
+		0558FCE81E2E062C001C328D /* myTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCE61E2E062C001C328D /* myTableViewCell.xib */; };
+		0558FCF11E2E6087001C328D /* diaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCEF1E2E6087001C328D /* diaryViewController.m */; };
+		0558FCF21E2E6087001C328D /* diaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCF01E2E6087001C328D /* diaryViewController.xib */; };
+		0558FCF61E2E60B7001C328D /* ElementPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCF41E2E60B7001C328D /* ElementPage.m */; };
+		0558FCF71E2E60B7001C328D /* ElementPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCF51E2E60B7001C328D /* ElementPage.xib */; };
+		0558FD031E2E6751001C328D /* DiaryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FD011E2E6751001C328D /* DiaryPage.m */; };
+		0558FD041E2E6751001C328D /* DiaryPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FD021E2E6751001C328D /* DiaryPage.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,11 +89,26 @@
 		0558FBFC1E2CEA25001C328D /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		0558FBFD1E2CEA25001C328D /* SqlService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqlService.h; sourceTree = "<group>"; };
 		0558FBFE1E2CEA25001C328D /* SqlService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqlService.m; sourceTree = "<group>"; };
-		0558FBFF1E2CEA25001C328D /* TimeDealler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeDealler.h; sourceTree = "<group>"; };
-		0558FC001E2CEA25001C328D /* TimeDealler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeDealler.m; sourceTree = "<group>"; };
+		0558FBFF1E2CEA25001C328D /* TimeDealler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDealler.h; path = "fmdb /TimeDealler.h"; sourceTree = "<group>"; };
+		0558FC001E2CEA25001C328D /* TimeDealler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeDealler.m; path = "fmdb /TimeDealler.m"; sourceTree = "<group>"; };
 		0558FC131E2CEBD7001C328D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0558FC181E2CEFAB001C328D /* CalenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderViewController.h; sourceTree = "<group>"; };
 		0558FC191E2CEFAB001C328D /* CalenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderViewController.m; sourceTree = "<group>"; };
+		0558FC9F1E2DEBFA001C328D /* ElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementViewController.h; sourceTree = "<group>"; };
+		0558FCA01E2DEBFA001C328D /* ElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementViewController.m; sourceTree = "<group>"; };
+		0558FCA11E2DEBFA001C328D /* ElementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElementViewController.xib; sourceTree = "<group>"; };
+		0558FCE41E2E062C001C328D /* myTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTableViewCell.h; sourceTree = "<group>"; };
+		0558FCE51E2E062C001C328D /* myTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTableViewCell.m; sourceTree = "<group>"; };
+		0558FCE61E2E062C001C328D /* myTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myTableViewCell.xib; sourceTree = "<group>"; };
+		0558FCEE1E2E6087001C328D /* diaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diaryViewController.h; sourceTree = "<group>"; };
+		0558FCEF1E2E6087001C328D /* diaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = diaryViewController.m; sourceTree = "<group>"; };
+		0558FCF01E2E6087001C328D /* diaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = diaryViewController.xib; sourceTree = "<group>"; };
+		0558FCF31E2E60B7001C328D /* ElementPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementPage.h; sourceTree = "<group>"; };
+		0558FCF41E2E60B7001C328D /* ElementPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementPage.m; sourceTree = "<group>"; };
+		0558FCF51E2E60B7001C328D /* ElementPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ElementPage.xib; sourceTree = "<group>"; };
+		0558FD001E2E6751001C328D /* DiaryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryPage.h; sourceTree = "<group>"; };
+		0558FD011E2E6751001C328D /* DiaryPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryPage.m; sourceTree = "<group>"; };
+		0558FD021E2E6751001C328D /* DiaryPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiaryPage.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +206,8 @@
 				0558FBEF1E2CEA1B001C328D /* Diary.m */,
 				0558FBE51E2CE55B001C328D /* Element.h */,
 				0558FBE61E2CE55B001C328D /* Element.m */,
+				0558FBFF1E2CEA25001C328D /* TimeDealler.h */,
+				0558FC001E2CEA25001C328D /* TimeDealler.m */,
 				0558FBF11E2CEA25001C328D /* fmdb  */,
 			);
 			name = Model;
@@ -193,6 +220,16 @@
 				0558FB8B1E2CDEAF001C328D /* ViewController.m */,
 				0558FC181E2CEFAB001C328D /* CalenderViewController.h */,
 				0558FC191E2CEFAB001C328D /* CalenderViewController.m */,
+				0558FC9F1E2DEBFA001C328D /* ElementViewController.h */,
+				0558FCA01E2DEBFA001C328D /* ElementViewController.m */,
+				0558FCE41E2E062C001C328D /* myTableViewCell.h */,
+				0558FCE51E2E062C001C328D /* myTableViewCell.m */,
+				0558FCEE1E2E6087001C328D /* diaryViewController.h */,
+				0558FCEF1E2E6087001C328D /* diaryViewController.m */,
+				0558FCF31E2E60B7001C328D /* ElementPage.h */,
+				0558FCF41E2E60B7001C328D /* ElementPage.m */,
+				0558FD001E2E6751001C328D /* DiaryPage.h */,
+				0558FD011E2E6751001C328D /* DiaryPage.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -201,7 +238,12 @@
 			isa = PBXGroup;
 			children = (
 				0558FB8D1E2CDEAF001C328D /* Main.storyboard */,
+				0558FCA11E2DEBFA001C328D /* ElementViewController.xib */,
 				0558FB921E2CDEAF001C328D /* LaunchScreen.storyboard */,
+				0558FCE61E2E062C001C328D /* myTableViewCell.xib */,
+				0558FCF01E2E6087001C328D /* diaryViewController.xib */,
+				0558FD021E2E6751001C328D /* DiaryPage.xib */,
+				0558FCF51E2E60B7001C328D /* ElementPage.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -222,8 +264,6 @@
 				0558FBFA1E2CEA25001C328D /* FMDB.h */,
 				0558FBFB1E2CEA25001C328D /* FMResultSet.h */,
 				0558FBFC1E2CEA25001C328D /* FMResultSet.m */,
-				0558FBFF1E2CEA25001C328D /* TimeDealler.h */,
-				0558FC001E2CEA25001C328D /* TimeDealler.m */,
 			);
 			path = "fmdb ";
 			sourceTree = "<group>";
@@ -342,9 +382,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0558FCF21E2E6087001C328D /* diaryViewController.xib in Resources */,
 				0558FB941E2CDEAF001C328D /* LaunchScreen.storyboard in Resources */,
+				0558FCF71E2E60B7001C328D /* ElementPage.xib in Resources */,
+				0558FCE81E2E062C001C328D /* myTableViewCell.xib in Resources */,
+				0558FD041E2E6751001C328D /* DiaryPage.xib in Resources */,
 				0558FB911E2CDEAF001C328D /* Assets.xcassets in Resources */,
 				0558FB8F1E2CDEAF001C328D /* Main.storyboard in Resources */,
+				0558FCA31E2DEBFA001C328D /* ElementViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,15 +415,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0558FB8C1E2CDEAF001C328D /* ViewController.m in Sources */,
+				0558FCF61E2E60B7001C328D /* ElementPage.m in Sources */,
 				0558FB891E2CDEAF001C328D /* AppDelegate.m in Sources */,
 				0558FB861E2CDEAF001C328D /* main.m in Sources */,
 				0558FC011E2CEA25001C328D /* FMDatabase.m in Sources */,
+				0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */,
 				0558FC071E2CEA25001C328D /* TimeDealler.m in Sources */,
+				0558FCA21E2DEBFA001C328D /* ElementViewController.m in Sources */,
 				0558FC051E2CEA25001C328D /* FMResultSet.m in Sources */,
+				0558FCF11E2E6087001C328D /* diaryViewController.m in Sources */,
 				0558FBE71E2CE55B001C328D /* Element.m in Sources */,
 				0558FC031E2CEA25001C328D /* FMDatabasePool.m in Sources */,
 				0558FC1A1E2CEFAB001C328D /* CalenderViewController.m in Sources */,
 				0558FC021E2CEA25001C328D /* FMDatabaseAdditions.m in Sources */,
+				0558FD031E2E6751001C328D /* DiaryPage.m in Sources */,
 				0558FBF01E2CEA1B001C328D /* Diary.m in Sources */,
 				0558FC061E2CEA25001C328D /* SqlService.m in Sources */,
 				0558FC041E2CEA25001C328D /* FMDatabaseQueue.m in Sources */,
