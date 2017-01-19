@@ -1,29 +1,33 @@
 //
-//  diaryViewController.m
+//  DiaryViewController.m
 //  MyDiary
 //
-//  Created by Wujianyun on 17/01/2017.
+//  Created by Wujianyun on 18/01/2017.
 //  Copyright © 2017 yaoyaoi. All rights reserved.
 //
 
-#import "diaryViewController.h"
+#import "DiaryViewController.h"
 
-@interface diaryViewController ()
+@interface DiaryViewController ()
 
 @end
 
-@implementation diaryViewController
+@implementation DiaryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(instancetype)initWithBackgroundColor:(UIColor *)color{
+    self=[self init];
+    [self.view setBackgroundColor:color];
+    return self;
+}
 /*
 #pragma mark - Navigation
 

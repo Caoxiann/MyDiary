@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Element.h"
 @interface ElementPage : UIViewController
-
+@property (nonatomic,strong)Element* element;
 @end

@@ -11,6 +11,9 @@
 #import "Diary.h"
 #import "ElementPage.h"
 #import "DiaryPage.h"
+#import "ElementViewController.h"
+#import "CalenderViewController.h"
+#import "DiaryViewController.h"
 
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
@@ -19,9 +22,7 @@
 - (IBAction)addButton:(UIButton *)sender;
 - (IBAction)photoButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *testTimeLabel;
-@property (nonatomic, assign) CGFloat                  childVcViewHeight;
-@property (nonatomic, assign) CGFloat                  childVcViewWidth;
-@property (nonatomic, assign) CGFloat                  childVcViewX;
-@property (nonatomic, assign) CGFloat                  childVcViewY;
+@property (nonatomic ,strong) UIViewController *currentVC;
+@property (nonatomic,strong)NSMutableArray *childControllersArray;
 @end
 

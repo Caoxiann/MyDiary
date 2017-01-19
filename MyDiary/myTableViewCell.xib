@@ -15,11 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nWh-zR-zyR">
-                        <rect key="frame" x="35" y="10" width="305" height="80"/>
+                        <rect key="frame" x="35" y="10" width="305" height="79.5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Dt-fa-kgi">
@@ -44,14 +44,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="四川成都" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNQ-Kr-Zmd">
-                                <rect key="frame" x="96" y="69" width="134" height="11"/>
+                                <rect key="frame" x="96" y="60" width="134" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.9378405809" green="0.45025998350000002" blue="0.51587676999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="14:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAK-0j-Thv">
-                                <rect key="frame" x="96" y="0.0" width="58" height="13"/>
+                                <rect key="frame" x="96" y="8" width="58" height="13"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.9378405809" green="0.45025998350000002" blue="0.51587676999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,9 +63,8 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="contextLabel" destination="R32-Yj-4Lo" id="PVW-pl-i4L"/>
+                <outlet property="contentLabel" destination="R32-Yj-4Lo" id="Kkm-hK-x0b"/>
                 <outlet property="dayLabel" destination="uA2-5z-Ew3" id="QBh-BS-PcI"/>
-                <outlet property="locationLabel" destination="MNQ-Kr-Zmd" id="yr8-Sm-WnC"/>
                 <outlet property="timeLabel" destination="SAK-0j-Thv" id="4aM-lg-4iJ"/>
                 <outlet property="view1" destination="nWh-zR-zyR" id="BmM-GQ-OeN"/>
                 <outlet property="view2" destination="nWh-zR-zyR" id="4nE-JE-fgX"/>

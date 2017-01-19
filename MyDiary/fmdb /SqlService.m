@@ -63,7 +63,7 @@ static SqlService *sqlService;
 -(void)createElementTable
 {
     if([db open]){
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ElEMENTTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,DATE TEXT)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ElEMENTTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,YEAR TEXT,MONTH TEXT,DAY TEXT)"];
         BOOL res = [db executeUpdate:sqlCreateTable];
         
         if(!res){
@@ -97,7 +97,7 @@ static SqlService *sqlService;
     [self createElementTable];
     
     if([db open]){
-        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@')VALUES ('%@','%@','%@')",@"elementtable",@"content",@"time",@"date",element.content,element.time,element.date];
+        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@','%@','%@')VALUES ('%@','%@','%@','%@','%@')",@"elementtable",@"content",@"time",@"year",@"month",@"day",element.content,element.time,element.year,element.month,element.day];
         BOOL res = [db executeUpdate:sqlInsertTable];
         if(!res){
             NSLog(@"插入失败");
@@ -127,7 +127,7 @@ static SqlService *sqlService;
 
 -(void)updateElementDBtable:(Element *)element{
     if([db open]){
-        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@' WHERE %@ = %ld",@"elementtable",@"content",element.content,@"time",element.time,@"date",element.date,@"ID",(long)element.elementID];
+        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' ,'%@' = '%@','%@' = '%@','%@' = '%@', WHERE %@ = %ld",@"elementtable",@"content",element.content,@"time",element.time,@"year",element.year,@"month",element.month,@"day",element.day ,@"ID",(long)element.elementID];
         NSLog(@"%@",sqlUpdeteTable);
         BOOL res = [db executeUpdate:sqlUpdeteTable];
         if(!res){
@@ -199,7 +199,13 @@ static SqlService *sqlService;
             element.elementID = [rs intForColumn:@"id"];
             element.content = [rs stringForColumn:@"content"];
             element.time = [rs stringForColumn:@"time"];
-            element.date= [rs stringForColumn:@"date"];
+            element.year= [rs stringForColumn:@"year"];
+            element.month=[rs stringForColumn:@"month"];
+            element.day=[rs stringForColumn:@"day"];
+            element.date=[[NSMutableDictionary alloc]init];
+            [element.date setObject:element.year forKey:@"year"];
+            [element.date setObject:element.month forKey:@"month"];
+            [element.date setObject:element.day forKey:@"day"];
             [array addObject:element];
         }
         [db close];

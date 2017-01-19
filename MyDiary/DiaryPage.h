@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Diary.h"
 @interface DiaryPage : UIViewController
-
+@property (nonatomic ,strong)Diary *diary;
 @end

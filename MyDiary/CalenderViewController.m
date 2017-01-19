@@ -23,6 +23,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(instancetype)initWithBackgroundColor:(UIColor *)color{
+    self=[self init];
+    [self.view setBackgroundColor:color];
+    return self;
+}
 
 /*
 #pragma mark - Navigation

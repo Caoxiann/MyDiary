@@ -7,12 +7,12 @@
 //
 
 #import "myTableViewCell.h"
-
 @implementation myTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self drawView];
+    [self setBackgroundColor:[UIColor clearColor]];
 
     // Initialization code
 }
@@ -31,18 +31,11 @@
 
     // Configure the view for the selected state
 }
+-(void)setElement:(Element *)element{
+    self.dayLabel.text=element.day;
+    self.timeLabel.text=element.time;
+    self.contentLabel.text=element.content;
+}
 
 @end
-#pragma mark - UIColorCategory
-@interface UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
-@end
-@implementation UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
-{
-    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
-                           green:((hexValue >> 8) & 0x000000FF)/255.0f
-                            blue:((hexValue) & 0x000000FF)/255.0
-                           alpha:alpha];
-}
-@end
+
