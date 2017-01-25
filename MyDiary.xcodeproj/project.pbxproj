@@ -33,6 +33,7 @@
 		14F73D361E35BA330020C1E9 /* backgroundImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 14F73D351E35BA330020C1E9 /* backgroundImage.jpg */; };
 		14FCB5681E37025C00E7A23E /* VCCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FCB5671E37025C00E7A23E /* VCCamera.m */; };
 		14FCB56B1E37027E00E7A23E /* VCCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FCB56A1E37027E00E7A23E /* VCCharacters.m */; };
+		3A586C6AE40B4456A646CBB5 /* libPods-MyDiary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,9 @@
 		14FCB5671E37025C00E7A23E /* VCCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCCamera.m; sourceTree = "<group>"; };
 		14FCB5691E37027E00E7A23E /* VCCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCCharacters.h; sourceTree = "<group>"; };
 		14FCB56A1E37027E00E7A23E /* VCCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCCharacters.m; sourceTree = "<group>"; };
+		95ACDAE2C03A1E29974C277D /* Pods-MyDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyDiary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary.debug.xcconfig"; sourceTree = "<group>"; };
+		ADE3B75434E78BC11F55B142 /* Pods-MyDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyDiary.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary.release.xcconfig"; sourceTree = "<group>"; };
+		C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyDiary.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A586C6AE40B4456A646CBB5 /* libPods-MyDiary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +150,8 @@
 				14F538401E34E6A600D4ACEF /* MyDiaryTests */,
 				14F5384B1E34E6A600D4ACEF /* MyDiaryUITests */,
 				14F538251E34E6A600D4ACEF /* Products */,
+				759CD4F66732DAA932F2EA74 /* Pods */,
+				882F108769F0797EFDDDC775 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,6 +219,23 @@
 			path = MyDiaryUITests;
 			sourceTree = "<group>";
 		};
+		759CD4F66732DAA932F2EA74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				95ACDAE2C03A1E29974C277D /* Pods-MyDiary.debug.xcconfig */,
+				ADE3B75434E78BC11F55B142 /* Pods-MyDiary.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		882F108769F0797EFDDDC775 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,9 +243,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14F538511E34E6A600D4ACEF /* Build configuration list for PBXNativeTarget "MyDiary" */;
 			buildPhases = (
+				50A28C2C602B0DAB505EB673 /* [CP] Check Pods Manifest.lock */,
 				14F538201E34E6A600D4ACEF /* Sources */,
 				14F538211E34E6A600D4ACEF /* Frameworks */,
 				14F538221E34E6A600D4ACEF /* Resources */,
+				F5E575E4E3A82F652C764B84 /* [CP] Embed Pods Frameworks */,
+				CD0725173F5945A4666BB7EE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -352,6 +379,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50A28C2C602B0DAB505EB673 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CD0725173F5945A4666BB7EE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5E575E4E3A82F652C764B84 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14F538201E34E6A600D4ACEF /* Sources */ = {
@@ -510,9 +585,11 @@
 		};
 		14F538521E34E6A600D4ACEF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95ACDAE2C03A1E29974C277D /* Pods-MyDiary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-020.MyDiary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -521,9 +598,11 @@
 		};
 		14F538531E34E6A600D4ACEF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADE3B75434E78BC11F55B142 /* Pods-MyDiary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-020.MyDiary";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,6 +7,7 @@
 //
 
 #import "VCCalendar.h"
+#import <PDTSimpleCalendar/PDTSimpleCalendar.h>
 
 @interface VCCalendar ()
 
@@ -32,6 +33,21 @@
     UIImageView* _imageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgroundImage.jpg"]];
     [_backgroundview addSubview:_imageview];
     [self.view addSubview:_backgroundview];
+    
+    PDTSimpleCalendarViewController* vcCalendar = [[PDTSimpleCalendarViewController alloc] init];
+    [self.view addSubview:vcCalendar.view];
+    
+    vcCalendar.view.frame = CGRectMake(15, 55, [UIScreen mainScreen].bounds.size.width - 30, 280);
+    vcCalendar.view.layer.cornerRadius = 10;
+    vcCalendar.view.layer.masksToBounds = YES;
+    
+    [[PDTSimpleCalendarViewCell appearance] setCircleDefaultColor:[UIColor whiteColor]];
+    [[PDTSimpleCalendarViewCell appearance] setCircleSelectedColor:[UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255]];
+    [[PDTSimpleCalendarViewCell appearance] setCircleTodayColor:[UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255]];
+    [[PDTSimpleCalendarViewCell appearance] setTextDefaultColor:[UIColor blackColor]];
+    [[PDTSimpleCalendarViewCell appearance] setTextSelectedColor:[UIColor whiteColor]];
+    [[PDTSimpleCalendarViewCell appearance] setTextTodayColor:[UIColor whiteColor]];
+    
     
 }
 
