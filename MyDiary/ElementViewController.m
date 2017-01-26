@@ -28,15 +28,18 @@
     [eleForExample setDates];
     [eleForExample setTime:[TimeDealler getCurrentTime]];
     [eleForExample setContent:@"今天很开心哦"];
-    NSArray * arrEx=[[NSArray alloc]initWithObjects:eleForExample, nil];
+    NSMutableArray * arrEx=[[NSMutableArray alloc]initWithObjects:eleForExample, nil];
+    [arrEx addObject:eleForExample];
+    [arrEx addObject:eleForExample];
     _elementForMonthArray=[[NSMutableArray alloc]init];
     [_elementForMonthArray addObject:arrEx];
-    
+    [_elementForMonthArray addObject:arrEx];
+
     // Do any additional setup after loading the view from its nib.
 }
 -(void)setMyTableView{
     _tableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    [_tableView setFrame:CGRectMake(0, 0, 375, 510)];
+    [_tableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-155)];
     [self.view addSubview:_tableView];
     UIImageView* backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
     [backgroundView setFrame:self.view.bounds];
@@ -46,6 +49,7 @@
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
+//数据处理
 -(void)divideIntoGroupsAccordingToMonth{
 
 }
