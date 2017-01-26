@@ -12,6 +12,7 @@
 @property (nonatomic,strong)NSString *content;
 @property (nonatomic,strong)NSString *time;
 @property (nonatomic,strong)NSString *day;
+@property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *month;
 @property (nonatomic,strong)NSString *year;
 @property (nonatomic,strong)NSMutableDictionary* date;

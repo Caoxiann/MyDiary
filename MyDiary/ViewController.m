@@ -42,10 +42,10 @@
 -(void)addChildViewControllers{
     ElementViewController* elementVC=[[ElementViewController alloc]init];
     CalenderViewController* calenderVC=[[CalenderViewController alloc]initWithBackgroundColor:[UIColor colorWithHexValue:0XFF788B alpha:1]];
-    DiaryViewController* diaryVC=[[DiaryViewController alloc]initWithBackgroundColor:[UIColor colorWithHexValue:0X69D7DD alpha:1]];
-    [elementVC.view setFrame:CGRectMake(0, 110, 375, 510)];
-    [calenderVC.view setFrame:CGRectMake(0, 110, 375, 510)];
-    [diaryVC.view setFrame:CGRectMake(0, 110, 375, 510)];
+    DiaryViewController* diaryVC=[[DiaryViewController alloc]init];
+    [elementVC.view setFrame:CGRectMake(0, 110, self.view.bounds.size.width, self.view.bounds.size.height-155)];
+    [calenderVC.view setFrame:CGRectMake(0, 110, self.view.bounds.size.width, self.view.bounds.size.height-155)];
+    [diaryVC.view setFrame:CGRectMake(0, 110, self.view.bounds.size.width, self.view.bounds.size.height-155)];
     [self addChildViewController:elementVC];
     [self addChildViewController:calenderVC];
     [self addChildViewController:diaryVC];
