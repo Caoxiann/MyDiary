@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface DiaryViewController : UIViewController
--(instancetype)initWithBackgroundColor:(UIColor *)color;
+@property (nonatomic,strong)  UITableView *tableView;
+@property (nonatomic,strong)NSArray * diaryListArray;
+@property (nonatomic,strong)NSMutableArray <__kindof NSArray *> * diaryForMonthArray;
+
+
 @end
