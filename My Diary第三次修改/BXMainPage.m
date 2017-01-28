@@ -1,0 +1,187 @@
+//
+//  BXMainPage.m
+//  My Diary
+//
+//  Created by 徐贤达 on 2017/1/15.
+//  Copyright © 2017年 徐贤达. All rights reserved.
+//
+
+#import "BXMainPage.h"
+#import "ElementsViewController.h"
+#import "CalendarViewController.h"
+#import "DiaryViewController.h"
+#import "ElementsDetails.h"
+
+
+@interface BXMainPage ()
+
+@end
+
+@implementation BXMainPage
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor=[UIColor whiteColor];
+    
+    numbers=0;
+    page1=YES;
+    
+//主题颜色调配
+    NSString *colorname =@"0x69D7DD";
+    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+    int R = (colorLong & 0xFF0000 )>>16;
+    int G = (colorLong & 0x00FF00 )>>8;
+    int B =  colorLong & 0x0000FF;
+    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+    
+    //UIColor *theme=[UIColor colorWithRed:30/255.0 green:144/255.0 blue:255/255.0 alpha:1.0];
+    
+//创建UISegmentControl对象
+    UISegmentedControl *mainSegmentControl=[[UISegmentedControl alloc]init];
+    mainSegmentControl.frame=CGRectMake(30,deviceHeight*5/100,deviceWidth-60,20);
+    [mainSegmentControl setTintColor:themecolor];
+    [mainSegmentControl insertSegmentWithTitle:@"项目" atIndex:1 animated:NO];
+    [mainSegmentControl insertSegmentWithTitle:@"日历" atIndex:2 animated:NO];
+    [mainSegmentControl insertSegmentWithTitle:@"日记" atIndex:3 animated:NO];
+    mainSegmentControl.selectedSegmentIndex=0;
+    [mainSegmentControl addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:mainSegmentControl];
+    
+//创建子ViewController对象
+    self.elements=[[ElementsViewController alloc]init];
+    [self.elements.view setFrame:CGRectMake(0,deviceHeight*15/100,deviceWidth,deviceHeight*78/100)];
+    [self addChildViewController:_elements];
+    
+    self.calendar=[[CalendarViewController alloc]init];
+    [self.calendar.view setFrame:CGRectMake(0,deviceHeight*15/100,deviceWidth,deviceHeight*78/100)];
+    [self addChildViewController:_calendar];
+    
+    self.diary=[[DiaryViewController alloc]init];
+    [self.diary.view setFrame:CGRectMake(0,deviceHeight*15/100,deviceWidth,deviceHeight*78/100)];
+    [self addChildViewController:_diary];
+    
+    [self.view addSubview:self.diary.view];
+    [self.view addSubview:self.calendar.view];
+    [self.view addSubview:self.elements.view];
+    
+//创建UILabel对象
+    UIColor *color=[UIColor colorWithRed:255/255.0 green:99/255.0 blue:71/255.0 alpha:1.0];
+    _label=[[UILabel alloc]init];
+    _label.frame=CGRectMake((deviceWidth/2)-35,deviceHeight*9/100, 100, 30);
+    _label.font=[UIFont fontWithName:@"MarkerFelt-Thin" size:20];
+    _label.textColor=color;
+    _label.text=@"Elements";
+    [self.view addSubview:_label];
+    
+//创建工具栏UIToolBar对象
+    self.navigationController.navigationBar.hidden=YES;
+    UIColor *color2=[UIColor colorWithRed:0 green:191/255.0 blue:255/255.0 alpha:1.0];
+    UIToolbar *toolbar=[[UIToolbar alloc]init];
+    self.navigationController.toolbar.hidden=NO;
+    self.navigationController.toolbar.translucent=NO;
+    toolbar.frame=CGRectMake(0,deviceHeight*93/100,deviceWidth,deviceHeight*7/100);
+    toolbar.barTintColor=color2;
+    
+//创建工具栏按钮UIBarButtonItem对象
+    UIButton *btn1=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame=CGRectMake(0, 0,15, 15);
+    [btn1 setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *btn01=[[UIBarButtonItem alloc]initWithCustomView:btn1];
+    UIButton *btn2=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn2.frame=CGRectMake(0, 0, 15, 15);
+    [btn2 setImage:[UIImage imageNamed:@"characters.png"] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(inputElements) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *btn02=[[UIBarButtonItem alloc]initWithCustomView:btn2];
+    UIButton *btn3=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn3.frame=CGRectMake(0, 0, 15, 15);
+    [btn3 setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
+    UIBarButtonItem *btn03=[[UIBarButtonItem alloc]initWithCustomView:btn3];
+    UIBarButtonItem *btnZ=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    [btnZ setWidth:20];
+    UIBarButtonItem *btnX=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    [btnX setWidth:deviceWidth*37/100];
+    UIButton *btn4=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn4.frame=CGRectMake(deviceWidth*77/100,deviceHeight*95.2/100,15,15);
+    [btn4 setImage:[UIImage imageNamed:@"item.png"] forState:UIControlStateNormal];
+    NSArray *array=[NSArray arrayWithObjects:btn01,btnZ,btn02,btnZ,btn03,nil];
+    toolbar.items=array;
+    [self.view addSubview:toolbar];
+    [self.view addSubview:btn4];
+    
+//创建右侧label对象
+    UILabel *rightLabel=[[UILabel alloc]init];
+    NSString *string=[NSString stringWithFormat:@"%d 项目",numbers];
+    rightLabel.text=string;
+    rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
+    rightLabel.font=[UIFont fontWithName:@"Helvetica" size:15];
+    rightLabel.textColor=[UIColor whiteColor];
+    [self.view addSubview:rightLabel];
+    
+    // Do any additional setup after loading the view.
+}
+
+-(void)change:(UISegmentedControl*)mainSegmentControl
+{
+    if(mainSegmentControl.selectedSegmentIndex==0)
+    {
+        [self jumpToOne];
+        page1=YES;
+    }
+    if (mainSegmentControl.selectedSegmentIndex==1)
+    {
+        [self jumpToTwo];
+        page1=NO;
+    }
+    if (mainSegmentControl.selectedSegmentIndex==2)
+    {
+        [self jumpToThree];
+        page1=NO;
+    }
+
+}
+
+-(void)jumpToOne
+{
+    _label.text=@"Elements";
+    [self.view bringSubviewToFront:self.elements.view];
+}
+
+-(void)jumpToTwo
+{
+    _label.text=@"Calendar";
+    [self.view bringSubviewToFront:self.calendar.view];
+}
+
+-(void)jumpToThree
+{
+    _label.text=@"My Diary";
+    [self.view bringSubviewToFront:self.diary.view];
+}
+
+-(void)inputElements
+{
+    if (page1==YES)
+    {
+        ElementsDetails *input=[[ElementsDetails alloc]init];
+        [self.navigationController pushViewController:input animated:YES];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
