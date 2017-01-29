@@ -7,19 +7,7 @@
 //
 
 #import "ViewController.h"
-#pragma mark - UIColorCategory
-@interface UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
-@end
-@implementation UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
-{
-    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
-                           green:((hexValue >> 8) & 0x000000FF)/255.0f
-                            blue:((hexValue) & 0x000000FF)/255.0
-                           alpha:alpha];
-}
-@end
+
 
 @interface ViewController ()
 @property (nonatomic, assign) NSInteger currentPage;
@@ -41,7 +29,7 @@
 
 -(void)addChildViewControllers{
     ElementViewController* elementVC=[[ElementViewController alloc]init];
-    CalenderViewController* calenderVC=[[CalenderViewController alloc]initWithBackgroundColor:[UIColor colorWithHexValue:0XFF788B alpha:1]];
+    CalendarViewController* calenderVC=[[CalendarViewController alloc]init];
     DiaryViewController* diaryVC=[[DiaryViewController alloc]init];
     [elementVC.view setFrame:CGRectMake(0, 110, self.view.bounds.size.width, self.view.bounds.size.height-155)];
     [calenderVC.view setFrame:CGRectMake(0, 110, self.view.bounds.size.width, self.view.bounds.size.height-155)];

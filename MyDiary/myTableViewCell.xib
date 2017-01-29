@@ -15,20 +15,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nWh-zR-zyR">
-                        <rect key="frame" x="17" y="10" width="342" height="80"/>
+                        <rect key="frame" x="29" y="11" width="317" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Dt-fa-kgi">
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA2-5z-Ew3">
                                         <rect key="frame" x="8" y="12" width="64" height="56"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                 <outlet property="dayLabel" destination="uA2-5z-Ew3" id="QBh-BS-PcI"/>
                 <outlet property="timeLabel" destination="SAK-0j-Thv" id="4aM-lg-4iJ"/>
                 <outlet property="view1" destination="nWh-zR-zyR" id="BmM-GQ-OeN"/>
-                <outlet property="view2" destination="nWh-zR-zyR" id="4nE-JE-fgX"/>
+                <outlet property="view2" destination="5Dt-fa-kgi" id="FxO-6Q-7Jo"/>
             </connections>
             <point key="canvasLocation" x="38.5" y="4.5"/>
         </tableViewCell>

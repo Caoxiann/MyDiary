@@ -12,9 +12,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet UITextView *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet UITextView *view2;
 @property (weak, nonatomic) IBOutlet UIButton *view3;
 @property (weak, nonatomic) IBOutlet UIView *view1;
+@property (weak, nonatomic) IBOutlet UIView *view2;
 - (IBAction)editButton:(UIButton *)sender;
 -(void)setDiary:(Diary *)diary;
 

@@ -20,11 +20,11 @@
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="75w-8Z-XvW">
                         <rect key="frame" x="17" y="10" width="342" height="285"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AYB-G1-AZ8">
                                 <rect key="frame" x="0.0" y="0.0" width="342" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="标题" translatesAutoresizingMaskIntoConstraints="NO" id="6uy-qE-LOo">
                                         <rect key="frame" x="85" y="24" width="249" height="33"/>
@@ -61,7 +61,7 @@
                 <outlet property="dayLabel" destination="toU-FJ-mFN" id="sBd-lF-2T6"/>
                 <outlet property="titleLabel" destination="6uy-qE-LOo" id="dcL-pp-I1F"/>
                 <outlet property="view1" destination="75w-8Z-XvW" id="m0n-vI-gFQ"/>
-                <outlet property="view2" destination="6uy-qE-LOo" id="8ab-M0-YR4"/>
+                <outlet property="view2" destination="AYB-G1-AZ8" id="U7y-eK-O4D"/>
             </connections>
             <point key="canvasLocation" x="61.5" y="182"/>
         </tableViewCell>

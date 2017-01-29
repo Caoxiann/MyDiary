@@ -25,7 +25,6 @@
 		0558FC061E2CEA25001C328D /* SqlService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FBFE1E2CEA25001C328D /* SqlService.m */; };
 		0558FC071E2CEA25001C328D /* TimeDealler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FC001E2CEA25001C328D /* TimeDealler.m */; };
 		0558FC141E2CEBD7001C328D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0558FC131E2CEBD7001C328D /* libsqlite3.tbd */; };
-		0558FC1A1E2CEFAB001C328D /* CalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FC191E2CEFAB001C328D /* CalenderViewController.m */; };
 		0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCE51E2E062C001C328D /* myTableViewCell.m */; };
 		0558FCE81E2E062C001C328D /* myTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCE61E2E062C001C328D /* myTableViewCell.xib */; };
 		0558FCF61E2E60B7001C328D /* ElementPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FCF41E2E60B7001C328D /* ElementPage.m */; };
@@ -36,6 +35,8 @@
 		0568C42A1E34A260002ED451 /* otherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0568C4281E34A260002ED451 /* otherTableViewCell.xib */; };
 		0568C42E1E34B189002ED451 /* diaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C42C1E34B189002ED451 /* diaryTableViewCell.m */; };
 		0568C42F1E34B189002ED451 /* diaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0568C42D1E34B189002ED451 /* diaryTableViewCell.xib */; };
+		0568C4341E39ED85002ED451 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C4331E39ED85002ED451 /* CalendarViewController.m */; };
+		0568C4371E39ED8A002ED451 /* NSDate+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C4361E39ED8A002ED451 /* NSDate+Formatter.m */; };
 		05FCB4821E2F8CD5009F21E7 /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB4811E2F8CD5009F21E7 /* DiaryViewController.m */; };
 		05FCB4851E2F8D0F009F21E7 /* ElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FCB4841E2F8D0F009F21E7 /* ElementViewController.m */; };
 /* End PBXBuildFile section */
@@ -94,8 +95,6 @@
 		0558FBFF1E2CEA25001C328D /* TimeDealler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeDealler.h; path = "fmdb /TimeDealler.h"; sourceTree = "<group>"; };
 		0558FC001E2CEA25001C328D /* TimeDealler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeDealler.m; path = "fmdb /TimeDealler.m"; sourceTree = "<group>"; };
 		0558FC131E2CEBD7001C328D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		0558FC181E2CEFAB001C328D /* CalenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderViewController.h; sourceTree = "<group>"; };
-		0558FC191E2CEFAB001C328D /* CalenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderViewController.m; sourceTree = "<group>"; };
 		0558FCE41E2E062C001C328D /* myTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTableViewCell.h; sourceTree = "<group>"; };
 		0558FCE51E2E062C001C328D /* myTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTableViewCell.m; sourceTree = "<group>"; };
 		0558FCE61E2E062C001C328D /* myTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myTableViewCell.xib; sourceTree = "<group>"; };
@@ -111,6 +110,10 @@
 		0568C42B1E34B189002ED451 /* diaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diaryTableViewCell.h; sourceTree = "<group>"; };
 		0568C42C1E34B189002ED451 /* diaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = diaryTableViewCell.m; sourceTree = "<group>"; };
 		0568C42D1E34B189002ED451 /* diaryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = diaryTableViewCell.xib; sourceTree = "<group>"; };
+		0568C4321E39ED7F002ED451 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		0568C4331E39ED85002ED451 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		0568C4351E39ED8A002ED451 /* NSDate+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Formatter.h"; sourceTree = "<group>"; };
+		0568C4361E39ED8A002ED451 /* NSDate+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Formatter.m"; sourceTree = "<group>"; };
 		05FCB4801E2F8CD5009F21E7 /* DiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryViewController.h; sourceTree = "<group>"; };
 		05FCB4811E2F8CD5009F21E7 /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
 		05FCB4831E2F8D0F009F21E7 /* ElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementViewController.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 				0558FBEF1E2CEA1B001C328D /* Diary.m */,
 				0558FBE51E2CE55B001C328D /* Element.h */,
 				0558FBE61E2CE55B001C328D /* Element.m */,
+				0568C4351E39ED8A002ED451 /* NSDate+Formatter.h */,
+				0568C4361E39ED8A002ED451 /* NSDate+Formatter.m */,
 				0558FBFF1E2CEA25001C328D /* TimeDealler.h */,
 				0558FC001E2CEA25001C328D /* TimeDealler.m */,
 				0558FBF11E2CEA25001C328D /* fmdb  */,
@@ -224,10 +229,10 @@
 			children = (
 				0558FB8A1E2CDEAF001C328D /* ViewController.h */,
 				0558FB8B1E2CDEAF001C328D /* ViewController.m */,
+				0568C4321E39ED7F002ED451 /* CalendarViewController.h */,
+				0568C4331E39ED85002ED451 /* CalendarViewController.m */,
 				05FCB4831E2F8D0F009F21E7 /* ElementViewController.h */,
 				05FCB4841E2F8D0F009F21E7 /* ElementViewController.m */,
-				0558FC181E2CEFAB001C328D /* CalenderViewController.h */,
-				0558FC191E2CEFAB001C328D /* CalenderViewController.m */,
 				05FCB4801E2F8CD5009F21E7 /* DiaryViewController.h */,
 				05FCB4811E2F8CD5009F21E7 /* DiaryViewController.m */,
 				0558FCF31E2E60B7001C328D /* ElementPage.h */,
@@ -426,17 +431,18 @@
 			files = (
 				0558FB8C1E2CDEAF001C328D /* ViewController.m in Sources */,
 				05FCB4821E2F8CD5009F21E7 /* DiaryViewController.m in Sources */,
+				0568C4371E39ED8A002ED451 /* NSDate+Formatter.m in Sources */,
 				0558FCF61E2E60B7001C328D /* ElementPage.m in Sources */,
 				0558FB891E2CDEAF001C328D /* AppDelegate.m in Sources */,
 				0558FB861E2CDEAF001C328D /* main.m in Sources */,
 				0568C4291E34A260002ED451 /* otherTableViewCell.m in Sources */,
 				0558FC011E2CEA25001C328D /* FMDatabase.m in Sources */,
 				0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */,
+				0568C4341E39ED85002ED451 /* CalendarViewController.m in Sources */,
 				0558FC071E2CEA25001C328D /* TimeDealler.m in Sources */,
 				0558FC051E2CEA25001C328D /* FMResultSet.m in Sources */,
 				0558FBE71E2CE55B001C328D /* Element.m in Sources */,
 				0558FC031E2CEA25001C328D /* FMDatabasePool.m in Sources */,
-				0558FC1A1E2CEFAB001C328D /* CalenderViewController.m in Sources */,
 				0558FC021E2CEA25001C328D /* FMDatabaseAdditions.m in Sources */,
 				0558FD031E2E6751001C328D /* DiaryPage.m in Sources */,
 				0558FBF01E2CEA1B001C328D /* Diary.m in Sources */,

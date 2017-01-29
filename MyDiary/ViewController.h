@@ -12,7 +12,7 @@
 #import "ElementPage.h"
 #import "DiaryPage.h"
 #import "ElementViewController.h"
-#import "CalenderViewController.h"
+#import "CalendarViewController.h"
 #import "DiaryViewController.h"
 
 @interface ViewController : UIViewController

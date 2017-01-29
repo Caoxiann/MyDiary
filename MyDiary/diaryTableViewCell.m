@@ -18,12 +18,12 @@
 }
 - (void)drawView{
     //设置圆角
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_view2.bounds byRoundingCorners:UIRectCornerTopLeft| UIRectCornerTopRight cornerRadii:CGSizeMake(10,10)];
+    /*UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_view2.bounds byRoundingCorners:UIRectCornerTopLeft| UIRectCornerTopRight cornerRadii:CGSizeMake(10,10)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = _view2.bounds;
     maskLayer.path = maskPath.CGPath;
     _view2.layer.mask = maskLayer;
-    
+    */
 
     _view1.layer.cornerRadius=10;
     _view1.layer.masksToBounds = YES;
