@@ -8,6 +8,7 @@
 
 #import "diaryTableViewCell.h"
 
+
 @implementation diaryTableViewCell
 
 - (void)awakeFromNib {
@@ -24,9 +25,10 @@
     maskLayer.path = maskPath.CGPath;
     _view2.layer.mask = maskLayer;
     */
-
+    
     _view1.layer.cornerRadius=10;
     _view1.layer.masksToBounds = YES;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,5 +43,13 @@
     _titleLabel.text=diary.title;
     _dayLabel.text=diary.day;
     _contentLabel.text=diary.content;
+    _contentLabel.numberOfLines=0;
+    _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    UIFont *font=[UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+    [_contentLabel setFont:font];
+    CGRect tmpRect = [_contentLabel.text boundingRectWithSize:CGSizeMake(342, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil];
+    _contentLabel.frame=CGRectMake(0, Iphone6ScaleHeight(88),Iphone6ScaleWidth(342),tmpRect.size.height);
+    _height=Iphone6ScaleHeight(90)+tmpRect.size.height;
 }
+
 @end

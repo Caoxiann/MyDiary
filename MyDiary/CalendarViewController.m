@@ -1,9 +1,9 @@
 //
-//  CalarViewController.m
-//  TimeTest
+//  CalendarViewController.m
+//  MyDiary
 //
-//  Created by LvJianfeng on 16/7/21.
-//  Copyright © 2016年 LvJianfeng. All rights reserved.
+//  Created by Wujianyun on 16/01/2017.
+//  Copyright © 2017 yaoyaoi. All rights reserved.
 //
 
 #import "CalendarViewController.h"
@@ -54,7 +54,10 @@
     [self getDataDayModel:self.tempDate];
 }
 -(void)drawView{
+    //UIImageView *imageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
+    // [self.view addSubview:imageView];
     [self.view setBackgroundColor: [UIColor colorWithPatternImage: [UIImage imageNamed:@"background1"]]];
+
     
     _dateLabel =[[UILabel alloc]initWithFrame:CGRectMake(LL_SCREEN_WIDTH/2-50,Iphone6ScaleHeight(20), 100, 30 )];
     _dateLabel.textAlignment=NSTextAlignmentCenter;
