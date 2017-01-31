@@ -24,7 +24,7 @@
     maskLayer.path = maskPath.CGPath;
     _view2.layer.mask = maskLayer;
     */
-    
+    //[_view1 setFrame:CGRectMake(Iphone6ScaleWidth(21), Iphone6ScaleHeight(11), LL_SCREEN_WIDTH-2*Iphone6ScaleWidth(21), Iphone6ScaleHeight(80))];
     _view1.layer.cornerRadius=10;
     _view1.layer.masksToBounds = YES;
 }
