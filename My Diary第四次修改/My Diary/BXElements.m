@@ -1,0 +1,370 @@
+//
+//  BXElements.m
+//  My Diary
+//
+//  Created by 徐贤达 on 2017/2/2.
+//  Copyright © 2017年 徐贤达. All rights reserved.
+//
+
+#import "BXElements.h"
+#import "NotePageController.h"
+#import "SqlService.h"
+#import "TimeDealler.h"
+#import "NotePage.h"
+#import "NotePageUpdateDelegate.h"
+#import "NotePageSearvice.h"
+#import "BXMainPage.h"
+
+@interface BXElements ()<UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate,UISearchDisplayDelegate>
+
+@property (nonatomic,strong)UITableView *noteListTableView;
+
+@property (nonatomic,strong)NSArray *noteListArray;
+
+@property (nonatomic,strong)NSMutableArray *dataArray;
+
+@property (nonatomic,strong)NSMutableArray *monthArray;
+
+@property (nonatomic,strong)NSMutableArray *monthDetail;
+
+
+@end
+
+@implementation BXElements
+@synthesize noteListArray;
+@synthesize dataArray;
+
+//初始化
+-(id)init{
+    self = [super init];
+    if(self){
+        [self setUpNavigationBar];
+        
+    }
+    return self;
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+//还是把导航栏关掉吧
+    self.navigationController.navigationBar.hidden=YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+//初始化TableView
+    _noteListTableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [_noteListTableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,deviceHeight*78/100)];
+    [self.view addSubview:_noteListTableView];
+    _noteListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    UIImage *backImage=[UIImage imageNamed:@"yournameback.jpg"];
+    _noteListTableView.layer.contents=(id)backImage.CGImage;
+    _noteListTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
+    _noteListTableView.delegate = self;
+    _noteListTableView.dataSource = self;
+    noteListArray = [[SqlService sqlInstance] queryDBtable];
+    dataArray = [[NSMutableArray alloc]initWithArray:noteListArray];
+    [self updateMonth];
+    [self setUpNavigationBar];
+    [_noteListTableView reloadData];
+}
+
+-(void)updateMonth
+{
+    //将所有的NotePage对象分类，便于UITableView分组
+    int i;
+    int j=0;
+    int z=1;
+    NSInteger month1;
+    NSInteger month2;
+    _monthArray=[[NSMutableArray alloc]init];
+    _monthDetail=[[NSMutableArray alloc]init];
+    if ([noteListArray count]>1)
+    {
+    for (i=0;i<[noteListArray count]-1;i++)
+    {
+        NotePage *page1=noteListArray[i];
+        NotePage *page2=noteListArray[i+1];
+        month1=[[page1.time substringWithRange:NSMakeRange(5, 2)]intValue];
+        month2=[[page2.time substringWithRange:NSMakeRange(5, 2)]intValue];
+        if (month1==month2&&i!=[noteListArray count]-2)
+        {
+            z++;
+        }
+        if (month1==month2&&i==[noteListArray count]-2)
+        {
+            z++;
+            NSNumber *number=[NSNumber numberWithInt:z];
+            NSNumber *month=[NSNumber numberWithInteger:month1];
+            [_monthArray insertObject:number atIndex:j];
+            [_monthDetail insertObject:month atIndex:j];
+            j++;
+        }
+        if (month1!=month2&&i!=[noteListArray count]-2)
+        {
+            NSNumber *number=[NSNumber numberWithInt:z];
+            NSNumber *month=[NSNumber numberWithInteger:month1];
+            [_monthArray insertObject:number atIndex:j];
+            [_monthDetail insertObject:month atIndex:j];
+            z=1;
+            j++;
+        }
+        if (month1!=month2&&i==[noteListArray count]-2)
+        {
+            NSNumber *number=[NSNumber numberWithInt:z];
+            NSNumber *month=[NSNumber numberWithInteger:month1];
+            [_monthArray insertObject:number atIndex:j];
+            [_monthDetail insertObject:month atIndex:j];
+            j++;
+            z=1;
+            NSNumber *snumber=[NSNumber numberWithInt:z];
+            NSNumber *smonth=[NSNumber numberWithInteger:month2];
+            [_monthArray insertObject:snumber atIndex:j];
+            [_monthDetail insertObject:smonth atIndex:j];
+            j++;
+        }
+    }
+    }
+    else if([noteListArray count]==1)
+    {
+        NotePage *page=noteListArray[0];
+        month1=[[page.time substringWithRange:NSMakeRange(5, 2)]intValue];
+        NSNumber *number=[NSNumber numberWithInt:z];
+        NSNumber *month=[NSNumber numberWithInteger:month1];
+        [_monthArray insertObject:number atIndex:0];
+        [_monthDetail insertObject:month atIndex:0];
+    }
+
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+//设置头部标题
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor=[UIColor clearColor];
+    UILabel *headerLabel=[[UILabel alloc]init];
+    for (int i=0;i<[_monthArray count];i++)
+    {
+        if (section==i)
+        {
+            NSNumber *mon=[_monthDetail objectAtIndex:i];
+            NSInteger month=[mon integerValue];
+            NSMutableArray *array=[NSMutableArray arrayWithObjects:@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"十",@"十一",@"十二",nil];
+            NSString *st=[array objectAtIndex:month-1];
+            NSString *stringForMonth=[NSString stringWithFormat:@"%@ 月",st];
+            headerLabel.text=stringForMonth;
+        }
+    }
+    headerLabel.frame=CGRectMake(15, 20, 80, 30);
+    headerLabel.textColor=[UIColor whiteColor];
+    headerLabel.font=[UIFont fontWithName:@"Verdana-Bold" size:20];
+    [header addSubview:headerLabel];
+    return header;
+}
+
+//分成几组
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [_monthArray count];
+}
+
+//获取项目数
+-(NSInteger)getNumberOfActivities
+{
+    return [noteListArray count];
+}
+
+//进入书写界面操作
+-(void)rightButtonAction
+{
+    NotePageController *noteController = [[NotePageController alloc]init];
+    noteController.noteDelegate = self;
+    [self.navigationController pushViewController:noteController animated:YES];
+}
+
+//设置导航栏
+-(void)setUpNavigationBar
+{
+    self.navigationController.navigationBar.translucent=YES;
+    self.navigationController.navigationBar.barStyle=UIBarStyleDefault;
+}
+
+//获取行数
+#pragma mark -tableViewdelegate
+-(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    [self updateMonth];
+    NSInteger totalSection=[_monthArray count];
+    for(int i=0;i<totalSection;i++)
+    {
+        if (section==i)
+        {
+            NSNumber *numbers;
+            numbers=[_monthArray objectAtIndex:i];
+            NSLog(@"行数是：%@",numbers);
+            return [numbers intValue];
+        }
+    }
+    return 0;
+}
+
+//自定义cell风格
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *indetifier = @"cell";
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if(!cell)
+    {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
+    }
+    
+    NotePage *notePage = noteListArray[indexPath.row];
+//大的UIView对象
+    _cellView=[[UIView alloc]init];
+    _cellView.frame=CGRectMake(20, 10, deviceWidth-40, 80);
+    _cellView.layer.cornerRadius=10;
+    _cellView.backgroundColor=[UIColor whiteColor];
+    [cell.contentView addSubview:_cellView];
+    
+    NSString *colorname =@"0x69D7DD";
+    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+    int R = (colorLong & 0xFF0000 )>>16;
+    int G = (colorLong & 0x00FF00 )>>8;
+    int B =  colorLong & 0x0000FF;
+    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+//显示标题
+    _titleLabel=[[UILabel alloc]init];
+    _titleLabel.frame=CGRectMake(100, 37.5, 200, 13);
+    _titleLabel.font=[UIFont systemFontOfSize:20];
+    _cellTitle=[[NSString alloc]init];
+    NSInteger length;
+    length=notePage.titile.length;
+    if(length>=9)
+    {
+       _cellTitle=[notePage.titile substringWithRange:NSMakeRange(0,9)];
+       _titleLabel.text=_cellTitle;
+    }
+    else
+    {
+        _titleLabel.text=notePage.titile;
+    }
+    _titleLabel.tag=indexPath.row;
+    _titleLabel.textColor=themecolor;
+    [_cellView addSubview:_titleLabel];
+//显示时间
+    _time=[[NSString alloc]init];
+    _time=notePage.time;
+    _date=[[_time substringWithRange:NSMakeRange(8, 2)]intValue];
+    _hour=[[_time substringWithRange:NSMakeRange(11, 2)]intValue];
+    _minute=[[_time substringWithRange:NSMakeRange(14,2)]intValue];
+    
+    _hourLabel=[[UILabel alloc]init];
+    _hourLabel.frame=CGRectMake(100, 13, 200, 10);
+    if(_minute>=0&&_minute<=9)
+    {
+        _hourLabel.text=[NSString stringWithFormat:@"%0d:0%d",_hour,_minute];
+    }
+    else
+    {
+        _hourLabel.text=[NSString stringWithFormat:@"%0d:%d",_hour,_minute];
+    }
+    _hourLabel.textColor=themecolor;
+    _hourLabel.font=[UIFont systemFontOfSize:15];
+    [_cellView addSubview:_hourLabel];
+    
+    _dateLabel=[[UILabel alloc]init];
+    _dateLabel.frame=CGRectMake(0, 0, 80, 80);
+    _dateLabel.text=[NSString stringWithFormat:@"%d",_date];
+    _dateLabel.textAlignment=NSTextAlignmentCenter;
+    _dateLabel.font=[UIFont systemFontOfSize:35];
+    _dateLabel.textColor=[UIColor whiteColor];
+    _dateLabel.backgroundColor=themecolor;
+    _dateLabel.layer.masksToBounds = YES;
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_dateLabel.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){10, 10}].CGPath;
+    _dateLabel.layer.mask = maskLayer;
+    [_cellView addSubview:_dateLabel];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor=[UIColor clearColor];
+    
+    
+    return cell;
+}
+
+//设置cell行高
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+
+//选择便可进入编辑界面
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NotePageController *noteController = [[NotePageController alloc]init];
+    noteController.noteDelegate = self;
+    
+    noteController.currentPage = noteListArray[indexPath.row];
+    
+    [self.navigationController pushViewController:noteController animated:YES];
+    
+}
+
+//滑动删除
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+{
+        NotePage *notePage = noteListArray[indexPath.row];
+        [NotePageSearvice deleteNotePage:nil title:nil currentNotePage:notePage];
+        noteListArray = [[SqlService sqlInstance]queryDBtable];
+        [_noteListTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_noteListTableView reloadData];
+}
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//更新TableView
+#pragma mark --updateNoteDelegate
+-(void)updateTheNoteList
+{
+    NSLog(@"queryDBtable");
+    noteListArray = [[SqlService sqlInstance] queryDBtable];
+    [_noteListTableView reloadData];
+    
+}
+
+
+
+@end
+
+
+@interface HomeNavigationController()
+
+
+@end
+
+@implementation HomeNavigationController
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+@end
