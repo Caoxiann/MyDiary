@@ -53,9 +53,9 @@
 //初始化TableView
     _noteListTableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [_noteListTableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,deviceHeight*78/100)];
-    [self.view addSubview:_noteListTableView];
     _noteListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    UIImage *backImage=[UIImage imageNamed:@"yournameback.jpg"];
+    [self.view addSubview:_noteListTableView];
+    UIImage *backImage=[UIImage imageNamed:@"loveSky.jpg"];
     _noteListTableView.layer.contents=(id)backImage.CGImage;
     _noteListTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
     _noteListTableView.delegate = self;
@@ -65,6 +65,7 @@
     [self updateMonth];
     [self setUpNavigationBar];
     [_noteListTableView reloadData];
+    
 }
 
 -(void)updateMonth
@@ -132,7 +133,12 @@
         [_monthArray insertObject:number atIndex:0];
         [_monthDetail insertObject:month atIndex:0];
     }
-
+    if ([noteListArray count]==0)
+    {
+        NSNumber *number=[NSNumber numberWithInt:0];
+        [_monthArray insertObject:number atIndex:0];
+        [_monthDetail insertObject:number atIndex:0];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -146,17 +152,29 @@
     UIView *header = [[UIView alloc] init];
     header.backgroundColor=[UIColor clearColor];
     UILabel *headerLabel=[[UILabel alloc]init];
+    if ([_monthArray count]>=1)
+    {
     for (int i=0;i<[_monthArray count];i++)
     {
         if (section==i)
         {
             NSNumber *mon=[_monthDetail objectAtIndex:i];
             NSInteger month=[mon integerValue];
-            NSMutableArray *array=[NSMutableArray arrayWithObjects:@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"十",@"十一",@"十二",nil];
-            NSString *st=[array objectAtIndex:month-1];
-            NSString *stringForMonth=[NSString stringWithFormat:@"%@ 月",st];
-            headerLabel.text=stringForMonth;
+            NSMutableArray *array=[NSMutableArray arrayWithObjects:@"空项目",@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"十",@"十一",@"十二",nil];
+            NSString *st=[array objectAtIndex:month];
+            if (month!=0)
+            {
+                NSString *stringForMonth=[NSString stringWithFormat:@"%@ 月",st];
+                headerLabel.text=stringForMonth;
+            }
+            if (month==0)
+            {
+                NSString *stringForMonth=[NSString stringWithFormat:@"%@",st];
+                headerLabel.text=stringForMonth;
+
+            }
         }
+    }
     }
     headerLabel.frame=CGRectMake(15, 20, 80, 30);
     headerLabel.textColor=[UIColor whiteColor];
@@ -168,6 +186,7 @@
 //分成几组
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    [self updateMonth];
     return [_monthArray count];
 }
 
@@ -197,6 +216,8 @@
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     [self updateMonth];
+    if ([_monthArray count]!=0)
+    {
     NSInteger totalSection=[_monthArray count];
     for(int i=0;i<totalSection;i++)
     {
@@ -207,6 +228,7 @@
             NSLog(@"行数是：%@",numbers);
             return [numbers intValue];
         }
+    }
     }
     return 0;
 }
@@ -239,7 +261,7 @@
     UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
 //显示标题
     _titleLabel=[[UILabel alloc]init];
-    _titleLabel.frame=CGRectMake(100, 37.5, 200, 13);
+    _titleLabel.frame=CGRectMake(100, 37.5, 200, 15);
     _titleLabel.font=[UIFont systemFontOfSize:20];
     _cellTitle=[[NSString alloc]init];
     NSInteger length;
@@ -274,7 +296,7 @@
         _hourLabel.text=[NSString stringWithFormat:@"%0d:%d",_hour,_minute];
     }
     _hourLabel.textColor=themecolor;
-    _hourLabel.font=[UIFont systemFontOfSize:15];
+    _hourLabel.font=[UIFont systemFontOfSize:13];
     [_cellView addSubview:_hourLabel];
     
     _dateLabel=[[UILabel alloc]init];
@@ -292,7 +314,6 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor=[UIColor clearColor];
-    
     
     return cell;
 }
@@ -326,6 +347,7 @@
         [_noteListTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
         [_noteListTableView reloadData];
 }
+    
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
