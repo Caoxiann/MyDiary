@@ -10,6 +10,7 @@
 #import "ElementsViewController.h"
 #import "CalendarViewController.h"
 #import "DiaryViewController.h"
+#import "BXElements.h"
 
 #define deviceWidth [UIScreen mainScreen].bounds.size.width
 #define deviceHeight [UIScreen mainScreen].bounds.size.height
@@ -17,11 +18,13 @@
 
 @interface BXMainPage : UIViewController
 {
-    int numbers;
+    NSInteger numbers;
     BOOL page1;
 }
 
-@property (nonatomic,strong) ElementsViewController *elements;
+@property (nonatomic,strong) HomeNavigationController*elementsNavigation;
+
+@property (nonatomic,strong) BXElements *elements;
 
 @property (nonatomic,strong) CalendarViewController *calendar;
 
@@ -30,6 +33,11 @@
 @property (nonatomic,strong) UIViewController *currentVC;
 
 @property (nonatomic,retain) UILabel *label;
+
+@property (nonatomic,strong) UILabel *rightLabel;
+
+
+-(void)updateTimes;
 
 
 @end

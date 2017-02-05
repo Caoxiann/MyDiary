@@ -10,7 +10,8 @@
 #import "ElementsViewController.h"
 #import "CalendarViewController.h"
 #import "DiaryViewController.h"
-#import "ElementsDetails.h"
+#import "NotePageController.h"
+#import "BXElements.h"
 
 
 @interface BXMainPage ()
@@ -50,7 +51,8 @@
     [self.view addSubview:mainSegmentControl];
     
 //创建子ViewController对象
-    self.elements=[[ElementsViewController alloc]init];
+    
+    self.elements=[[BXElements alloc]init];
     [self.elements.view setFrame:CGRectMake(0,deviceHeight*15/100,deviceWidth,deviceHeight*78/100)];
     [self addChildViewController:_elements];
     
@@ -89,39 +91,49 @@
     btn1.frame=CGRectMake(0, 0,15, 15);
     [btn1 setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
     UIBarButtonItem *btn01=[[UIBarButtonItem alloc]initWithCustomView:btn1];
+    
     UIButton *btn2=[UIButton buttonWithType:UIButtonTypeCustom];
     btn2.frame=CGRectMake(0, 0, 15, 15);
     [btn2 setImage:[UIImage imageNamed:@"characters.png"] forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(inputElements) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 addTarget:self.elements action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn02=[[UIBarButtonItem alloc]initWithCustomView:btn2];
+    
     UIButton *btn3=[UIButton buttonWithType:UIButtonTypeCustom];
     btn3.frame=CGRectMake(0, 0, 15, 15);
     [btn3 setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
     UIBarButtonItem *btn03=[[UIBarButtonItem alloc]initWithCustomView:btn3];
+    
     UIBarButtonItem *btnZ=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     [btnZ setWidth:20];
+    
     UIBarButtonItem *btnX=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     [btnX setWidth:deviceWidth*37/100];
+    
     UIButton *btn4=[UIButton buttonWithType:UIButtonTypeCustom];
     btn4.frame=CGRectMake(deviceWidth*77/100,deviceHeight*95.2/100,15,15);
     [btn4 setImage:[UIImage imageNamed:@"item.png"] forState:UIControlStateNormal];
+    
     NSArray *array=[NSArray arrayWithObjects:btn01,btnZ,btn02,btnZ,btn03,nil];
     toolbar.items=array;
     [self.view addSubview:toolbar];
     [self.view addSubview:btn4];
     
-//创建右侧label对象
-    UILabel *rightLabel=[[UILabel alloc]init];
-    NSString *string=[NSString stringWithFormat:@"%d 项目",numbers];
-    rightLabel.text=string;
-    rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
-    rightLabel.font=[UIFont fontWithName:@"Helvetica" size:15];
-    rightLabel.textColor=[UIColor whiteColor];
-    [self.view addSubview:rightLabel];
+//创建右侧label对象并且定时更新
+    _rightLabel=[[UILabel alloc]init];
+    numbers=[_elements getNumberOfActivities];
+    NSString *string=[NSString stringWithFormat:@"%ld 项目",numbers];
+    _rightLabel.text=string;
+    _rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
+    _rightLabel.font=[UIFont fontWithName:@"Helvetica" size:15];
+    _rightLabel.textColor=[UIColor whiteColor];
+    [self.view addSubview:_rightLabel];
+    NSLog(@"更新 %ld",numbers);
+    NSTimer *time=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimes) userInfo:nil repeats:YES];
     
     // Do any additional setup after loading the view.
 }
 
+//切换视图
 -(void)change:(UISegmentedControl*)mainSegmentControl
 {
     if(mainSegmentControl.selectedSegmentIndex==0)
@@ -160,13 +172,14 @@
     [self.view bringSubviewToFront:self.diary.view];
 }
 
--(void)inputElements
+//更新时间
+-(void)updateTimes
 {
-    if (page1==YES)
-    {
-        ElementsDetails *input=[[ElementsDetails alloc]init];
-        [self.navigationController pushViewController:input animated:YES];
-    }
+    numbers=[_elements getNumberOfActivities];
+    NSString *string=[NSString stringWithFormat:@"%ld 项目",numbers];
+    _rightLabel.text=string;
+    _rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
+    [self.view addSubview:_rightLabel];
 }
 
 - (void)didReceiveMemoryWarning {

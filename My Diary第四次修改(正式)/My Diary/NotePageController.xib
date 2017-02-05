@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotePageController">
+            <connections>
+                <outlet property="back" destination="arN-FS-uhX" id="Wot-co-q9W"/>
+                <outlet property="cancel" destination="QrM-Bu-cch" id="bX1-bh-hT4"/>
+                <outlet property="currentTimeLabel" destination="ePQ-5J-S3k" id="fzB-Uf-eHL"/>
+                <outlet property="myMainTitle" destination="XXX-1c-XGz" id="mRy-On-YoC"/>
+                <outlet property="myTitle" destination="Ygb-Gg-4CU" id="02D-Fv-mHv"/>
+                <outlet property="pageLabelTextView" destination="ZdZ-gr-OBq" id="FD5-cl-cQs"/>
+                <outlet property="pageTextView" destination="JGG-E3-Iyp" id="PFg-os-oQs"/>
+                <outlet property="save" destination="hob-kl-y00" id="Nxb-pd-R8I"/>
+                <outlet property="view" destination="fP9-zF-Rnt" id="A39-Ih-4ha"/>
+                <outlet property="warnTitle" destination="JF2-mq-V75" id="qyZ-eb-jLN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="fP9-zF-Rnt">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGG-E3-Iyp">
+                    <rect key="frame" x="19" y="265" width="375" height="370"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.65884612652806196" blue="0.56169037384726817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1998年3月15日" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePQ-5J-S3k">
+                    <rect key="frame" x="152" y="41" width="108" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="u4g-fh-5xJ">
+                    <rect key="frame" x="355" y="674" width="50" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4vC-to-dC1">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wof-l0-bm6">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q1K-Kf-QBv">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ir8-QX-WwA">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BCY-5G-5t1">
+                    <rect key="frame" x="20" y="676" width="50" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gbz-x3-SnN">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fXK-Fo-fC2">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XiK-Zr-W51">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AvK-Ou-sKA">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ksU-7n-WUN">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Shc-Jw-U9H">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <subviews>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C1H-xk-prR">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                            <subviews>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="31b-r2-zSv">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                    <subviews>
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Nwn-PI-5jA">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                            <subviews>
+                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Syz-Df-L7f">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                    <subviews>
+                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5ya-sq-GdZ">
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                            <subviews>
+                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Dz9-XD-2gu">
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                    <subviews>
+                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FFb-Zo-V21">
+                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                            <subviews>
+                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Sr8-aW-hI2">
+                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                    <subviews>
+                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Lsq-QB-pbi">
+                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                            <subviews>
+                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="A5r-F3-uQk">
+                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                    <subviews>
+                                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pZ9-tt-v1e">
+                                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                            <subviews>
+                                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2R8-em-Taa">
+                                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                    <subviews>
+                                                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yOM-pP-9KS">
+                                                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                            <subviews>
+                                                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m9v-sF-RYL">
+                                                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                    <subviews>
+                                                                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kW5-ps-y8o">
+                                                                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                            <subviews>
+                                                                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4Ga-wW-ruM">
+                                                                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                                    <subviews>
+                                                                                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ahg-Um-Mhi">
+                                                                                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                                            <subviews>
+                                                                                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jjl-16-F0l">
+                                                                                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                                                    <subviews>
+                                                                                                                                                                                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fB1-ON-TCF">
+                                                                                                                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                                                            <subviews>
+                                                                                                                                                                                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wHn-se-jj8">
+                                                                                                                                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                                                                                                                                                                                </stackView>
+                                                                                                                                                                                                                            </subviews>
+                                                                                                                                                                                                                        </stackView>
+                                                                                                                                                                                                                    </subviews>
+                                                                                                                                                                                                                </stackView>
+                                                                                                                                                                                                            </subviews>
+                                                                                                                                                                                                        </stackView>
+                                                                                                                                                                                                    </subviews>
+                                                                                                                                                                                                </stackView>
+                                                                                                                                                                                            </subviews>
+                                                                                                                                                                                        </stackView>
+                                                                                                                                                                                    </subviews>
+                                                                                                                                                                                </stackView>
+                                                                                                                                                                            </subviews>
+                                                                                                                                                                        </stackView>
+                                                                                                                                                                    </subviews>
+                                                                                                                                                                </stackView>
+                                                                                                                                                            </subviews>
+                                                                                                                                                        </stackView>
+                                                                                                                                                    </subviews>
+                                                                                                                                                </stackView>
+                                                                                                                                            </subviews>
+                                                                                                                                        </stackView>
+                                                                                                                                    </subviews>
+                                                                                                                                </stackView>
+                                                                                                                            </subviews>
+                                                                                                                        </stackView>
+                                                                                                                    </subviews>
+                                                                                                                </stackView>
+                                                                                                            </subviews>
+                                                                                                        </stackView>
+                                                                                                    </subviews>
+                                                                                                </stackView>
+                                                                                            </subviews>
+                                                                                        </stackView>
+                                                                                    </subviews>
+                                                                                </stackView>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arN-FS-uhX">
+                    <rect key="frame" x="0.0" y="34" width="101" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="返回"/>
+                    <connections>
+                        <action selector="pressBack:" destination="-1" eventType="touchUpInside" id="URA-h5-ap2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hob-kl-y00">
+                    <rect key="frame" x="313" y="34" width="101" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="保存"/>
+                    <connections>
+                        <action selector="rightButtonAction:" destination="-1" eventType="touchUpInside" id="fAu-KY-gxS"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXX-1c-XGz">
+                    <rect key="frame" x="185" y="227" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ygb-Gg-4CU">
+                    <rect key="frame" x="185" y="76" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZdZ-gr-OBq">
+                    <rect key="frame" x="20" y="139" width="374" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.65884612649999996" blue="0.56169037379999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="请输入9个字以内" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF2-mq-V75">
+                    <rect key="frame" x="107" y="105" width="200" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QrM-Bu-cch">
+                    <rect key="frame" x="106" y="674" width="200" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="删除">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteButtonAction:" destination="-1" eventType="touchUpInside" id="MCs-CJ-skj"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="u4g-fh-5xJ" secondAttribute="trailing" constant="28" id="7tw-8M-EEt"/>
+                <constraint firstItem="hob-kl-y00" firstAttribute="baseline" secondItem="arN-FS-uhX" secondAttribute="firstBaseline" id="Da1-jS-3aT"/>
+                <constraint firstAttribute="bottom" secondItem="BCY-5G-5t1" secondAttribute="bottom" constant="30" id="HtN-XH-eZW"/>
+                <constraint firstItem="hob-kl-y00" firstAttribute="firstBaseline" secondItem="arN-FS-uhX" secondAttribute="baseline" id="JtR-Yi-DKp"/>
+                <constraint firstItem="BCY-5G-5t1" firstAttribute="leading" secondItem="fP9-zF-Rnt" secondAttribute="leading" constant="20" id="Mam-hJ-VIq"/>
+                <constraint firstItem="hob-kl-y00" firstAttribute="top" secondItem="arN-FS-uhX" secondAttribute="top" id="SOa-Le-YV2"/>
+                <constraint firstItem="arN-FS-uhX" firstAttribute="top" secondItem="fP9-zF-Rnt" secondAttribute="top" constant="34" id="jv2-Ne-gHc"/>
+                <constraint firstItem="arN-FS-uhX" firstAttribute="leading" secondItem="fP9-zF-Rnt" secondAttribute="leading" id="ls6-4r-itO"/>
+                <constraint firstAttribute="trailing" secondItem="hob-kl-y00" secondAttribute="trailing" id="w1k-zq-9Xx"/>
+            </constraints>
+            <point key="canvasLocation" x="258" y="339"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina5_5.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

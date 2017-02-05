@@ -20,7 +20,7 @@
 //    UIColor *color=[UIColor colorWithPatternImage:[UIImage imageNamed:@"yournameback.jpg"]];
 //    self.view.backgroundColor=color;
     
-    UIImage *backImage=[UIImage imageNamed:@"yournameback.jpg"];
+    UIImage *backImage=[UIImage imageNamed:@"yourname.jpg"];
     self.view.layer.contents=(id)backImage.CGImage;
     self.view.layer.backgroundColor=[UIColor clearColor].CGColor;
 
