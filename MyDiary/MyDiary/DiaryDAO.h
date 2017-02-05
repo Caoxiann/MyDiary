@@ -28,19 +28,19 @@
 - (void)createEditableCopyOfDatabaseIfNeeded;
 
 
-//插入方法
+//插入
 -(int) create:(Diary*)model;
 
-//删除方法
+//删除
 -(int) remove:(Diary*)model;
 
-//修改方法
+//修改
 -(int) modify:(Diary*)model;
 
-//查询所有数据方法
+//查询所有数据
 -(NSMutableArray*) findAll;
 
-//按照主键查询数据方法
+//按照主键查询数据
 -(Diary*) findById:(Diary*)model;
 
 @end

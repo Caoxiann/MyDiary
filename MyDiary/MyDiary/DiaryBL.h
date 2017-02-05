@@ -16,16 +16,16 @@
 
 @interface DiaryBL : NSObject
 
-//插入方法
+//插入
 -(NSMutableArray*) createDiary:(Diary*)model;
 
-//删除方法
+//删除
 -(NSMutableArray*) removeDiary:(Diary*)model;
 
-//查询所用数据方法
+//查询所用数据
 -(NSMutableArray*) findAll;
 
-//查询指定日期数据方法
+//查询指定日期数据
 //-(NSMutableArray*) findByDate:(Diary*)model;
 @end
 

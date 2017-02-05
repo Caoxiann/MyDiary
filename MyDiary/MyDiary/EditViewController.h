@@ -9,5 +9,10 @@
 #ifndef EditViewController_h
 #define EditViewController_h
 
+#import <UIKit/UIKit.h>
 
+@interface EditViewController : UIViewController
+
+
+@end
 #endif /* EditViewController_h */

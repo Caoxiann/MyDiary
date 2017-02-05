@@ -62,7 +62,7 @@ static DiaryDAO *sharedManager = nil;
 }
 
 
-//插入方法
+//插入
 -(int) create:(Diary*)model {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -106,7 +106,7 @@ static DiaryDAO *sharedManager = nil;
     return 0;
 }
 
-//删除方法
+//删除
 -(int) remove:(Diary*)model {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -143,7 +143,7 @@ static DiaryDAO *sharedManager = nil;
     return 0;
 }
 
-//修改方法
+//修改
 -(int) modify:(Diary*)model {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -185,7 +185,7 @@ static DiaryDAO *sharedManager = nil;
     return 0;
 }
 
-//查询所有数据方法
+//查询所有数据
 -(NSMutableArray*) findAll {
     
     NSMutableArray *listData = [[NSMutableArray alloc] init];
@@ -235,7 +235,7 @@ static DiaryDAO *sharedManager = nil;
     return listData;
 }
 
-//按照主键查询数据方法
+//按照主键查询数据
 -(Diary*) findById:(Diary*)model {
     
     NSString *path = [self applicationDocumentsDirectoryFile];

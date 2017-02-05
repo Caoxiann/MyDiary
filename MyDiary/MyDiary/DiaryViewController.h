@@ -9,5 +9,11 @@
 #ifndef DiaryViewController_h
 #define DiaryViewController_h
 
+#import <UIKit/UIKit.h>
+
+@interface DiaryViewController : UIViewController
+
+
+@end
 
 #endif /* DiaryViewController_h */

@@ -1,18 +1,18 @@
 //
-//  DiaryViewController.m
+//  CalenderViewController.m
 //  MyDiary
 //
 //  Created by tinoryj on 2017/1/31.
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
 
-#import "DiaryViewController.h"
+#import "CalendarViewController.h"
 
-@interface DiaryViewController ()
+@interface CalenderViewController ()
 
 @end
 
-@implementation DiaryViewController
+@implementation CalenderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

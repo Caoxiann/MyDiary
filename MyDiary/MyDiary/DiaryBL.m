@@ -10,7 +10,7 @@
 
 @implementation DiaryBL
 
-//插入方法
+//插入
 -(NSMutableArray*) createDiary:(Diary*)model {
     
     DiaryDAO *dao = [DiaryDAO sharedManager];
@@ -19,7 +19,7 @@
     return [dao findAll];
 }
 
-//删除方法
+//删除
 -(NSMutableArray*) removeDiary:(Diary*)model {
     
     DiaryDAO *dao = [DiaryDAO sharedManager];
@@ -28,14 +28,14 @@
     return [dao findAll];
 }
 
-//查询所用数据方法
+//查询所用数据
 -(NSMutableArray*) findAll{
     
     DiaryDAO *dao = [DiaryDAO sharedManager];
     return [dao findAll];
 }
 
-//查询指定日期数据方法
+//查询指定日期数据
 /*
 -(NSMutableArray*) findByDate:(Diary*)model {
     
