@@ -31,8 +31,10 @@ static NSDateFormatter *dateFormattor;
 
 @implementation BXCalendar
 
-- (instancetype)initWithCurrentDate:(NSDate *)date {
-    if (self = [super init]) {
+- (instancetype)initWithCurrentDate:(NSDate *)date
+{
+    if (self = [super init])
+    {
         //self.backgroundColor = [UIColor colorWithRed:236 / 255.0 green:236 / 255.0 blue:236 / 255.0 alpha:1.0];
         self.backgroundColor=[UIColor whiteColor];
         self.date = date;
@@ -50,7 +52,8 @@ static NSDateFormatter *dateFormattor;
 
 #pragma mark - Custom Accessors
 
-- (UIView *)backgroundView {
+- (UIView *)backgroundView
+{
     if (!_backgroundView) {
         _backgroundView = [[UIView alloc] initWithFrame: self.bounds];
         _backgroundView.backgroundColor = [UIColor blackColor];
@@ -65,8 +68,10 @@ static NSDateFormatter *dateFormattor;
     return _backgroundView;
 }
 
-- (UIView *)datePickerView {
-    if (!_datePickerView) {
+- (UIView *)datePickerView
+{
+    if (!_datePickerView)
+    {
         _datePickerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, self.frame.size.width, 0)];
         _datePickerView.backgroundColor = [UIColor whiteColor];
         _datePickerView.clipsToBounds = YES;
@@ -93,8 +98,10 @@ static NSDateFormatter *dateFormattor;
     return _datePickerView;
 }
 
-- (UIDatePicker *)datePicker {
-    if (!_datePicker) {
+- (UIDatePicker *)datePicker
+{
+    if (!_datePicker)
+    {
         _datePicker = [[UIDatePicker alloc] init];
         _datePicker.datePickerMode = UIDatePickerModeDate;
         _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"Chinese"];
@@ -108,8 +115,10 @@ static NSDateFormatter *dateFormattor;
 
 #pragma mark - Private
 
-- (NSString *)stringFromDate:(NSDate *)date {
-    if (!dateFormattor) {
+- (NSString *)stringFromDate:(NSDate *)date
+{
+    if (!dateFormattor)
+    {
         dateFormattor = [[NSDateFormatter alloc] init];
         [dateFormattor setDateFormat:@"MM-yyyy"];
     }
@@ -117,7 +126,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 设置上层的titleBar
-- (void)setupTitleBar {
+- (void)setupTitleBar
+{
     UIColor *background=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bluesky2.jpg"]];
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DeviceWidth,30)];
     titleView.backgroundColor = background;
@@ -144,7 +154,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 设置星期文字的显示
-- (void)setupWeekHeader {
+- (void)setupWeekHeader
+{
     NSInteger count = [Weekdays count];
     CGFloat offsetX = 5;
     for (int i = 0; i < count; i++) {
@@ -168,7 +179,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 设置包含日历的item的scrollView
-- (void)setupScrollView {
+- (void)setupScrollView
+{
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -180,7 +192,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 设置3个日历的item
-- (void)setupCalendarItems {
+- (void)setupCalendarItems
+{
     self.scrollView = [[UIScrollView alloc] init];
     
     self.leftCalendarItem = [[BXCalendarItem alloc] init];
@@ -200,7 +213,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 设置当前日期，初始化
-- (void)setCurrentDate:(NSDate *)date {
+- (void)setCurrentDate:(NSDate *)date
+{
     self.centerCalendarItem.date = date;
     self.leftCalendarItem.date = [self.centerCalendarItem previousMonthDate];
     self.rightCalendarItem.date = [self.centerCalendarItem nextMonthDate];
@@ -209,7 +223,8 @@ static NSDateFormatter *dateFormattor;
 }
 
 // 重新加载日历items的数据
-- (void)reloadCalendarItems {
+- (void)reloadCalendarItems
+{
     CGPoint offset = self.scrollView.contentOffset;
     
     if (offset.x == self.scrollView.frame.size.width) { //防止滑动一点点并不切换scrollview的视图
@@ -225,14 +240,16 @@ static NSDateFormatter *dateFormattor;
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, 0);
 }
 
-- (void)showDatePickerView {
+- (void)showDatePickerView
+{
     [UIView animateWithDuration:0.25 animations:^{
         self.backgroundView.alpha = 0.4;
         self.datePickerView.frame = CGRectMake(0,44, self.frame.size.width, 250);
     }];
 }
 
-- (void)hideDatePickerView {
+- (void)hideDatePickerView
+{
     [UIView animateWithDuration:0.25 animations:^{
         self.backgroundView.alpha = 0;
         self.datePickerView.frame = CGRectMake(0, 44, self.frame.size.width, 0);
@@ -245,32 +262,38 @@ static NSDateFormatter *dateFormattor;
 #pragma mark - SEL
 
 // 跳到上一个月
-- (void)setPreviousMonthDate {
+- (void)setPreviousMonthDate
+{
     [self setCurrentDate:[self.centerCalendarItem previousMonthDate]];
 }
 
 // 跳到下一个月
-- (void)setNextMonthDate {
+- (void)setNextMonthDate
+{
     [self setCurrentDate:[self.centerCalendarItem nextMonthDate]];
 }
 
-- (void)showDatePicker {
+- (void)showDatePicker
+{
     [self showDatePickerView];
 }
 
 // 选择当前日期
-- (void)selectCurrentDate {
+- (void)selectCurrentDate
+{
     [self setCurrentDate:self.datePicker.date];
     [self hideDatePickerView];
 }
 
-- (void)cancelSelectCurrentDate {
+- (void)cancelSelectCurrentDate
+{
     [self hideDatePickerView];
 }
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self reloadCalendarItems];
 }
 
@@ -279,6 +302,14 @@ static NSDateFormatter *dateFormattor;
 - (void)calendarItem:(BXCalendarItem *)item didSelectedDate:(NSDate *)date {
     self.date = date;
     [self setCurrentDate:self.date];
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *timeString=[formatter stringFromDate:self.date];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(time:timeTrans:)]) {
+        [self.delegate time:self timeTrans:timeString];
+    }
+    CalendarViewController *calendar=[[CalendarViewController alloc]init];
+    [calendar time:self timeTrans:timeString];
 }
 
 @end

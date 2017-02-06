@@ -41,7 +41,7 @@
     
 //创建UISegmentControl对象
     UISegmentedControl *mainSegmentControl=[[UISegmentedControl alloc]init];
-    mainSegmentControl.frame=CGRectMake(30,deviceHeight*5/100,deviceWidth-60,20);
+    mainSegmentControl.frame=CGRectMake(30,deviceHeight*4/100,deviceWidth-60,24);
     [mainSegmentControl setTintColor:themecolor];
     [mainSegmentControl insertSegmentWithTitle:@"项目" atIndex:1 animated:NO];
     [mainSegmentControl insertSegmentWithTitle:@"日历" atIndex:2 animated:NO];
@@ -72,7 +72,7 @@
     UIColor *color=[UIColor colorWithRed:255/255.0 green:99/255.0 blue:71/255.0 alpha:1.0];
     _label=[[UILabel alloc]init];
     _label.frame=CGRectMake((deviceWidth/2)-35,deviceHeight*9/100, 100, 30);
-    _label.font=[UIFont fontWithName:@"MarkerFelt-Thin" size:20];
+    _label.font=[UIFont fontWithName:@"MarkerFelt-Thin" size:22];
     _label.textColor=color;
     _label.text=@"Elements";
     [self.view addSubview:_label];
@@ -88,30 +88,30 @@
     
 //创建工具栏按钮UIBarButtonItem对象
     UIButton *btn1=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn1.frame=CGRectMake(0, 0,15, 15);
-    [btn1 setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+    btn1.frame=CGRectMake(0, 0,20, 20);
+    [btn1 setImage:[UIImage imageNamed:@"list@2x.png"] forState:UIControlStateNormal];
     UIBarButtonItem *btn01=[[UIBarButtonItem alloc]initWithCustomView:btn1];
     
     UIButton *btn2=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn2.frame=CGRectMake(0, 0, 15, 15);
-    [btn2 setImage:[UIImage imageNamed:@"characters.png"] forState:UIControlStateNormal];
+    btn2.frame=CGRectMake(0, 0, 20, 20);
+    [btn2 setImage:[UIImage imageNamed:@"characters@2x.png"] forState:UIControlStateNormal];
     [btn2 addTarget:self.elements action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn02=[[UIBarButtonItem alloc]initWithCustomView:btn2];
     
     UIButton *btn3=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn3.frame=CGRectMake(0, 0, 15, 15);
-    [btn3 setImage:[UIImage imageNamed:@"camera.jpg"] forState:UIControlStateNormal];
+    btn3.frame=CGRectMake(0, 0, 20, 20);
+    [btn3 setImage:[UIImage imageNamed:@"camera@2x.png"] forState:UIControlStateNormal];
     UIBarButtonItem *btn03=[[UIBarButtonItem alloc]initWithCustomView:btn3];
     
     UIBarButtonItem *btnZ=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    [btnZ setWidth:20];
+    [btnZ setWidth:22];
     
     UIBarButtonItem *btnX=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     [btnX setWidth:deviceWidth*37/100];
     
     UIButton *btn4=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn4.frame=CGRectMake(deviceWidth*77/100,deviceHeight*95.2/100,15,15);
-    [btn4 setImage:[UIImage imageNamed:@"item.png"] forState:UIControlStateNormal];
+    btn4.frame=CGRectMake(deviceWidth*77/100,deviceHeight*95.2/100,20,20);
+    [btn4 setImage:[UIImage imageNamed:@"item@2x.png"] forState:UIControlStateNormal];
     
     NSArray *array=[NSArray arrayWithObjects:btn01,btnZ,btn02,btnZ,btn03,nil];
     toolbar.items=array;

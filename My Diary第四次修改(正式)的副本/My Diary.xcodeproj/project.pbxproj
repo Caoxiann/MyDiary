@@ -41,6 +41,10 @@
 		17D119AC1E42153E0073679E /* BXElements.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D119A61E42153E0073679E /* BXElements.xib */; };
 		17D119AD1E42153E0073679E /* NotePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D119A81E42153E0073679E /* NotePageController.m */; };
 		17D119AE1E42153E0073679E /* NotePageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17D119A91E42153E0073679E /* NotePageController.xib */; };
+		17D71AE31E480FF600458517 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D71AE21E480FF600458517 /* camera@2x.png */; };
+		17D71AE51E480FFC00458517 /* characters@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D71AE41E480FFC00458517 /* characters@2x.png */; };
+		17D71AE71E48100600458517 /* item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D71AE61E48100600458517 /* item@2x.png */; };
+		17D71AE91E48100E00458517 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17D71AE81E48100E00458517 /* list@2x.png */; };
 		17ECA7D51E2B6B2700E138CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7D41E2B6B2700E138CC /* main.m */; };
 		17ECA7D81E2B6B2700E138CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7D71E2B6B2700E138CC /* AppDelegate.m */; };
 		17ECA7DE1E2B6B2700E138CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ECA7DC1E2B6B2700E138CC /* Main.storyboard */; };
@@ -121,6 +125,10 @@
 		17D119A81E42153E0073679E /* NotePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotePageController.m; sourceTree = "<group>"; };
 		17D119A91E42153E0073679E /* NotePageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotePageController.xib; sourceTree = "<group>"; };
 		17D119AA1E42153E0073679E /* NotePageUpdateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotePageUpdateDelegate.h; sourceTree = "<group>"; };
+		17D71AE21E480FF600458517 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
+		17D71AE41E480FFC00458517 /* characters@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "characters@2x.png"; sourceTree = "<group>"; };
+		17D71AE61E48100600458517 /* item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item@2x.png"; sourceTree = "<group>"; };
+		17D71AE81E48100E00458517 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		17ECA7D01E2B6B2700E138CC /* My Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Diary.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17ECA7D41E2B6B2700E138CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		17ECA7D61E2B6B2700E138CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -178,9 +186,13 @@
 				17A488F81E2C76800075625E /* bluesky.jpg */,
 				17B67E7B1E461CCA00354E5D /* bluesky2.jpg */,
 				17A488FC1E2C83840075625E /* camera.jpg */,
+				17D71AE21E480FF600458517 /* camera@2x.png */,
 				17A489001E2C9ED10075625E /* characters.png */,
+				17D71AE41E480FFC00458517 /* characters@2x.png */,
 				17A488FE1E2C9EC90075625E /* item.png */,
+				17D71AE61E48100600458517 /* item@2x.png */,
 				17A489021E2C9ED90075625E /* list.png */,
+				17D71AE81E48100E00458517 /* list@2x.png */,
 				177329551E43799D005CF3BE /* inputBackground.jpg */,
 				17B67E791E461C4600354E5D /* loveSky.jpg */,
 			);
@@ -434,15 +446,19 @@
 				17ECA7E31E2B6B2700E138CC /* LaunchScreen.storyboard in Resources */,
 				17A488FF1E2C9EC90075625E /* item.png in Resources */,
 				17A488F71E2C6A580075625E /* icon_previous@2x.png in Resources */,
+				17D71AE91E48100E00458517 /* list@2x.png in Resources */,
+				17D71AE71E48100600458517 /* item@2x.png in Resources */,
 				17A489171E2CAA980075625E /* yourname.jpg in Resources */,
 				17B67E7C1E461CCA00354E5D /* bluesky2.jpg in Resources */,
 				177329561E43799D005CF3BE /* inputBackground.jpg in Resources */,
 				17ECA7E01E2B6B2700E138CC /* Assets.xcassets in Resources */,
 				17A4890D1E2CA9250075625E /* male.jpg in Resources */,
 				17ECA7DE1E2B6B2700E138CC /* Main.storyboard in Resources */,
+				17D71AE31E480FF600458517 /* camera@2x.png in Resources */,
 				17A489011E2C9ED10075625E /* characters.png in Resources */,
 				17A489271E2CACD00075625E /* yournameback.jpg in Resources */,
 				17049A541E3CE0C60036793B /* icon.png in Resources */,
+				17D71AE51E480FFC00458517 /* characters@2x.png in Resources */,
 				17A488FD1E2C83840075625E /* camera.jpg in Resources */,
 				17A489031E2C9ED90075625E /* list.png in Resources */,
 				17B67E7A1E461C4600354E5D /* loveSky.jpg in Resources */,

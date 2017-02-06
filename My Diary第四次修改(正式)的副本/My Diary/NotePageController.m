@@ -152,7 +152,8 @@
     if(_currentPage)
     {
         //修改操作
-        if([_pageTextView.text length] == 0){
+        if([_pageTextView.text length] == 0)
+        {
             [NotePageSearvice deleteNotePage:_pageTextView.text title:_pageLabelTextView.text currentNotePage:_currentPage];
         }
         else

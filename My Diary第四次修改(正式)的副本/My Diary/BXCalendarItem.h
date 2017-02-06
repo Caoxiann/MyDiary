@@ -18,6 +18,7 @@
 @property (weak, nonatomic) id<BXCalendarItemDelegate> delegate;
 
 - (NSDate *)nextMonthDate;
+
 - (NSDate *)previousMonthDate;
 
 @end
