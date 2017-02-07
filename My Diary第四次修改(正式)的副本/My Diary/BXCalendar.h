@@ -8,8 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol timeDelegate;
+
 @interface BXCalendar : UIView
 
 - (instancetype)initWithCurrentDate:(NSDate *)date;
 
+@property (nonatomic,weak) id<timeDelegate> delegate;
+
 @end
+
+@protocol timeDelegate <NSObject>
+
+-(void) time:(BXCalendar *)calendar timeTrans:(NSString*)timeString;
+
+@end
+
+
+
+

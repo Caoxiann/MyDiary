@@ -55,9 +55,11 @@
     [_noteListTableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,deviceHeight*78/100)];
     _noteListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_noteListTableView];
+//Table背景
     UIImage *backImage=[UIImage imageNamed:@"loveSky.jpg"];
     _noteListTableView.layer.contents=(id)backImage.CGImage;
     _noteListTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
+//Table协议
     _noteListTableView.delegate = self;
     _noteListTableView.dataSource = self;
     noteListArray = [[SqlService sqlInstance] queryDBtable];
@@ -325,9 +327,11 @@
 }
 
 //选择便可进入编辑界面
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     NotePageController *noteController = [[NotePageController alloc]init];
+    
     noteController.noteDelegate = self;
     
     noteController.currentPage = noteListArray[indexPath.row];
@@ -368,7 +372,6 @@
     NSLog(@"queryDBtable");
     noteListArray = [[SqlService sqlInstance] queryDBtable];
     [_noteListTableView reloadData];
-    
 }
 
 

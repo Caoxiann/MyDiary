@@ -124,7 +124,8 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
 }
 
 // 获取date当前月的第一天是星期几
-- (NSInteger)weekdayOfFirstDayInDate {
+- (NSInteger)weekdayOfFirstDayInDate
+{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setFirstWeekday:1];
     NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
@@ -135,13 +136,15 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
 }
 
 // 获取date当前月的总天数
-- (NSInteger)totalDaysInMonthOBXate:(NSDate *)date {
+- (NSInteger)totalDaysInMonthOBXate:(NSDate *)date
+{
     NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
     return range.length;
 }
 
 // 获取某月day的日期
-- (NSDate *)dateOfMonth:(BXCalendarMonth)calendarMonth WithDay:(NSInteger)day {
+- (NSDate *)dateOfMonth:(BXCalendarMonth)calendarMonth WithDay:(NSInteger)day
+{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *date;
     
@@ -168,7 +171,8 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
 }
 
 // 获取date当天的农历
-- (NSString *)chineseCalendarOBXate:(NSDate *)date {
+- (NSString *)chineseCalendarOBXate:(NSDate *)date
+{
     NSString *day;
     NSCalendar *chineseCalendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
     NSDateComponents *components = [chineseCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
@@ -183,7 +187,8 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
 
 #pragma mark - UICollectionDatasource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return 42;
 }
 
@@ -204,21 +209,28 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
     NSInteger totalDaysOfMonth = [self totalDaysInMonthOBXate:self.date];
     NSInteger totalDaysOfLastMonth = [self totalDaysInMonthOBXate:[self previousMonthDate]];
     
-    if (indexPath.row < firstWeekday) {    // 小于这个月的第一天
+    if (indexPath.row < firstWeekday)
+    {    // 小于这个月的第一天
         NSInteger day = totalDaysOfLastMonth - firstWeekday + indexPath.row + 1;
         cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
         cell.dayLabel.textColor = [UIColor grayColor];
         cell.chineseDayLabel.text = [self chineseCalendarOBXate:[self dateOfMonth:BXCalendarMonthPrevious WithDay:day]];
-    } else if (indexPath.row >= totalDaysOfMonth + firstWeekday) {    // 大于这个月的最后一天
+    }
+    else if (indexPath.row >= totalDaysOfMonth + firstWeekday)
+    {    // 大于这个月的最后一天
         NSInteger day = indexPath.row - totalDaysOfMonth - firstWeekday + 1;
         cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
         cell.dayLabel.textColor = [UIColor grayColor];
         cell.chineseDayLabel.text = [self chineseCalendarOBXate:[self dateOfMonth:BXCalendarMonthNext WithDay:day]];
-    } else {    // 属于这个月
+    }
+    else
+    {    // 属于这个月
         NSInteger day = indexPath.row - firstWeekday + 1;
         cell.dayLabel.text= [NSString stringWithFormat:@"%ld", day];
         
-        if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:self.date]) {
+        //选中的那一天被圈起来显示
+        if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:self.date])
+        {
             cell.backgroundColor = color;
             cell.layer.cornerRadius = cell.frame.size.height / 2;
             cell.dayLabel.textColor = [UIColor whiteColor];
@@ -238,16 +250,16 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
     }
     
     
-    
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
     NSInteger firstWeekday = [self weekdayOfFirstDayInDate];
-    [components setDay:indexPath.row - firstWeekday + 1];
+    [components setDay:indexPath.row - firstWeekday+1];
     NSDate *selectedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     if (self.delegate && [self.delegate respondsToSelector:@selector(calendarItem:didSelectedDate:)]) {
         [self.delegate calendarItem:self didSelectedDate:selectedDate];
