@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "VCProject.h"
 
 @interface AppDelegate ()
 
@@ -15,7 +16,20 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //set navigationControler
+    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    VCProject *VC_P=[[VCProject alloc]init];
+    self.nav=[[UINavigationController alloc]initWithRootViewController:VC_P];
+    [self.nav.navigationBar setTranslucent:NO];
+    [self.window setRootViewController:self.nav];
+    [self.window makeKeyAndVisible];
+    
+    //set toolItem
+    [self.nav setToolbarHidden:NO];
+    
+    
     // Override point for customization after application launch.
     return YES;
 }

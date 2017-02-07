@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D4DF1F91E41D7C900D27DBF /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4DF1F71E41D7C900D27DBF /* MyTableViewCell.m */; };
+		4D4DF1FC1E41D81A00D27DBF /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D4DF1FB1E41D81A00D27DBF /* MyTableViewCell.xib */; };
 		4DE5D5341E33044E0085392F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5331E33044E0085392F /* main.m */; };
 		4DE5D5371E33044E0085392F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5361E33044E0085392F /* AppDelegate.m */; };
 		4DE5D53A1E33044E0085392F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5391E33044E0085392F /* ViewController.m */; };
@@ -15,6 +17,28 @@
 		4DE5D5421E33044F0085392F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5401E33044F0085392F /* LaunchScreen.storyboard */; };
 		4DE5D54D1E33044F0085392F /* MyDiary02Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D54C1E33044F0085392F /* MyDiary02Tests.m */; };
 		4DE5D5581E33044F0085392F /* MyDiary02UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5571E33044F0085392F /* MyDiary02UITests.m */; };
+		4DE5D5671E3304E20085392F /* VCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5661E3304E20085392F /* VCProject.m */; };
+		4DE5D56A1E3305730085392F /* VCProjectWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5691E3305730085392F /* VCProjectWrite.m */; };
+		4DE5D5731E3305CC0085392F /* VCDiaryWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5721E3305CC0085392F /* VCDiaryWrite.m */; };
+		4DE5D5801E33098C0085392F /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5741E33098C0085392F /* camera.png */; };
+		4DE5D5811E33098C0085392F /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5751E33098C0085392F /* camera@2x.png */; };
+		4DE5D5821E33098C0085392F /* camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5761E33098C0085392F /* camera@3x.png */; };
+		4DE5D5831E33098C0085392F /* characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5771E33098C0085392F /* characters.png */; };
+		4DE5D5841E33098C0085392F /* characters@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5781E33098C0085392F /* characters@2x.png */; };
+		4DE5D5851E33098C0085392F /* characters@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D5791E33098C0085392F /* characters@3x.png */; };
+		4DE5D5861E33098C0085392F /* item.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57A1E33098C0085392F /* item.png */; };
+		4DE5D5871E33098C0085392F /* item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57B1E33098C0085392F /* item@2x.png */; };
+		4DE5D5881E33098C0085392F /* item@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57C1E33098C0085392F /* item@3x.png */; };
+		4DE5D5891E33098C0085392F /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57D1E33098C0085392F /* list.png */; };
+		4DE5D58A1E33098C0085392F /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57E1E33098C0085392F /* list@2x.png */; };
+		4DE5D58B1E33098C0085392F /* list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DE5D57F1E33098C0085392F /* list@3x.png */; };
+		4DE5D5991E35AEDE0085392F /* PDTSimpleCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5901E35AEDE0085392F /* PDTSimpleCalendarViewCell.m */; };
+		4DE5D59A1E35AEDE0085392F /* PDTSimpleCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5921E35AEDE0085392F /* PDTSimpleCalendarViewController.m */; };
+		4DE5D59B1E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5941E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.m */; };
+		4DE5D59C1E35AEDE0085392F /* PDTSimpleCalendarViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5961E35AEDE0085392F /* PDTSimpleCalendarViewHeader.m */; };
+		4DE5D59D1E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5D5981E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.m */; };
+		4DFB46101E456D6600F89816 /* cloud.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4DFB460F1E456D6600F89816 /* cloud.jpg */; };
+		4DFB46121E456FEA00F89816 /* VCDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFB46111E456FEA00F89816 /* VCDiary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +59,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D4DF1F61E41D7C900D27DBF /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTableViewCell.h; path = ../MyTableViewCell.h; sourceTree = "<group>"; };
+		4D4DF1F71E41D7C900D27DBF /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTableViewCell.m; path = ../MyTableViewCell.m; sourceTree = "<group>"; };
+		4D4DF1FB1E41D81A00D27DBF /* MyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyTableViewCell.xib; path = ../MyTableViewCell.xib; sourceTree = "<group>"; };
 		4DE5D52F1E33044E0085392F /* MyDiary02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE5D5331E33044E0085392F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DE5D5351E33044E0085392F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +78,38 @@
 		4DE5D5531E33044F0085392F /* MyDiary02UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiary02UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE5D5571E33044F0085392F /* MyDiary02UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiary02UITests.m; sourceTree = "<group>"; };
 		4DE5D5591E33044F0085392F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DE5D5651E3304E20085392F /* VCProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCProject.h; sourceTree = "<group>"; };
+		4DE5D5661E3304E20085392F /* VCProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCProject.m; sourceTree = "<group>"; };
+		4DE5D5681E3305730085392F /* VCProjectWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCProjectWrite.h; sourceTree = "<group>"; };
+		4DE5D5691E3305730085392F /* VCProjectWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCProjectWrite.m; sourceTree = "<group>"; };
+		4DE5D56E1E3305AF0085392F /* VCDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDiary.h; sourceTree = "<group>"; };
+		4DE5D5711E3305CC0085392F /* VCDiaryWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDiaryWrite.h; sourceTree = "<group>"; };
+		4DE5D5721E3305CC0085392F /* VCDiaryWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDiaryWrite.m; sourceTree = "<group>"; };
+		4DE5D5741E33098C0085392F /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		4DE5D5751E33098C0085392F /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
+		4DE5D5761E33098C0085392F /* camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@3x.png"; sourceTree = "<group>"; };
+		4DE5D5771E33098C0085392F /* characters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characters.png; sourceTree = "<group>"; };
+		4DE5D5781E33098C0085392F /* characters@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "characters@2x.png"; sourceTree = "<group>"; };
+		4DE5D5791E33098C0085392F /* characters@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "characters@3x.png"; sourceTree = "<group>"; };
+		4DE5D57A1E33098C0085392F /* item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item.png; sourceTree = "<group>"; };
+		4DE5D57B1E33098C0085392F /* item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item@2x.png"; sourceTree = "<group>"; };
+		4DE5D57C1E33098C0085392F /* item@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item@3x.png"; sourceTree = "<group>"; };
+		4DE5D57D1E33098C0085392F /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
+		4DE5D57E1E33098C0085392F /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
+		4DE5D57F1E33098C0085392F /* list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@3x.png"; sourceTree = "<group>"; };
+		4DE5D58E1E35AEDE0085392F /* PDTSimpleCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendar.h; sourceTree = "<group>"; };
+		4DE5D58F1E35AEDE0085392F /* PDTSimpleCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewCell.h; sourceTree = "<group>"; };
+		4DE5D5901E35AEDE0085392F /* PDTSimpleCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewCell.m; sourceTree = "<group>"; };
+		4DE5D5911E35AEDE0085392F /* PDTSimpleCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewController.h; sourceTree = "<group>"; };
+		4DE5D5921E35AEDE0085392F /* PDTSimpleCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewController.m; sourceTree = "<group>"; };
+		4DE5D5931E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewFlowLayout.h; sourceTree = "<group>"; };
+		4DE5D5941E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewFlowLayout.m; sourceTree = "<group>"; };
+		4DE5D5951E35AEDE0085392F /* PDTSimpleCalendarViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewHeader.h; sourceTree = "<group>"; };
+		4DE5D5961E35AEDE0085392F /* PDTSimpleCalendarViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewHeader.m; sourceTree = "<group>"; };
+		4DE5D5971E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDTSimpleCalendarViewWeekdayHeader.h; sourceTree = "<group>"; };
+		4DE5D5981E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDTSimpleCalendarViewWeekdayHeader.m; sourceTree = "<group>"; };
+		4DFB460F1E456D6600F89816 /* cloud.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cloud.jpg; sourceTree = "<group>"; };
+		4DFB46111E456FEA00F89816 /* VCDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDiary.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +160,45 @@
 		4DE5D5311E33044E0085392F /* MyDiary02 */ = {
 			isa = PBXGroup;
 			children = (
+				4D4DF1F61E41D7C900D27DBF /* MyTableViewCell.h */,
+				4D4DF1F71E41D7C900D27DBF /* MyTableViewCell.m */,
+				4D4DF1FB1E41D81A00D27DBF /* MyTableViewCell.xib */,
+				4DFB460F1E456D6600F89816 /* cloud.jpg */,
+				4DE5D5741E33098C0085392F /* camera.png */,
+				4DE5D5751E33098C0085392F /* camera@2x.png */,
+				4DE5D5761E33098C0085392F /* camera@3x.png */,
+				4DE5D5771E33098C0085392F /* characters.png */,
+				4DE5D5781E33098C0085392F /* characters@2x.png */,
+				4DE5D5791E33098C0085392F /* characters@3x.png */,
+				4DE5D57A1E33098C0085392F /* item.png */,
+				4DE5D57B1E33098C0085392F /* item@2x.png */,
+				4DE5D57C1E33098C0085392F /* item@3x.png */,
+				4DE5D57D1E33098C0085392F /* list.png */,
+				4DE5D57E1E33098C0085392F /* list@2x.png */,
+				4DE5D57F1E33098C0085392F /* list@3x.png */,
 				4DE5D5351E33044E0085392F /* AppDelegate.h */,
 				4DE5D5361E33044E0085392F /* AppDelegate.m */,
+				4DE5D58E1E35AEDE0085392F /* PDTSimpleCalendar.h */,
+				4DE5D58F1E35AEDE0085392F /* PDTSimpleCalendarViewCell.h */,
+				4DE5D5901E35AEDE0085392F /* PDTSimpleCalendarViewCell.m */,
+				4DE5D5911E35AEDE0085392F /* PDTSimpleCalendarViewController.h */,
+				4DE5D5921E35AEDE0085392F /* PDTSimpleCalendarViewController.m */,
+				4DE5D5931E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.h */,
+				4DE5D5941E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.m */,
+				4DE5D5951E35AEDE0085392F /* PDTSimpleCalendarViewHeader.h */,
+				4DE5D5961E35AEDE0085392F /* PDTSimpleCalendarViewHeader.m */,
+				4DE5D5971E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.h */,
+				4DE5D5981E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.m */,
 				4DE5D5381E33044E0085392F /* ViewController.h */,
 				4DE5D5391E33044E0085392F /* ViewController.m */,
+				4DE5D5651E3304E20085392F /* VCProject.h */,
+				4DE5D5661E3304E20085392F /* VCProject.m */,
+				4DE5D5681E3305730085392F /* VCProjectWrite.h */,
+				4DE5D5691E3305730085392F /* VCProjectWrite.m */,
+				4DE5D56E1E3305AF0085392F /* VCDiary.h */,
+				4DFB46111E456FEA00F89816 /* VCDiary.m */,
+				4DE5D5711E3305CC0085392F /* VCDiaryWrite.h */,
+				4DE5D5721E3305CC0085392F /* VCDiaryWrite.m */,
 				4DE5D53B1E33044F0085392F /* Main.storyboard */,
 				4DE5D53E1E33044F0085392F /* Assets.xcassets */,
 				4DE5D5401E33044F0085392F /* LaunchScreen.storyboard */,
@@ -207,6 +301,7 @@
 				TargetAttributes = {
 					4DE5D52E1E33044E0085392F = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 689U57J86G;
 						ProvisioningStyle = Automatic;
 					};
 					4DE5D5471E33044F0085392F = {
@@ -246,8 +341,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE5D58A1E33098C0085392F /* list@2x.png in Resources */,
+				4DE5D5881E33098C0085392F /* item@3x.png in Resources */,
 				4DE5D5421E33044F0085392F /* LaunchScreen.storyboard in Resources */,
+				4DE5D5811E33098C0085392F /* camera@2x.png in Resources */,
+				4DE5D58B1E33098C0085392F /* list@3x.png in Resources */,
+				4DE5D5831E33098C0085392F /* characters.png in Resources */,
+				4DE5D5891E33098C0085392F /* list.png in Resources */,
+				4DE5D5821E33098C0085392F /* camera@3x.png in Resources */,
 				4DE5D53F1E33044F0085392F /* Assets.xcassets in Resources */,
+				4DFB46101E456D6600F89816 /* cloud.jpg in Resources */,
+				4DE5D5871E33098C0085392F /* item@2x.png in Resources */,
+				4DE5D5801E33098C0085392F /* camera.png in Resources */,
+				4DE5D5861E33098C0085392F /* item.png in Resources */,
+				4D4DF1FC1E41D81A00D27DBF /* MyTableViewCell.xib in Resources */,
+				4DE5D5851E33098C0085392F /* characters@3x.png in Resources */,
+				4DE5D5841E33098C0085392F /* characters@2x.png in Resources */,
 				4DE5D53D1E33044F0085392F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,8 +382,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE5D59C1E35AEDE0085392F /* PDTSimpleCalendarViewHeader.m in Sources */,
+				4DE5D56A1E3305730085392F /* VCProjectWrite.m in Sources */,
+				4DE5D5991E35AEDE0085392F /* PDTSimpleCalendarViewCell.m in Sources */,
 				4DE5D53A1E33044E0085392F /* ViewController.m in Sources */,
+				4DFB46121E456FEA00F89816 /* VCDiary.m in Sources */,
 				4DE5D5371E33044E0085392F /* AppDelegate.m in Sources */,
+				4DE5D59A1E35AEDE0085392F /* PDTSimpleCalendarViewController.m in Sources */,
+				4DE5D59B1E35AEDE0085392F /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
+				4DE5D5671E3304E20085392F /* VCProject.m in Sources */,
+				4D4DF1F91E41D7C900D27DBF /* MyTableViewCell.m in Sources */,
+				4DE5D59D1E35AEDE0085392F /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */,
+				4DE5D5731E3305CC0085392F /* VCDiaryWrite.m in Sources */,
 				4DE5D5341E33044E0085392F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,7 +543,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 689U57J86G;
 				INFOPLIST_FILE = MyDiary02/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wei-Xiang.MyDiary02";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -435,7 +557,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 689U57J86G;
 				INFOPLIST_FILE = MyDiary02/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wei-Xiang.MyDiary02";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -507,6 +632,7 @@
 				4DE5D55E1E33044F0085392F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DE5D55F1E33044F0085392F /* Build configuration list for PBXNativeTarget "MyDiary02Tests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +641,7 @@
 				4DE5D5611E33044F0085392F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DE5D5621E33044F0085392F /* Build configuration list for PBXNativeTarget "MyDiary02UITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +650,7 @@
 				4DE5D5641E33044F0085392F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
