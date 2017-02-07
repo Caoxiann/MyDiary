@@ -183,6 +183,9 @@
     [_arrayContent removeObjectAtIndex:indexPath.section];
     [_arrayID removeObjectAtIndex:indexPath.section];
     [_arrayMinute removeObjectAtIndex:indexPath.section];
+    btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
+    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
+    _toolbar.items = arrayBtns;
     [_tableView reloadData];
 }
 
