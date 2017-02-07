@@ -2,7 +2,7 @@
 //  VCCamera.h
 //  MyDiary
 //
-//  Created by Jimmy Fan on 2017/1/24.
+//  Created by Jimmy Fan on 2017/2/4.
 //  Copyright © 2017年 Jimmy Fan. All rights reserved.
 //
 

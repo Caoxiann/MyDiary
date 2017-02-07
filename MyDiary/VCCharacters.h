@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FMDatabase.h"
 
-@interface VCCharacters : UIViewController
+@interface VCCharacters : UIViewController <UITextViewDelegate> {
+    FMDatabase* _mDB;
+    UILabel* _lbTitle;
+    UILabel* _lbContent;
+    UITextField* _tfTitle;
+    UITextView* _tvContent;
+}
 
 @end

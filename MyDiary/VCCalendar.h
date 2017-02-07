@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FMDatabase.h"
 
-@interface VCCalendar : UIViewController
+@interface VCCalendar : UIViewController {
+    UISegmentedControl* _segControl;
+    FMDatabase* _mDB;
+}
 
 @end

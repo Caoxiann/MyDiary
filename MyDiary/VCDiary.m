@@ -6,7 +6,11 @@
 //  Copyright © 2017年 Jimmy Fan. All rights reserved.
 //
 
+#import "VCCalendar.h"
+#import "VCElements.h"
 #import "VCDiary.h"
+#import "VCCharacters.h"
+#import "VCCamera.h"
 
 @interface VCDiary ()
 
@@ -18,21 +22,106 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.frame = CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width - 50);
-    self.view.backgroundColor = [UIColor whiteColor];
+    _segControl = [[UISegmentedControl alloc] init];
+    _segControl.frame = CGRectMake(10, 25, 300, 25);
+    [_segControl setTintColor:[UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255]];
     
-    UILabel* _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 35)];
+    [_segControl insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
+    [_segControl insertSegmentWithTitle:@"日历" atIndex:1 animated:NO];
+    [_segControl insertSegmentWithTitle:@"日记" atIndex:2 animated:NO];
+    _segControl.selectedSegmentIndex = 2;
+    [self.view addSubview: _segControl];
+    [_segControl addTarget:self action:@selector(segChange) forControlEvents:UIControlEventValueChanged];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    UILabel* _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 35)];
     _label.text = @"DIARY";
     _label.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
     [_label setTextAlignment:NSTextAlignmentCenter];
     [_label setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_label];
     
-    UIView* _backgroundview = [[UIView alloc] initWithFrame:CGRectMake(0, 35, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    UIView* _backgroundview = [[UIView alloc] initWithFrame:CGRectMake(0, 85, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     UIImageView* _imageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backgroundImage.jpg"]];
     [_backgroundview addSubview:_imageview];
     [self.view addSubview:_backgroundview];
     
+    UIToolbar* _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    UIImage* _image = [UIImage imageNamed:@"list.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(16, 15.5));
+    [_image drawInRect:CGRectMake(0, 0, 16, 15.5)];
+    UIImage* _newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIBarButtonItem* btn01 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressList)];
+    
+    _image = [UIImage imageNamed:@"characters.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(18, 18));
+    [_image drawInRect:CGRectMake(0, 0, 18, 18)];
+    _newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIBarButtonItem* btn02 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCharacters)];
+    
+    _image = [UIImage imageNamed:@"camera.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(20, 16));
+    [_image drawInRect:CGRectMake(0, 0, 20, 16)];
+    _newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIBarButtonItem* btn03 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCamera)];
+    
+    _image = [UIImage imageNamed:@"item.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(22, 20));
+    [_image drawInRect:CGRectMake(0, 0, 22, 20)];
+    _newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIBarButtonItem* btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    
+    UIBarButtonItem* btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    btnF01.width = 10;
+    UIBarButtonItem* btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    btnF02.width = 120;
+    
+    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04, nil];
+    _toolbar.items = arrayBtns;
+    
+    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _toolbar.tintColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_toolbar];
+    
+}
+
+
+
+- (void)segChange {
+    if (_segControl.selectedSegmentIndex == 0) {
+        VCElements* vcelements = [[VCElements alloc] init];
+        [self.navigationController pushViewController:vcelements animated:NO];
+    }
+    if (_segControl.selectedSegmentIndex == 1) {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
+    if (_segControl.selectedSegmentIndex == 2) {
+
+    }
+}
+
+- (void)pressList {
+    
+}
+
+- (void)pressCharacters {
+    VCCharacters* vcCharacters = [[VCCharacters alloc] init];
+    [self presentViewController:vcCharacters animated:YES completion:^{ }];
+}
+
+- (void)pressCamera {
+    VCCamera* vcCamera = [[VCCamera alloc] init];
+    [self presentViewController:vcCamera animated:YES completion:^{ }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

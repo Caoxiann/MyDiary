@@ -1,19 +1,21 @@
 //
-//  VCCharacters.m
+//  VCElementEdit.m
 //  MyDiary
 //
-//  Created by Jimmy Fan on 2017/1/24.
+//  Created by Jimmy Fan on 2017/2/7.
 //  Copyright © 2017年 Jimmy Fan. All rights reserved.
 //
 
-#import "VCCharacters.h"
+#import "VCElementEdit.h"
 #import "FMDatabase.h"
 
-@interface VCCharacters ()
+@interface VCElementEdit ()
 
 @end
 
-@implementation VCCharacters
+@implementation VCElementEdit
+
+@synthesize myID = _id;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,7 +26,7 @@
     [_backgroundview addSubview:_imageview];
     [self.view addSubview:_backgroundview];
     self.navigationController.navigationBarHidden = NO;
-    self.navigationItem.title = @"New Element";
+    self.navigationItem.title = @"Editing Element";
     UIBarButtonItem* btnFinish = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(pressFinish)];
     self.navigationItem.rightBarButtonItem = btnFinish;
     
@@ -33,12 +35,12 @@
     _lbTitle.font = [UIFont systemFontOfSize:25];
     _lbTitle.textColor = [UIColor blackColor];
     [self.view addSubview:_lbTitle];
-    _tfTitle = [[UITextField alloc] initWithFrame:CGRectMake(100, 80, 200, 50)];
-    _tfTitle.borderStyle = UITextBorderStyleRoundedRect;
-    _tfTitle.keyboardType = UIKeyboardTypeDefault;
-    _tfTitle.font = [UIFont systemFontOfSize:25];
-    _tfTitle.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
-    [self.view addSubview:_tfTitle];
+    _title = [[UITextField alloc] initWithFrame:CGRectMake(100, 80, 200, 50)];
+    _title.borderStyle = UITextBorderStyleRoundedRect;
+    _title.keyboardType = UIKeyboardTypeDefault;
+    _title.font = [UIFont systemFontOfSize:25];
+    _title.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    [self.view addSubview:_title];
     _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, 50)];
     _lbContent.text = @"内容";
     _lbContent.font = [UIFont systemFontOfSize:20];
@@ -46,19 +48,33 @@
     [_lbContent setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:_lbContent];
     
-    _tvContent = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230)];
-    _tvContent.delegate = self;
-    _tvContent.layer.cornerRadius = 10;
-    _tvContent.font = [UIFont systemFontOfSize:18];
-    _tvContent.layer.masksToBounds = YES;
-    _tvContent.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
-    [self.view addSubview:_tvContent];
-    
+    _content = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230)];
+    _content.delegate = self;
+    _content.layer.cornerRadius = 10;
+    _content.layer.masksToBounds = YES;
+    _content.font = [UIFont systemFontOfSize:18];
+    _content.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    [self.view addSubview:_content];
+
+    NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
+    _mDB = [[FMDatabase alloc] initWithPath:strPath];
+    maxid = 0;
+    if ([_mDB open]) {
+        NSString* strQuery = @"select * from elements;";
+        FMResultSet* result = [_mDB executeQuery:strQuery];
+        while ([result next]) {
+            if ([result intForColumn:@"id"] > maxid) maxid = [result intForColumn:@"id"];
+            if ([result intForColumn:@"id"] == [self.myID intValue]) {
+                _title.text = [result stringForColumn:@"title"];
+                _content.text = [result stringForColumn:@"content"];
+            }
+        }
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [_tfTitle resignFirstResponder];
-    [_tvContent resignFirstResponder];
+    [_title resignFirstResponder];
+    [_content resignFirstResponder];
 }
 
 - (NSString*)shortDay:(NSString*)day {
@@ -75,14 +91,12 @@
 }
 
 - (void)pressFinish {
-    NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
-    _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
         NSDate* date = [NSDate date];
 /*        NSTimeZone* zone = [NSTimeZone systemTimeZone];
         NSInteger interval = [zone secondsFromGMTForDate:date];
         NSDate* localDate = [date dateByAddingTimeInterval:interval];
-*/
+ */
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM"];
         NSString* strMonth = [dateFormatter stringFromDate:date];
@@ -92,14 +106,10 @@
         NSString* strWeek = [dateFormatter stringFromDate:date];
         [dateFormatter setDateFormat:@"HH:mm"];
         NSString* strMinute = [dateFormatter stringFromDate:date];
-        
-        NSString* strTitle = _tfTitle.text;
-        NSString* strContent = _tvContent.text;
-        
-        NSString* strQuery = @"select id from elements;";
-        FMResultSet* result = [_mDB executeQuery:strQuery];
-        NSInteger maxid = 0;
-        while ([result next]) if ([result intForColumn:@"id"] > maxid) maxid = [result intForColumn:@"id"];
+        NSString* strTitle = _title.text;
+        NSString* strContent = _content.text;
+        NSString* strDel = [[NSString alloc] initWithFormat:@"delete from elements where id = %d;", [self.myID intValue]];
+        [_mDB executeUpdate:strDel];
         NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute];
         [_mDB executeUpdate:strInsert];
     }

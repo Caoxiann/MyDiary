@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VCDiary : UIViewController
+@interface VCDiary : UIViewController {
+    UISegmentedControl* _segControl;
+}
 
 @end

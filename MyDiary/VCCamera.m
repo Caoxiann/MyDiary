@@ -2,13 +2,13 @@
 //  VCCamera.m
 //  MyDiary
 //
-//  Created by Jimmy Fan on 2017/1/24.
+//  Created by Jimmy Fan on 2017/2/4.
 //  Copyright © 2017年 Jimmy Fan. All rights reserved.
 //
 
 #import "VCCamera.h"
-#import "VCList.h"
 #import "VCCharacters.h"
+#import "VCCalendar.h"
 
 @interface VCCamera ()
 
@@ -20,8 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor redColor];
     
+    UIToolbar* _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
     UIImage* _image = [UIImage imageNamed:@"list.png"];
     UIGraphicsBeginImageContext(CGSizeMake(16, 15.5));
     [_image drawInRect:CGRectMake(0, 0, 16, 15.5)];
@@ -50,21 +51,24 @@
     UIGraphicsEndImageContext();
     UIBarButtonItem* btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    
     UIBarButtonItem* btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     btnF01.width = 10;
     UIBarButtonItem* btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     btnF02.width = 120;
     
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04, nil];
-    self.toolbarItems = arrayBtns;
+    _toolbar.items = arrayBtns;
+    
+    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _toolbar.tintColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_toolbar];
     
 }
 
-
 - (void)pressList {
-    VCList* vcList = [[VCList alloc] init];
-    [self.navigationController pushViewController:vcList animated:YES];
+    VCCalendar* vcCalendar = [[VCCalendar alloc] init];
+    [self.navigationController pushViewController:vcCalendar animated:YES];
 }
 
 - (void)pressCharacters {
@@ -73,7 +77,7 @@
 }
 
 - (void)pressCamera {
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
