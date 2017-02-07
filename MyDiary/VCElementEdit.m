@@ -26,7 +26,7 @@
     [_backgroundview addSubview:_imageview];
     [self.view addSubview:_backgroundview];
     self.navigationController.navigationBarHidden = NO;
-    self.navigationItem.title = @"Editing Element";
+    self.navigationItem.title = @"Edit Element";
     UIBarButtonItem* btnFinish = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(pressFinish)];
     self.navigationItem.rightBarButtonItem = btnFinish;
     
