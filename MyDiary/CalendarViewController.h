@@ -14,11 +14,14 @@
 @required -(void)turnToElementPage:(Element *)element;
 
 @end
+
 @class MonthModel;
 //控制器
 @interface CalendarViewController : UIViewController
-@property (strong, nonatomic) UIViewController <ElementPageDelegateInCVC > *delegate;
 @property (nonatomic,assign) CGFloat viewHeight;
+@property (strong, nonatomic) UIViewController <ElementPageDelegateInCVC > *delegate;
+
+
 @end
 
 //CollectionViewHeader
@@ -40,7 +43,9 @@
 @property (assign, nonatomic) BOOL isSelectedDay;
 @end
 
-
 @interface UIColor (UIColor)
 + (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
 @end
+
+
+

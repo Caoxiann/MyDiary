@@ -31,7 +31,7 @@
 - (void)updateDiary {
     [[SqlService sqlInstance] updateDiaryDBtable:self];
 }
-- (void)deletediary {
+- (void)deleteDiary {
     [[SqlService sqlInstance]deleteDiary:self];
 }
 - (void)setDates {

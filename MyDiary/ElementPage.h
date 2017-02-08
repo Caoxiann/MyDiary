@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Element.h"
+@protocol ElementReloadDelegate <NSObject>
+
+@required - (void)reloadData;
+
+@end
 @interface ElementPage : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *timeSetBtn;
 @property (weak, nonatomic) IBOutlet UIButton *locationSetBtn;
@@ -22,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *normalView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-
+@property (nonatomic,strong) UIViewController <ElementReloadDelegate> *delegate;
 @property (assign, nonatomic) BOOL isSaved;
 @property (assign, nonatomic) BOOL isNew;
 - (IBAction)editingDidEnd:(UITextField *)sender;
@@ -37,3 +42,4 @@
 - (IBAction)dateCancel:(UIButton *)sender;
 @property (nonatomic,strong)Element* element;
 @end
+

@@ -10,37 +10,37 @@
 #import "NSDate+Formatter.h"
 #import "myTableViewCell.h"
 #import "DateDeal.h"
-#define INITIALHEIGHT Iphone6ScaleHeight(100)
+#import "TimeDealler.h"
 
 #define HeaderViewHeight 30
 #define WeekViewHeight 40
+#define INITIALHEIGHT Iphone6ScaleHeight(100)
 @implementation MonthModel
 
 @end
 
+@interface CalendarViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
-@interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dayModelArray;
 @property (strong, nonatomic) UILabel *dateLabel;
-@property (nonatomic,strong) NSMutableArray  * cellHeights;
-@property (nonatomic,strong) NSMutableArray * elementArray;
-@property (nonatomic,assign) CGFloat tableViewHeight;
 @property (nonatomic,assign) NSIndexPath *selecedDay;
-@property (nonatomic,strong) NSDate * today;
+@property (nonatomic,assign) NSIndexPath *today;
+@property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *cellHeights;
+@property (nonatomic,strong) NSMutableArray *elementArray;
 
 @property (strong, nonatomic) NSDate *tempDate;
 @end
 
 @implementation CalendarViewController
-
 - (void)viewWillAppear:(BOOL)animated {
-    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
-    if(arr.count) {
-        _elementArray=arr[0];
+    [super viewWillAppear:animated];
+    if(!_selecedDay) {
+        [self setData];
+    }else {
+        [self reloadData];
     }
-    [self.tableView reloadData];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,12 +48,27 @@
     
     self.tempDate = [NSDate date];
     self.dateLabel.text = self.tempDate.yyyyMMByLineWithDate;
-    [self getDataDayModel:self.tempDate];//此函数中给_today赋值
-    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
+    
+    [self getDataDayModel:self.tempDate];
+    [self setData];
+}
+- (void)setData {
+    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[NSDate date]];
     if(arr.count) {
         _elementArray=arr[0];
+    }else{
+        [_elementArray removeAllObjects];
     }
-    NSLog(@"%@",self.tableView);
+    [self.tableView reloadData];
+}
+- (void)reloadData {
+    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[self.dayModelArray[_selecedDay.row] dateValue]];
+    if(arr.count) {
+        _elementArray=arr[0];
+    }else{
+        [_elementArray removeAllObjects];
+    }
+    [self.tableView reloadData];
 }
 #pragma mark -view
 -(void)drawView{
@@ -73,19 +88,23 @@
     [nextButton setTintColor:[UIColor blackColor]];
     [self.view addSubview:nextButton];
     [nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:self.collectionView]; //此处注意_collectionView 和 self.collectionView的区别
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.collectionView];//此处注意_collectionView和self.collectionView的区别
+}
+- (NSMutableArray *)cellHeights {
+    if(!_cellHeights) {
+        _cellHeights=[[NSMutableArray alloc]init];
+    }
+    return _cellHeights;
 }
 - (UITableView *)tableView {
     if(!_tableView) {
-        _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, _viewHeight) style:UITableViewStylePlain];
-        //_tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _collectionView.frame.size.height+Iphone6ScaleHeight(20)+HeaderViewHeight, LL_SCREEN_WIDTH, _viewHeight-_collectionView.frame.size.height-Iphone6ScaleHeight(20)-HeaderViewHeight) style:UITableViewStylePlain];
+        _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _collectionView.frame.size.height+Iphone6ScaleHeight(20)+HeaderViewHeight, LL_SCREEN_WIDTH, _viewHeight-_collectionView.frame.size.height-Iphone6ScaleHeight(20)-HeaderViewHeight) style:UITableViewStylePlain];
         [_tableView setBackgroundColor:[UIColor colorWithHexValue:0XFCE7EC alpha:1]];
-        
         _tableView.delegate=self;
         _tableView.dataSource=self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.estimatedRowHeight=Iphone6ScaleHeight(100);
+        [self.view addSubview:_tableView];
     }
     return _tableView;
 }
@@ -144,7 +163,6 @@
             mon.dateValue = dayDate;
             if ([dayDate.yyyyMMddByLineWithDate isEqualToString:[NSDate date].yyyyMMddByLineWithDate]) {
                 mon.isToday = YES;
-                _today=[mon dateValue];
             }
             mon.isSelectedDay=NO;
             [self.dayModelArray addObject:mon];
@@ -181,6 +199,7 @@
         MonthModel *month=(MonthModel *)self.dayModelArray[indexPath.row];
         if(month.isToday) {
             _selecedDay=indexPath;
+            _today=indexPath;
         }
     }else{
         cell.dayLabel.text = @"";
@@ -193,6 +212,7 @@
     CalendarHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"CalendarHeaderView" forIndexPath:indexPath];
     return headerView;
 }
+
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     id mon = self.dayModelArray[indexPath.row];
@@ -201,38 +221,100 @@
         MonthModel* mo=self.dayModelArray[indexPath.row];
         if(mo.isSelectedDay) {
             mo.isSelectedDay=NO;
-            _selecedDay=nil;
+            _selecedDay=_today;
         }
         else {
             mo.isSelectedDay=YES;
-            if(_selecedDay) {
-                MonthModel* month= self.dayModelArray[_selecedDay.row];
-                month.isSelectedDay=NO;
-                //[self.dayModelArray replaceObjectAtIndex:_selecedDay.row withObject:month];
-                NSArray *arr=[[NSArray alloc]initWithObjects:_selecedDay, nil];
-                [_collectionView reloadItemsAtIndexPaths:arr];
-            }
+            MonthModel* month= self.dayModelArray[_selecedDay.row];
+            month.isSelectedDay=NO;
+            //[self.dayModelArray replaceObjectAtIndex:_selecedDay.row withObject:month];
+            NSArray *arr=[[NSArray alloc]initWithObjects:_selecedDay, nil];
+            [_collectionView reloadItemsAtIndexPaths:arr];
             _selecedDay=indexPath;
         }
         CalendarCell* cell=(CalendarCell*)[collectionView cellForItemAtIndexPath:indexPath];
         cell.monthModel=mo;
-        if(_selecedDay==nil) {
-            NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
-            if(arr.count) {
-                _elementArray=arr[0];
-            }else {
-                _elementArray=nil;
-            }
-        }else {
-            NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[self.dayModelArray[_selecedDay.row] dateValue]];
-            if(arr.count) {
-                _elementArray=arr[0];
-            }else {
-                _elementArray=nil;
-            }
-        }
-        [_tableView reloadData];
+        [self reloadData];
     }
+}
+
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"_elementArray.count:%lu",(unsigned long)_elementArray.count);
+    return _elementArray.count;
+}
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"CalendarCellForRowAtIndexPath");
+    static NSString *indetifier = @"myTableViewCell";
+    
+    myTableViewCell *cell = (myTableViewCell *)[tableView dequeueReusableCellWithIdentifier:indetifier];
+    
+    if(!cell){
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"myTableViewCell" owner:self options:nil] objectAtIndex:0];
+        NSLog(@"%@",cell);
+    }
+    Element * ele=_elementArray[indexPath.row];
+    [_elementArray replaceObjectAtIndex:indexPath.row withObject:[cell setMyElement:ele]];
+    ele=_elementArray[indexPath.row];
+    if(ele.isSelected) {
+        [cell drawDetailView];
+        if(!(self.cellHeights.count>indexPath.row)){
+            [self.cellHeights addObject:ele.cellHeight];
+        }else {
+            [self.cellHeights replaceObjectAtIndex:indexPath.row withObject:ele.cellHeight];
+        }
+    }else{
+        [cell drawInitialView];
+        if(!(self.cellHeights.count>indexPath.row)){
+            [self.cellHeights addObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
+        }else {
+            [self.cellHeights replaceObjectAtIndex:indexPath.row withObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
+        }
+        
+    }
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"CalendarHeightForRowAtIndexPath" );
+    NSString * height=(NSString *)self.cellHeights[indexPath.row];
+    //NSLog(@"%@",height);
+    return [height floatValue];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Element * element =_elementArray[indexPath.row];
+    if([self.cellHeights[indexPath.row] isEqualToString:[[NSString alloc]initWithFormat:@"%f",INITIALHEIGHT]]){
+        element.isSelected=YES;
+    }else{
+        element.isSelected=NO;
+        [self.delegate turnToElementPage:element];
+    }
+    [_elementArray replaceObjectAtIndex:indexPath.row withObject:element];
+    //NSLog(@"ElementDidSelectRowAtIndexPath");
+    //NSLog(@"%@",element.cellHeight);
+    NSArray * arr=[[NSArray alloc]initWithObjects:indexPath, nil];
+    [self.tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationMiddle];
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Element * ele=_elementArray[indexPath.row];
+    [ele deleteElement];
+    [_elementArray removeObjectAtIndex:indexPath.row];
+    [self reloadData];
 }
 
 
@@ -294,91 +376,7 @@
     comps.day = day;
     return [greCalendar dateFromComponents:comps];
 }
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"_elementArray.count:%lu",(unsigned long)_elementArray.count);
-    return _elementArray.count;
-}
-
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //NSLog(@"CalendarCellForRowAtIndexPath");
-    static NSString *indetifier = @"myTableViewCell";
-    
-    myTableViewCell *cell = (myTableViewCell *)[tableView dequeueReusableCellWithIdentifier:indetifier];
-    
-    if(!cell){
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"myTableViewCell" owner:self options:nil] objectAtIndex:0];
-        NSLog(@"%@",cell);
-    }
-    Element * ele=_elementArray[indexPath.row];
-    [_elementArray replaceObjectAtIndex:indexPath.row withObject:[cell setMyElement:ele]];
-    ele=_elementArray[indexPath.row];
-    if(ele.isSelected) {
-        [cell drawDetailView];
-        if(!(_cellHeights.count>indexPath.row)){
-            [_cellHeights addObject:ele.cellHeight];
-        }else {
-            [_cellHeights replaceObjectAtIndex:indexPath.row withObject:ele.cellHeight];
-        }
-    }else{
-        [cell drawInitialView];
-        if(!(_cellHeights.count>indexPath.row)){
-            [_cellHeights addObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
-        }else {
-            [_cellHeights replaceObjectAtIndex:indexPath.row withObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
-        }
-        
-    }
-    return cell;
-}
-
-
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //NSLog(@"CalendarHeightForRowAtIndexPath" );
-    NSString * height=(NSString *)_cellHeights[indexPath.row];
-    //NSLog(@"%@",height);
-    return [height floatValue];
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Element * element =_elementArray[indexPath.row];
-    if([_cellHeights[indexPath.row] isEqualToString:[[NSString alloc]initWithFormat:@"%f",INITIALHEIGHT]]){
-        element.isSelected=YES;
-    }else{
-        element.isSelected=NO;
-        [self.delegate turnToElementPage:element];
-    }
-    [_elementArray replaceObjectAtIndex:indexPath.row withObject:element];
-    //NSLog(@"ElementDidSelectRowAtIndexPath");
-    //NSLog(@"%@",element.cellHeight);
-    NSArray * arr=[[NSArray alloc]initWithObjects:indexPath, nil];
-    [_tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationMiddle];
-}
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Element * ele=_elementArray[indexPath.row];
-    [ele deleteElement];
-    [_elementArray removeObjectAtIndex:indexPath.row];
-    if(_selecedDay==nil) {
-        _elementArray=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
-    }else {
-        _elementArray=[DateDeal dateDealFor:ViewControllerCalendar andDate:self.dayModelArray[_selecedDay.row]];
-    }
-    [_tableView reloadData];
-}
-
 @end
-
 @implementation CalendarHeaderView
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
@@ -428,19 +426,11 @@
             self.dayLabel.backgroundColor = [UIColor colorWithHexValue:0XFF788B alpha:1];
             self.dayLabel.textColor = [UIColor whiteColor];
         }else{
-        self.dayLabel.backgroundColor = [UIColor whiteColor];
-        self.dayLabel.textColor = [UIColor blackColor];
+            self.dayLabel.backgroundColor = [UIColor whiteColor];
+            self.dayLabel.textColor = [UIColor blackColor];
         }
     }
 }
-@end
-#pragma mark - UIColorCategory
-@implementation UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
-{
-    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
-                           green:((hexValue >> 8) & 0x000000FF)/255.0f
-                            blue:((hexValue) & 0x000000FF)/255.0
-                           alpha:alpha];
-}
+
+
 @end

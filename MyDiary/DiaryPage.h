@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Diary.h"
+@protocol DiaryReloadDelegate <NSObject>
+
+@required - (void)reloadData;
+
+@end
 @interface DiaryPage : UIViewController
 - (IBAction)backBtn:(UIButton *)sender;
 - (IBAction)saveBtn:(UIButton *)sender;
@@ -17,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIView *textViewBackView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic,strong) UIViewController <DiaryReloadDelegate> *delegate;
 
 @property (nonatomic ,strong)Diary *diary;
 @property (assign, nonatomic) BOOL isNew;

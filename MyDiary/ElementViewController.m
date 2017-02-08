@@ -11,6 +11,7 @@
 #import "ElementPage.h"
 #import "TimeDealler.h"
 #import "DateDeal.h"
+#import "UIColorCategory.h"
 #define INITIALHEIGHT Iphone6ScaleHeight(100)
 @interface ElementViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -18,17 +19,19 @@
 
 @implementation ElementViewController
 - (void)viewWillAppear:(BOOL)animated {
-     _elementForMonthArray=[DateDeal dateDealFor:ViewControllerElement andDate:nil];
-    [_tableView reloadData];
+    [super viewWillAppear:animated];
+    [self reloadDate];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cellHeights = [[NSMutableArray alloc]init];
-    [self.view sizeToFit];
     [self setMyTableView];
 
-
     // Do any additional setup after loading the view from its nib.
+}
+- (void)reloadDate {
+    _elementForMonthArray=[DateDeal dateDealFor:ViewControllerElement andDate:nil];
+    [_tableView reloadData];
 }
 -(void)setMyTableView{
     NSLog(@"%f",_tableViewHeight);
@@ -42,6 +45,8 @@
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.estimatedRowHeight=Iphone6ScaleHeight(100);
+     
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -161,8 +166,7 @@
     Element * ele=_elementForMonthArray[[_monthArr[indexPath.section] integerValue]-1][indexPath.row];
     [ele deleteElement];
     [_elementForMonthArray[[_monthArr[indexPath.section] integerValue]-1] removeObjectAtIndex:indexPath.row];
-    _elementForMonthArray=[DateDeal dateDealFor:ViewControllerElement andDate:nil];
-    [_tableView reloadData];
+    [self reloadDate];
 }
 /*
  #pragma mark - Navigation

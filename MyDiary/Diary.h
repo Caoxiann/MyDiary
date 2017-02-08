@@ -24,6 +24,6 @@
 //+(void)updateDiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSString *)date currentDiary:(Diary *)diary;
 - (void)creatDiary;
 - (void)updateDiary;
-- (void)deletediary;
+- (void)deleteDiary;
 - (void)setDates;
 @end

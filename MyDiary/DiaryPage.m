@@ -91,9 +91,11 @@
 }
 
 - (IBAction)saveBtn:(UIButton *)sender {
+    [_textView resignFirstResponder];
+    [_textField resignFirstResponder];
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"保存成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
     _diary.title=_textField.text;
-    _diary.content=_textField.text;
+    _diary.content=_textView.text;
     if(_isNew){
         [_diary creatDiary];
     }else{

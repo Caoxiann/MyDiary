@@ -15,11 +15,11 @@
 @end
 @interface DiaryViewController : UIViewController
 @property (nonatomic,strong) UITableView *tableView;
-@property (nonatomic,strong) NSArray *diaryListArray;
-@property (nonatomic,strong) NSMutableArray <__kindof NSArray *> *diaryForMonthArray;
+@property (nonatomic,strong) NSMutableArray <__kindof NSMutableArray *> * cellHeights;
+@property (nonatomic,strong) NSMutableArray <__kindof NSMutableArray *> *diaryForMonthArray;
+@property (nonatomic,strong) NSMutableArray *monthArr;
 @property (nonatomic,strong) UIViewController <DiaryPageDelegate> *delegate;
 @property (nonatomic,assign) CGFloat tableViewHeight;
-@end
-@interface UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
+
+
 @end

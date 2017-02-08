@@ -7,6 +7,8 @@
 //
 
 #import "myTableViewCell.h"
+#import "UIColorCategory.h"
+
 @implementation myTableViewCell
 
 - (void)awakeFromNib {
@@ -56,6 +58,7 @@
     [_view1 setFrame:CGRectMake(Iphone6ScaleWidth(20), Iphone6ScaleHeight(10), Iphone6ScaleWidth(333), Iphone6ScaleHeight(80))];
     _view1.layer.cornerRadius=10;
     _view1.layer.masksToBounds = YES;
+    _view1.alpha=1;
     _detailView.alpha=0;
 }
 -(void)drawDetailView{
@@ -83,6 +86,7 @@
     UIFont *font=[UIFont fontWithName:@"HelveticaNeue" size:14.0f];
     [_contentLabel setFont:font];
     CGRect tmpRect = [_contentLabel.text boundingRectWithSize:CGSizeMake(Iphone6ScaleWidth(273), 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil];
+    NSLog(@"element:%f",tmpRect.size.height);
     [_detailView setFrame:CGRectMake(Iphone6ScaleWidth(20),Iphone6ScaleHeight(10), Iphone6ScaleWidth(333), Iphone6ScaleWidth(96)+tmpRect.size.height)];
     [_headView setFrame:CGRectMake(0, 0, _headView.superview.frame.size.width, Iphone6ScaleHeight(80))];
     [_contentLabel setFrame:CGRectMake(Iphone6ScaleWidth(33), Iphone6ScaleHeight(88), Iphone6ScaleWidth(273),tmpRect.size.height)];

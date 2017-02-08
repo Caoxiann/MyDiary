@@ -51,15 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)editingDidEnd:(UITextField *)sender {
     if(![_textField.text isEqualToString:_element.title]){
@@ -70,9 +62,12 @@
 }
 
 - (IBAction)saveBtn:(UIButton *)sender {
+    [_textView resignFirstResponder];
+    [_textField resignFirstResponder];
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"保存成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
     _element.title=_textField.text;
-    _element.content=_textField.text;
+    _element.content=_textView.text;
+    _element.isSelected=NO;
     if(_isNew){
         [_element creatElement];
     }else{
@@ -95,26 +90,27 @@
         [amin setSubtype:kCATransitionFromLeft];
         [self.navigationController.view.layer addAnimation:amin forKey:nil];
         [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"你还没保存呐！" message:@"确定要退出编辑吗？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDestructive handler:
+                          ^(UIAlertAction*action)
+                          {
+                              CATransition* amin=[CATransition animation];
+                              [amin setDuration:1];
+                              [amin setType:@"cube"];
+                              [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                              [amin setSubtype:kCATransitionFromLeft];
+                              [self.navigationController.view.layer addAnimation:amin forKey:nil];
+                              [self.navigationController popViewControllerAnimated:YES];
+                              
+                          }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"点错了" style:UIAlertActionStyleCancel handler:
+                          ^(UIAlertAction*action)
+                          {
+                              NSLog(@"点击了Cancel按钮");
+                          }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"你还没保存呐！" message:@"确定要退出编辑吗？" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDestructive handler:
-                       ^(UIAlertAction*action)
-                       {
-                           CATransition* amin=[CATransition animation];
-                           [amin setDuration:1];
-                           [amin setType:@"cube"];
-                           [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-                           [amin setSubtype:kCATransitionFromLeft];
-                           [self.navigationController.view.layer addAnimation:amin forKey:nil];
-                           [self.navigationController popViewControllerAnimated:YES];
-                           
-                       }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"点错了" style:UIAlertActionStyleCancel handler:
-                       ^(UIAlertAction*action)
-                       {
-                           NSLog(@"点击了Cancel按钮");
-                       }]];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)setTime:(UIButton *)sender {
@@ -187,5 +183,9 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_textView resignFirstResponder];
     [_textField resignFirstResponder];
+    if(!([_textView.text isEqualToString:_element.content]&&[_textField.text isEqualToString:_element.title])) {
+        
+    }
 }
+
 @end
