@@ -15,6 +15,7 @@
     [super awakeFromNib];
     [self drawView];
     [self setBackgroundColor:[UIColor clearColor]];
+    self.selectionStyle=UITableViewCellSelectionStyleNone;
     // Initialization code
 }
 - (void)drawView{

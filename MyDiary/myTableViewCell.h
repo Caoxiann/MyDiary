@@ -14,10 +14,19 @@
 #define Iphone6ScaleHeight(x) ((x) * LL_SCREEN_HEIGHT/667.0f)
 @interface myTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *view1;
-@property (weak, nonatomic) IBOutlet UIView *view2;
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
--(void)setElement:(Element *)element;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIView *detailView;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel2;
+@property (weak, nonatomic) IBOutlet UIView *headView;
+@property (strong, nonatomic) Element *element;
+- (NSString *)setMyElement:(Element *)element;
+- (void)drawDetailView;
+- (void)drawInitialView;
 @end

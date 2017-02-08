@@ -8,76 +8,113 @@
 
 #import "CalendarViewController.h"
 #import "NSDate+Formatter.h"
+#import "myTableViewCell.h"
+#import "DateDeal.h"
+#define INITIALHEIGHT Iphone6ScaleHeight(100)
 
-#define LL_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#define LL_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-#define Iphone6Scale(x) ((x) * LL_SCREEN_WIDTH /375.0f)
-#define Iphone6ScaleHeight(x) ((x)*LL_SCREEN_HEIGHT/667.0f)
 #define HeaderViewHeight 30
 #define WeekViewHeight 40
 @implementation MonthModel
 
 @end
-#pragma mark - UIColorCategory
-@interface UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
-@end
-@implementation UIColor (UIColor)
-+ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
-{
-    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
-                           green:((hexValue >> 8) & 0x000000FF)/255.0f
-                            blue:((hexValue) & 0x000000FF)/255.0
-                           alpha:alpha];
-}
-@end
-//---------------------------------------------------------------
+
+
 @interface CalendarViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dayModelArray;
 @property (strong, nonatomic) UILabel *dateLabel;
+@property (nonatomic,strong) NSMutableArray  * cellHeights;
+@property (nonatomic,strong) NSMutableArray * elementArray;
+@property (nonatomic,assign) CGFloat tableViewHeight;
+@property (nonatomic,assign) NSIndexPath *selecedDay;
+@property (nonatomic,strong) NSDate * today;
 
 @property (strong, nonatomic) NSDate *tempDate;
 @end
 
 @implementation CalendarViewController
 
-
-
+- (void)viewWillAppear:(BOOL)animated {
+    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
+    if(arr.count) {
+        _elementArray=arr[0];
+    }
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self drawView];
-
+    
     self.tempDate = [NSDate date];
     self.dateLabel.text = self.tempDate.yyyyMMByLineWithDate;
-    [self getDataDayModel:self.tempDate];
+    [self getDataDayModel:self.tempDate];//此函数中给_today赋值
+    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
+    if(arr.count) {
+        _elementArray=arr[0];
+    }
+    NSLog(@"%@",self.tableView);
 }
+#pragma mark -view
 -(void)drawView{
-    //UIImageView *imageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
-    // [self.view addSubview:imageView];
-    [self.view setBackgroundColor: [UIColor colorWithPatternImage: [UIImage imageNamed:@"background1"]]];
-
-    
+    [self.view setBackgroundColor:[UIColor colorWithHexValue:0XFCE7EC alpha:1]];
     _dateLabel =[[UILabel alloc]initWithFrame:CGRectMake(LL_SCREEN_WIDTH/2-50,Iphone6ScaleHeight(20), 100, 30 )];
     _dateLabel.textAlignment=NSTextAlignmentCenter;
     [self.view addSubview:_dateLabel];
-    UIButton * lastButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [lastButton setTitle:@"last month" forState:UIControlStateNormal];
-    [lastButton setFrame:CGRectMake(Iphone6Scale(10), Iphone6ScaleHeight(20), Iphone6Scale(100), Iphone6ScaleHeight(30))];
+    UIButton * lastButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [lastButton setImage:[UIImage imageNamed:@"last"] forState:UIControlStateNormal];
+    [lastButton setFrame:CGRectMake(Iphone6ScaleWidth(10), Iphone6ScaleHeight(20), Iphone6ScaleWidth(30), Iphone6ScaleHeight(30))];
     [lastButton setTintColor:[UIColor blackColor]];
     [self.view addSubview:lastButton];
     [lastButton addTarget:self action:@selector(lastButtonPressed) forControlEvents:UIControlEventTouchDown];
-    UIButton * nextButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [nextButton setTitle:@"next month" forState:UIControlStateNormal];
-    [nextButton setFrame:CGRectMake(LL_SCREEN_WIDTH-Iphone6Scale(110),Iphone6ScaleHeight(20), Iphone6Scale(100), Iphone6ScaleHeight(30))];
+    UIButton * nextButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [nextButton setImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
+    [nextButton setFrame:CGRectMake(LL_SCREEN_WIDTH-Iphone6ScaleWidth(40),Iphone6ScaleHeight(20), Iphone6ScaleWidth(30), Iphone6ScaleHeight(30))];
     [nextButton setTintColor:[UIColor blackColor]];
     [self.view addSubview:nextButton];
     [nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:self.collectionView]; //此处注意_collectionView 和 self.collectionView的区别
-    //[self.view addSubview:self.tableView];
+    [self.view addSubview:self.tableView];
 }
-
+- (UITableView *)tableView {
+    if(!_tableView) {
+        _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, _viewHeight) style:UITableViewStylePlain];
+        //_tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, _collectionView.frame.size.height+Iphone6ScaleHeight(20)+HeaderViewHeight, LL_SCREEN_WIDTH, _viewHeight-_collectionView.frame.size.height-Iphone6ScaleHeight(20)-HeaderViewHeight) style:UITableViewStylePlain];
+        [_tableView setBackgroundColor:[UIColor colorWithHexValue:0XFCE7EC alpha:1]];
+        
+        _tableView.delegate=self;
+        _tableView.dataSource=self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.estimatedRowHeight=Iphone6ScaleHeight(100);
+    }
+    return _tableView;
+}
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        NSInteger width = Iphone6ScaleWidth(45);
+        NSInteger height = Iphone6ScaleWidth(45);
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        flowLayout.itemSize = CGSizeMake(width, height);
+        flowLayout.headerReferenceSize = CGSizeMake(LL_SCREEN_WIDTH, HeaderViewHeight);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        flowLayout.minimumInteritemSpacing = 0;
+        flowLayout.minimumLineSpacing = 0;
+        
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(20, Iphone6ScaleHeight(50), self.view.bounds.size.width-40,Iphone6ScaleHeight(250)) collectionViewLayout:flowLayout];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.layer.cornerRadius=10;
+        _collectionView.layer.masksToBounds = YES;
+        
+        [_collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
+        [_collectionView registerClass:[CalendarHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CalendarHeaderView"];
+        
+    }
+    return _collectionView;
+}
+#pragma mark -buttonPressed
 - (void)lastButtonPressed {
     self.tempDate = [self getLastMonth:self.tempDate];
     self.dateLabel.text = self.tempDate.yyyyMMByLineWithDate;
@@ -90,6 +127,8 @@
     [self getDataDayModel:self.tempDate];
 }
 
+
+#pragma mark -日历数据加载
 - (void)getDataDayModel:(NSDate *)date{
     NSUInteger days = [self numberOfDaysInMonth:date];
     NSInteger week = [self startDayOfWeek:date];
@@ -105,6 +144,7 @@
             mon.dateValue = dayDate;
             if ([dayDate.yyyyMMddByLineWithDate isEqualToString:[NSDate date].yyyyMMddByLineWithDate]) {
                 mon.isToday = YES;
+                _today=[mon dateValue];
             }
             mon.isSelectedDay=NO;
             [self.dayModelArray addObject:mon];
@@ -138,6 +178,10 @@
     id mon = self.dayModelArray[indexPath.row];
     if ([mon isKindOfClass:[MonthModel class]]) {
         cell.monthModel = (MonthModel *)mon;
+        MonthModel *month=(MonthModel *)self.dayModelArray[indexPath.row];
+        if(month.isToday) {
+            _selecedDay=indexPath;
+        }
     }else{
         cell.dayLabel.text = @"";
     }
@@ -149,45 +193,48 @@
     CalendarHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"CalendarHeaderView" forIndexPath:indexPath];
     return headerView;
 }
-#pragma mark - didSelectItemAtIndexPath
+#pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     id mon = self.dayModelArray[indexPath.row];
     if ([mon isKindOfClass:[MonthModel class]]) {
         self.dateLabel.text = [(MonthModel *)mon dateValue].yyyyMMddByLineWithDate;
         MonthModel* mo=self.dayModelArray[indexPath.row];
-        if(mo.isSelectedDay)
-        {mo.isSelectedDay=NO;}
-        else{mo.isSelectedDay=YES;}
+        if(mo.isSelectedDay) {
+            mo.isSelectedDay=NO;
+            _selecedDay=nil;
+        }
+        else {
+            mo.isSelectedDay=YES;
+            if(_selecedDay) {
+                MonthModel* month= self.dayModelArray[_selecedDay.row];
+                month.isSelectedDay=NO;
+                //[self.dayModelArray replaceObjectAtIndex:_selecedDay.row withObject:month];
+                NSArray *arr=[[NSArray alloc]initWithObjects:_selecedDay, nil];
+                [_collectionView reloadItemsAtIndexPaths:arr];
+            }
+            _selecedDay=indexPath;
+        }
         CalendarCell* cell=(CalendarCell*)[collectionView cellForItemAtIndexPath:indexPath];
         cell.monthModel=mo;
+        if(_selecedDay==nil) {
+            NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
+            if(arr.count) {
+                _elementArray=arr[0];
+            }else {
+                _elementArray=nil;
+            }
+        }else {
+            NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[self.dayModelArray[_selecedDay.row] dateValue]];
+            if(arr.count) {
+                _elementArray=arr[0];
+            }else {
+                _elementArray=nil;
+            }
+        }
+        [_tableView reloadData];
     }
 }
 
-- (UICollectionView *)collectionView{
-    if (!_collectionView) {
-        NSInteger width = Iphone6Scale(45);
-        NSInteger height = Iphone6Scale(45);
-        
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize = CGSizeMake(width, height);
-        flowLayout.headerReferenceSize = CGSizeMake(LL_SCREEN_WIDTH, HeaderViewHeight);
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        flowLayout.minimumInteritemSpacing = 0;
-        flowLayout.minimumLineSpacing = 0;
-        
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(20, Iphone6ScaleHeight(50), self.view.bounds.size.width-40,Iphone6ScaleHeight(250)) collectionViewLayout:flowLayout];
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.layer.cornerRadius=10;
-        _collectionView.layer.masksToBounds = YES;
-
-        [_collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
-        [_collectionView registerClass:[CalendarHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CalendarHeaderView"];
-        
-    }
-    return _collectionView;
-}
 
 
 #pragma mark - Private
@@ -247,6 +294,88 @@
     comps.day = day;
     return [greCalendar dateFromComponents:comps];
 }
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"_elementArray.count:%lu",(unsigned long)_elementArray.count);
+    return _elementArray.count;
+}
+
+// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
+// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"CalendarCellForRowAtIndexPath");
+    static NSString *indetifier = @"myTableViewCell";
+    
+    myTableViewCell *cell = (myTableViewCell *)[tableView dequeueReusableCellWithIdentifier:indetifier];
+    
+    if(!cell){
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"myTableViewCell" owner:self options:nil] objectAtIndex:0];
+        NSLog(@"%@",cell);
+    }
+    Element * ele=_elementArray[indexPath.row];
+    [_elementArray replaceObjectAtIndex:indexPath.row withObject:[cell setMyElement:ele]];
+    ele=_elementArray[indexPath.row];
+    if(ele.isSelected) {
+        [cell drawDetailView];
+        if(!(_cellHeights.count>indexPath.row)){
+            [_cellHeights addObject:ele.cellHeight];
+        }else {
+            [_cellHeights replaceObjectAtIndex:indexPath.row withObject:ele.cellHeight];
+        }
+    }else{
+        [cell drawInitialView];
+        if(!(_cellHeights.count>indexPath.row)){
+            [_cellHeights addObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
+        }else {
+            [_cellHeights replaceObjectAtIndex:indexPath.row withObject:[NSString stringWithFormat:@"%f",INITIALHEIGHT]];
+        }
+        
+    }
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"CalendarHeightForRowAtIndexPath" );
+    NSString * height=(NSString *)_cellHeights[indexPath.row];
+    //NSLog(@"%@",height);
+    return [height floatValue];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Element * element =_elementArray[indexPath.row];
+    if([_cellHeights[indexPath.row] isEqualToString:[[NSString alloc]initWithFormat:@"%f",INITIALHEIGHT]]){
+        element.isSelected=YES;
+    }else{
+        element.isSelected=NO;
+        [self.delegate turnToElementPage:element];
+    }
+    [_elementArray replaceObjectAtIndex:indexPath.row withObject:element];
+    //NSLog(@"ElementDidSelectRowAtIndexPath");
+    //NSLog(@"%@",element.cellHeight);
+    NSArray * arr=[[NSArray alloc]initWithObjects:indexPath, nil];
+    [_tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationMiddle];
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Element * ele=_elementArray[indexPath.row];
+    [ele deleteElement];
+    [_elementArray removeObjectAtIndex:indexPath.row];
+    if(_selecedDay==nil) {
+        _elementArray=[DateDeal dateDealFor:ViewControllerCalendar andDate:_today];
+    }else {
+        _elementArray=[DateDeal dateDealFor:ViewControllerCalendar andDate:self.dayModelArray[_selecedDay.row]];
+    }
+    [_tableView reloadData];
+}
 
 @end
 
@@ -305,5 +434,13 @@
     }
 }
 @end
-
-
+#pragma mark - UIColorCategory
+@implementation UIColor (UIColor)
++ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
+{
+    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
+                           green:((hexValue >> 8) & 0x000000FF)/255.0f
+                            blue:((hexValue) & 0x000000FF)/255.0
+                           alpha:alpha];
+}
+@end

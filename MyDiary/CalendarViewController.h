@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Element.h"
+
+@protocol ElementPageDelegateInCVC <NSObject>
+
+@required -(void)turnToElementPage:(Element *)element;
+
+@end
 @class MonthModel;
 //控制器
 @interface CalendarViewController : UIViewController
-@property (strong, nonatomic) NSMutableArray * selectDays;
+@property (strong, nonatomic) UIViewController <ElementPageDelegateInCVC > *delegate;
+@property (nonatomic,assign) CGFloat viewHeight;
 @end
 
 //CollectionViewHeader
@@ -30,4 +38,9 @@
 @property (strong, nonatomic) NSDate *dateValue;
 @property (assign, nonatomic) BOOL isToday;
 @property (assign, nonatomic) BOOL isSelectedDay;
+@end
+
+
+@interface UIColor (UIColor)
++ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha;
 @end

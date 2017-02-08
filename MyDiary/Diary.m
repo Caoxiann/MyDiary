@@ -10,7 +10,7 @@
 #import "SqlService.h"
 
 @implementation Diary
-+(void)creatdiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSMutableDictionary *)date{
+/*+(void)creatdiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSMutableDictionary *)date{
     Diary *diary=[[Diary alloc]init];
     diary.content=content;
     diary.time=time;
@@ -24,11 +24,17 @@
     diary.date=date;
     [diary setDates];
     [[SqlService sqlInstance] updateDiaryDBtable:diary];
+}*/
+- (void)creatDiary {
+    [[SqlService sqlInstance] insertDiaryDBtable:self];
 }
-+(void)deletediary:(Diary *)diary{
-    [[SqlService sqlInstance]deleteDiary:diary];
+- (void)updateDiary {
+    [[SqlService sqlInstance] updateDiaryDBtable:self];
 }
--(void)setDates{
+- (void)deletediary {
+    [[SqlService sqlInstance]deleteDiary:self];
+}
+- (void)setDates {
     self.year=[self.date objectForKey:@"year"];
     self.month=[self.date objectForKey:@"month"];
     self.day=[self.date objectForKey:@"day"];

@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Element.h"
-#import "Diary.h"
 #import "ElementPage.h"
 #import "DiaryPage.h"
 #import "ElementViewController.h"
@@ -17,6 +15,8 @@
 
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
 - (IBAction)segment:(UISegmentedControl *)sender;
 - (IBAction)setButton:(UIButton *)sender;
 - (IBAction)addButton:(UIButton *)sender;

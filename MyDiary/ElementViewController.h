@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Element.h"
+
+@protocol ElementPageDelegate <NSObject>
+
+@required -(void)turnToElementPage:(Element *)element;
+
+@end
 
 @interface ElementViewController : UIViewController
-@property (nonatomic,strong)  UITableView *tableView;
-@property (nonatomic,strong)NSArray * elementListArray;
-@property (nonatomic,strong)NSMutableArray <__kindof NSArray *> * elementForMonthArray;
-
+@property (nonatomic,strong) UITableView * tableView;
+@property (nonatomic,strong) NSMutableArray <__kindof NSMutableArray *> * cellHeights;
+@property (nonatomic,strong) NSMutableArray <__kindof NSMutableArray *> * elementForMonthArray;
+@property (nonatomic,strong) UIViewController<ElementPageDelegate> * delegate;
+@property (nonatomic,assign) CGFloat tableViewHeight;
+@property (nonatomic,strong) NSMutableArray *monthArr;
 @end

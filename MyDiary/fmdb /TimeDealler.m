@@ -9,7 +9,7 @@
 #import "timeDealler.h"
 
 @implementation TimeDealler
-+(NSMutableDictionary *)getCurrentDate{
++(NSMutableDictionary *)getCurrentDate {
     NSMutableDictionary *dateDic=[[NSMutableDictionary alloc]init];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy"];
@@ -19,14 +19,21 @@
     [formatter setDateFormat:@"dd"];
     NSString * day=[formatter stringFromDate:[NSDate date]];
 
-
     [dateDic setObject:year forKey:@"year"];
     [dateDic setObject:month forKey:@"month"];
     [dateDic setObject:day forKey:@"day"];
     
     return dateDic;
 }
-+(NSString *)getCurrentTime{
+/*
++(NSString *)getCurrentDate {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    NSString * date = [formatter stringFromDate:[NSDate date]];
+    return date;
+}
+*/
++(NSString *)getCurrentTime {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"HH:mm"];
     NSString * time=[formatter stringFromDate:[NSDate date]];

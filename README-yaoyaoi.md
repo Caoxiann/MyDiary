@@ -3,3 +3,4 @@
 ##第三方库使用
 * 数据本地化：[FMDB](https://github.com/ccgus/fmdb)
 * 日历：[LLCalendar](https://github.com/LvJianfeng/LLCalendar)
+* UITableViewCell行高自适应：[UITableView-FDTemplateLayoutCell](https://github.com/forkingdog/UITableView-FDTemplateLayoutCell)

@@ -55,7 +55,7 @@ static SqlService *sqlService;
 -(void)setSqlDB{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documents = [paths objectAtIndex:0];
-    dataBasePath = [documents stringByAppendingPathComponent:@"DemoOfNotes.sqlite"];
+    dataBasePath = [documents stringByAppendingPathComponent:@"MyDiary.sqlite"];
     db  = [FMDatabase databaseWithPath:dataBasePath];
 }
 //--------------------------------------------------------
@@ -63,7 +63,7 @@ static SqlService *sqlService;
 -(void)createElementTable
 {
     if([db open]){
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ElEMENTTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,YEAR TEXT,MONTH TEXT,DAY TEXT)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS ElEMENTTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,YEAR TEXT,MONTH TEXT,DAY TEXT,TITLE TEXT,LOCATION TEXT)"];
         BOOL res = [db executeUpdate:sqlCreateTable];
         
         if(!res){
@@ -79,7 +79,7 @@ static SqlService *sqlService;
 -(void)createDiaryTable
 {
     if([db open]){
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS DIARYTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,DATE TEXT)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS DIARYTABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,TIME TEXT,YEAR TEXT,MONTH TEXT,DAY TEXT,TITLE TEXT,LOCATION TEXT)"];
         BOOL res = [db executeUpdate:sqlCreateTable];
         
         if(!res){
@@ -97,7 +97,7 @@ static SqlService *sqlService;
     [self createElementTable];
     
     if([db open]){
-        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@','%@','%@')VALUES ('%@','%@','%@','%@','%@')",@"elementtable",@"content",@"time",@"year",@"month",@"day",element.content,element.time,element.year,element.month,element.day];
+        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@','%@','%@','%@','%@')VALUES ('%@','%@','%@','%@','%@','%@','%@')",@"elementtable",@"content",@"time",@"year",@"month",@"day",@"title",@"location",element.content,element.time,element.year,element.month,element.day,element.title,element.location];
         BOOL res = [db executeUpdate:sqlInsertTable];
         if(!res){
             NSLog(@"插入失败");
@@ -113,7 +113,7 @@ static SqlService *sqlService;
     [self createDiaryTable];
     
     if([db open]){
-        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@')VALUES ('%@','%@','%@')",@"diarytable",@"content",@"time",@"date",diary.content,diary.time,diary.date];
+        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@','%@','%@','%@','%@')VALUES ('%@','%@','%@','%@','%@','%@','%@')",@"diarytable",@"content",@"time",@"year",@"month",@"day",@"title",@"location",diary.content,diary.time,diary.year,diary.month,diary.day,diary.title,diary.location];
         BOOL res = [db executeUpdate:sqlInsertTable];
         if(!res){
             NSLog(@"插入失败");
@@ -127,7 +127,7 @@ static SqlService *sqlService;
 
 -(void)updateElementDBtable:(Element *)element{
     if([db open]){
-        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' ,'%@' = '%@','%@' = '%@','%@' = '%@', WHERE %@ = %ld",@"elementtable",@"content",element.content,@"time",element.time,@"year",element.year,@"month",element.month,@"day",element.day ,@"ID",(long)element.elementID];
+        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' ,'%@' = '%@','%@' = '%@','%@' = '%@', '%@' = '%@','%@' = '%@' WHERE %@ = %ld",@"elementtable",@"content",element.content,@"time",element.time,@"year",element.year,@"month",element.month,@"day",element.day ,@"title",element.title,@"location",element.location,@"id",element.elementID];
         NSLog(@"%@",sqlUpdeteTable);
         BOOL res = [db executeUpdate:sqlUpdeteTable];
         if(!res){
@@ -141,7 +141,7 @@ static SqlService *sqlService;
 }
 -(void)updateDiaryDBtable:(Diary *)diary{
     if([db open]){
-        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@' WHERE %@ = %ld",@"diarytable",@"content",diary.content,@"time",diary.time,@"date",diary.date,@"id",(long)diary.diaryID];
+        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE '%@' SET '%@' = '%@' , '%@' = '%@' ,'%@' = '%@','%@' = '%@','%@' = '%@', '%@' = '%@','%@' = '%@' WHERE %@ = %ld",@"diarytable",@"content",diary.content,@"time",diary.time,@"year",diary.year,@"month",diary.month,@"day",diary.day,@"title",diary.title,@"location",diary.location,@"id",diary.diaryID];
         NSLog(@"%@",sqlUpdeteTable);
         BOOL res = [db executeUpdate:sqlUpdeteTable];
         if(!res){
@@ -202,10 +202,7 @@ static SqlService *sqlService;
             element.year= [rs stringForColumn:@"year"];
             element.month=[rs stringForColumn:@"month"];
             element.day=[rs stringForColumn:@"day"];
-            element.date=[[NSMutableDictionary alloc]init];
-            [element.date setObject:element.year forKey:@"year"];
-            [element.date setObject:element.month forKey:@"month"];
-            [element.date setObject:element.day forKey:@"day"];
+            element.title=[rs stringForColumn:@"title"];
             [array addObject:element];
         }
         [db close];
@@ -213,6 +210,42 @@ static SqlService *sqlService;
     }
     return nil;
 
+}
+-(NSArray *)queryElementDBtable:(NSDate *)date {
+    [self createElementTable];
+    
+    NSMutableArray *array  = [NSMutableArray array];
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy"];
+    NSString *year=[formatter stringFromDate:date];
+    [formatter setDateFormat:@"MM"];
+    NSString *month=[formatter stringFromDate:date];
+    [formatter setDateFormat:@"dd"];
+    NSString *day=[formatter stringFromDate:date];
+    if([db open]){
+        NSString *sql = [NSString stringWithFormat:@"SELECT *FROM %@ WHERE %@ = %@",@"elementtable",@"year",year];;
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next]) {
+            if(month==[rs stringForColumn:@"month"]) {
+                if(day==[rs stringForColumn:@"day"]) {
+                    Element*element=[[Element alloc]init];
+                    element.elementID = [rs intForColumn:@"id"];
+                    element.content = [rs stringForColumn:@"content"];
+                    element.time = [rs stringForColumn:@"time"];
+                    element.year= [rs stringForColumn:@"year"];
+                    element.month=[rs stringForColumn:@"month"];
+                    element.day=[rs stringForColumn:@"day"];
+                    element.title=[rs stringForColumn:@"title"];
+                    [array addObject:element];
+                }
+            }
+        }
+        [db close];
+        return [array copy];
+    }
+    return nil;
+
+    
 }
 -(NSArray *)queryDiaryDBtable{
     [self createDiaryTable];
@@ -227,7 +260,11 @@ static SqlService *sqlService;
             diary.diaryID = [rs intForColumn:@"id"];
             diary.content = [rs stringForColumn:@"content"];
             diary.time = [rs stringForColumn:@"time"];
-            diary.date= [rs stringForColumn:@"date"];
+            diary.year= [rs stringForColumn:@"year"];
+            diary.month=[rs stringForColumn:@"month"];
+            diary.day=[rs stringForColumn:@"day"];
+            diary.title=[rs stringForColumn:@"title"];
+            diary.location=[rs stringForColumn:@"location"];
             [array addObject:diary];
         }
         [db close];

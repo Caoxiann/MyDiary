@@ -11,6 +11,7 @@
 #import "Diary.h"
 #import "DiaryPage.h"
 #import "TimeDealler.h"
+
 @interface DiaryViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -35,7 +36,14 @@
     [dia2 setTitle:@"今天的日记"];
     [dia2 setContent:@"今天打了一下午麻将，输了一下午"];
     
-    NSMutableArray * arr=[[NSMutableArray alloc]initWithObjects:dia,dia2, nil];
+    Diary * dia3=[[Diary alloc]init];
+    [dia3 setDate:[TimeDealler getCurrentDate]];
+    [dia3 setDates];
+    [dia3 setTime:[TimeDealler getCurrentTime]];
+    [dia3 setTitle:@"今天的日记"];
+    [dia3 setContent:@"今天上山啦，山上没有网，不能查资料好难过啊，不过倒是可以安心看书啦啊，至少没人陪我打麻将啦"];
+    
+    NSMutableArray * arr=[[NSMutableArray alloc]initWithObjects:dia,dia2,dia3, nil];
     _diaryForMonthArray=[[NSMutableArray alloc]init];
     [_diaryForMonthArray addObject:arr];
     // Do any additional setup after loading the view.
@@ -51,8 +59,7 @@
     return self;
 }
 -(void)setMyTableView{
-    _tableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    [_tableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-155)];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,_tableViewHeight) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     UIImageView* backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
     [backgroundView setFrame:self.view.bounds];
@@ -84,6 +91,8 @@
     }
     Diary *diary=_diaryForMonthArray[indexPath.section][indexPath.row];
     [cell setDiary:diary];
+    NSLog(@"diaryHeightForRowAtIndexPath");
+    
     return cell.height;
 }
 #pragma mark - UITableViewDataSource
@@ -104,6 +113,7 @@
     }
     Diary *diary=_diaryForMonthArray[indexPath.section][indexPath.row];
     [cell setDiary:diary];
+    NSLog(@"diaryCellForRowAtIndexPath");
     return cell;
 }
 
@@ -127,4 +137,15 @@
  }
  */
 
+@end
+#pragma mark - UIColorCategory
+
+@implementation UIColor (UIColor)
++ (UIColor *)colorWithHexValue:(NSUInteger)hexValue alpha:(CGFloat)alpha
+{
+    return [UIColor colorWithRed:((hexValue >> 16) & 0x000000FF)/255.0f
+                           green:((hexValue >> 8) & 0x000000FF)/255.0f
+                            blue:((hexValue) & 0x000000FF)/255.0
+                           alpha:alpha];
+}
 @end
