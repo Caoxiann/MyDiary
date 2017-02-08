@@ -8,15 +8,15 @@
 
 #import "CalendarViewController.h"
 
-@interface CalenderViewController ()
+@interface CalendarViewController ()
 
 @end
 
-@implementation CalenderViewController
+@implementation CalendarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.view setBackgroundColor:[UIColor yellowColor]];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

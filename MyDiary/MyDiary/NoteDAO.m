@@ -1,25 +1,26 @@
 //
-//  DiaryDAO.m
+//  NOteDAO.m
 //  MyDiary
 //
 //  Created by tinoryj on 2017/1/31.
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
 
-#import "DiaryDAO.h"
+#import "NoteDAO.h"
 
-@implementation DiaryDAO
+@implementation NoteDAO
 
 
-static DiaryDAO *sharedManager = nil;
+static NoteDAO *sharedManager = nil;
 
-+ (DiaryDAO*)sharedManager {
-    
++ (NoteDAO*)sharedManager
+{
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         
         sharedManager = [[self alloc] init];
         [sharedManager createEditableCopyOfDatabaseIfNeeded];
+        
         
     });
     return sharedManager;
@@ -49,14 +50,14 @@ static DiaryDAO *sharedManager = nil;
 
 - (NSString *)applicationDocumentsDirectoryFile {
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path = [documentDirectory stringByAppendingPathComponent:DIARY_DBFILE_NAME];
+    NSString *path = [documentDirectory stringByAppendingPathComponent:NOTE_DBFILE_NAME];
     
     return path;
 }
 
 
 //插入Note方法
--(int) create:(Diary*)model
+-(int) create:(Note*)model
 {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -101,7 +102,7 @@ static DiaryDAO *sharedManager = nil;
 }
 
 //删除Note方法
--(int) remove:(Diary*)model
+-(int) remove:(Note*)model
 {
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
@@ -137,7 +138,7 @@ static DiaryDAO *sharedManager = nil;
 }
 
 //修改Note方法
--(int) modify:(Diary*)model
+-(int) modify:(Note*)model
 {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -214,9 +215,9 @@ static DiaryDAO *sharedManager = nil;
                 char *bufLocation = (char *) sqlite3_column_text(statement, 3);
                 NSString * strLocation = [[NSString alloc] initWithUTF8String: bufLocation];
                 
-                Diary* diary = [[Diary alloc]initWithDate:date title:strTitle content:strContent location:strLocation];
+                Note* note = [[Note alloc]initWithDate:date title:strTitle content:strContent location:strLocation];
                 
-                [listData addObject:diary];
+                [listData addObject:note];
             }
         }
         
@@ -228,7 +229,7 @@ static DiaryDAO *sharedManager = nil;
 }
 
 //按照主键查询数据方法
--(Diary*) findById:(Diary*)model
+-(Note*) findById:(Note*)model
 {
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -267,12 +268,12 @@ static DiaryDAO *sharedManager = nil;
                 char *bufLocation = (char *) sqlite3_column_text(statement, 3);
                 NSString * strLocation = [[NSString alloc] initWithUTF8String: bufLocation];
                 
-                Diary* diary = [[Diary alloc]initWithDate:date title:strTitle content:strContent location:strLocation];
+                Note* note = [[Note alloc]initWithDate:date title:strTitle content:strContent location:strLocation];
                 
                 sqlite3_finalize(statement);
                 sqlite3_close(db);
                 
-                return diary;
+                return note;
             }
         }
         

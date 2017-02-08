@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalenderViewController : UIViewController
+@interface CalendarViewController : UIViewController
 
 
 @end

@@ -1,14 +1,14 @@
 //
-//  Diary.m
+//  Note.m
 //  MyDiary
 //
 //  Created by tinoryj on 2017/1/31.
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
 
-#import "Diary.h"
+#import "Note.h"
 
-@implementation Diary
+@implementation Note
 
 -(id)initWithDate:(NSDate*)date title:(NSString *)title content:(NSString *)content location:(NSString *)location{
     
@@ -19,9 +19,14 @@
         self.title = title;
         self.content = content;
         self.location = location;
+        
     }
     
     return self;
 }
+
+
+
+//var note = Note(date: NSDate(), content: self.txtView.text)
 
 @end

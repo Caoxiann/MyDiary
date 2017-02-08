@@ -1,19 +1,16 @@
 //
 //  DiaryDAO.h
-//  MyDiaryFOOO
+//  MyDiary
 //
 //  Created by tinoryj on 2017/1/31.
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
 
-#ifndef DiaryDAO_h
-#define DiaryDAO_h
-
 #import <Foundation/Foundation.h>
 #import "Diary.h"
 #import "sqlite3.h"
 
-#define DBFILE_NAME @"NotesList.sqlite3"
+#define DIARY_DBFILE_NAME @"DiaryList.sqlite3"
 
 
 @interface DiaryDAO : NSObject
@@ -45,4 +42,3 @@
 
 @end
 
-#endif /* DiaryDAO_h */
