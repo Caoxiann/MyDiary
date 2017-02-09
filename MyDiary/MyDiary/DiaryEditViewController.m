@@ -7,6 +7,8 @@
 //
 
 #import "DiaryEditViewController.h"
+#import "Note.h"
+#import "NoteBL.h"
 
 @interface DiaryEditViewController ()
 
@@ -16,22 +18,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor redColor]];
+    [self configureView];
+    
 }
+
+#pragma mark - Managing the detail item
+
+- (void)setDetailItem:(id)newDetailItem {
+    if (_detailItem != newDetailItem) {
+        _detailItem = newDetailItem;
+        
+        // Update the view.
+        [self configureView];
+    }
+}
+
+- (void)configureView {
+    if (self.detailItem) {
+        Note* note = self.detailItem;
+        UILabel *detailDescriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width, 300)];
+        [detailDescriptionLabel setTextColor:[UIColor blackColor]];
+        [detailDescriptionLabel setBackgroundColor:[UIColor yellowColor]];
+        [self.view addSubview:detailDescriptionLabel];
+        detailDescriptionLabel.text = note.content;
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

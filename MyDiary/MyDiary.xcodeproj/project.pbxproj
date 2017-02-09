@@ -28,6 +28,7 @@
 		42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */; };
 		42EDF39F1E4AEB34002477C5 /* NoteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */; };
 		42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */; };
+		42EDF3A41E4B70CE002477C5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42EDF3A31E4B70CE002477C5 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCreateViewController.h; sourceTree = "<group>"; };
 		42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCreateViewController.m; sourceTree = "<group>"; };
 		42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
+		42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDiary.entitlements; sourceTree = "<group>"; };
+		42EDF3A31E4B70CE002477C5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42EDF3A41E4B70CE002477C5 /* MapKit.framework in Frameworks */,
 				4211D8971E40263500D03C4F /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +146,7 @@
 		4211D8551E40246E00D03C4F /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
+				42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */,
 				4211D8941E4025D000D03C4F /* PresentationLayer */,
 				4211D8931E4024D400D03C4F /* BusinessLogicLayer */,
 				4211D8921E4024C800D03C4F /* PersistenceLayer */,
@@ -233,6 +238,7 @@
 		4211D8951E40263500D03C4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42EDF3A31E4B70CE002477C5 /* MapKit.framework */,
 				4211D8961E40263500D03C4F /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -307,6 +313,14 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = S3QSH37693;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					4211D86B1E40246E00D03C4F = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -530,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
 				INFOPLIST_FILE = MyDiary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -544,6 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
 				INFOPLIST_FILE = MyDiary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -10,4 +10,6 @@
 
 @interface DiaryEditViewController : UIViewController
 
+@property (strong, nonatomic) id detailItem;
+
 @end

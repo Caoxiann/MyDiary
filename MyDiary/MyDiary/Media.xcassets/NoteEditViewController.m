@@ -25,10 +25,8 @@
     [editNav setBarTintColor:blueThemeColor];
     
     
-    
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onclickSave:)];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onclickDone:)];
-    
     
     self.navigationController.navigationItem.rightBarButtonItem = cancelButton;
     self.navigationController.navigationItem.leftBarButtonItem = saveButton;
