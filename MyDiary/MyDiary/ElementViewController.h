@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Note.h"
 #import "NoteBL.h"
-#import "NoteCreateViewController.h"
 #import "NoteEditViewController.h"
 
 @interface ElementViewController : UIViewController

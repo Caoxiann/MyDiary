@@ -22,7 +22,7 @@
     self.noteBl = [[NoteBL alloc] init];
     Note *note = [[Note alloc] init];
     note.date = [[NSDate alloc] init];
-    note.title = @"1234";
+    note.title = @"工作";
     note.content = @"Test for storage";
     note.location = @"测试地点：山西省太原市";
     [self.noteBl createNote: note];
@@ -41,8 +41,6 @@
     [self titleLableInit];
     [self buildSegmentControl];
     [self buildToolBar];
-    
-    
 }
 //主题设置
 - (void)themeSetting {
@@ -53,13 +51,9 @@
     //控件大小设置
     _deviceScreenSize = [UIScreen mainScreen].bounds.size;
     _buttonRect = CGRectMake(0, 0, 20, 20);
-    
     //属性设置
     self.navigationController.navigationBar.hidden=YES;
     self.navigationController.toolbar.hidden=NO;
-    //self.navigationController.toolbar.translucent=NO;
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,24 +76,7 @@
     _elementVC = [[ElementViewController alloc]init];
     [_elementVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_elementVC];
-    _diaryVC = [[DiaryViewController alloc]init];
-    [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-    [self addChildViewController:_diaryVC];
-    _calendarVC = [[CalendarViewController alloc]init];
-    [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-    [self addChildViewController:_calendarVC];
-    _noteCreateVC = [[NoteCreateViewController alloc]init];
-    [_noteCreateVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-    [self addChildViewController:_noteCreateVC];
-    _diaryCreateVC = [[DiaryCreateViewController alloc]init];
-    [_diaryCreateVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-    [self addChildViewController:_diaryCreateVC];
-    
-    [self.view addSubview:self.diaryVC.view];
-    [self.view addSubview:self.calendarVC.view];
     [self.view addSubview:self.elementVC.view];
-    [self.view addSubview:self.noteCreateVC.view];
-    [self.view addSubview:self.diaryCreateVC.view];
 }
 
 - (void)buildSegmentControl {
@@ -132,11 +109,19 @@
     if (baseSegmentControl.selectedSegmentIndex == 1){
 
         [_titleLabel setText:@"CALENDER"];
+        _calendarVC = [[CalendarViewController alloc]init];
+        [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+        [self addChildViewController:_calendarVC];
+        [self.view addSubview:self.calendarVC.view];
         [self.view bringSubviewToFront:_calendarVC.view];
     }
     if (baseSegmentControl.selectedSegmentIndex == 2){
         
         [_titleLabel setText:@"DIARY"];
+        _diaryVC = [[DiaryViewController alloc]init];
+        [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+        [self addChildViewController:_diaryVC];
+        [self.view addSubview:self.diaryVC.view];
         [self.view bringSubviewToFront:_diaryVC.view];
     }
     
@@ -188,9 +173,6 @@
     [baseToolbar setItems:baseToolBarItem];
     [self.view addSubview:baseToolbar];
     
-    
-
-    
     //项目数显示lable
     _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake(_deviceScreenSize.width - 70,_deviceScreenSize.height - 24 - (_buttonRect.size.height / 2), 70, _buttonRect.size.height)];
     [_itemShowLabel setTextColor:[UIColor whiteColor]];
@@ -201,9 +183,7 @@
 
 -(void)catchItemNumber{
 
-    self.NoteListData = [self.noteBl findAll];
-    itemNumber = [_NoteListData count];
-    
+    itemNumber = [_elementVC.listData count];
     NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
     [_itemShowLabel setText:itemNumberShow];
 }

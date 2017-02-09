@@ -17,8 +17,7 @@
 #import "ElementViewController.h"
 #import "DiaryViewController.h"
 #import "CalendarViewController.h"
-#import "NoteCreateViewController.h"
-#import "DiaryCreateViewController.h"
+
 @interface ViewController : UIViewController
 {
     NSInteger itemNumber;
@@ -32,10 +31,6 @@
 
 @property (nonatomic,strong) UIViewController *currentVC;
 
-@property (nonatomic,strong) NoteCreateViewController *noteCreateVC;
-
-@property (nonatomic,strong) DiaryCreateViewController *diaryCreateVC;
-
 @property (nonatomic) CGSize deviceScreenSize;
 
 @property (nonatomic) CGRect buttonRect;
@@ -48,9 +43,6 @@
 
 @property (nonatomic,retain) UILabel *itemShowLabel;
 
-//保存数据列表
-@property (nonatomic,strong) NSMutableArray* NoteListData;
-@property (nonatomic,strong) NSMutableArray* DiaryListData;
 //保存数据列表
 @property (nonatomic,strong) NoteBL* noteBl;
 @property (nonatomic,strong) DiaryBL* diaryBl;

@@ -26,6 +26,7 @@
     
     UITableView *diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
     [diaryShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    diaryShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.view addSubview:diaryShowTableView];
     UIImage *backImage=[UIImage imageNamed:@"background1"];
     diaryShowTableView.layer.contents=(id)backImage.CGImage;
@@ -165,7 +166,7 @@
 //编辑按钮点击
 -(void)charactersButtonAction
 {
-    DiaryCreateViewController *createVC = [[DiaryCreateViewController alloc]init];
+    DiaryEditViewController *createVC = [[DiaryEditViewController alloc]init];
     [self.navigationController pushViewController:createVC animated:YES];
 }
 

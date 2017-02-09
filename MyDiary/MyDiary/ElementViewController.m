@@ -15,6 +15,7 @@
 
 @property (nonatomic,strong)NSMutableArray *monthDetail;
 
+@property (nonatomic,strong)UITableView *elementShowTableView;
 
 @end
 
@@ -24,16 +25,15 @@
     [super viewDidLoad];
     [self themeSetting];
 
-    UITableView *elementShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
-    //坑点：与日记中的第一个section无法对齐，添加header空间弥补
-    elementShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-    [elementShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view addSubview:elementShowTableView];
+    _elementShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
+    _elementShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    [_elementShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view addSubview:_elementShowTableView];
     UIImage *backImage=[UIImage imageNamed:@"background1"];
-    elementShowTableView.layer.contents=(id)backImage.CGImage;
-    elementShowTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
-    [elementShowTableView setDelegate:self];
-    [elementShowTableView setDataSource:self];
+    _elementShowTableView.layer.contents=(id)backImage.CGImage;
+    _elementShowTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
+    [_elementShowTableView setDelegate:self];
+    [_elementShowTableView setDataSource:self];
     
     self.bl = [[NoteBL alloc] init];
     self.listData = [self.bl findAll];
@@ -164,10 +164,10 @@
     return [_monthInTable count];
 }
 
-//编辑按钮点击
+//创建按钮点击
 -(void)charactersButtonAction
 {
-    NoteCreateViewController *createVC = [[NoteCreateViewController alloc]init];
+    NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
     [self.navigationController pushViewController:createVC animated:YES];
 }
 
@@ -312,8 +312,7 @@
         NoteBL *bl = [[NoteBL alloc]init];
         self.listData = [bl removeNote:noteTemp];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-         [tableView reloadData];
+        [tableView reloadData];
     }
 }
 

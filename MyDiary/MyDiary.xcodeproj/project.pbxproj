@@ -23,9 +23,7 @@
 		42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3891E49C4F0002477C5 /* NoteBL.m */; };
 		42EDF38E1E49C4F0002477C5 /* NoteDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF38B1E49C4F0002477C5 /* NoteDAO.m */; };
 		42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */; };
-		42EDF3991E4AEAED002477C5 /* DiaryCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */; };
 		42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */; };
-		42EDF39F1E4AEB34002477C5 /* NoteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */; };
 		42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */; };
 		42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */; };
 		42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */; };
@@ -84,12 +82,8 @@
 		42EDF38B1E49C4F0002477C5 /* NoteDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDAO.m; sourceTree = "<group>"; };
 		42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryEditViewController.h; sourceTree = "<group>"; };
 		42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryEditViewController.m; sourceTree = "<group>"; };
-		42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryCreateViewController.h; sourceTree = "<group>"; };
-		42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryCreateViewController.m; sourceTree = "<group>"; };
 		42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEditViewController.h; path = Media.xcassets/NoteEditViewController.h; sourceTree = "<group>"; };
 		42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEditViewController.m; path = Media.xcassets/NoteEditViewController.m; sourceTree = "<group>"; };
-		42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCreateViewController.h; sourceTree = "<group>"; };
-		42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCreateViewController.m; sourceTree = "<group>"; };
 		42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
 		42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDiary.entitlements; sourceTree = "<group>"; };
 		42EDF3A31E4B70CE002477C5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -227,14 +221,10 @@
 				42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */,
 				4211D89F1E40498100D03C4F /* CalendarViewController.h */,
 				4211D8A01E40499C00D03C4F /* CalendarViewController.m */,
-				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
-				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
 				42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */,
 				42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */,
-				42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */,
-				42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */,
-				42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */,
-				42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */,
+				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
+				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
 			);
 			name = PresentationLayer;
 			sourceTree = "<group>";
@@ -394,7 +384,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */,
-				42EDF3991E4AEAED002477C5 /* DiaryCreateViewController.m in Sources */,
 				4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */,
 				4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */,
 				42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */,
@@ -402,7 +391,6 @@
 				4211D8901E4024B800D03C4F /* DiaryDAO.m in Sources */,
 				4211D8911E4024B800D03C4F /* Diary.m in Sources */,
 				42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */,
-				42EDF39F1E4AEB34002477C5 /* NoteCreateViewController.m in Sources */,
 				42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */,
 				4211D8581E40246E00D03C4F /* main.m in Sources */,
 				4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */,

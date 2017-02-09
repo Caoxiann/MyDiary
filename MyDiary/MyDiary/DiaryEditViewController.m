@@ -206,11 +206,11 @@
     NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
     NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
     NSLog(@"%3.5f\n",self.currLocation.altitude);
-    NSString *blank = [NSString stringWithFormat:@"%@   ",_currentPage.location];
+    //NSString *blank = [NSString stringWithFormat:@"%@   ",_currentPage.location];
     NSString *location3 = [NSString stringWithFormat:@"经度:%3.2f 纬度:%3.2f 高度:%3.2f",self.currLocation.coordinate.longitude,self.currLocation.coordinate.latitude,self.currLocation.altitude];
     if(_currentPage.location){
         
-        _locationView.text = [blank stringByAppendingString:location3];
+        _locationView.text = _currentPage.location;
     }
     else{
         
@@ -297,8 +297,17 @@
         
         //修改操作
         DiaryBL *bl = [[DiaryBL alloc]init];
+        //_currentPage = [[Diary alloc]init];
         Diary *diary = _currentPage;
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未命名项目";
+            [_contentText setText:noContent];
+        }
         diary.title = _titleSettingField.text;
         diary.content = _contentText.text;
         diary.location = _locationView.text;
@@ -308,8 +317,17 @@
     else{
         
         DiaryBL *bl = [[DiaryBL alloc]init];
+        _currentPage = [[Diary alloc]init];
         Diary *diary = _currentPage;
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未命名项目";
+            [_contentText setText:noContent];
+        }
         diary.title = _titleSettingField.text;
         diary.content = _contentText.text;
         diary.location = _locationView.text;
