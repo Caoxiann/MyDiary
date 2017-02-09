@@ -7,14 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "NoteBL.h"
 #import "Note.h"
+
+#define deviceWidth [UIScreen mainScreen].bounds.size.width
+#define deviceHeight [UIScreen mainScreen].bounds.size.height
+
+
 @interface NoteEditViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *txtView;
+@property (nonatomic,strong)Note *currentPage;
 
-- (IBAction)onclickDone:(id)sender;
+@property (nonatomic,strong)NSString *date;
 
-- (IBAction)onclickSave:(id)sender;
+@property (nonatomic,strong)UIColor *themeColor;
+
+//@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
+
 
 @end
