@@ -78,13 +78,13 @@
     _contentText = [[UITextView alloc]initWithFrame:CGRectMake(5, 155,[UIScreen mainScreen].bounds.size.width - 10, [UIScreen mainScreen].bounds.size.height - 210)];
     [_contentText setBackgroundColor:[UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:0.3]];
     [_contentText setDelegate:self];
-    [_contentText setFont:[UIFont systemFontOfSize:14]];
+    [_contentText setFont:[UIFont systemFontOfSize:16]];
     [_contentText setReturnKeyType:UIReturnKeyDefault];
     [_contentText setKeyboardType:UIKeyboardTypeDefault];
     [_contentText setText:_currentPage.content];
     //toolbar按钮回收键盘
     UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30)];
-    [topView setBarStyle:UIBarStyleBlackTranslucent];
+    [topView setBarStyle:UIBarStyleDefault];
     UIBarButtonItem * button1 =[[UIBarButtonItem  alloc]initWithBarButtonSystemItem:                                        UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem * button2 = [[UIBarButtonItem  alloc]initWithBarButtonSystemItem:                                        UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleDone  target:self action:@selector(resignKeyboard)];
@@ -150,7 +150,8 @@
     [self.view addSubview:_locationView];
     //button
     UIButton *locationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [locationButton setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
+    [locationButton setImage:[UIImage imageNamed:@"location2"] forState:UIControlStateNormal];
+    [locationButton setImage:[UIImage imageNamed:@"location"] forState:UIControlStateHighlighted];
     [locationButton setFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 40,  [UIScreen mainScreen].bounds.size.height - 42, 30, 30)];
     [self.view addSubview:locationButton];
     [locationButton addTarget:self action:@selector(reverseGeocode) forControlEvents:UIControlEventTouchUpInside];
