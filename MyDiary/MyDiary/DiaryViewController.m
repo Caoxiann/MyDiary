@@ -315,6 +315,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     DiaryEditViewController *editVC = [[DiaryEditViewController alloc]init];
+    editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
     
 }

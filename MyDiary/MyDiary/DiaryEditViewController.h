@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Diary.h"
+#import "DiaryBL.h"
 @interface DiaryEditViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (nonatomic,strong)Diary *currentPage;
+
+@property (nonatomic,strong)NSString *date;
+
+@property (nonatomic,strong)UIColor *themeColor;
+
+//@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
 
 @end

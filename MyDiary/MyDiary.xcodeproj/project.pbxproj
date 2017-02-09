@@ -229,10 +229,10 @@
 				4211D8A01E40499C00D03C4F /* CalendarViewController.m */,
 				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
 				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
-				42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */,
-				42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */,
 				42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */,
 				42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */,
+				42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */,
+				42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */,
 				42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */,
 				42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */,
 			);

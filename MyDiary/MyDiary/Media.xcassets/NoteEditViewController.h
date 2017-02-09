@@ -11,10 +11,6 @@
 #import "NoteBL.h"
 #import "Note.h"
 
-#define deviceWidth [UIScreen mainScreen].bounds.size.width
-#define deviceHeight [UIScreen mainScreen].bounds.size.height
-
-
 @interface NoteEditViewController : UIViewController
 
 @property (nonatomic,strong)Note *currentPage;
