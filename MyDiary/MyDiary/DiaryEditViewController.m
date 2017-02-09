@@ -349,14 +349,12 @@
     
     if(_currentPage.date){
         _date = [dateFormatter stringFromDate:_currentPage.date];
-        NSString *dateShow = [_date substringWithRange:NSMakeRange(0,16)];
-        [_dateSettingField setText:dateShow];
+        [_dateSettingField setText:_date];
     }
     else{
         NSDate *now = [[NSDate alloc]init];
         _date = [dateFormatter stringFromDate:now];
-        NSString *dateShow = [_date substringWithRange:NSMakeRange(0,16)];
-        [_dateSettingField setText:dateShow];
+        [_dateSettingField setText:_date];
     }
 }
 
@@ -393,8 +391,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     _date = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:_datePicker.date]];
-    NSString *dateShow = [_date substringWithRange:NSMakeRange(0,16)];
-    [_dateSettingField setText:dateShow];
+    [_dateSettingField setText:_date];
     [_dateSettingField resignFirstResponder];
 }
 
