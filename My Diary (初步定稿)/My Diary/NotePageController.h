@@ -19,13 +19,12 @@
 
 @property (nonatomic,strong)NotePage *currentPage;
 
-@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
+@property (nonatomic,weak) id<NotePageUpdateDelegate>  noteDelegate;
 
+@property (nonatomic,weak) id<backFirst> backFirst;
 
 - (IBAction)pressBack:(id)sender;
 
 - (IBAction)rightButtonAction:(id)sender;
-
-
 
 @end

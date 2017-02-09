@@ -13,9 +13,8 @@
 #import "NotePage.h"
 #import "NotePageUpdateDelegate.h"
 #import "NotePageSearvice.h"
-#import "BXMainPage.h"
 
-@interface BXElements ()<UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate,UISearchDisplayDelegate>
+@interface BXElements ()<UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate,backFirst,UISearchDisplayDelegate>
 
 @property (nonatomic,strong)UITableView *noteListTableView;
 
@@ -37,7 +36,9 @@
 //初始化
 -(id)init{
     self = [super init];
-    if(self){
+    if(self)
+    {
+        _update=0;
         [self setUpNavigationBar];
         
     }
@@ -68,6 +69,12 @@
     [self setUpNavigationBar];
     [_noteListTableView reloadData];
     
+}
+
+-(NSInteger)backFirst
+{
+    _update++;
+    return _update;
 }
 
 -(void)updateMonth
@@ -203,6 +210,7 @@
 {
     NotePageController *noteController = [[NotePageController alloc]init];
     noteController.noteDelegate = self;
+    noteController.backFirst=self;
     [self.navigationController pushViewController:noteController animated:YES];
 }
 
@@ -227,7 +235,6 @@
         {
             NSNumber *numbers;
             numbers=[_monthArray objectAtIndex:i];
-            NSLog(@"行数是：%@",numbers);
             return [numbers intValue];
         }
     }
@@ -255,40 +262,50 @@
     _cellView.backgroundColor=[UIColor whiteColor];
     [cell.contentView addSubview:_cellView];
     
-    NSString *colorname =@"0x69D7DD";
-    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
-    int R = (colorLong & 0xFF0000 )>>16;
-    int G = (colorLong & 0x00FF00 )>>8;
-    int B =  colorLong & 0x0000FF;
-    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+//    NSString *colorname =@"0x69D7DD";
+//    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+//    int R = (colorLong & 0xFF0000 )>>16;
+//    int G = (colorLong & 0x00FF00 )>>8;
+//    int B =  colorLong & 0x0000FF;
+//    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+    
+    UIColor *themecolor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
+//创建中的UIView对象
+    _cellLeftView=[[UIView alloc]init];
+    _cellLeftView.frame=CGRectMake(0, 0, 80, 80);
+    _cellLeftView.backgroundColor=themecolor;
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_cellLeftView.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){10, 10}].CGPath;
+    _cellLeftView.layer.mask = maskLayer;
+    [_cellView addSubview:_cellLeftView];
 //显示标题
     _titleLabel=[[UILabel alloc]init];
-    _titleLabel.frame=CGRectMake(100, 37.5, 200, 15);
+    _titleLabel.frame=CGRectMake(100,30,deviceWidth-160, 15);
     _titleLabel.font=[UIFont systemFontOfSize:20];
     _cellTitle=[[NSString alloc]init];
-    NSInteger length;
-    length=notePage.titile.length;
-    if(length>=9)
-    {
-       _cellTitle=[notePage.titile substringWithRange:NSMakeRange(0,9)];
-       _titleLabel.text=_cellTitle;
-    }
-    else
-    {
-        _titleLabel.text=notePage.titile;
-    }
+    _titleLabel.text=notePage.titile;
+    _titleLabel.numberOfLines=0;
     _titleLabel.tag=indexPath.row;
     _titleLabel.textColor=themecolor;
     [_cellView addSubview:_titleLabel];
+//显示地理位置(偷懒没做定位==)
+    _locationTitle=[[UILabel alloc]init];
+    _locationTitle.text=[NSString stringWithFormat:@"江苏省 江阴市"];
+    _locationTitle.textColor=themecolor;
+    _locationTitle.frame=CGRectMake(100, 52, 200, 20);
+    _locationTitle.font=[UIFont systemFontOfSize:13];
+    [_cellView addSubview:_locationTitle];
 //显示时间
     _time=[[NSString alloc]init];
     _time=notePage.time;
     _date=[[_time substringWithRange:NSMakeRange(8, 2)]intValue];
     _hour=[[_time substringWithRange:NSMakeRange(11, 2)]intValue];
     _minute=[[_time substringWithRange:NSMakeRange(14,2)]intValue];
+    _year=[[_time substringWithRange:NSMakeRange(0,4)]intValue];
+    _month=[[_time substringWithRange:NSMakeRange(5, 2)]intValue];
     
     _hourLabel=[[UILabel alloc]init];
-    _hourLabel.frame=CGRectMake(100, 13, 200, 10);
+    _hourLabel.frame=CGRectMake(100,5, 200, 20);
     if(_minute>=0&&_minute<=9)
     {
         _hourLabel.text=[NSString stringWithFormat:@"%0d:0%d",_hour,_minute];
@@ -300,19 +317,36 @@
     _hourLabel.textColor=themecolor;
     _hourLabel.font=[UIFont systemFontOfSize:13];
     [_cellView addSubview:_hourLabel];
-    
+//显示星期
+    NSDateComponents *comps = [[NSDateComponents alloc]init];
+    [comps setYear:_year];
+    [comps setMonth:_month];
+    [comps setDay:_date];
+    NSCalendar *calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *today = [calendar dateFromComponents:comps];
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", nil];
+    NSCalendar *calendarSecond = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"Asia/Beijing"];
+    [calendarSecond setTimeZone: timeZone];
+    NSCalendarUnit calendarUnit = NSWeekdayCalendarUnit;
+    NSDateComponents *theComponents = [calendarSecond components:calendarUnit fromDate:today];
+    _xinTitle=[[UILabel alloc]init];
+    _xinTitle.text=weekdays[theComponents.weekday];
+    _xinTitle.textColor=[UIColor whiteColor];
+    _xinTitle.font=[UIFont systemFontOfSize:20];
+    _xinTitle.frame=CGRectMake(0,15, 80, 80);
+    _xinTitle.textAlignment=NSTextAlignmentCenter;
+    [_cellLeftView addSubview:_xinTitle];
+//显示几号
     _dateLabel=[[UILabel alloc]init];
-    _dateLabel.frame=CGRectMake(0, 0, 80, 80);
+    _dateLabel.frame=CGRectMake(0,-15, 80, 80);
     _dateLabel.text=[NSString stringWithFormat:@"%d",_date];
     _dateLabel.textAlignment=NSTextAlignmentCenter;
     _dateLabel.font=[UIFont systemFontOfSize:35];
     _dateLabel.textColor=[UIColor whiteColor];
-    _dateLabel.backgroundColor=themecolor;
+    _dateLabel.backgroundColor=[UIColor clearColor];
     _dateLabel.layer.masksToBounds = YES;
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_dateLabel.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){10, 10}].CGPath;
-    _dateLabel.layer.mask = maskLayer;
-    [_cellView addSubview:_dateLabel];
+    [_cellLeftView addSubview:_dateLabel];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor=[UIColor clearColor];
@@ -334,6 +368,8 @@
     
     noteController.noteDelegate = self;
     
+    noteController.backFirst=self;
+    
     noteController.currentPage = noteListArray[indexPath.row];
     
     [self.navigationController pushViewController:noteController animated:YES];
@@ -349,9 +385,9 @@
         [NotePageSearvice deleteNotePage:nil title:nil currentNotePage:notePage];
         noteListArray = [[SqlService sqlInstance]queryDBtable];
         [_noteListTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self backFirst];
         [_noteListTableView reloadData];
 }
-    
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -360,7 +396,8 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

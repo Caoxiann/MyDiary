@@ -7,20 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol timeDelegate;
+#import "CalendarViewController.h"
 
 @interface BXCalendar : UIView
 
 - (instancetype)initWithCurrentDate:(NSDate *)date;
 
-@property (nonatomic,weak) id<timeDelegate> delegate;
-
-@end
-
-@protocol timeDelegate <NSObject>
-
--(void) time:(BXCalendar *)calendar timeTrans:(NSString*)timeString;
+@property (nonatomic,weak) id<selectedUpdate> selectedDelegate;
 
 @end
 

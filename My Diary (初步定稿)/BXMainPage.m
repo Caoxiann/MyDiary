@@ -13,12 +13,21 @@
 #import "NotePageController.h"
 #import "BXElements.h"
 
-
 @interface BXMainPage ()
 
 @end
 
 @implementation BXMainPage
+
+-(instancetype)init
+{
+    self=[super init];
+    if (self)
+    {
+        update=0;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -27,15 +36,19 @@
     self.view.backgroundColor=[UIColor whiteColor];
     
     numbers=0;
+    subNumbers=0;
     page1=YES;
     
+    
 //主题颜色调配
-    NSString *colorname =@"0x69D7DD";
-    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
-    int R = (colorLong & 0xFF0000 )>>16;
-    int G = (colorLong & 0x00FF00 )>>8;
-    int B =  colorLong & 0x0000FF;
-    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+//    NSString *colorname =@"0x69D7DD";
+//    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+//    int R = (colorLong & 0xFF0000 )>>16;
+//    int G = (colorLong & 0x00FF00 )>>8;
+//    int B =  colorLong & 0x0000FF;
+//    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+    
+    UIColor *themecolor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     
     //UIColor *theme=[UIColor colorWithRed:30/255.0 green:144/255.0 blue:255/255.0 alpha:1.0];
     
@@ -127,7 +140,6 @@
     _rightLabel.font=[UIFont fontWithName:@"Helvetica" size:15];
     _rightLabel.textColor=[UIColor whiteColor];
     [self.view addSubview:_rightLabel];
-    NSLog(@"更新 %ld",numbers);
     NSTimer *time=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimes) userInfo:nil repeats:YES];
     
     // Do any additional setup after loading the view.
@@ -180,21 +192,18 @@
     _rightLabel.text=string;
     _rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
     [self.view addSubview:_rightLabel];
+    if (update!=[_elements update])
+    {
+        [_diary updateTheNote];
+        [_calendar updateTheNoteList];
+        update=[_elements update];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

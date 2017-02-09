@@ -35,8 +35,10 @@ static NSDateFormatter *dateFormattor;
 {
     if (self = [super init])
     {
-        //self.backgroundColor = [UIColor colorWithRed:236 / 255.0 green:236 / 255.0 blue:236 / 255.0 alpha:1.0];
-        self.backgroundColor=[UIColor whiteColor];
+//        self.backgroundColor = [UIColor colorWithRed:236 / 255.0 green:236 / 255.0 blue:236 / 255.0 alpha:1.0];
+        UIImage *backImage=[UIImage imageNamed:@"bluesky3.jpg"];
+        self.backgroundView.layer.contents=(id)backImage.CGImage;
+        self.backgroundView.layer.backgroundColor=[UIColor clearColor].CGColor;
         self.date = date;
         
         [self setupTitleBar];
@@ -305,11 +307,7 @@ static NSDateFormatter *dateFormattor;
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *timeString=[formatter stringFromDate:self.date];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(time:timeTrans:)]) {
-        [self.delegate time:self timeTrans:timeString];
-    }
-    CalendarViewController *calendar=[[CalendarViewController alloc]init];
-    [calendar time:self timeTrans:timeString];
+    [self.selectedDelegate selectedUpdate:timeString];
 }
 
 @end
