@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
 
+@protocol VCElementEditDelegate <NSObject>
+
+- (void)changeID:(NSInteger)ID;
+
+@end
+
 @interface VCElementEdit : UIViewController <UITextViewDelegate> {
     FMDatabase* _mDB;
     UILabel* _lbTitle;
@@ -20,5 +26,8 @@
 }
 
 @property (retain, nonatomic) NSNumber* myID;
+@property (assign, nonatomic) NSInteger tag;
+@property (assign, nonatomic) id<VCElementEditDelegate> delegate;
+
 
 @end

@@ -9,8 +9,10 @@
 #import "VCCalendar.h"
 #import "VCElements.h"
 #import "VCDiary.h"
-#import "VCCharacters.h"
+#import "VCDiaryAdd.h"
 #import "VCCamera.h"
+#import "MyCellDiary.h"
+#import "VCDiaryEdit.h"
 
 @interface VCDiary ()
 
@@ -20,11 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     _segControl = [[UISegmentedControl alloc] init];
     _segControl.frame = CGRectMake(10, 25, 300, 25);
-    [_segControl setTintColor:[UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255]];
+    [_segControl setTintColor:[UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255]];
     
     [_segControl insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
     [_segControl insertSegmentWithTitle:@"日历" atIndex:1 animated:NO];
@@ -36,7 +37,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UILabel* _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 35)];
     _label.text = @"DIARY";
-    _label.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _label.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [_label setTextAlignment:NSTextAlignmentCenter];
     [_label setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_label];
@@ -46,51 +47,123 @@
     [_backgroundview addSubview:_imageview];
     [self.view addSubview:_backgroundview];
     
-    UIToolbar* _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 85, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 110) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
     UIImage* _image = [UIImage imageNamed:@"list.png"];
     UIGraphicsBeginImageContext(CGSizeMake(16, 15.5));
     [_image drawInRect:CGRectMake(0, 0, 16, 15.5)];
     UIImage* _newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIBarButtonItem* btn01 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressList)];
+    btn01 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressList)];
     
     _image = [UIImage imageNamed:@"characters.png"];
     UIGraphicsBeginImageContext(CGSizeMake(18, 18));
     [_image drawInRect:CGRectMake(0, 0, 18, 18)];
     _newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIBarButtonItem* btn02 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCharacters)];
+    btn02 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCharacters)];
     
     _image = [UIImage imageNamed:@"camera.png"];
     UIGraphicsBeginImageContext(CGSizeMake(20, 16));
     [_image drawInRect:CGRectMake(0, 0, 20, 16)];
     _newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIBarButtonItem* btn03 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCamera)];
+    btn03 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCamera)];
     
     _image = [UIImage imageNamed:@"item.png"];
     UIGraphicsBeginImageContext(CGSizeMake(22, 20));
     [_image drawInRect:CGRectMake(0, 0, 22, 20)];
     _newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIBarButtonItem* btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
+    btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    
-    UIBarButtonItem* btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     btnF01.width = 10;
-    UIBarButtonItem* btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF02.width = 120;
+    btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    btnF02.width = 110;
     
-    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04, nil];
-    _toolbar.items = arrayBtns;
-    
-    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     _toolbar.tintColor = [UIColor whiteColor];
     
     [self.view addSubview:_toolbar];
     
+    _arrayDay = [[NSMutableArray alloc] init];
+    _arrayMonth = [[NSMutableArray alloc] init];
+    _arrayWeek = [[NSMutableArray alloc] init];
+    _arrayTitle = [[NSMutableArray alloc] init];
+    _arrayContent = [[NSMutableArray alloc] init];
+    _arrayID = [[NSMutableArray alloc] init];
+
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _arrayDay.count;
+}
+
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString* cellStr = @"cell";
+/*    MyCellDiary* cell = [_tableView dequeueReusableCellWithIdentifier:cellStr];
+    
+    if (cell == nil) {
+        cell = [[MyCellDiary alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellStr];
+    }
+*/
+    MyCellDiary* cell = [[MyCellDiary alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+    [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section]];
+    
+    return cell;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UILabel* _content = [[UILabel alloc] initWithFrame:CGRectMake(30, 90, [UIScreen mainScreen].bounds.size.width - 60, 0)];
+    _content.numberOfLines = 0;
+    _content.lineBreakMode = NSLineBreakByCharWrapping;
+    _content.text = [_arrayContent objectAtIndex:indexPath.section];
+    _content.font = [UIFont systemFontOfSize:18];
+    CGRect contentRect = [_content.text boundingRectWithSize:_content.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:_content.font, NSFontAttributeName, nil] context:nil];
+    return contentRect.size.height + 100;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
+    _mDB = [[FMDatabase alloc] initWithPath:strPath];
+    if ([_mDB open]) {
+        NSString* strDel = [[NSString alloc] initWithFormat:@"delete from diary where id = %d;", [[_arrayID objectAtIndex:indexPath.section] intValue]];
+        [_mDB executeUpdate:strDel];
+    }
+    [_arrayMonth removeObjectAtIndex:indexPath.section];
+    [_arrayDay removeObjectAtIndex:indexPath.section];
+    [_arrayTitle removeObjectAtIndex:indexPath.section];
+    [_arrayContent removeObjectAtIndex:indexPath.section];
+    [_arrayID removeObjectAtIndex:indexPath.section];
+    btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
+    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
+    _toolbar.items = arrayBtns;
+    [_tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    VCDiaryEdit* _vcDiaryEdit = [[VCDiaryEdit alloc] init];
+    _vcDiaryEdit.myID = [[NSNumber alloc] init];
+    _vcDiaryEdit.myID = [_arrayID objectAtIndex:indexPath.section];
+    [self.navigationController pushViewController:_vcDiaryEdit animated:YES];
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 
 - (void)segChange {
@@ -111,18 +184,52 @@
 }
 
 - (void)pressCharacters {
-    VCCharacters* vcCharacters = [[VCCharacters alloc] init];
-    [self presentViewController:vcCharacters animated:YES completion:^{ }];
+    VCDiaryAdd* vcDiaryAdd = [[VCDiaryAdd alloc] init];
+    [self.navigationController pushViewController:vcDiaryAdd animated:YES];
 }
 
 - (void)pressCamera {
     VCCamera* vcCamera = [[VCCamera alloc] init];
-    [self presentViewController:vcCamera animated:YES completion:^{ }];
+    [self.navigationController pushViewController:vcCamera animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
+    [_arrayDay removeAllObjects];
+    [_arrayMonth removeAllObjects];
+    [_arrayWeek removeAllObjects];
+    [_arrayTitle removeAllObjects];
+    [_arrayContent removeAllObjects];
+    [_arrayID removeAllObjects];
+    NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
+    _mDB = [[FMDatabase alloc] initWithPath:strPath];
+    if ([_mDB open]) {
+        NSString* strQuery = @"select * from diary order by id desc;";
+        FMResultSet* result = [_mDB executeQuery:strQuery];
+        while ([result next]) {
+            NSString* _month = [result stringForColumn:@"month"];
+            NSString* _day = [result stringForColumn:@"day"];
+            NSString* _week = [result stringForColumn:@"week"];
+            NSString* _title = [result stringForColumn:@"title"];
+            NSString* _content = [result stringForColumn:@"content"];
+            NSInteger _id = [result intForColumn:@"id"];
+            [_arrayDay addObject:_day];
+            [_arrayMonth addObject:_month];
+            [_arrayWeek addObject:_week];
+            [_arrayTitle addObject:_title];
+            [_arrayContent addObject:_content];
+            [_arrayID addObject:[NSNumber numberWithInteger:_id]];
+        }
+    }
+    
+    btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
+    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
+    _toolbar.items = arrayBtns;
+    [_tableView reloadData];
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

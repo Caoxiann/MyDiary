@@ -59,7 +59,7 @@
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04, nil];
     _toolbar.items = arrayBtns;
     
-    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     _toolbar.tintColor = [UIColor whiteColor];
     
     [self.view addSubview:_toolbar];

@@ -24,12 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden = NO;
-
-    
     _segControl = [[UISegmentedControl alloc] init];
     _segControl.frame = CGRectMake(10, 25, 300, 25);
-    [_segControl setTintColor:[UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255]];
+    [_segControl setTintColor:[UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255]];
     
     [_segControl insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
     [_segControl insertSegmentWithTitle:@"日历" atIndex:1 animated:NO];
@@ -41,7 +38,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UILabel* _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, [UIScreen mainScreen].bounds.size.width, 35)];
     _label.text = @"ELEMENTS";
-    _label.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _label.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [_label setTextAlignment:NSTextAlignmentCenter];
     [_label setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_label];
@@ -87,21 +84,24 @@
     UIGraphicsEndImageContext();
     btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
 
-    btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
-    
     btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     btnF01.width = 10;
     btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     btnF02.width = 110;
     
-    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
-    _toolbar.items = arrayBtns;
-    
-    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     _toolbar.tintColor = [UIColor whiteColor];
     
     [self.view addSubview:_toolbar];
     
+    _arrayDay = [[NSMutableArray alloc] init];
+    _arrayMonth = [[NSMutableArray alloc] init];
+    _arrayWeek = [[NSMutableArray alloc] init];
+    _arrayTitle = [[NSMutableArray alloc] init];
+    _arrayContent = [[NSMutableArray alloc] init];
+    _arrayID = [[NSMutableArray alloc] init];
+    _arrayMinute = [[NSMutableArray alloc] init];
+
 }
 
 
@@ -118,7 +118,7 @@
     MyCell* cell = [_tableView dequeueReusableCellWithIdentifier:cellStr];
     
     if (cell == nil) {
-        cell = [[MyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellStr];
+        cell = [[MyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
     }
     
     [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section] Minute:[_arrayMinute objectAtIndex:indexPath.section]];
@@ -126,7 +126,7 @@
     return cell;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
 }
 
@@ -157,7 +157,7 @@
     return nil;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0 || [_arrayMonth objectAtIndex:section - 1] != [_arrayMonth objectAtIndex:section]) {
         return 50;
     }
@@ -223,18 +223,18 @@
 
 - (void)pressCamera {
     VCCamera* vcCamera = [[VCCamera alloc] init];
-    [self presentViewController:vcCamera animated:YES completion:^{ }];
+    [self.navigationController pushViewController:vcCamera animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
-    _arrayDay = [[NSMutableArray alloc] init];
-    _arrayMonth = [[NSMutableArray alloc] init];
-    _arrayWeek = [[NSMutableArray alloc] init];
-    _arrayTitle = [[NSMutableArray alloc] init];
-    _arrayContent = [[NSMutableArray alloc] init];
-    _arrayID = [[NSMutableArray alloc] init];
-    _arrayMinute = [[NSMutableArray alloc] init];
+    [_arrayDay removeAllObjects];
+    [_arrayMonth removeAllObjects];
+    [_arrayWeek removeAllObjects];
+    [_arrayTitle removeAllObjects];
+    [_arrayContent removeAllObjects];
+    [_arrayID removeAllObjects];
+    [_arrayMinute removeAllObjects];
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {

@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
+#import "VCElementEdit.h"
 
-@interface VCElementLook : UIViewController <UITextViewDelegate> {
+@interface VCElementLook : UIViewController <UITextViewDelegate,VCElementEditDelegate> {
     FMDatabase* _mDB;
     UITextField* _title;
     UITextView* _content;
     NSNumber* _id;
 }
+
+- (void)changeID:(NSInteger)ID;
 
 @property (retain, nonatomic) NSNumber* myID;
 

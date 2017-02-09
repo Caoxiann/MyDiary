@@ -1,5 +1,6 @@
-platform :ios, ‘7.0’
+platform :ios, ‘8.0’
 
 target ‘MyDiary’ do
-  pod 'PDTSimpleCalendar', '~> 0.9.1'
+  use_frameworks!
+  pod 'FSCalendar'
 end

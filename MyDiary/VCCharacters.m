@@ -37,7 +37,7 @@
     _tfTitle.borderStyle = UITextBorderStyleRoundedRect;
     _tfTitle.keyboardType = UIKeyboardTypeDefault;
     _tfTitle.font = [UIFont systemFontOfSize:25];
-    _tfTitle.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _tfTitle.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_tfTitle];
     _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, 50)];
     _lbContent.text = @"内容";
@@ -51,7 +51,7 @@
     _tvContent.layer.cornerRadius = 10;
     _tvContent.font = [UIFont systemFontOfSize:18];
     _tvContent.layer.masksToBounds = YES;
-    _tvContent.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _tvContent.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_tvContent];
     
 }

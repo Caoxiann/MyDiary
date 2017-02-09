@@ -39,7 +39,7 @@
     _title.borderStyle = UITextBorderStyleRoundedRect;
     _title.keyboardType = UIKeyboardTypeDefault;
     _title.font = [UIFont systemFontOfSize:25];
-    _title.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _title.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_title];
     _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, 50)];
     _lbContent.text = @"内容";
@@ -53,7 +53,7 @@
     _content.layer.cornerRadius = 10;
     _content.layer.masksToBounds = YES;
     _content.font = [UIFont systemFontOfSize:18];
-    _content.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _content.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_content];
 
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
@@ -113,6 +113,7 @@
         NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute];
         [_mDB executeUpdate:strInsert];
     }
+    [_delegate changeID:maxid + 1];
     [self.navigationController popViewControllerAnimated:YES];
     
 }

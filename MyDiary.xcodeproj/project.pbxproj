@@ -20,6 +20,9 @@
 		1413703E1E363756006FFBAF /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141370321E363756006FFBAF /* list@2x.png */; };
 		1413703F1E363756006FFBAF /* list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 141370331E363756006FFBAF /* list@3x.png */; };
 		142B51D61E49A2920015A253 /* VCElementEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 142B51D51E49A2920015A253 /* VCElementEdit.m */; };
+		142DC9371E4AC70800411B13 /* MyCellDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = 142DC9361E4AC70800411B13 /* MyCellDiary.m */; };
+		142DC93A1E4AEE0C00411B13 /* VCDiaryAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 142DC9391E4AEE0C00411B13 /* VCDiaryAdd.m */; };
+		142DC93D1E4B0B6900411B13 /* VCDiaryEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 142DC93C1E4B0B6900411B13 /* VCDiaryEdit.m */; };
 		14F538291E34E6A600D4ACEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F538281E34E6A600D4ACEF /* main.m */; };
 		14F5382C1E34E6A600D4ACEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F5382B1E34E6A600D4ACEF /* AppDelegate.m */; };
 		14F538321E34E6A600D4ACEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14F538301E34E6A600D4ACEF /* Main.storyboard */; };
@@ -42,7 +45,7 @@
 		14F7227F1E45B22200EC1E2B /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F7227E1E45B22200EC1E2B /* MyCell.m */; };
 		14F73D361E35BA330020C1E9 /* backgroundImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 14F73D351E35BA330020C1E9 /* backgroundImage.jpg */; };
 		14FCB56B1E37027E00E7A23E /* VCCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FCB56A1E37027E00E7A23E /* VCCharacters.m */; };
-		3A586C6AE40B4456A646CBB5 /* libPods-MyDiary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */; };
+		BF067E97A91D7FBAFBB443C6 /* Pods_MyDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2031B0805E70648923EA7570 /* Pods_MyDiary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,12 @@
 		141370331E363756006FFBAF /* list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@3x.png"; sourceTree = "<group>"; };
 		142B51D41E49A2920015A253 /* VCElementEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCElementEdit.h; sourceTree = "<group>"; };
 		142B51D51E49A2920015A253 /* VCElementEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCElementEdit.m; sourceTree = "<group>"; };
+		142DC9351E4AC70800411B13 /* MyCellDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCellDiary.h; sourceTree = "<group>"; };
+		142DC9361E4AC70800411B13 /* MyCellDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCellDiary.m; sourceTree = "<group>"; };
+		142DC9381E4AEE0C00411B13 /* VCDiaryAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDiaryAdd.h; sourceTree = "<group>"; };
+		142DC9391E4AEE0C00411B13 /* VCDiaryAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDiaryAdd.m; sourceTree = "<group>"; };
+		142DC93B1E4B0B6900411B13 /* VCDiaryEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCDiaryEdit.h; sourceTree = "<group>"; };
+		142DC93C1E4B0B6900411B13 /* VCDiaryEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCDiaryEdit.m; sourceTree = "<group>"; };
 		14F538241E34E6A600D4ACEF /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F538281E34E6A600D4ACEF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		14F5382A1E34E6A600D4ACEF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,9 +128,9 @@
 		14F73D351E35BA330020C1E9 /* backgroundImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroundImage.jpg; sourceTree = "<group>"; };
 		14FCB5691E37027E00E7A23E /* VCCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCCharacters.h; sourceTree = "<group>"; };
 		14FCB56A1E37027E00E7A23E /* VCCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCCharacters.m; sourceTree = "<group>"; };
+		2031B0805E70648923EA7570 /* Pods_MyDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ACDAE2C03A1E29974C277D /* Pods-MyDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyDiary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		ADE3B75434E78BC11F55B142 /* Pods-MyDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyDiary.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary.release.xcconfig"; sourceTree = "<group>"; };
-		C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyDiary.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14F7227C1E458EE500EC1E2B /* libsqlite3.tbd in Frameworks */,
-				3A586C6AE40B4456A646CBB5 /* libPods-MyDiary.a in Frameworks */,
+				BF067E97A91D7FBAFBB443C6 /* Pods_MyDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,8 +223,14 @@
 				142B51D51E49A2920015A253 /* VCElementEdit.m */,
 				14F7227D1E45B22200EC1E2B /* MyCell.h */,
 				14F7227E1E45B22200EC1E2B /* MyCell.m */,
+				142DC9351E4AC70800411B13 /* MyCellDiary.h */,
+				142DC9361E4AC70800411B13 /* MyCellDiary.m */,
 				14F538661E34EE7700D4ACEF /* VCDiary.h */,
 				14F538671E34EE7700D4ACEF /* VCDiary.m */,
+				142DC93B1E4B0B6900411B13 /* VCDiaryEdit.h */,
+				142DC93C1E4B0B6900411B13 /* VCDiaryEdit.m */,
+				142DC9381E4AEE0C00411B13 /* VCDiaryAdd.h */,
+				142DC9391E4AEE0C00411B13 /* VCDiaryAdd.m */,
 				14F538301E34E6A600D4ACEF /* Main.storyboard */,
 				14F538331E34E6A600D4ACEF /* Assets.xcassets */,
 				14F538351E34E6A600D4ACEF /* LaunchScreen.storyboard */,
@@ -283,7 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				14F7227B1E458EE500EC1E2B /* libsqlite3.tbd */,
-				C9CD1DCE0E76AE9E59C37640 /* libPods-MyDiary.a */,
+				2031B0805E70648923EA7570 /* Pods_MyDiary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -493,11 +508,14 @@
 				14FCB56B1E37027E00E7A23E /* VCCharacters.m in Sources */,
 				14F7227F1E45B22200EC1E2B /* MyCell.m in Sources */,
 				14F6FE361E475AD000F17605 /* VCElementLook.m in Sources */,
+				142DC9371E4AC70800411B13 /* MyCellDiary.m in Sources */,
+				142DC93D1E4B0B6900411B13 /* VCDiaryEdit.m in Sources */,
 				14F722761E458DC500EC1E2B /* FMDatabaseAdditions.m in Sources */,
 				142B51D61E49A2920015A253 /* VCElementEdit.m in Sources */,
 				14F722791E458DC500EC1E2B /* FMResultSet.m in Sources */,
 				14F538291E34E6A600D4ACEF /* main.m in Sources */,
 				14F722771E458DC500EC1E2B /* FMDatabasePool.m in Sources */,
+				142DC93A1E4AEE0C00411B13 /* VCDiaryAdd.m in Sources */,
 				14F722781E458DC500EC1E2B /* FMDatabaseQueue.m in Sources */,
 				14F722671E4586FC00EC1E2B /* VCCamera.m in Sources */,
 				14F722751E458DC500EC1E2B /* FMDatabase.m in Sources */,
@@ -653,6 +671,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-020.MyDiary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
 		};
@@ -666,6 +686,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-020.MyDiary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;
 		};

@@ -32,7 +32,7 @@
         maskLayer02.frame = _view.bounds;
         maskLayer02.path = maskPath02.CGPath;
         _view.layer.mask = maskLayer02;
-        _view.backgroundColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+        _view.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
         [self.contentView addSubview:_view];
         
         UIView* _view02 = [[UIView alloc] initWithFrame:CGRectMake(80, 0, [UIScreen mainScreen].bounds.size.width - 100, 80)];
@@ -71,41 +71,28 @@
     _day.textColor = [UIColor whiteColor];
     _day.layer.borderWidth = 0;
     [_day setTextAlignment:NSTextAlignmentCenter];
-    _day.backgroundColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _day.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     
     _week.text = [self transformIntoChinese:week];
     _week.font = [UIFont systemFontOfSize:10];
     _week.textColor = [UIColor whiteColor];
     _week.layer.borderWidth = 0;
     [_week setTextAlignment:NSTextAlignmentCenter];
-    _week.backgroundColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _week.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     
     _minute.text = minute;
     _minute.font = [UIFont systemFontOfSize:10];
-    _minute.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _minute.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     
     _title.text = title;
     _title.font = [UIFont systemFontOfSize:25];
-    _title.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _title.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
 
 }
-/*
-- (void)setFrame:(CGRect)frame {
-    frame.origin.x += 20;
-    frame.size.width -= 40;
-    [super setFrame:frame];
-}
-*/
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        return NO;
-    }
-    return NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

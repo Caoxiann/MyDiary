@@ -46,15 +46,20 @@
     _content.layer.masksToBounds = YES;
     _content.delegate = self;
     _content.editable = NO;
-    _content.textColor = [UIColor colorWithDisplayP3Red:105/255.0 green:215/255.0 blue:221/255.0 alpha:255];
+    _content.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_content];
     
+}
+
+- (void)changeID:(NSInteger)ID {
+    self.myID = [NSNumber numberWithInteger:ID];
 }
 
 - (void)pressChange {
     VCElementEdit* _vcElementEdit = [[VCElementEdit alloc] init];
     _vcElementEdit.myID = [[NSNumber alloc] init];
     _vcElementEdit.myID = self.myID;
+    _vcElementEdit.delegate = self;
     [self.navigationController pushViewController:_vcElementEdit animated:YES];
 }
 

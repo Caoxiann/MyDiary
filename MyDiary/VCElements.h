@@ -24,7 +24,6 @@ UITableViewDataSource>
     NSMutableArray* _arrayMinute;
     UISegmentedControl* _segControl;
     FMDatabase* _mDB;
-    NSInteger total;
     UIBarButtonItem* btn01;
     UIBarButtonItem* btn02;
     UIBarButtonItem* btn03;
