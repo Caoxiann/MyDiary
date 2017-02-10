@@ -28,6 +28,8 @@
 		42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */; };
 		42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */; };
 		42FC2DD11E4C723B0038CB62 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */; };
+		42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */; };
+		42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD61E4D5C140038CB62 /* CalendarItems.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,10 @@
 		42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTable.h; sourceTree = "<group>"; };
+		42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTable.m; sourceTree = "<group>"; };
+		42FC2DD51E4D5C140038CB62 /* CalendarItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarItems.h; sourceTree = "<group>"; };
+		42FC2DD61E4D5C140038CB62 /* CalendarItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarItems.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,10 @@
 				4211D88A1E4024B800D03C4F /* DiaryBL.m */,
 				42EDF3881E49C4F0002477C5 /* NoteBL.h */,
 				42EDF3891E49C4F0002477C5 /* NoteBL.m */,
+				42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */,
+				42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */,
+				42FC2DD51E4D5C140038CB62 /* CalendarItems.h */,
+				42FC2DD61E4D5C140038CB62 /* CalendarItems.m */,
 			);
 			name = BusinessLogicLayer;
 			sourceTree = "<group>";
@@ -389,8 +399,10 @@
 				42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */,
 				42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */,
 				4211D8901E4024B800D03C4F /* DiaryDAO.m in Sources */,
+				42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */,
 				4211D8911E4024B800D03C4F /* Diary.m in Sources */,
 				42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */,
+				42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */,
 				42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */,
 				4211D8581E40246E00D03C4F /* main.m in Sources */,
 				4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */,
