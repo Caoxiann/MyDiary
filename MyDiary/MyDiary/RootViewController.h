@@ -8,16 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Diary.h"
-#import "DiaryBL.h"
-#import "Note.h"
-#import "NoteBL.h"
-
-
+//#import "Diary.h"
+//#import "DiaryBL.h"
+//#import "Note.h"
+//#import "NoteBL.h"
 #import "ElementViewController.h"
 #import "DiaryViewController.h"
 #import "CalendarViewController.h"
-
 @interface ViewController : UIViewController
 {
     NSInteger itemNumber;
@@ -34,7 +31,6 @@
 @property (nonatomic) CGSize deviceScreenSize;
 
 @property (nonatomic) CGRect buttonRect;
-
 
 //主题颜色
 @property (nonatomic,strong) UIColor *themeColor;

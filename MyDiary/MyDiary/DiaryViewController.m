@@ -8,12 +8,14 @@
 
 #import "DiaryViewController.h"
 
-@interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource,DiaryPageUpdateDelegate>
 
 
 @property (nonatomic,strong)NSMutableArray *monthInTable;
 
 @property (nonatomic,strong)NSMutableArray *monthDetail;
+
+@property (nonatomic,strong)UITableView *diaryShowTableView;
 
 
 @end
@@ -24,15 +26,15 @@
     [super viewDidLoad];
     [self themeSetting];
     
-    UITableView *diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
-    [diaryShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    diaryShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-    [self.view addSubview:diaryShowTableView];
+    _diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
+    [_diaryShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    //_diaryShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    [self.view addSubview:_diaryShowTableView];
     UIImage *backImage=[UIImage imageNamed:@"background1"];
-    diaryShowTableView.layer.contents=(id)backImage.CGImage;
-    diaryShowTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
-    [diaryShowTableView setDelegate:self];
-    [diaryShowTableView setDataSource:self];
+    _diaryShowTableView.layer.contents=(id)backImage.CGImage;
+    _diaryShowTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
+    [_diaryShowTableView setDelegate:self];
+    [_diaryShowTableView setDataSource:self];
     
     self.bl = [[DiaryBL alloc] init];
     
@@ -164,9 +166,10 @@
 }
 
 //编辑按钮点击
--(void)charactersButtonAction
+- (void)diary
 {
     DiaryEditViewController *createVC = [[DiaryEditViewController alloc]init];
+    createVC.diaryDelegate = self;
     [self.navigationController pushViewController:createVC animated:YES];
 }
 
@@ -316,6 +319,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     DiaryEditViewController *editVC = [[DiaryEditViewController alloc]init];
+    editVC.diaryDelegate = self;
     editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
     
@@ -343,6 +347,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//更新TableView
+#pragma mark --updateNoteDelegate
+-(void)updateTheDiaryList{
+    
+    _listData = [self.bl findAll];
+    [_diaryShowTableView reloadData];
 }
 
 @end

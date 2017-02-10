@@ -8,7 +8,7 @@
 
 #import "ElementViewController.h"
 
-@interface ElementViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ElementViewController () <UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate>
 
 
 @property (nonatomic,strong)NSMutableArray *monthInTable;
@@ -165,12 +165,15 @@
 }
 
 //创建按钮点击
--(void)charactersButtonAction
+- (void)noteButtonAction
 {
     NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
+    createVC.noteDelegate = self;
     [self.navigationController pushViewController:createVC animated:YES];
 }
-
+-(void)diary{
+    NSLog(@"123");
+}
 //获取cell数
 #pragma mark -tableViewdelegate
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -298,6 +301,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NoteEditViewController *editVC = [[NoteEditViewController alloc]init];
+    
+    editVC.noteDelegate = self;
+    
     editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
     
@@ -324,6 +330,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//更新TableView
+#pragma mark --updateNoteDelegate
+-(void)updateTheNoteList{
+    
+    _listData = [self.bl findAll];
+    [_elementShowTableView reloadData];
 }
 
 @end

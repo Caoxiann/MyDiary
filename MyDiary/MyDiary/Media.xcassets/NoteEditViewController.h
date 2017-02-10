@@ -11,7 +11,14 @@
 #import "NoteBL.h"
 #import "Note.h"
 
+@protocol NotePageUpdateDelegate <NSObject>
+
+-(void)updateTheNoteList;
+
+@end
+
 @interface NoteEditViewController : UIViewController
+
 
 @property (nonatomic,strong)Note *currentPage;
 
@@ -19,7 +26,6 @@
 
 @property (nonatomic,strong)UIColor *themeColor;
 
-//@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
-
+@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
 
 @end

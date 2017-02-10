@@ -18,24 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.noteBl = [[NoteBL alloc] init];
-    Note *note = [[Note alloc] init];
-    note.date = [[NSDate alloc] init];
-    note.title = @"工作";
-    note.content = @"Test for storage";
-    note.location = @"测试地点：山西省太原市";
-    [self.noteBl createNote: note];
-    
-    
-    self.diaryBl = [[DiaryBL alloc]init];
-    Diary *diary = [[Diary alloc]init];
-    diary.date = [[NSDate alloc]init];
-    diary.title = @"TEST";
-    diary.content = @"qwertyuioppasfsdgfjklcvxnbcvxzbdszvdsgvdf fghnfgnrgs rndrst rtf";
-    diary.location = @"测试地点：山西省太原市";
-    [self.diaryBl createDiary:diary];
-    
     [self themeSetting];
     [self viewControllersInit];
     [self titleLableInit];
@@ -77,6 +59,11 @@
     [_elementVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_elementVC];
     [self.view addSubview:self.elementVC.view];
+    
+    _diaryVC = [[DiaryViewController alloc]init];
+    [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+    [self addChildViewController:_diaryVC];
+    [self.view addSubview:self.diaryVC.view];
 }
 
 - (void)buildSegmentControl {
@@ -118,13 +105,8 @@
     if (baseSegmentControl.selectedSegmentIndex == 2){
         
         [_titleLabel setText:@"DIARY"];
-        _diaryVC = [[DiaryViewController alloc]init];
-        [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-        [self addChildViewController:_diaryVC];
-        [self.view addSubview:self.diaryVC.view];
         [self.view bringSubviewToFront:_diaryVC.view];
     }
-    
 }
 
 - (void)buildToolBar {
@@ -146,9 +128,11 @@
     UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [itemButton setImage:[UIImage imageNamed:@"item"] forState:UIControlStateNormal];
     [itemButton setFrame:_buttonRect];
-
-    [charactersButton addTarget:self.elementVC action:@selector(charactersButtonAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
+    [listButton addTarget:self.elementVC action:@selector(noteButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [charactersButton addTarget:self.diaryVC action:@selector(diary) forControlEvents:UIControlEventTouchUpInside];
+    
     //添加按钮到toolBar
     UIBarButtonItem *listBarButton = [[UIBarButtonItem alloc]initWithCustomView:listButton];
     UIBarButtonItem *itemBarButton = [[UIBarButtonItem alloc]initWithCustomView:itemButton];
@@ -181,11 +165,12 @@
     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(catchItemNumber) userInfo:nil repeats:YES];
 }
 
+
+
 -(void)catchItemNumber{
 
     itemNumber = [_elementVC.listData count];
     NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
     [_itemShowLabel setText:itemNumberShow];
 }
-
 @end

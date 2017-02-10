@@ -312,6 +312,7 @@
         note.location = _locationView.text;
         [bl modifyNote: note];
         //操作成功返回home界面 做更新操作
+        [self.noteDelegate updateTheNoteList];
     }
     else{
         
@@ -331,6 +332,7 @@
         note.content = _contentText.text;
         note.location = _locationView.text;
         [bl createNote: note];
+        [self.noteDelegate updateTheNoteList];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

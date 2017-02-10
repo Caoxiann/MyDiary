@@ -13,7 +13,7 @@
 
 @interface DiaryViewController : UIViewController
 
--(void)charactersButtonAction;
+- (void)diary;
 
 @property (nonatomic) CGSize deviceScreenSize;
 
@@ -41,6 +41,7 @@
 
 @property (nonatomic,strong) NSString *time;
 
+@property (nonatomic) NSInteger page;
 
 @property int year, month, date, hour, minute, weekDay;
 

@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Diary.h"
 #import "DiaryBL.h"
+
+@protocol DiaryPageUpdateDelegate <NSObject>
+
+-(void)updateTheDiaryList;
+
+@end
+
 @interface DiaryEditViewController : UIViewController
 
 @property (nonatomic,strong)Diary *currentPage;
@@ -17,6 +24,8 @@
 
 @property (nonatomic,strong)UIColor *themeColor;
 
-//@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
+@property (nonatomic,weak)id<DiaryPageUpdateDelegate>  diaryDelegate;
+
+//@property (nonatomic,weak)id<DiaryPageUpdateDelegate>  diaryDelegate;
 
 @end
