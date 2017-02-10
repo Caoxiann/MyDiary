@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Note.h"
 #import "NoteBL.h"
-#import "NoteCreateViewController.h"
 #import "NoteEditViewController.h"
 
 @interface ElementViewController : UIViewController
 
 
--(void)charactersButtonAction;
+- (void)note;
 
 @property (nonatomic) CGSize deviceScreenSize;
 
@@ -41,6 +40,7 @@
 
 @property (nonatomic,strong) NSString *time;
 
+@property (nonatomic) NSInteger page;
 
 @property int year, month, date, hour, minute, weekDay;
 

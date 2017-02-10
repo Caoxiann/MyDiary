@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Diary.h"
 #import "DiaryBL.h"
-#import "DiaryCreateViewController.h"
 #import "DiaryEditViewController.h"
 
 @interface DiaryViewController : UIViewController
 
--(void)charactersButtonAction;
+- (void)diary;
 
 @property (nonatomic) CGSize deviceScreenSize;
 
@@ -42,6 +41,7 @@
 
 @property (nonatomic,strong) NSString *time;
 
+@property (nonatomic) NSInteger page;
 
 @property int year, month, date, hour, minute, weekDay;
 

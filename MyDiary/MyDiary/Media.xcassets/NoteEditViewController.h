@@ -7,14 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "NoteBL.h"
 #import "Note.h"
+
+@protocol NotePageUpdateDelegate <NSObject>
+
+-(void)updateTheNoteList;
+
+@end
+
 @interface NoteEditViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *txtView;
 
-- (IBAction)onclickDone:(id)sender;
+@property (nonatomic,strong)Note *currentPage;
 
-- (IBAction)onclickSave:(id)sender;
+@property (nonatomic,strong)NSString *date;
+
+@property (nonatomic,strong)UIColor *themeColor;
+
+@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
 
 @end

@@ -10,7 +10,6 @@
 		4211D8581E40246E00D03C4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8571E40246E00D03C4F /* main.m */; };
 		4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D85A1E40246E00D03C4F /* AppDelegate.m */; };
 		4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D85D1E40246E00D03C4F /* RootViewController.m */; };
-		4211D8611E40246E00D03C4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4211D85F1E40246E00D03C4F /* Main.storyboard */; };
 		4211D8711E40246E00D03C4F /* MyDiaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8701E40246E00D03C4F /* MyDiaryTests.m */; };
 		4211D87C1E40246E00D03C4F /* MyDiaryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D87B1E40246E00D03C4F /* MyDiaryUITests.m */; };
 		4211D88F1E4024B800D03C4F /* DiaryBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D88A1E4024B800D03C4F /* DiaryBL.m */; };
@@ -24,10 +23,13 @@
 		42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3891E49C4F0002477C5 /* NoteBL.m */; };
 		42EDF38E1E49C4F0002477C5 /* NoteDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF38B1E49C4F0002477C5 /* NoteDAO.m */; };
 		42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */; };
-		42EDF3991E4AEAED002477C5 /* DiaryCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */; };
 		42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */; };
-		42EDF39F1E4AEB34002477C5 /* NoteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */; };
 		42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */; };
+		42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */; };
+		42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */; };
+		42FC2DD11E4C723B0038CB62 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */; };
+		42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */; };
+		42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD61E4D5C140038CB62 /* CalendarItems.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +56,6 @@
 		4211D85A1E40246E00D03C4F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4211D85C1E40246E00D03C4F /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		4211D85D1E40246E00D03C4F /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		4211D8601E40246E00D03C4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4211D8671E40246E00D03C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4211D86C1E40246E00D03C4F /* MyDiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4211D8701E40246E00D03C4F /* MyDiaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryTests.m; sourceTree = "<group>"; };
@@ -83,13 +84,18 @@
 		42EDF38B1E49C4F0002477C5 /* NoteDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDAO.m; sourceTree = "<group>"; };
 		42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryEditViewController.h; sourceTree = "<group>"; };
 		42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryEditViewController.m; sourceTree = "<group>"; };
-		42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryCreateViewController.h; sourceTree = "<group>"; };
-		42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryCreateViewController.m; sourceTree = "<group>"; };
 		42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEditViewController.h; path = Media.xcassets/NoteEditViewController.h; sourceTree = "<group>"; };
 		42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEditViewController.m; path = Media.xcassets/NoteEditViewController.m; sourceTree = "<group>"; };
-		42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCreateViewController.h; sourceTree = "<group>"; };
-		42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCreateViewController.m; sourceTree = "<group>"; };
 		42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
+		42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDiary.entitlements; sourceTree = "<group>"; };
+		42EDF3A31E4B70CE002477C5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTable.h; sourceTree = "<group>"; };
+		42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTable.m; sourceTree = "<group>"; };
+		42FC2DD51E4D5C140038CB62 /* CalendarItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarItems.h; sourceTree = "<group>"; };
+		42FC2DD61E4D5C140038CB62 /* CalendarItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarItems.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FC2DD11E4C723B0038CB62 /* AddressBookUI.framework in Frameworks */,
+				42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */,
+				42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */,
 				4211D8971E40263500D03C4F /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,8 +164,8 @@
 			children = (
 				4211D8591E40246E00D03C4F /* AppDelegate.h */,
 				4211D85A1E40246E00D03C4F /* AppDelegate.m */,
-				4211D85F1E40246E00D03C4F /* Main.storyboard */,
 				4290BD711E47365400BC225E /* Media.xcassets */,
+				42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */,
 				4211D8671E40246E00D03C4F /* Info.plist */,
 				4211D8571E40246E00D03C4F /* main.m */,
 			);
@@ -203,6 +212,10 @@
 				4211D88A1E4024B800D03C4F /* DiaryBL.m */,
 				42EDF3881E49C4F0002477C5 /* NoteBL.h */,
 				42EDF3891E49C4F0002477C5 /* NoteBL.m */,
+				42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */,
+				42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */,
+				42FC2DD51E4D5C140038CB62 /* CalendarItems.h */,
+				42FC2DD61E4D5C140038CB62 /* CalendarItems.m */,
 			);
 			name = BusinessLogicLayer;
 			sourceTree = "<group>";
@@ -218,14 +231,10 @@
 				42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */,
 				4211D89F1E40498100D03C4F /* CalendarViewController.h */,
 				4211D8A01E40499C00D03C4F /* CalendarViewController.m */,
-				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
-				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
-				42EDF3971E4AEAED002477C5 /* DiaryCreateViewController.h */,
-				42EDF3981E4AEAED002477C5 /* DiaryCreateViewController.m */,
 				42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */,
 				42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */,
-				42EDF39D1E4AEB34002477C5 /* NoteCreateViewController.h */,
-				42EDF39E1E4AEB34002477C5 /* NoteCreateViewController.m */,
+				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
+				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
 			);
 			name = PresentationLayer;
 			sourceTree = "<group>";
@@ -233,6 +242,10 @@
 		4211D8951E40263500D03C4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */,
+				42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */,
+				42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */,
+				42EDF3A31E4B70CE002477C5 /* MapKit.framework */,
 				4211D8961E40263500D03C4F /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -307,6 +320,14 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = S3QSH37693;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					4211D86B1E40246E00D03C4F = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -348,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4290BD721E47365400BC225E /* Media.xcassets in Resources */,
-				4211D8611E40246E00D03C4F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,15 +394,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */,
-				42EDF3991E4AEAED002477C5 /* DiaryCreateViewController.m in Sources */,
 				4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */,
 				4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */,
 				42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */,
 				42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */,
 				4211D8901E4024B800D03C4F /* DiaryDAO.m in Sources */,
+				42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */,
 				4211D8911E4024B800D03C4F /* Diary.m in Sources */,
 				42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */,
-				42EDF39F1E4AEB34002477C5 /* NoteCreateViewController.m in Sources */,
+				42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */,
 				42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */,
 				4211D8581E40246E00D03C4F /* main.m in Sources */,
 				4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */,
@@ -422,17 +442,6 @@
 			targetProxy = 4211D8781E40246E00D03C4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4211D85F1E40246E00D03C4F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4211D8601E40246E00D03C4F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4211D87E1E40246E00D03C4F /* Debug */ = {
@@ -530,8 +539,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -544,8 +555,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
