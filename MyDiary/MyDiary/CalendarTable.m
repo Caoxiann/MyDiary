@@ -10,25 +10,26 @@
 #import "CalendarItems.h"
 #import "CalendarViewController.h"
 
-#define Weekdays @[@"S", @"M", @"T", @"W", @"T", @"F", @"S"]
-
-static NSDateFormatter *dateFormattor;
-
 @interface CalendarTable () <UIScrollViewDelegate, CalendarItemsDelegate>
 
 @property (strong, nonatomic) NSDate *date;
 
-@property (strong, nonatomic) UILabel *titleLable;
 @property (strong, nonatomic) UIScrollView *scrollView;
+
 @property (strong, nonatomic) CalendarItems *lastMonthItem;
 @property (strong, nonatomic) CalendarItems *theMonthItem;
 @property (strong, nonatomic) CalendarItems *nextMonthItem;
+
 @property (strong, nonatomic) UIView *backgroundView;
 
+@property (strong, nonatomic) UILabel *titleLable;
+
 @end
+
 @implementation CalendarTable
-- (instancetype)initWithCurrentDate:(NSDate *)date
-{
+//初始化日历
+- (instancetype)initWithCurrentDate:(NSDate *)date{
+    
     if (self = [super init]){
         
         _backgroundView = [[UIView alloc]init];
@@ -40,40 +41,32 @@ static NSDateFormatter *dateFormattor;
         [self setupWeekHeader];
         [self setupCalendarItems];
         [self setupScrollView];
-        [self setFrame:CGRectMake(0, 10, DeviceWidth, CGRectGetMaxY(self.scrollView.frame))];
+        [self setFrame:CGRectMake(0, 10, [UIScreen mainScreen].bounds.size.width, CGRectGetMaxY(self.scrollView.frame))];
         [_backgroundView setFrame:CGRectMake(15, 15, [UIScreen mainScreen].bounds.size.width - 30, CGRectGetMaxY(self.scrollView.frame))];
         [self setCurrentDate:self.date];
     }
     return self;
 }
-
-
-#pragma mark - Private
-
-- (NSString *)stringFromDate:(NSDate *)date
-{
-    if (!dateFormattor)
-    {
-        dateFormattor = [[NSDateFormatter alloc] init];
-        [dateFormattor setDateFormat:@"MM-yyyy"];
-    }
+//日历标题时间格式变化
+- (NSString *)stringFromDate:(NSDate *)date{
     
+    NSDateFormatter *dateFormattor = [[NSDateFormatter alloc] init];
+    [dateFormattor setDateFormat:@"MM-yyyy"];
     return [dateFormattor stringFromDate:date];
 }
-
 // 设置上层的titleBar
-- (void)setupTitleBar
-{
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, DeviceWidth-40,30)];
+- (void)setupTitleBar{
+    
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, [UIScreen mainScreen].bounds.size.width-40,30)];
     [titleView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:titleView];
     
-    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(titleView.frame.size.width-90, 5, 20, 20)];
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(titleView.frame.size.width-90, 5, 20, 15)];
     [leftButton setImage:[UIImage imageNamed:@"preButton"] forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(setPreviousMonthDate) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:leftButton];
     
-    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(titleView.frame.size.width - 40, 5, 20, 20)];
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(titleView.frame.size.width - 40, 5, 20, 15)];
     [rightButton setImage:[UIImage imageNamed:@"nextButton"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(setNextMonthDate) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:rightButton];
@@ -86,59 +79,57 @@ static NSDateFormatter *dateFormattor;
     [titleView addSubview:titleLable];
     self.titleLable = titleLable;
 }
-
-// 设置星期文字的显示
-- (void)setupWeekHeader
-{
-    CGFloat offsetX = 30;
+//设置“星期几”文字显示
+- (void)setupWeekHeader{
+    
+    NSArray *weekDays = [[NSArray alloc]initWithObjects:@"S", @"M", @"T", @"W", @"T", @"F", @"S", nil];
+    CGFloat offset = 30;
     for (int i = 0; i < 7; i++) {
-        UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetX, 60, (DeviceWidth - 60) / 7, 15)];
-        weekdayLabel.textAlignment = NSTextAlignmentCenter;
-        weekdayLabel.font=[UIFont systemFontOfSize:16];
-        weekdayLabel.text = Weekdays[i];
-        weekdayLabel.textColor = [UIColor colorWithRed:181/255.0 green:188/255.0 blue:194/255.0 alpha:1];
+        
+        UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(offset, 60, ([UIScreen mainScreen].bounds.size.width - 60) / 7, 15)];
+        [weekdayLabel setTextAlignment:NSTextAlignmentCenter];
+        [weekdayLabel setFont:[UIFont fontWithName:@"Times new roman" size:16]];
+        [weekdayLabel setText:weekDays[i]];
+        [weekdayLabel setTextColor:[UIColor colorWithRed:181/255.0 green:188/255.0 blue:194/255.0 alpha:1]];
         [self addSubview:weekdayLabel];
-        offsetX += weekdayLabel.frame.size.width;
+        offset += weekdayLabel.frame.size.width;
     }
 }
-
-// 设置包含日历的item的scrollView
+//设置scrollView
 - (void)setupScrollView{
     
-    self.scrollView.delegate = self;
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    [self.scrollView setFrame:CGRectMake(0, 60, DeviceWidth, self.theMonthItem.frame.size.height)];
-    self.scrollView.contentSize = CGSizeMake(3 * self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-    self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, 0);
+    [self.scrollView setDelegate:self];
+    [self.scrollView setPagingEnabled:YES];
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.scrollView setFrame:CGRectMake(0, 60, [UIScreen mainScreen].bounds.size.width, self.theMonthItem.frame.size.height + 10)];
+    [self.scrollView setContentSize:CGSizeMake(3 * self.scrollView.frame.size.width, self.scrollView.frame.size.height)];
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width, 0)];
     [self addSubview:self.scrollView];
 }
-
-// 设置3个日历的item
-- (void)setupCalendarItems
-{
+//初始化日历scrollView显示
+- (void)setupCalendarItems{
+    
     self.scrollView = [[UIScrollView alloc] init];
     
     self.lastMonthItem = [[CalendarItems alloc] init];
     [self.scrollView addSubview:self.lastMonthItem];
     
-    CGRect itemFrame = self.lastMonthItem.frame;
-    itemFrame.origin.x = DeviceWidth;
+    CGRect preViewFrame = self.lastMonthItem.frame;
+    preViewFrame.origin.x = [UIScreen mainScreen].bounds.size.width;
     self.theMonthItem = [[CalendarItems alloc] init];
-    self.theMonthItem.frame = itemFrame;
-    self.theMonthItem.delegate = self;
+    [self.theMonthItem setFrame:preViewFrame];
+    [self.theMonthItem setDelegate:self];
     [self.scrollView addSubview:self.theMonthItem];
     
-    itemFrame.origin.x = DeviceWidth * 2;
+    preViewFrame.origin.x = [UIScreen mainScreen].bounds.size.width * 2;
     self.nextMonthItem = [[CalendarItems alloc] init];
-    self.nextMonthItem.frame = itemFrame;
+    [self.nextMonthItem setFrame:preViewFrame];
     [self.scrollView addSubview:self.nextMonthItem];
 }
-
-// 设置当前日期，初始化
-- (void)setCurrentDate:(NSDate *)date
-{
+//设置当前日期
+- (void)setCurrentDate:(NSDate *)date{
+    
     self.theMonthItem.date = date;
     self.lastMonthItem.date = [self.theMonthItem previousMonthDate];
     self.nextMonthItem.date = [self.theMonthItem nextMonthDate];
@@ -148,50 +139,37 @@ static NSDateFormatter *dateFormattor;
     NSArray *monthTable = [[NSArray alloc]initWithObjects:@"一月",@"二月",@"三月",@"四月",@"五月",@"六月",@"七月",@"八月",@"九月",@"十月",@"十一月",@"十二月", nil];
     NSString *finalShow = [[NSString alloc]init];
     finalShow = [NSString stringWithFormat:@"%@  %ld年",monthTable[month-1],year];
-    //NSLog(@"%ld %ld",(long)month,(long)year);
     [self.titleLable setText:finalShow];
 }
-
-// 重新加载日历items的数据
-- (void)reloadCalendarItems
-{
+//重载日历数据
+- (void)reloadCalendarItems{
+    
     CGPoint offset = self.scrollView.contentOffset;
-    
-    if (offset.x == self.scrollView.frame.size.width) { //防止滑动一点点并不切换scrollview的视图
-        return;
-    }
-    
-    if (offset.x > self.scrollView.frame.size.width) {
+    if(offset.x > self.scrollView.frame.size.width){
+        
         [self setNextMonthDate];
-    } else {
+    }
+    else{
+        
         [self setPreviousMonthDate];
     }
-    
     self.scrollView.contentOffset = CGPointMake(self.scrollView.frame.size.width, 0);
 }
-
-#pragma mark - SEL
-
-// 跳到上一个月
-- (void)setPreviousMonthDate
-{
+//上翻一个月
+- (void)setPreviousMonthDate{
+    
     [self setCurrentDate:[self.theMonthItem previousMonthDate]];
 }
-
-// 跳到下一个月
+//下翻一个月
 - (void)setNextMonthDate{
 
     [self setCurrentDate:[self.theMonthItem nextMonthDate]];
 }
 
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
     [self reloadCalendarItems];
 }
-
-#pragma mark - CalendarItemsDelegate
 
 - (void)calendarItem:(CalendarItems *)item didSelectedDate:(NSDate *)date {
     

@@ -54,7 +54,7 @@
     [self themeSetting];
     //初始化selectedDate为今天
     [self initSelectedDate];
-    [self updateTheNoteList];
+    //[self updateTheNoteList];
     [self.view addSubview:_noteListTableView];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background1"]]];
 }
@@ -204,7 +204,7 @@
     selectedYear=year;
     selectedMonth=month;
     selectedDay=day;
-    [self updateTheNoteList];
+    //[self updateTheNoteList];
 }
 
 //更新tabelview
@@ -246,11 +246,11 @@
 }
 
 //从本地更新数据
--(void)updateTheNoteList
-{
-    NSLog(@"queryDBtable");
-    [self updateDataArray];
-}
+//-(void)updateTheNoteList
+//{
+//    NSLog(@"queryDBtable");
+//    [self updateDataArray];
+//}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

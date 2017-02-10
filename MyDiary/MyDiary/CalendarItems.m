@@ -18,12 +18,14 @@
     
     UILabel *dayLabel;
 }
-
+//创建日期显示lable
 - (UILabel *)dayLabel{
-    if (!dayLabel) {
+    
+    if(!dayLabel){
+        
         dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        dayLabel.textAlignment = NSTextAlignmentCenter;
-        dayLabel.font = [UIFont systemFontOfSize:14];
+        [dayLabel setTextAlignment:NSTextAlignmentCenter];
+        [dayLabel setFont:[UIFont systemFontOfSize:14]];
         [dayLabel.layer setCornerRadius:10];
         [dayLabel.layer setMasksToBounds:YES];
         dayLabel.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2 );
@@ -33,12 +35,6 @@
 }
 
 @end
-
-typedef NS_ENUM(NSInteger, CalendarMonth){
-    MonthPrevious = 0,
-    MonthCurrent = 1,
-    MonthNext = 2,
-};
 
 @interface CalendarItems () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -50,175 +46,162 @@ typedef NS_ENUM(NSInteger, CalendarMonth){
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.backgroundColor = [UIColor clearColor];
+        [self setBackgroundColor:[UIColor clearColor]];
         [self setupCollectionView];
-        [self setFrame:CGRectMake(0, 0, DeviceWidth, self.collectionView.frame.size.height +10)];
+        [self setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.collectionView.frame.size.height +10)];
     }
     return self;
 }
 
-#pragma mark - Custom Accessors
-
 - (void)setDate:(NSDate *)date {
+    
     _date = date;
     [self.collectionView reloadData];
 }
-
-#pragma mark - Public
-
 // 获取date的下个月 日期
 - (NSDate *)nextMonthDate {
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.month = 1;
-    NSDate *nextMonthDate = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:self.date options:NSCalendarMatchStrictly];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.month = 1;
+    NSDate *nextMonthDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.date options:NSCalendarMatchStrictly];
     return nextMonthDate;
 }
-
 // 获取date的上个月日期
 - (NSDate *)previousMonthDate {
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.month = -1;
-    NSDate *previousMonthDate = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:self.date options:NSCalendarMatchStrictly];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.month = -1;
+    NSDate *previousMonthDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.date options:NSCalendarMatchStrictly];
     return previousMonthDate;
 }
-
-#pragma mark - Private
-
-// collectionView显示日期单元，设置其属性
+//collectionView显示日期单元 设置其属性
 - (void)setupCollectionView {
 
     UICollectionViewFlowLayout *flowLayot = [[UICollectionViewFlowLayout alloc] init];
-    flowLayot.sectionInset = UIEdgeInsetsZero;
-    flowLayot.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width - 80) / 7, ([UIScreen mainScreen].bounds.size.width - 80) / 7);
-    flowLayot.minimumLineSpacing = 0;
-    flowLayot.minimumInteritemSpacing = 0;
+    [flowLayot setSectionInset:UIEdgeInsetsZero];
+    [flowLayot setItemSize:CGSizeMake(([UIScreen mainScreen].bounds.size.width - 80) / 7, ([UIScreen mainScreen].bounds.size.width - 80) / 7)];
+    [flowLayot setMinimumLineSpacing:0];
+    [flowLayot setMinimumInteritemSpacing:0];
     
-    CGRect collectionViewFrame = CGRectMake(30, 20, DeviceWidth - 60, ([UIScreen mainScreen].bounds.size.width - 80) / 7 * 5);
-    self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:flowLayot];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(30, 20, [UIScreen mainScreen].bounds.size.width - 60, ([UIScreen mainScreen].bounds.size.width - 80) / 7 * 5) collectionViewLayout:flowLayot];
     [self addSubview:self.collectionView];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    [self.collectionView setDataSource:self];
+    [self.collectionView setDelegate:self];
+    [self.collectionView setBackgroundColor:[UIColor clearColor]];
     [self.collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
 }
 
-// 获取date当前月的第一天是星期几
-- (NSInteger)weekdayOfFirstDayInDate
-{
+//当前月的第一天是星期几
+- (NSInteger)weekdayOfFirstDayInDate{
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setFirstWeekday:1];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
-    [components setDay:1];
-    NSDate *firstDate = [calendar dateFromComponents:components];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
+    [dateComponents setDay:1];
+    NSDate *firstDate = [calendar dateFromComponents:dateComponents];
     NSDateComponents *firstComponents = [calendar components:NSCalendarUnitWeekday fromDate:firstDate];
     return firstComponents.weekday - 1;
 }
-
-// 获取date当前月的总天数
-- (NSInteger)totalDaysInMonthOBXate:(NSDate *)date
-{
+//获取当前月的总天数
+- (NSInteger)totalDaysInMonthOBXate:(NSDate *)date{
+    
     NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
     return range.length;
 }
+//获取某月某天的日期
+typedef NS_ENUM(NSInteger, CalendarMonth){
+    monthPrevious = 0,
+    monthCurrent = 1,
+    monthNext = 2
+};
 
-// 获取某月day的日期
-- (NSDate *)dateOfMonth:(CalendarMonth)calendarMonth WithDay:(NSInteger)day
-{
+- (NSDate *)dateOfMonth:(CalendarMonth)calendarMonth WithDay:(NSInteger)day{
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *date;
     
     switch (calendarMonth) {
-        case MonthPrevious:
+        case monthPrevious:
             date = [self previousMonthDate];
             break;
             
-        case MonthCurrent:
+        case monthCurrent:
             date = self.date;
             break;
             
-        case MonthNext:
+        case monthNext:
             date = [self nextMonthDate];
             break;
         default:
             break;
     }
     
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-    [components setDay:day];
-    NSDate *dateOBXay = [calendar dateFromComponents:components];
-    return dateOBXay;
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
+    [dateComponents setDay:day];
+    NSDate *dateFind = [calendar dateFromComponents:dateComponents];
+    return dateFind;
 }
-
-
-#pragma mark - UICollectionDatasource
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+//每组日期数
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
     return 42;
 }
-
+//日期显示处理
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UIColor *color = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
+
     NSString *identifier = @"CalendarCell";
     CalendarCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.dayLabel.textColor = [UIColor colorWithRed:109/255.0 green:122/255.0 blue:163/255.0 alpha:1];
+    [cell setBackgroundColor:[UIColor clearColor]];
+    [cell.dayLabel setTextColor:[UIColor colorWithRed:109/255.0 green:122/255.0 blue:163/255.0 alpha:1]];
     NSInteger firstWeekday = [self weekdayOfFirstDayInDate];
     NSInteger totalDaysOfMonth = [self totalDaysInMonthOBXate:self.date];
     NSInteger totalDaysOfLastMonth = [self totalDaysInMonthOBXate:[self previousMonthDate]];
     
-    if (indexPath.row < firstWeekday)
-    {    // 小于这个月的第一天
+    if (indexPath.row < firstWeekday){
+        //属于上一月
         NSInteger day = totalDaysOfLastMonth - firstWeekday + indexPath.row + 1;
-        cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
-        cell.dayLabel.textColor = [UIColor lightGrayColor];
+        [cell.dayLabel setText:[NSString stringWithFormat:@"%ld", day]];
+        [cell.dayLabel setTextColor:[UIColor lightGrayColor]];
     }
-    else if (indexPath.row >= totalDaysOfMonth + firstWeekday)
-    {    // 大于这个月的最后一天
+    else if (indexPath.row >= totalDaysOfMonth + firstWeekday){
+        //属于下一月
         NSInteger day = indexPath.row - totalDaysOfMonth - firstWeekday + 1;
-        cell.dayLabel.text = [NSString stringWithFormat:@"%ld", day];
-        cell.dayLabel.textColor = [UIColor lightGrayColor];
+        [cell.dayLabel setText:[NSString stringWithFormat:@"%ld", day]];
+        [cell.dayLabel setTextColor:[UIColor lightGrayColor]];
     }
-    else
-    {    // 属于这个月
+    else{
+        //日期属于当前月
         NSInteger day = indexPath.row - firstWeekday + 1;
-        cell.dayLabel.text= [NSString stringWithFormat:@"%ld", day];
-        //选中的那一天被圈起来显示
+        [cell.dayLabel setText:[NSString stringWithFormat:@"%ld", day]];
+        //选中状态
         if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:self.date]){
-            
-            //[cell.dayLabel setBackgroundColor:color];
-            cell.backgroundColor = color;
-            cell.layer.cornerRadius = cell.frame.size.height / 2;
-            cell.dayLabel.textColor = [UIColor whiteColor];
+
+            [cell setBackgroundColor:[UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1]];
+            [cell.layer setCornerRadius:cell.frame.size.height / 2];
+            [cell.dayLabel setTextColor:[UIColor whiteColor]];
         }
-        
-        // 如果日期和当期日期同年同月不同天, 注：第一个判断中的方法是iOS8的新API, 会比较传入单元以及比传入单元大得单元上数据是否相等，亲测同时传入Year和Month结果错误
+        //当前日期红色
         if ([[NSCalendar currentCalendar] isDate:[NSDate date] equalToDate:self.date toUnitGranularity:NSCalendarUnitMonth] && ![[NSCalendar currentCalendar] isDateInToday:self.date]) {
             
-            // 将当前日期的那天高亮显示
             if (day == [[NSCalendar currentCalendar] component:NSCalendarUnitDay fromDate:[NSDate date]]) {
-                cell.dayLabel.textColor = [UIColor redColor];
+                
+                [cell.dayLabel setTextColor:[UIColor redColor]];
             }
         }
-        
     }
-    
-    
     return cell;
 }
-
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
+//UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.date];
     NSInteger firstWeekday = [self weekdayOfFirstDayInDate];
-    [components setDay:indexPath.row - firstWeekday+1];
-    NSDate *selectedDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    [dateComponents setDay:indexPath.row - firstWeekday+1];
+    NSDate *selectedDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
     if (self.delegate && [self.delegate respondsToSelector:@selector(calendarItem:didSelectedDate:)]) {
+        
         [self.delegate calendarItem:self didSelectedDate:selectedDate];
     }
 }
-
 
 @end

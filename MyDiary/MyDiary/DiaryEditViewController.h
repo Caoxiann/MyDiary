@@ -26,6 +26,4 @@
 
 @property (nonatomic,weak)id<DiaryPageUpdateDelegate>  diaryDelegate;
 
-//@property (nonatomic,weak)id<DiaryPageUpdateDelegate>  diaryDelegate;
-
 @end

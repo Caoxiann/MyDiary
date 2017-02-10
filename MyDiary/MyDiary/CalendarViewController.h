@@ -29,7 +29,7 @@
     int k;
 }
 
--(void)updateTheNoteList;
+//-(void)updateTheNoteList;
 
 @property (nonatomic) CGSize deviceScreenSize;
 

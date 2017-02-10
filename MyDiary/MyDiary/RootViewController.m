@@ -158,9 +158,10 @@
     [self.view addSubview:baseToolbar];
     
     //项目数显示lable
-    _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake(_deviceScreenSize.width - 70,_deviceScreenSize.height - 24 - (_buttonRect.size.height / 2), 70, _buttonRect.size.height)];
+    _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake(_deviceScreenSize.width - 70,_deviceScreenSize.height - 24 - (_buttonRect.size.height / 2), 60, _buttonRect.size.height)];
+    [_itemShowLabel setTextAlignment:NSTextAlignmentRight];
     [_itemShowLabel setTextColor:[UIColor whiteColor]];
-    [_itemShowLabel setFont:[UIFont fontWithName:@"Apple LiGothic Medium" size:_buttonRect.size.height-3]];
+    [_itemShowLabel setFont:[UIFont systemFontOfSize:_buttonRect.size.height-3]];
     [self.view addSubview:_itemShowLabel];
     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(catchItemNumber) userInfo:nil repeats:YES];
 }

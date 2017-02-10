@@ -301,11 +301,11 @@
         Diary *diary = _currentPage;
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
+            NSString *noTitle = @"未命名日记";
             [_titleSettingField setText:noTitle];
         }
         if(_contentText.text.length == 0){
-            NSString *noContent = @"未命名项目";
+            NSString *noContent = @"未添加内容";
             [_contentText setText:noContent];
         }
         diary.title = _titleSettingField.text;
@@ -313,6 +313,7 @@
         diary.location = _locationView.text;
         [bl modifyDiary: diary];
         //操作成功返回home界面 做更新操作
+        [self.diaryDelegate updateTheDiaryList];
     }
     else{
         
@@ -321,17 +322,18 @@
         Diary *diary = _currentPage;
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
+            NSString *noTitle = @"未命名日记";
             [_titleSettingField setText:noTitle];
         }
         if(_contentText.text.length == 0){
-            NSString *noContent = @"未命名项目";
+            NSString *noContent = @"未添加内容";
             [_contentText setText:noContent];
         }
         diary.title = _titleSettingField.text;
         diary.content = _contentText.text;
         diary.location = _locationView.text;
         [bl createDiary: diary];
+        [self.diaryDelegate updateTheDiaryList];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
