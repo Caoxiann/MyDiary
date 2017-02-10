@@ -16,27 +16,23 @@
         self.backgroundColor = [UIColor clearColor];
         
         _day = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 60, 60)];
-        UIBezierPath* maskPath01 = [UIBezierPath bezierPathWithRoundedRect:_day.bounds byRoundingCorners:UIRectCornerTopLeft cornerRadii:CGSizeMake(5, 5)];
+        UIBezierPath* maskPath01 = [UIBezierPath bezierPathWithRoundedRect:_day.bounds byRoundingCorners:UIRectCornerTopLeft cornerRadii:CGSizeMake(10, 10)];
         CAShapeLayer* maskLayer01 = [[CAShapeLayer alloc] init];
         maskLayer01.frame = _day.bounds;
         maskLayer01.path = maskPath01.CGPath;
         _day.layer.mask = maskLayer01;
         [self.contentView addSubview:_day];
         
-        _week = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, 60, 15)];
+        _week = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 60, 30)];
+        UIBezierPath* maskPath02 = [UIBezierPath bezierPathWithRoundedRect:_week.bounds byRoundingCorners:UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
+        CAShapeLayer* maskLayer02 = [[CAShapeLayer alloc] init];
+        maskLayer02.frame = _week.bounds;
+        maskLayer02.path = maskPath02.CGPath;
+        _week.layer.mask = maskLayer02;
         [self.contentView addSubview:_week];
   
-        UIView* _view = [[UIView alloc] initWithFrame:CGRectMake(20, 75, 60, 5)];
-        UIBezierPath* maskPath02 = [UIBezierPath bezierPathWithRoundedRect:_view.bounds byRoundingCorners:UIRectCornerBottomLeft cornerRadii:CGSizeMake(5, 5)];
-        CAShapeLayer* maskLayer02 = [[CAShapeLayer alloc] init];
-        maskLayer02.frame = _view.bounds;
-        maskLayer02.path = maskPath02.CGPath;
-        _view.layer.mask = maskLayer02;
-        _view.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
-        [self.contentView addSubview:_view];
-        
         UIView* _view02 = [[UIView alloc] initWithFrame:CGRectMake(80, 0, [UIScreen mainScreen].bounds.size.width - 100, 80)];
-        UIBezierPath* maskPath03 = [UIBezierPath bezierPathWithRoundedRect:_view02.bounds byRoundingCorners:UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+        UIBezierPath* maskPath03 = [UIBezierPath bezierPathWithRoundedRect:_view02.bounds byRoundingCorners:UIRectCornerBottomRight | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
         CAShapeLayer* maskLayer03 = [[CAShapeLayer alloc] init];
         maskLayer03.frame = _view02.bounds;
         maskLayer03.path = maskPath03.CGPath;
@@ -62,7 +58,7 @@
     if ([week isEqualToString:@"Friday"]) return @"星期五";
     if ([week isEqualToString:@"Saturday"]) return @"星期六";
     if ([week isEqualToString:@"Sunday"]) return @"星期日";
-    return nil;
+    return week;
 }
 
 - (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content Minute:(NSString *)minute {

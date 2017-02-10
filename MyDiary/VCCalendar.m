@@ -29,14 +29,14 @@
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
-        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title   varchar(30), content varchar(100), minute varchar(10));";
+        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(300), minute varchar(10));";
         [_mDB executeUpdate:strCreateTable];
-        strCreateTable = @"create table if not exists diary(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(100));";
+        strCreateTable = @"create table if not exists diary(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(500));";
         [_mDB executeUpdate:strCreateTable];
     }
     
     _segControl = [[UISegmentedControl alloc] init];
-    _segControl.frame = CGRectMake(10, 25, 300, 25);
+    _segControl.frame = CGRectMake(10, 25, [UIScreen mainScreen].bounds.size.width - 20, 25);
     [_segControl setTintColor:[UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255]];
     
     [_segControl insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
@@ -91,9 +91,9 @@
     
     
     btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF01.width = 10;
+    btnF01.width = 20;
     btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF02.width = 110;
+    btnF02.width = [UIScreen mainScreen].bounds.size.width - 230;
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 340, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 365) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -183,6 +183,7 @@
     [_arrayTitle removeAllObjects];
     [_arrayContent removeAllObjects];
     [_arrayID removeAllObjects];
+    [_arrayMinute removeAllObjects];
     if ([_mDB open]) {
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM"];
@@ -259,6 +260,7 @@
     [_arrayTitle removeAllObjects];
     [_arrayContent removeAllObjects];
     [_arrayID removeAllObjects];
+    [_arrayMinute removeAllObjects];
     if ([_mDB open]) {
         NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth,[self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];

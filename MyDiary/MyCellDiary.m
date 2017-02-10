@@ -23,12 +23,8 @@
         _day.layer.mask = maskLayer01;
         [self.contentView addSubview:_day];
         
-        _week = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, 60, 15)];
+        _week = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, 60, 30)];
         [self.contentView addSubview:_week];
-        
-        UIView* _view = [[UIView alloc] initWithFrame:CGRectMake(20, 75, 60, 5)];
-        _view.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
-        [self.contentView addSubview:_view];
         
         UIView* _view02 = [[UIView alloc] initWithFrame:CGRectMake(80, 0, [UIScreen mainScreen].bounds.size.width - 100, 80)];
         UIBezierPath* maskPath03 = [UIBezierPath bezierPathWithRoundedRect:_view02.bounds byRoundingCorners:UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
@@ -62,7 +58,7 @@
     if ([week isEqualToString:@"Friday"]) return @"星期五";
     if ([week isEqualToString:@"Saturday"]) return @"星期六";
     if ([week isEqualToString:@"Sunday"]) return @"星期日";
-    return nil;
+    return week;
 }
 
 - (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content {
@@ -87,9 +83,21 @@
     _content.text = content;
     _content.font = [UIFont systemFontOfSize:18];
     CGRect contentRect = [content boundingRectWithSize:_content.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:_content.font, NSFontAttributeName, nil] context:nil];
+    BOOL _miss = NO;
+    if (contentRect.size.height >= 200) {
+        contentRect.size.height = 200;
+        _miss = YES;
+    }
     _content.frame = CGRectMake(30, 90, [UIScreen mainScreen].bounds.size.width - 60, contentRect.size.height);
-    
     _view03.frame = CGRectMake(20, 80, [UIScreen mainScreen].bounds.size.width - 40, _content.frame.size.height + 20);
+    if (_miss) {
+        UILabel* _lbmiss = [[UILabel alloc] initWithFrame:CGRectMake(30, 285, 100, 20)];
+        _lbmiss.text = @"...";
+        _lbmiss.backgroundColor = [UIColor clearColor];
+        _lbmiss.font = [UIFont systemFontOfSize:18];
+        [self.contentView addSubview:_lbmiss];
+        _view03.frame = CGRectMake(20, 80, [UIScreen mainScreen].bounds.size.width - 40, _content.frame.size.height + 35);
+    }
     UIBezierPath* maskPath = [UIBezierPath bezierPathWithRoundedRect:_view03.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(10, 10)];
     CAShapeLayer* maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = _view03.bounds;

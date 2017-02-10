@@ -34,7 +34,7 @@
     _title = [[UITextField alloc] initWithFrame:CGRectMake(0, 80, [UIScreen mainScreen].bounds.size.width, 50)];
     [_title setTextAlignment:NSTextAlignmentCenter];
     _title.font = [UIFont systemFontOfSize:30];
-    _title.layer.cornerRadius = 5;
+    _title.layer.cornerRadius = 10;
     _title.layer.masksToBounds = YES;
     _title.userInteractionEnabled = NO;
     _title.textColor = [UIColor blackColor];

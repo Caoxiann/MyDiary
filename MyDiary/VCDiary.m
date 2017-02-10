@@ -24,7 +24,7 @@
     [super viewDidLoad];
     
     _segControl = [[UISegmentedControl alloc] init];
-    _segControl.frame = CGRectMake(10, 25, 300, 25);
+    _segControl.frame = CGRectMake(10, 25, [UIScreen mainScreen].bounds.size.width - 20, 25);
     [_segControl setTintColor:[UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255]];
     
     [_segControl insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
@@ -84,9 +84,9 @@
     btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
     
     btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF01.width = 10;
+    btnF01.width = 20;
     btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF02.width = 110;
+    btnF02.width = [UIScreen mainScreen].bounds.size.width - 230;
     
     _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     _toolbar.tintColor = [UIColor whiteColor];
@@ -131,6 +131,7 @@
     _content.text = [_arrayContent objectAtIndex:indexPath.section];
     _content.font = [UIFont systemFontOfSize:18];
     CGRect contentRect = [_content.text boundingRectWithSize:_content.frame.size options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:_content.font, NSFontAttributeName, nil] context:nil];
+    if (contentRect.size.height >= 200) contentRect.size.height = 215;
     return contentRect.size.height + 100;
 }
 
