@@ -6,9 +6,6 @@
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
 
-#ifndef CalenderViewController_h
-#define CalenderViewController_h
-
 #import <UIKit/UIKit.h>
 #import "Note.h"
 #import "NoteBL.h"
@@ -17,11 +14,11 @@
 
 -(void)selectedUpdate:(NSString*)string;
 
+-(void)updateList;
+
 @end
 
-@interface CalendarViewController : UIViewController
-<UITableViewDelegate,UITableViewDataSource,selectedUpdate>
-{
+@interface CalendarViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,selectedUpdate> {
     NSInteger selectedYear;
     NSInteger selectedMonth;
     NSInteger selectedDay;
@@ -29,7 +26,7 @@
     int k;
 }
 
-//-(void)updateTheNoteList;
+-(void)updateList;
 
 @property (nonatomic) CGSize deviceScreenSize;
 
@@ -39,7 +36,7 @@
 
 @property (nonatomic,strong)UITableView *noteListTableView;
 
-@property (nonatomic,strong)NSArray *noteListArray;
+@property (nonatomic,strong)NSMutableArray *noteListArray;
 
 @property (nonatomic,strong)NSMutableArray *dataArray;
 
@@ -55,6 +52,8 @@
 
 @property (nonatomic,strong) NSString *cellTitle;
 
+@property (nonatomic,strong) NoteBL *bl;
+
 @property int date;
 
 @property int hour;
@@ -63,5 +62,3 @@
 
 
 @end
-
-#endif /* CalenderViewController_h */

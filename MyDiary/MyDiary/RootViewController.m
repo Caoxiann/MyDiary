@@ -129,7 +129,7 @@
     [itemButton setImage:[UIImage imageNamed:@"item"] forState:UIControlStateNormal];
     [itemButton setFrame:_buttonRect];
     
-    [listButton addTarget:self.elementVC action:@selector(noteButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [listButton addTarget:self.elementVC action:@selector(note) forControlEvents:UIControlEventTouchUpInside];
     
     [charactersButton addTarget:self.diaryVC action:@selector(diary) forControlEvents:UIControlEventTouchUpInside];
     

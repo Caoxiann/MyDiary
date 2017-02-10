@@ -14,7 +14,7 @@
 @interface ElementViewController : UIViewController
 
 
-- (void)noteButtonAction;
+- (void)note;
 
 @property (nonatomic) CGSize deviceScreenSize;
 

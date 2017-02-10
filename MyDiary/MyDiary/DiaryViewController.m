@@ -64,6 +64,30 @@
     NSInteger temp1, temp2;
     _monthInTable = [[NSMutableArray alloc]init];
     _monthDetail = [[NSMutableArray alloc]init];
+    //数据排序防止不同月份来回添加导致的section分组错误，时间晚近显示越靠前（最近的日记靠前）
+    NSArray *sortData = [_listData copy];
+    sortData = [sortData sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Diary *dic1 = (Diary*)obj1;
+        Diary *dic2 = (Diary*)obj2;
+        NSString *date1 = [dateFormatter stringFromDate:dic1.date];
+        NSString *date2 = [dateFormatter stringFromDate:dic2.date];
+        long year1 = [[date1 substringWithRange:NSMakeRange(0, 4)]intValue];
+        long month1 = [[date1 substringWithRange:NSMakeRange(5, 2)]intValue];
+        long day1 = [[date1 substringWithRange:NSMakeRange(8, 2)]intValue];
+        long hour1 = [[date1 substringWithRange:NSMakeRange(11, 2)]intValue];
+        long min1 = [[date1 substringWithRange:NSMakeRange(14, 2)]intValue];
+        long date11 = year1*1000000000 + month1*10000000 +day1*100000 + hour1*60 + min1;
+        long year2 = [[date2 substringWithRange:NSMakeRange(0, 4)]intValue];
+        long month2 = [[date2 substringWithRange:NSMakeRange(5, 2)]intValue];
+        long day2 = [[date2 substringWithRange:NSMakeRange(8, 2)]intValue];
+        long hour2 = [[date2 substringWithRange:NSMakeRange(11, 2)]intValue];
+        long min2 = [[date2 substringWithRange:NSMakeRange(14, 2)]intValue];
+        long date22 = year2*1000000000 + month2*10000000 +day2*100000 + hour2*60 + min2;
+        return date11 < date22;
+    }];
+    [_listData removeAllObjects];
+    _listData = [sortData mutableCopy];
+    
     if([_listData count] > 1){
         
         for(int i = 0; i < [_listData count] - 1; i++){
@@ -228,7 +252,7 @@
     [_cellView addSubview:_titleLabel];
     
     //内容显示
-    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 85, _deviceScreenSize.width - 60, 80)];
+    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, _deviceScreenSize.width - 60, 120)];
     [_contentLabel setTextColor:_themeColor];
     //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     _contentLabel.font = [UIFont systemFontOfSize:14];
@@ -333,9 +357,7 @@
         Diary *diaryTemp = _listData[indexPath.row];
         DiaryBL *bl = [[DiaryBL alloc]init];
         self.listData = [bl removeDiary:diaryTemp];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        [tableView reloadData];
+        [_diaryShowTableView reloadData];
     }
 }
 
@@ -350,7 +372,6 @@
 }
 
 //更新TableView
-#pragma mark --updateNoteDelegate
 -(void)updateTheDiaryList{
     
     _listData = [self.bl findAll];

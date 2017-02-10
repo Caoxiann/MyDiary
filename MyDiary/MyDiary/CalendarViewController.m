@@ -5,12 +5,12 @@
 //  Created by tinoryj on 2017/1/31.
 //  Copyright © 2017年 tinoryj. All rights reserved.
 //
-#define deviceWidth [UIScreen mainScreen].bounds.size.width
-#define deviceHeight [UIScreen mainScreen].bounds.size.height
+
 #import "CalendarViewController.h"
 #import "CalendarTable.h"
+#import "CalendarItems.h"
 
-@interface CalendarViewController ()
+@interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate>
 
 @property (nonatomic,strong)CalendarTable *calendar;
 
@@ -18,47 +18,47 @@
 
 @implementation CalendarViewController
 
-@synthesize noteListArray;
-@synthesize dataArray;
 @synthesize calendar;
 
--(instancetype)init
-{
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    [self themeSetting];
+    _bl = [[NoteBL alloc]init];
+    _dataArray = [[NSMutableArray alloc]init];
+    _noteListArray = [[NSMutableArray alloc]init];
+    //初始化selectedDate为今天
+    [self initSelectedDate];
+    [self.view addSubview:_noteListTableView];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background1"]]];
+    [self updateList];
+}
+
+-(instancetype)init{
+    
     self=[super init];
-    if (self)
-    {
-        dataArray=[[NSMutableArray alloc]init];
+    if (self){
+        
+
         calendar = [[CalendarTable alloc] initWithCurrentDate:[NSDate date]];
         calendar.selectedDelegate=self;
         CGRect frame = calendar.frame;
         frame.origin.y = 0;
-        calendar.frame = frame;
+        [calendar setFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height + 30)];
         initFrame=frame;
         _noteListTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height- 140) style:UITableViewStylePlain];
         _noteListTableView.backgroundColor=[UIColor clearColor];
+        [_noteListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         _noteListTableView.tableHeaderView = calendar;
-        
-        _noteListTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
         UIImage *backImage=[UIImage imageNamed:@"background1"];
-        _noteListTableView.layer.contents=(id)backImage.CGImage;
-        _noteListTableView.layer.backgroundColor=[UIColor clearColor].CGColor;
+        [_noteListTableView.layer setContents:(id)backImage.CGImage];
+        [_noteListTableView.layer setBackgroundColor:(__bridge CGColorRef _Nullable)([UIColor clearColor])];
         _noteListTableView.delegate = self;
         _noteListTableView.dataSource = self;
         [_noteListTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     }
     return self;
 }
-
-- (void)viewDidLoad{
-    [super viewDidLoad];
-    [self themeSetting];
-    //初始化selectedDate为今天
-    [self initSelectedDate];
-    //[self updateTheNoteList];
-    [self.view addSubview:_noteListTableView];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background1"]]];
-}
-
 //主题设置
 -(void)themeSetting {
     //主题颜色
@@ -71,7 +71,7 @@
 }
 
 - (void)initSelectedDate{
-    if (k!=17){
+    if (k != 1){
     
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -80,7 +80,7 @@
         selectedMonth = [[dateTime substringWithRange:NSMakeRange(5, 2)]integerValue];
         selectedDay = [[dateTime substringWithRange:NSMakeRange(8, 2)]integerValue];
     }
-    k=17;
+    k = 1;
 }
 
 //自定义cell
@@ -90,7 +90,7 @@
     UITableViewCell *baseTableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     if(!baseTableViewCell)
         baseTableViewCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
-    Note *noteData = dataArray[indexPath.row];
+    Note *noteData = _dataArray[indexPath.row];
     
     //_cellView设置
     _cellView=[[UIView alloc]init];
@@ -145,9 +145,9 @@
     [_cellView addSubview:_maskLabel];
     
     //日期显示
-    int  dateShow = [[_time substringWithRange:NSMakeRange(8, 2)]intValue];
+    NSInteger dateShow = [[timeShow substringWithRange:NSMakeRange(8, 2)]intValue];
     _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
-    [_dateLabel setText:[NSString stringWithFormat:@"%d",_date]];
+    [_dateLabel setText:[NSString stringWithFormat:@"%ld",dateShow]];
     [_dateLabel setTextAlignment:NSTextAlignmentCenter];
     [_dateLabel setFont:[UIFont systemFontOfSize:35]];
     [_dateLabel setTextColor:[UIColor whiteColor]];
@@ -186,51 +186,50 @@
 }
 
 //传入选中的那一天
--(void)selectedUpdate:(NSString*)string
-{
-    _stringTime=string;
+-(void)selectedUpdate:(NSString*)string{
+    
+    _stringTime = string;
     [self updateSelectedDate];
 }
 
 //更新选中天数
--(void) updateSelectedDate
-{
+-(void) updateSelectedDate{
+    
     NSInteger year;
     NSInteger month;
     NSInteger day;
-    year=[[_stringTime substringWithRange:NSMakeRange(0, 4)]integerValue];
-    month=[[_stringTime substringWithRange:NSMakeRange(5, 2)]integerValue];
-    day=[[_stringTime substringWithRange:NSMakeRange(8, 2)]integerValue];
+    year = [[_stringTime substringWithRange:NSMakeRange(0, 4)]integerValue];
+    month = [[_stringTime substringWithRange:NSMakeRange(5, 2)]integerValue];
+    day = [[_stringTime substringWithRange:NSMakeRange(8, 2)]integerValue];
     selectedYear=year;
     selectedMonth=month;
     selectedDay=day;
-    //[self updateTheNoteList];
+    [self updateList];
 }
 
 //更新tabelview
--(void) updateDataArray
-{
-    NoteBL *bl = [[NoteBL alloc]init];
-    dataArray = [[NSMutableArray alloc]init];
-    dataArray = [bl findAll];
+-(void) updateDataArray{
+
+    _noteListArray = [self.bl findAll];
+    [_dataArray removeAllObjects];
     NSInteger year;
     NSInteger month;
     NSInteger day;
     NSString *time;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    if ([noteListArray count]!=0){
+    if ([_noteListArray count] != 0){
         
-        for (int i = 0; i <= [noteListArray count] - 1; i++){
+        for (int i = 0; i <= [_noteListArray count] - 1; i++){
             
-            Note *page=noteListArray[i];
+            Note *page=_noteListArray[i];
             time = [dateFormatter stringFromDate:page.date];
             year=[[time substringWithRange:NSMakeRange(0, 4)]integerValue];
             month=[[time substringWithRange:NSMakeRange(5, 2)]integerValue];
             day=[[time substringWithRange:NSMakeRange(8, 2)]integerValue];
-            if (year==selectedYear&&month==selectedMonth&&day==selectedDay){
+            if (year == selectedYear && month == selectedMonth && day == selectedDay){
                 
-                [dataArray addObject:page];
+                [_dataArray addObject:page];
             }
         }
     }
@@ -238,23 +237,21 @@
 }
 
 //tableview刷新数据
--(void)update
-{
-    self.noteListTableView.delegate=self;
-    self.noteListTableView.dataSource=self;
+-(void)update{
+    
+    [self.noteListTableView setDelegate:self];
+    [self.noteListTableView setDataSource:self];
     [self.noteListTableView reloadData];
 }
-
 //从本地更新数据
-//-(void)updateTheNoteList
-//{
-//    NSLog(@"queryDBtable");
-//    [self updateDataArray];
-//}
+- (void)updateList{
+    
+    [self updateDataArray];
+}
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [dataArray count];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return [_dataArray count];
 }
 
 - (void)didReceiveMemoryWarning {

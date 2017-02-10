@@ -42,6 +42,7 @@
     //[elementShowTableView reloadData];
 }
 
+
 //主题设置
 -(void)themeSetting {
     //主题颜色
@@ -53,6 +54,9 @@
     
 }
 
+
+
+
 -(void)groupByMonth{
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -63,6 +67,31 @@
     NSInteger temp1, temp2;
     _monthInTable = [[NSMutableArray alloc]init];
     _monthDetail = [[NSMutableArray alloc]init];
+    //数据排序防止不同月份来回添加导致的section分组错误, 升序排列，时间早的靠前。
+    NSArray *sortData = [_listData copy];
+    sortData = [sortData sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Note *dic1 = (Note*)obj1;
+        Note *dic2 = (Note*)obj2;
+        NSString *date1 = [dateFormatter stringFromDate:dic1.date];
+        NSString *date2 = [dateFormatter stringFromDate:dic2.date];
+        long year1 = [[date1 substringWithRange:NSMakeRange(0, 4)]intValue];
+        long month1 = [[date1 substringWithRange:NSMakeRange(5, 2)]intValue];
+        long day1 = [[date1 substringWithRange:NSMakeRange(8, 2)]intValue];
+        long hour1 = [[date1 substringWithRange:NSMakeRange(11, 2)]intValue];
+        long min1 = [[date1 substringWithRange:NSMakeRange(14, 2)]intValue];
+        long date11 = year1*1000000000 + month1*10000000 +day1*100000 + hour1*60 + min1;
+        long year2 = [[date2 substringWithRange:NSMakeRange(0, 4)]intValue];
+        long month2 = [[date2 substringWithRange:NSMakeRange(5, 2)]intValue];
+        long day2 = [[date2 substringWithRange:NSMakeRange(8, 2)]intValue];
+        long hour2 = [[date2 substringWithRange:NSMakeRange(11, 2)]intValue];
+        long min2 = [[date2 substringWithRange:NSMakeRange(14, 2)]intValue];
+        long date22 = year2*1000000000 + month2*10000000 +day2*100000 + hour2*60 + min2;
+        
+        return date11 > date22;
+    }];
+    [_listData removeAllObjects];
+    _listData = [sortData mutableCopy];
+
     if([_listData count] > 1){
         
         for(int i = 0; i < [_listData count] - 1; i++){
@@ -165,16 +194,14 @@
 }
 
 //创建按钮点击
-- (void)noteButtonAction
+- (void)note
 {
     NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
     createVC.noteDelegate = self;
     [self.navigationController pushViewController:createVC animated:YES];
 }
--(void)diary{
-    NSLog(@"123");
-}
-//获取cell数
+
+//获取section中cell数
 #pragma mark -tableViewdelegate
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -212,7 +239,6 @@
     //标题显示
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
     [_titleLabel setTextColor:_themeColor];
-    //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     [_titleLabel setFont:[UIFont systemFontOfSize:18]];
     [_titleLabel setNumberOfLines:0];
     [_titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
@@ -223,7 +249,6 @@
     //位置显示
     _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
-    //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     [_locationLabel setFont:[UIFont systemFontOfSize:12]];
     [_locationLabel setNumberOfLines:0];
     [_locationLabel setLineBreakMode:NSLineBreakByCharWrapping];
@@ -238,11 +263,12 @@
     _time = [dateFormatter stringFromDate:noteData.date];
     _hour = [[_time substringWithRange:NSMakeRange(11, 2)]intValue];
     _minute = [[_time substringWithRange:NSMakeRange(14,2)]intValue];
+    _year = [[_time substringWithRange:NSMakeRange(0,4)]intValue];
     _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 10, 200, 10)];
     if(_minute >= 0 && _minute <= 9)
-        [_timeLabel setText:[NSString stringWithFormat:@"%d:0%d",_hour,_minute]];
+        [_timeLabel setText:[NSString stringWithFormat:@"%d:0%d %d",_hour,_minute,_year]];
     else
-        [_timeLabel setText:[NSString stringWithFormat:@"%d:%d",_hour,_minute]];
+        [_timeLabel setText:[NSString stringWithFormat:@"%d:%d %d",_hour,_minute,_year]];
     [_timeLabel setTextColor:_themeColor];
     [_timeLabel setFont:[UIFont systemFontOfSize:12]];
     [_cellView addSubview:_timeLabel];
@@ -301,9 +327,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NoteEditViewController *editVC = [[NoteEditViewController alloc]init];
-    
     editVC.noteDelegate = self;
-    
     editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
     
@@ -317,8 +341,7 @@
         Note *noteTemp = _listData[indexPath.row];
         NoteBL *bl = [[NoteBL alloc]init];
         self.listData = [bl removeNote:noteTemp];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView reloadData];
+        [_elementShowTableView reloadData];
     }
 }
 

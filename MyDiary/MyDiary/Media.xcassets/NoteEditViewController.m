@@ -198,7 +198,6 @@
      ];
 }
 
-#pragma mark Core Location委托方法用于实现位置的更新
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     self.currLocation = [locations lastObject];
@@ -303,10 +302,6 @@
             NSString *noTitle = @"未命名项目";
             [_titleSettingField setText:noTitle];
         }
-        if(_contentText.text.length == 0){
-            NSString *noContent = @"未命名项目";
-            [_contentText setText:noContent];
-        }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;
         note.location = _locationView.text;
@@ -323,10 +318,6 @@
         if(_titleSettingField.text.length == 0){
             NSString *noTitle = @"未命名项目";
             [_titleSettingField setText:noTitle];
-        }
-        if(_contentText.text.length == 0){
-            NSString *noContent = @"未命名项目";
-            [_contentText setText:noContent];
         }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;
