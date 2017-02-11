@@ -416,20 +416,19 @@
         }
         if(_contentText.text.length == 0){
             NSString *noContent = @"未添加内容";
-            [_titleSettingField setText:noContent];
+            [_contentText setText:noContent];
         }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;
         note.location = _locationView.text;
-        [bl createNote: note];
+        [bl createNote:note];
         //操作成功返回home界面 做更新操作
         [self.noteDelegate updateTheNoteList];
     }
     else{
         
         NoteBL *bl = [[NoteBL alloc]init];
-        _currentPage = [[Note alloc]init];
-        Note *note = _currentPage;
+        Note *note = [[Note alloc]init];
         note.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
             NSString *noTitle = @"未命名项目";
@@ -437,7 +436,7 @@
         }
         if(_contentText.text.length == 0){
             NSString *noContent = @"未添加内容";
-            [_titleSettingField setText:noContent];
+            [_contentText setText:noContent];
         }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;
