@@ -231,101 +231,6 @@
         NSLog(@"NotDetermined");
     }
 }
-//导航栏-------------------------------------------------------
-- (void)buildNavBar{
-    
-    //自定义navbar
-    UINavigationBar *baseNav = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
-    [baseNav setBackgroundColor:_themeColor];
-    [baseNav setBarTintColor:_themeColor];
-    [baseNav setTranslucent:NO];
-    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
-    [cancel setTitle:@"返回" forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
-    [cancel.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [cancel.titleLabel setFont:[UIFont systemFontOfSize:20]];
-    [cancel.titleLabel setTextColor:[UIColor whiteColor]];
-    [cancel setBackgroundColor:[UIColor clearColor]];
-    [cancel addTarget:self action:@selector(cancelEdit) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancel];
-    UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [save setTitle:@"保存" forState:UIControlStateNormal];
-    [save.titleLabel setTextAlignment:NSTextAlignmentRight];
-    [save.titleLabel setFont:[UIFont systemFontOfSize:20]];
-    [save.titleLabel setTextColor:[UIColor whiteColor]];
-    [save setBackgroundColor:[UIColor clearColor]];
-    [save addTarget:self action:@selector(saveEdit) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:save];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancel];
-    UIBarButtonItem *saveButton=[[UIBarButtonItem alloc]initWithCustomView:save];
-    UINavigationItem *item = [[UINavigationItem alloc]init];
-    
-    [item setLeftBarButtonItem:cancelButton];
-    [item setRightBarButtonItem:saveButton];
-    
-    UILabel *barTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
-    [barTitle setTextAlignment:NSTextAlignmentCenter];
-    [barTitle setText:@"编辑项目"];
-    [barTitle setTextColor:[UIColor whiteColor]];
-    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
-    [item setTitleView:barTitle];
-    [baseNav pushNavigationItem:item animated:NO];
-    
-    [self.view addSubview:baseNav];
-}
-
-- (void)cancelEdit{
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)saveEdit{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    if(_currentPage){
-        //修改操作
-        NoteBL *bl = [[NoteBL alloc]init];
-        [bl removeNote:_currentPage];
-        Note *note = [[Note alloc]init];
-        note.date = [dateFormatter dateFromString:_dateSettingField.text];
-        if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
-            [_titleSettingField setText:noTitle];
-        }
-        if(_contentText.text.length == 0){
-            NSString *noContent = @"未添加内容";
-            [_titleSettingField setText:noContent];
-        }
-        note.title = _titleSettingField.text;
-        note.content = _contentText.text;
-        note.location = _locationView.text;
-        [bl createNote: note];
-        //操作成功返回home界面 做更新操作
-        [self.noteDelegate updateTheNoteList];
-    }
-    else{
-        
-        NoteBL *bl = [[NoteBL alloc]init];
-        _currentPage = [[Note alloc]init];
-        Note *note = _currentPage;
-        note.date = [dateFormatter dateFromString:_dateSettingField.text];
-        if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
-            [_titleSettingField setText:noTitle];
-        }
-        if(_contentText.text.length == 0){
-            NSString *noContent = @"未添加内容";
-            [_titleSettingField setText:noContent];
-        }
-        note.title = _titleSettingField.text;
-        note.content = _contentText.text;
-        note.location = _locationView.text;
-        [bl createNote: note];
-        [self.noteDelegate updateTheNoteList];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
 //时间设置-----------------------------------
 - (void)buildTimeTextField{
     
@@ -446,6 +351,101 @@
         
         [_titleSettingField setPlaceholder:@"填写项目标题"];
     }
+}
+//导航栏-------------------------------------------------------
+- (void)buildNavBar{
+    
+    //自定义navbar
+    UINavigationBar *baseNav = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+    [baseNav setBackgroundColor:_themeColor];
+    [baseNav setBarTintColor:_themeColor];
+    [baseNav setTranslucent:NO];
+    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
+    [cancel setTitle:@"返回" forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+    [cancel.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [cancel.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    [cancel.titleLabel setTextColor:[UIColor whiteColor]];
+    [cancel setBackgroundColor:[UIColor clearColor]];
+    [cancel addTarget:self action:@selector(cancelEdit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancel];
+    UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [save setTitle:@"保存" forState:UIControlStateNormal];
+    [save.titleLabel setTextAlignment:NSTextAlignmentRight];
+    [save.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    [save.titleLabel setTextColor:[UIColor whiteColor]];
+    [save setBackgroundColor:[UIColor clearColor]];
+    [save addTarget:self action:@selector(saveEdit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:save];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancel];
+    UIBarButtonItem *saveButton=[[UIBarButtonItem alloc]initWithCustomView:save];
+    UINavigationItem *item = [[UINavigationItem alloc]init];
+    
+    [item setLeftBarButtonItem:cancelButton];
+    [item setRightBarButtonItem:saveButton];
+    
+    UILabel *barTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
+    [barTitle setTextAlignment:NSTextAlignmentCenter];
+    [barTitle setText:@"编辑项目"];
+    [barTitle setTextColor:[UIColor whiteColor]];
+    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
+    [item setTitleView:barTitle];
+    [baseNav pushNavigationItem:item animated:NO];
+    
+    [self.view addSubview:baseNav];
+}
+
+- (void)cancelEdit{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)saveEdit{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    if(_currentPage){
+        //修改操作
+        NoteBL *bl = [[NoteBL alloc]init];
+        [bl removeNote:_currentPage];
+        Note *note = [[Note alloc]init];
+        note.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_titleSettingField setText:noContent];
+        }
+        note.title = _titleSettingField.text;
+        note.content = _contentText.text;
+        note.location = _locationView.text;
+        [bl createNote: note];
+        //操作成功返回home界面 做更新操作
+        [self.noteDelegate updateTheNoteList];
+    }
+    else{
+        
+        NoteBL *bl = [[NoteBL alloc]init];
+        _currentPage = [[Note alloc]init];
+        Note *note = _currentPage;
+        note.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_titleSettingField setText:noContent];
+        }
+        note.title = _titleSettingField.text;
+        note.content = _contentText.text;
+        note.location = _locationView.text;
+        [bl createNote: note];
+        [self.noteDelegate updateTheNoteList];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

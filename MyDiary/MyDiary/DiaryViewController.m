@@ -227,6 +227,7 @@
     }
     return 0;
 }
+
 //自定义cell风格
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -258,17 +259,30 @@
     [_titleLabel setTag: indexPath.row];
     [_cellView addSubview:_titleLabel];
     //内容显示
-    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, _deviceScreenSize.width - 60, 120)];
+    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, _deviceScreenSize.width - 50, 10)];
     [_contentLabel setTextColor:_themeColor];
     _contentLabel.font = [UIFont systemFontOfSize:14];
     [_contentLabel setNumberOfLines:0];
     [_contentLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [_contentLabel setText:diaryData.content];
     [_contentLabel setTag: indexPath.row];
+    //iOS7之后方法：
+    CGSize autoContentSize = {0, 0};    //初始autoSize
+    CGSize size = CGSizeMake(_deviceScreenSize.width - 60, 160); //autoSize最大限制
+    NSDictionary * contentFontDic = [NSDictionary dictionaryWithObjectsAndKeys:_contentLabel.font,NSFontAttributeName,nil];
+    autoContentSize = [diaryData.content boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin  attributes:contentFontDic context:nil].size;
+    [_contentLabel setFrame:CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, autoContentSize.height)];
+    /*iOS7以前方法；
+    CGSize labelSize = {0,0};
+    labelSize = [diaryData.content sizeWithFont:[UIFont systemFontOfSize:14]
+                              constrainedToSize:CGSizeMake(_deviceScreenSize.width - 60, 160)
+                                  lineBreakMode:UILineBreakModeWordWrap];
+    _contentLabel.frame = CGRectMake(_contentLabel.frame.origin.x, _contentLabel.frame.origin.y, _contentLabel.frame.size.width, labelSize.height);//保持原来Label的位置和宽度，只是改变高度。
+     */
     [_cellView addSubview:_contentLabel];
     //_cellView设置
-    NSInteger tag = 80;
-    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, tag + 100)];
+    NSInteger tag = _contentLabel.frame.size.height;
+    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, tag + 80)];
     //位置显示
     _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 45, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:[UIColor whiteColor]];
@@ -327,8 +341,8 @@
 }
 //设置cell行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 200;
+    //根据内容多少动态调整，上下clear间距各10
+    return _contentLabel.frame.size.height + 100;
 }
 //创建
 - (void)diary{
