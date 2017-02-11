@@ -286,16 +286,21 @@
     if(_currentPage){
         //修改操作
         NoteBL *bl = [[NoteBL alloc]init];
-        Note *note = _currentPage;
+        [bl removeNote:_currentPage];
+        Note *note = [[Note alloc]init];
         note.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
             NSString *noTitle = @"未命名项目";
             [_titleSettingField setText:noTitle];
         }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_titleSettingField setText:noContent];
+        }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;
         note.location = _locationView.text;
-        [bl modifyNote: note];
+        [bl createNote: note];
         //操作成功返回home界面 做更新操作
         [self.noteDelegate updateTheNoteList];
     }
@@ -308,6 +313,10 @@
         if(_titleSettingField.text.length == 0){
             NSString *noTitle = @"未命名项目";
             [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_titleSettingField setText:noContent];
         }
         note.title = _titleSettingField.text;
         note.content = _contentText.text;

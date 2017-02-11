@@ -287,7 +287,8 @@
     if(_currentPage){
         //修改操作
         DiaryBL *bl = [[DiaryBL alloc]init];
-        Diary *diary = _currentPage;
+        [bl removeDiary:_currentPage];
+        Diary *diary = [[Diary alloc]init];
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
             NSString *noTitle = @"未命名日记";
@@ -300,7 +301,7 @@
         diary.title = _titleSettingField.text;
         diary.content = _contentText.text;
         diary.location = _locationView.text;
-        [bl modifyDiary: diary];
+        [bl createDiary:diary];
         //操作成功返回home界面 做更新操作
         [self.diaryDelegate updateTheDiaryList];
     }
