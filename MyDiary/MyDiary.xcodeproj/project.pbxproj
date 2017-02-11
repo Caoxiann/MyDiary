@@ -1,0 +1,661 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4211D8581E40246E00D03C4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8571E40246E00D03C4F /* main.m */; };
+		4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D85A1E40246E00D03C4F /* AppDelegate.m */; };
+		4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D85D1E40246E00D03C4F /* RootViewController.m */; };
+		4211D8711E40246E00D03C4F /* MyDiaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8701E40246E00D03C4F /* MyDiaryTests.m */; };
+		4211D87C1E40246E00D03C4F /* MyDiaryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D87B1E40246E00D03C4F /* MyDiaryUITests.m */; };
+		4211D88F1E4024B800D03C4F /* DiaryBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D88A1E4024B800D03C4F /* DiaryBL.m */; };
+		4211D8901E4024B800D03C4F /* DiaryDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D88B1E4024B800D03C4F /* DiaryDAO.m */; };
+		4211D8911E4024B800D03C4F /* Diary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D88D1E4024B800D03C4F /* Diary.m */; };
+		4211D8971E40263500D03C4F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4211D8961E40263500D03C4F /* libsqlite3.tbd */; };
+		4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8991E40490700D03C4F /* ElementViewController.m */; };
+		4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8A01E40499C00D03C4F /* CalendarViewController.m */; };
+		4290BD721E47365400BC225E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4290BD711E47365400BC225E /* Media.xcassets */; };
+		42EDF38C1E49C4F0002477C5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3871E49C4F0002477C5 /* Note.m */; };
+		42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3891E49C4F0002477C5 /* NoteBL.m */; };
+		42EDF38E1E49C4F0002477C5 /* NoteDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF38B1E49C4F0002477C5 /* NoteDAO.m */; };
+		42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */; };
+		42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */; };
+		42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */; };
+		42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */; };
+		42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */; };
+		42FC2DD11E4C723B0038CB62 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */; };
+		42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */; };
+		42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2DD61E4D5C140038CB62 /* CalendarItems.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4211D86D1E40246E00D03C4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4211D84B1E40246E00D03C4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4211D8521E40246E00D03C4F;
+			remoteInfo = MyDiary;
+		};
+		4211D8781E40246E00D03C4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4211D84B1E40246E00D03C4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4211D8521E40246E00D03C4F;
+			remoteInfo = MyDiary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4211D8531E40246E00D03C4F /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4211D8571E40246E00D03C4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4211D8591E40246E00D03C4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4211D85A1E40246E00D03C4F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4211D85C1E40246E00D03C4F /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		4211D85D1E40246E00D03C4F /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		4211D8671E40246E00D03C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4211D86C1E40246E00D03C4F /* MyDiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4211D8701E40246E00D03C4F /* MyDiaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryTests.m; sourceTree = "<group>"; };
+		4211D8721E40246E00D03C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4211D8771E40246E00D03C4F /* MyDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4211D87B1E40246E00D03C4F /* MyDiaryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryUITests.m; sourceTree = "<group>"; };
+		4211D87D1E40246E00D03C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4211D8891E4024B800D03C4F /* DiaryBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryBL.h; sourceTree = "<group>"; };
+		4211D88A1E4024B800D03C4F /* DiaryBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryBL.m; sourceTree = "<group>"; };
+		4211D88B1E4024B800D03C4F /* DiaryDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryDAO.m; sourceTree = "<group>"; };
+		4211D88C1E4024B800D03C4F /* Diary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diary.h; sourceTree = "<group>"; };
+		4211D88D1E4024B800D03C4F /* Diary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Diary.m; sourceTree = "<group>"; };
+		4211D88E1E4024B800D03C4F /* DiaryDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryDAO.h; sourceTree = "<group>"; };
+		4211D8961E40263500D03C4F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		4211D8981E4048EE00D03C4F /* ElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementViewController.h; sourceTree = "<group>"; };
+		4211D8991E40490700D03C4F /* ElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementViewController.m; sourceTree = "<group>"; };
+		4211D89E1E40496000D03C4F /* DiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryViewController.h; sourceTree = "<group>"; };
+		4211D89F1E40498100D03C4F /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		4211D8A01E40499C00D03C4F /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		4290BD711E47365400BC225E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		42EDF3861E49C4F0002477C5 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		42EDF3871E49C4F0002477C5 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		42EDF3881E49C4F0002477C5 /* NoteBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteBL.h; sourceTree = "<group>"; };
+		42EDF3891E49C4F0002477C5 /* NoteBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteBL.m; sourceTree = "<group>"; };
+		42EDF38A1E49C4F0002477C5 /* NoteDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteDAO.h; sourceTree = "<group>"; };
+		42EDF38B1E49C4F0002477C5 /* NoteDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteDAO.m; sourceTree = "<group>"; };
+		42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryEditViewController.h; sourceTree = "<group>"; };
+		42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryEditViewController.m; sourceTree = "<group>"; };
+		42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteEditViewController.h; path = Media.xcassets/NoteEditViewController.h; sourceTree = "<group>"; };
+		42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteEditViewController.m; path = Media.xcassets/NoteEditViewController.m; sourceTree = "<group>"; };
+		42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryViewController.m; sourceTree = "<group>"; };
+		42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDiary.entitlements; sourceTree = "<group>"; };
+		42EDF3A31E4B70CE002477C5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTable.h; sourceTree = "<group>"; };
+		42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTable.m; sourceTree = "<group>"; };
+		42FC2DD51E4D5C140038CB62 /* CalendarItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarItems.h; sourceTree = "<group>"; };
+		42FC2DD61E4D5C140038CB62 /* CalendarItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarItems.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4211D8501E40246E00D03C4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42FC2DD11E4C723B0038CB62 /* AddressBookUI.framework in Frameworks */,
+				42FC2DCF1E4C722C0038CB62 /* AddressBook.framework in Frameworks */,
+				42FC2DCA1E4BF3C00038CB62 /* CoreLocation.framework in Frameworks */,
+				4211D8971E40263500D03C4F /* libsqlite3.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D8691E40246E00D03C4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D8741E40246E00D03C4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4211D84A1E40246E00D03C4F = {
+			isa = PBXGroup;
+			children = (
+				4211D8551E40246E00D03C4F /* MyDiary */,
+				4211D86F1E40246E00D03C4F /* MyDiaryTests */,
+				4211D87A1E40246E00D03C4F /* MyDiaryUITests */,
+				4211D8541E40246E00D03C4F /* Products */,
+				4211D8951E40263500D03C4F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4211D8541E40246E00D03C4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4211D8531E40246E00D03C4F /* MyDiary.app */,
+				4211D86C1E40246E00D03C4F /* MyDiaryTests.xctest */,
+				4211D8771E40246E00D03C4F /* MyDiaryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4211D8551E40246E00D03C4F /* MyDiary */ = {
+			isa = PBXGroup;
+			children = (
+				4211D8941E4025D000D03C4F /* PresentationLayer */,
+				4211D8931E4024D400D03C4F /* BusinessLogicLayer */,
+				4211D8921E4024C800D03C4F /* PersistenceLayer */,
+				4211D8561E40246E00D03C4F /* Supporting Files */,
+			);
+			path = MyDiary;
+			sourceTree = "<group>";
+		};
+		4211D8561E40246E00D03C4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4211D8591E40246E00D03C4F /* AppDelegate.h */,
+				4211D85A1E40246E00D03C4F /* AppDelegate.m */,
+				4290BD711E47365400BC225E /* Media.xcassets */,
+				42EDF3A21E4B70BE002477C5 /* MyDiary.entitlements */,
+				4211D8671E40246E00D03C4F /* Info.plist */,
+				4211D8571E40246E00D03C4F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4211D86F1E40246E00D03C4F /* MyDiaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				4211D8701E40246E00D03C4F /* MyDiaryTests.m */,
+				4211D8721E40246E00D03C4F /* Info.plist */,
+			);
+			path = MyDiaryTests;
+			sourceTree = "<group>";
+		};
+		4211D87A1E40246E00D03C4F /* MyDiaryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4211D87B1E40246E00D03C4F /* MyDiaryUITests.m */,
+				4211D87D1E40246E00D03C4F /* Info.plist */,
+			);
+			path = MyDiaryUITests;
+			sourceTree = "<group>";
+		};
+		4211D8921E4024C800D03C4F /* PersistenceLayer */ = {
+			isa = PBXGroup;
+			children = (
+				4211D88C1E4024B800D03C4F /* Diary.h */,
+				4211D88D1E4024B800D03C4F /* Diary.m */,
+				4211D88E1E4024B800D03C4F /* DiaryDAO.h */,
+				4211D88B1E4024B800D03C4F /* DiaryDAO.m */,
+				42EDF3861E49C4F0002477C5 /* Note.h */,
+				42EDF3871E49C4F0002477C5 /* Note.m */,
+				42EDF38A1E49C4F0002477C5 /* NoteDAO.h */,
+				42EDF38B1E49C4F0002477C5 /* NoteDAO.m */,
+			);
+			name = PersistenceLayer;
+			sourceTree = "<group>";
+		};
+		4211D8931E4024D400D03C4F /* BusinessLogicLayer */ = {
+			isa = PBXGroup;
+			children = (
+				4211D8891E4024B800D03C4F /* DiaryBL.h */,
+				4211D88A1E4024B800D03C4F /* DiaryBL.m */,
+				42EDF3881E49C4F0002477C5 /* NoteBL.h */,
+				42EDF3891E49C4F0002477C5 /* NoteBL.m */,
+				42FC2DD21E4D5BF60038CB62 /* CalendarTable.h */,
+				42FC2DD31E4D5BF60038CB62 /* CalendarTable.m */,
+				42FC2DD51E4D5C140038CB62 /* CalendarItems.h */,
+				42FC2DD61E4D5C140038CB62 /* CalendarItems.m */,
+			);
+			name = BusinessLogicLayer;
+			sourceTree = "<group>";
+		};
+		4211D8941E4025D000D03C4F /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				4211D85C1E40246E00D03C4F /* RootViewController.h */,
+				4211D85D1E40246E00D03C4F /* RootViewController.m */,
+				4211D8981E4048EE00D03C4F /* ElementViewController.h */,
+				4211D8991E40490700D03C4F /* ElementViewController.m */,
+				4211D89E1E40496000D03C4F /* DiaryViewController.h */,
+				42EDF3A01E4B21F1002477C5 /* DiaryViewController.m */,
+				4211D89F1E40498100D03C4F /* CalendarViewController.h */,
+				4211D8A01E40499C00D03C4F /* CalendarViewController.m */,
+				42EDF39A1E4AEB07002477C5 /* NoteEditViewController.h */,
+				42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */,
+				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
+				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
+			);
+			name = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		4211D8951E40263500D03C4F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42FC2DD01E4C723B0038CB62 /* AddressBookUI.framework */,
+				42FC2DCE1E4C722C0038CB62 /* AddressBook.framework */,
+				42FC2DC91E4BF3C00038CB62 /* CoreLocation.framework */,
+				42EDF3A31E4B70CE002477C5 /* MapKit.framework */,
+				4211D8961E40263500D03C4F /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4211D8521E40246E00D03C4F /* MyDiary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4211D8801E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiary" */;
+			buildPhases = (
+				4211D84F1E40246E00D03C4F /* Sources */,
+				4211D8501E40246E00D03C4F /* Frameworks */,
+				4211D8511E40246E00D03C4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyDiary;
+			productName = MyDiary;
+			productReference = 4211D8531E40246E00D03C4F /* MyDiary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4211D86B1E40246E00D03C4F /* MyDiaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4211D8831E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiaryTests" */;
+			buildPhases = (
+				4211D8681E40246E00D03C4F /* Sources */,
+				4211D8691E40246E00D03C4F /* Frameworks */,
+				4211D86A1E40246E00D03C4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4211D86E1E40246E00D03C4F /* PBXTargetDependency */,
+			);
+			name = MyDiaryTests;
+			productName = MyDiaryTests;
+			productReference = 4211D86C1E40246E00D03C4F /* MyDiaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4211D8761E40246E00D03C4F /* MyDiaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4211D8861E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiaryUITests" */;
+			buildPhases = (
+				4211D8731E40246E00D03C4F /* Sources */,
+				4211D8741E40246E00D03C4F /* Frameworks */,
+				4211D8751E40246E00D03C4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4211D8791E40246E00D03C4F /* PBXTargetDependency */,
+			);
+			name = MyDiaryUITests;
+			productName = MyDiaryUITests;
+			productReference = 4211D8771E40246E00D03C4F /* MyDiaryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4211D84B1E40246E00D03C4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = tinoryj;
+				TargetAttributes = {
+					4211D8521E40246E00D03C4F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = S3QSH37693;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+					4211D86B1E40246E00D03C4F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = S3QSH37693;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4211D8521E40246E00D03C4F;
+					};
+					4211D8761E40246E00D03C4F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = S3QSH37693;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4211D8521E40246E00D03C4F;
+					};
+				};
+			};
+			buildConfigurationList = 4211D84E1E40246E00D03C4F /* Build configuration list for PBXProject "MyDiary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4211D84A1E40246E00D03C4F;
+			productRefGroup = 4211D8541E40246E00D03C4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4211D8521E40246E00D03C4F /* MyDiary */,
+				4211D86B1E40246E00D03C4F /* MyDiaryTests */,
+				4211D8761E40246E00D03C4F /* MyDiaryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4211D8511E40246E00D03C4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4290BD721E47365400BC225E /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D86A1E40246E00D03C4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D8751E40246E00D03C4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4211D84F1E40246E00D03C4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */,
+				4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */,
+				4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */,
+				42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */,
+				42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */,
+				4211D8901E4024B800D03C4F /* DiaryDAO.m in Sources */,
+				42FC2DD71E4D5C140038CB62 /* CalendarItems.m in Sources */,
+				4211D8911E4024B800D03C4F /* Diary.m in Sources */,
+				42EDF3A11E4B21F1002477C5 /* DiaryViewController.m in Sources */,
+				42FC2DD41E4D5BF60038CB62 /* CalendarTable.m in Sources */,
+				42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */,
+				4211D8581E40246E00D03C4F /* main.m in Sources */,
+				4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */,
+				4211D88F1E4024B800D03C4F /* DiaryBL.m in Sources */,
+				42EDF38C1E49C4F0002477C5 /* Note.m in Sources */,
+				42EDF38E1E49C4F0002477C5 /* NoteDAO.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D8681E40246E00D03C4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4211D8711E40246E00D03C4F /* MyDiaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4211D8731E40246E00D03C4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4211D87C1E40246E00D03C4F /* MyDiaryUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4211D86E1E40246E00D03C4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4211D8521E40246E00D03C4F /* MyDiary */;
+			targetProxy = 4211D86D1E40246E00D03C4F /* PBXContainerItemProxy */;
+		};
+		4211D8791E40246E00D03C4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4211D8521E40246E00D03C4F /* MyDiary */;
+			targetProxy = 4211D8781E40246E00D03C4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4211D87E1E40246E00D03C4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4211D87F1E40246E00D03C4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4211D8811E40246E00D03C4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4211D8821E40246E00D03C4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
+				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4211D8841E40246E00D03C4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDiary.app/MyDiary";
+			};
+			name = Debug;
+		};
+		4211D8851E40246E00D03C4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiaryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDiary.app/MyDiary";
+			};
+			name = Release;
+		};
+		4211D8871E40246E00D03C4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyDiary;
+			};
+			name = Debug;
+		};
+		4211D8881E40246E00D03C4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = S3QSH37693;
+				INFOPLIST_FILE = MyDiaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tinoryj.MyDiaryUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyDiary;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4211D84E1E40246E00D03C4F /* Build configuration list for PBXProject "MyDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4211D87E1E40246E00D03C4F /* Debug */,
+				4211D87F1E40246E00D03C4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4211D8801E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4211D8811E40246E00D03C4F /* Debug */,
+				4211D8821E40246E00D03C4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4211D8831E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4211D8841E40246E00D03C4F /* Debug */,
+				4211D8851E40246E00D03C4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4211D8861E40246E00D03C4F /* Build configuration list for PBXNativeTarget "MyDiaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4211D8871E40246E00D03C4F /* Debug */,
+				4211D8881E40246E00D03C4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4211D84B1E40246E00D03C4F /* Project object */;
+}
