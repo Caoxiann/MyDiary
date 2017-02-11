@@ -18,7 +18,7 @@
     
     UILabel *dayLabel;
 }
-//创建日期显示lable
+//日期显示lable
 - (UILabel *)dayLabel{
     
     if(!dayLabel){
@@ -90,7 +90,6 @@
     [self.collectionView setBackgroundColor:[UIColor clearColor]];
     [self.collectionView registerClass:[CalendarCell class] forCellWithReuseIdentifier:@"CalendarCell"];
 }
-
 //当前月的第一天是星期几
 - (NSInteger)weekdayOfFirstDayInDate{
     
@@ -147,7 +146,7 @@ typedef NS_ENUM(NSInteger, CalendarMonth){
     return 42;
 }
 //日期显示处理
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 
     NSString *identifier = @"CalendarCell";
     CalendarCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -198,7 +197,7 @@ typedef NS_ENUM(NSInteger, CalendarMonth){
     NSInteger firstWeekday = [self weekdayOfFirstDayInDate];
     [dateComponents setDay:indexPath.row - firstWeekday+1];
     NSDate *selectedDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(calendarItem:didSelectedDate:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(calendarItem:didSelectedDate:)]){
         
         [self.delegate calendarItem:self didSelectedDate:selectedDate];
     }

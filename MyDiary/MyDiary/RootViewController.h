@@ -7,16 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-//#import "Diary.h"
-//#import "DiaryBL.h"
-//#import "Note.h"
-//#import "NoteBL.h"
 #import "ElementViewController.h"
 #import "DiaryViewController.h"
 #import "CalendarViewController.h"
-@interface ViewController : UIViewController
-{
+@interface ViewController : UIViewController{
+    
     NSInteger itemNumber;
 }
 
@@ -25,25 +20,6 @@
 @property (nonatomic,strong) CalendarViewController* calendarVC;
 
 @property (nonatomic,strong) DiaryViewController *diaryVC;
-
-@property (nonatomic,strong) UIViewController *currentVC;
-
-@property (nonatomic) CGSize deviceScreenSize;
-
-@property (nonatomic) CGRect buttonRect;
-
-//主题颜色
-@property (nonatomic,strong) UIColor *themeColor;
-
-@property (nonatomic,retain) UILabel *titleLabel;
-
-@property (nonatomic,retain) UILabel *itemShowLabel;
-
-//保存数据列表
-@property (nonatomic,strong) NoteBL* noteBl;
-@property (nonatomic,strong) DiaryBL* diaryBl;
-
--(void)themeSetting;
 
 @end
 

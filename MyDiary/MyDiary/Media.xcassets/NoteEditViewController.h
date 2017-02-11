@@ -13,19 +13,14 @@
 
 @protocol NotePageUpdateDelegate <NSObject>
 
--(void)updateTheNoteList;
+- (void)updateTheNoteList;
 
 @end
 
 @interface NoteEditViewController : UIViewController
 
+@property (nonatomic,strong) Note *currentPage;
 
-@property (nonatomic,strong)Note *currentPage;
-
-@property (nonatomic,strong)NSString *date;
-
-@property (nonatomic,strong)UIColor *themeColor;
-
-@property (nonatomic,weak)id<NotePageUpdateDelegate>  noteDelegate;
+@property (nonatomic,weak) id<NotePageUpdateDelegate>  noteDelegate;
 
 @end

@@ -10,7 +10,6 @@
 
 @implementation DiaryDAO
 
-
 static DiaryDAO *sharedManager = nil;
 
 + (DiaryDAO*)sharedManager {
@@ -24,7 +23,6 @@ static DiaryDAO *sharedManager = nil;
     });
     return sharedManager;
 }
-
 
 - (void)createEditableCopyOfDatabaseIfNeeded {
     
@@ -53,16 +51,14 @@ static DiaryDAO *sharedManager = nil;
     
     return path;
 }
-
-
 //插入Note方法
--(int) create:(Diary*)model
-{
+- (int)create:(Diary*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
     } else {
@@ -89,6 +85,7 @@ static DiaryDAO *sharedManager = nil;
             
             //执行插入
             if (sqlite3_step(statement) != SQLITE_DONE) {
+                
                 NSAssert(NO, @"插入数据失败。");
             }
         }
@@ -96,31 +93,30 @@ static DiaryDAO *sharedManager = nil;
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
-    
     return 0;
 }
-
 //删除Note方法
--(int) remove:(Diary*)model
-{
+- (int)remove:(Diary*)model{
+    
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         NSString *sql = @"DELETE  from note where cdate =?";
         const char* cSql = [sql UTF8String];
         
         sqlite3_stmt *statement;
         //预处理过程
         if (sqlite3_prepare_v2(db, cSql, -1, &statement, NULL) == SQLITE_OK) {
+            
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *strDate = [dateFormatter stringFromDate:model.date];
             const char* cDate  = [strDate UTF8String];
-            
             //绑定参数开始
             sqlite3_bind_text(statement, 1, cDate, -1, NULL);
             //执行
@@ -128,17 +124,13 @@ static DiaryDAO *sharedManager = nil;
                 NSAssert(NO, @"删除数据失败。");
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
-    
     return 0;
 }
-
 //修改Note方法
--(int) modify:(Diary*)model
-{
+- (int)modify:(Diary*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
@@ -146,7 +138,8 @@ static DiaryDAO *sharedManager = nil;
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         
         NSString *sql = @"UPDATE note set title=? content=? location=? where cdate =?";
         const char* cSql = [sql UTF8String];
@@ -172,7 +165,6 @@ static DiaryDAO *sharedManager = nil;
                 NSAssert(NO, @"修改数据失败。");
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
@@ -180,8 +172,8 @@ static DiaryDAO *sharedManager = nil;
 }
 
 //查询所有数据方法
--(NSMutableArray*) findAll
-{
+- (NSMutableArray*)findAll{
+    
     NSMutableArray *listData = [[NSMutableArray alloc] init];
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -201,9 +193,9 @@ static DiaryDAO *sharedManager = nil;
             
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            
             //执行
             while (sqlite3_step(statement) == SQLITE_ROW) {
+                
                 char *bufDate = (char *) sqlite3_column_text(statement, 0);
                 NSString *strDate = [[NSString alloc] initWithUTF8String: bufDate];
                 NSDate *date = [dateFormatter dateFromString:strDate];
@@ -219,17 +211,14 @@ static DiaryDAO *sharedManager = nil;
                 [listData addObject:diary];
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
         
     }
     return listData;
 }
-
 //按照主键查询数据方法
--(Diary*) findById:(Diary*)model
-{
+- (Diary*)findById:(Diary*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
@@ -250,10 +239,8 @@ static DiaryDAO *sharedManager = nil;
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *strDate = [dateFormatter stringFromDate:model.date];
             const char* cDate  = [strDate UTF8String];
-            
             //绑定参数开始
             sqlite3_bind_text(statement, 1, cDate, -1, NULL);
-            
             //执行
             if (sqlite3_step(statement) == SQLITE_ROW) {
                 
@@ -275,13 +262,10 @@ static DiaryDAO *sharedManager = nil;
                 return diary;
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
-        
     }
     return nil;
 }
-
 
 @end

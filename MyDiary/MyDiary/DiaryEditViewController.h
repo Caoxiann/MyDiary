@@ -12,17 +12,13 @@
 
 @protocol DiaryPageUpdateDelegate <NSObject>
 
--(void)updateTheDiaryList;
+- (void)updateTheDiaryList;
 
 @end
 
 @interface DiaryEditViewController : UIViewController
 
-@property (nonatomic,strong)Diary *currentPage;
-
-@property (nonatomic,strong)NSString *date;
-
-@property (nonatomic,strong)UIColor *themeColor;
+@property (nonatomic,strong) Diary *currentPage;
 
 @property (nonatomic,weak)id<DiaryPageUpdateDelegate>  diaryDelegate;
 

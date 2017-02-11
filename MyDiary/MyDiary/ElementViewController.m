@@ -10,18 +10,40 @@
 
 @interface ElementViewController () <UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate>
 
+@property (nonatomic,strong) NSMutableArray *monthInTable;
 
-@property (nonatomic,strong)NSMutableArray *monthInTable;
+@property (nonatomic,strong) NSMutableArray *monthDetail;
 
-@property (nonatomic,strong)NSMutableArray *monthDetail;
+@property (nonatomic,strong) UITableView *elementShowTableView;
 
-@property (nonatomic,strong)UITableView *elementShowTableView;
+@property (nonatomic,strong) UILabel *titleLabel;
+
+@property (nonatomic,strong) UILabel *locationLabel;
+
+@property (nonatomic,strong) UILabel *weekLabel;
+
+@property (nonatomic,strong) UIView *cellView;
+
+@property (nonatomic,strong) UILabel *dateLabel;
+
+@property (nonatomic,strong) UILabel *timeLabel;
+
+@property (nonatomic,strong) UILabel *maskLabel;
+
+@property (nonatomic,strong) NSString *time;
+
+@property (nonatomic) CGSize deviceScreenSize;
+
+@property (nonatomic,strong) UIColor *themeColor;
+
+@property int year, month, date, hour, minute, weekDay;
 
 @end
 
 @implementation ElementViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [self themeSetting];
 
@@ -39,10 +61,12 @@
     self.listData = [self.bl findAll];
     
     [self groupByMonth];
-    //[elementShowTableView reloadData];
 }
 
-
+- (void)didReceiveMemoryWarning {
+    
+    [super didReceiveMemoryWarning];
+}
 //主题设置
 -(void)themeSetting {
     //主题颜色
@@ -51,11 +75,7 @@
     _themeColor = blueThemeColor;
     //控件大小设置
     _deviceScreenSize = [UIScreen mainScreen].bounds.size;
-    
 }
-
-
-
 
 -(void)groupByMonth{
 
@@ -161,14 +181,12 @@
     
     return 30;
 }
-
 //设置Section标题
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *collectionTitle = [[UIView alloc] init];
     collectionTitle.backgroundColor = [UIColor clearColor];
     UILabel *collectionTitleLable = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 30)];
-    //[collectionTitleLable setBackgroundColor:[UIColor redColor]];
     if ([_monthInTable count] >= 1){
         for (int i = 0; i < [_monthInTable count]; i++)
             if (section == i){
@@ -185,24 +203,13 @@
     
     return collectionTitle;
 }
-
 //分组
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     [self groupByMonth];
     return [_monthInTable count];
 }
-
-//创建按钮点击
-- (void)note
-{
-    NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
-    createVC.noteDelegate = self;
-    [self.navigationController pushViewController:createVC animated:YES];
-}
-
 //获取section中cell数
-#pragma mark -tableViewdelegate
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     [self groupByMonth];
@@ -219,7 +226,6 @@
     }
     return 0;
 }
-
 //自定义cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -228,14 +234,12 @@
     if(!baseTableViewCell)
         baseTableViewCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
     Note *noteData = _listData[indexPath.row];
-    
     //_cellView设置
     _cellView=[[UIView alloc]init];
     [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, 80)];
     [_cellView.layer setCornerRadius:10];
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
-    
     //标题显示
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
     [_titleLabel setTextColor:_themeColor];
@@ -245,7 +249,6 @@
     [_titleLabel setText:noteData.title];
     [_titleLabel setTag: indexPath.row];
     [_cellView addSubview:_titleLabel];
-    
     //位置显示
     _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
@@ -255,8 +258,6 @@
     [_locationLabel setText:noteData.location];
     [_locationLabel setTag: indexPath.row];
     [_cellView addSubview:_locationLabel];
-
-
     //显示时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -272,7 +273,6 @@
     [_timeLabel setTextColor:_themeColor];
     [_timeLabel setFont:[UIFont systemFontOfSize:12]];
     [_cellView addSubview:_timeLabel];
-    
     //右侧底色
     _maskLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 80)];
     [_maskLabel setBackgroundColor:_themeColor];
@@ -281,7 +281,6 @@
     maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_maskLabel.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){10, 10}].CGPath;
     _maskLabel.layer.mask = maskLayer;
     [_cellView addSubview:_maskLabel];
-    
     //日期显示
     _date = [[_time substringWithRange:NSMakeRange(8, 2)]intValue];
     _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -291,7 +290,6 @@
     [_dateLabel setTextColor:[UIColor whiteColor]];
     [_dateLabel setBackgroundColor:[UIColor clearColor]];
     [_cellView addSubview:_dateLabel];
-    
     //星期显示
     _year = [[_time substringWithRange:NSMakeRange(0, 4)]intValue];
     _month = [[_time substringWithRange:NSMakeRange(5, 2)]intValue];
@@ -310,19 +308,24 @@
     [_weekLabel setBackgroundColor:[UIColor clearColor]];
     [_weekLabel setTextColor:[UIColor whiteColor]];
     [_cellView addSubview:_weekLabel];
-
+    
     [baseTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [baseTableViewCell setBackgroundColor:[UIColor clearColor]];
     
     return baseTableViewCell;
 }
-
 //设置cell行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 100;
 }
-
+//创建
+- (void)note{
+    
+    NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
+    createVC.noteDelegate = self;
+    [self.navigationController pushViewController:createVC animated:YES];
+}
 //编辑
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -330,9 +333,7 @@
     editVC.noteDelegate = self;
     editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
-    
 }
-
 //删除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -349,14 +350,7 @@
     
     return @"Delete";
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 //更新TableView
-#pragma mark --updateNoteDelegate
 -(void)updateTheNoteList{
     
     _listData = [self.bl findAll];

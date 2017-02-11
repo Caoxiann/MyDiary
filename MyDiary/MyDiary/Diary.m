@@ -10,17 +10,17 @@
 
 @implementation Diary
 
--(id)initWithDate:(NSDate*)date title:(NSString *)title content:(NSString *)content location:(NSString *)location{
+- (id)initWithDate:(NSDate*)date title:(NSString *)title content:(NSString *)content location:(NSString *)location{
     
     self = [super init];
     
     if (self) {
+        
         self.date = date;
         self.title = title;
         self.content = content;
         self.location = location;
     }
-    
     return self;
 }
 

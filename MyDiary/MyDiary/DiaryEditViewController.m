@@ -20,6 +20,11 @@
 @property (strong, nonatomic) IBOutlet UITextView *contentText;
 
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (nonatomic,strong) NSString *date;
+
+@property (nonatomic,strong) UIColor *themeColor;
+
 //------------------location----------------------
 
 @property(nonatomic, strong) CLLocationManager *locationManager;
@@ -34,22 +39,16 @@
 
 @implementation DiaryEditViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
+    
     [super viewDidLoad];
-    
-    //定位服务管理对象初始化-------------------------
+    //定位服务管理对象初始化
     self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 1000.0f;
-    
+    [self.locationManager setDelegate:self];
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [self.locationManager setDistanceFilter:1000.0f];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager requestAlwaysAuthorization];
-    //------------------------------------
-    
-    
-    
     //主题颜色
     UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
@@ -62,10 +61,14 @@
     [self buildLocation];
     //设置背景
     [self.view setBackgroundColor:[UIColor colorWithRed:1 green:252/255.0 blue:235/255.0 alpha:0.5]];
-    
 }
-//content------------------------------------------------
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//content------------------------------------------------
 - (void)buildContentText{
     //标题显示
     UILabel *contentTitleLable = [[UILabel alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width - 80) / 2, 130, 80, 20)];
@@ -126,9 +129,6 @@
     [UIView commitAnimations];
 }
 
-
-//--------------------------------------------------------
-
 //location------------------------------------------------
 - (void)buildLocation{
     
@@ -158,17 +158,15 @@
     [locationButton addTarget:self action:@selector(reverseGeocode) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     //开始定位
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated{
+    
     [super viewWillDisappear:animated];
     //停止定位
     [self.locationManager stopUpdatingLocation];
@@ -199,14 +197,12 @@
      ];
 }
 
-#pragma mark Core Location委托方法用于实现位置的更新
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    
     self.currLocation = [locations lastObject];
     NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
     NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
     NSLog(@"%3.5f\n",self.currLocation.altitude);
-    //NSString *blank = [NSString stringWithFormat:@"%@   ",_currentPage.location];
     NSString *location3 = [NSString stringWithFormat:@"经度:%3.2f 纬度:%3.2f 高度:%3.2f",self.currLocation.coordinate.longitude,self.currLocation.coordinate.latitude,self.currLocation.altitude];
     if(_currentPage.location){
         
@@ -237,10 +233,7 @@
         NSLog(@"NotDetermined");
     }
 }
-
-//--------------------------------------------------------
-
-//nav==================================
+//导航栏----------------------------------------------------------
 - (void)buildNavBar{
     //自定义navbar
     UINavigationBar *baseNav = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
@@ -280,8 +273,6 @@
     [baseNav pushNavigationItem:item animated:NO];
     
     [self.view addSubview:baseNav];
-    
-    
 }
 
 - (void)cancelEdit{
@@ -294,10 +285,8 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     if(_currentPage){
-        
         //修改操作
         DiaryBL *bl = [[DiaryBL alloc]init];
-        //_currentPage = [[Diary alloc]init];
         Diary *diary = _currentPage;
         diary.date = [dateFormatter dateFromString:_dateSettingField.text];
         if(_titleSettingField.text.length == 0){
@@ -337,6 +326,7 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 //时间设置-----------------------------------
 - (void)buildTimeTextField{
     //标题
@@ -415,8 +405,6 @@
     [_dateSettingField resignFirstResponder];
 }
 
-//------------------------------------------------------------
-
 //标题设置------------------------------------
 - (void)buildTitleTextField{
     
@@ -428,7 +416,6 @@
     [titleSettingTitle setTextAlignment:NSTextAlignmentLeft];
     [titleSettingTitle setText:@"题目设置:"];
     [self.view addSubview:titleSettingTitle];
-    
     
     _titleSettingField = [[UITextField alloc]initWithFrame:CGRectMake(120, 70,[UIScreen mainScreen].bounds.size.width - 140, 20)];
     [_titleSettingField setKeyboardType:UIKeyboardTypeDefault];
@@ -465,14 +452,6 @@
     
     [_titleSettingField resignFirstResponder];
     return YES;
-}
-
-//------------------------------------------
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
