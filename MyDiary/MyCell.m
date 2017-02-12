@@ -40,12 +40,13 @@
         _view02.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_view02];
   
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(100, 25, 190, 40)];
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(95, 20, 190, 40)];
         [self.contentView addSubview:_title];
-        _minute = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 50, 20)];
+        _minute = [[UILabel alloc] initWithFrame:CGRectMake(95, 7, 50, 20)];
         [self.contentView addSubview:_minute];
 
-        
+        _city = [[UILabel alloc] initWithFrame:CGRectMake(95, 53, 190, 20)];
+        [self.contentView addSubview:_city];
     }
     return self;
 }
@@ -61,7 +62,7 @@
     return week;
 }
 
-- (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content Minute:(NSString *)minute {
+- (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content Minute:(NSString *)minute SubLocality:(NSString *)sublocality City:(NSString *)city {
     _day.text = day;
     _day.font = [UIFont systemFontOfSize:45];
     _day.textColor = [UIColor whiteColor];
@@ -83,7 +84,10 @@
     _title.text = title;
     _title.font = [UIFont systemFontOfSize:25];
     _title.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
-
+    
+    _city.text = [NSString stringWithFormat:@"%@ %@",city,sublocality];
+    _city.font = [UIFont systemFontOfSize:12];
+    _city.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
 }
 
 - (void)awakeFromNib {

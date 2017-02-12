@@ -61,7 +61,7 @@
     return week;
 }
 
-- (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content {
+- (void)setMonth:(NSString *)month Day:(NSString *)day Week:(NSString *)week Title:(NSString *)title Content:(NSString *)content SubLocality:(NSString *)sublocality City:(NSString *)city {
     _day.text = day;
     _day.font = [UIFont systemFontOfSize:45];
     _day.textColor = [UIColor whiteColor];

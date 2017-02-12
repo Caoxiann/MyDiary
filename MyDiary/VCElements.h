@@ -22,6 +22,8 @@ UITableViewDataSource>
     NSMutableArray* _arrayContent;
     NSMutableArray* _arrayID;
     NSMutableArray* _arrayMinute;
+    NSMutableArray* _arraySubLocality;
+    NSMutableArray* _arrayCity;
     UISegmentedControl* _segControl;
     FMDatabase* _mDB;
     UIBarButtonItem* btn01;

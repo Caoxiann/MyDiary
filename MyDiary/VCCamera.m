@@ -7,8 +7,6 @@
 //
 
 #import "VCCamera.h"
-#import "VCCharacters.h"
-#import "VCCalendar.h"
 
 @interface VCCamera ()
 
@@ -19,65 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationItem.title = @"Camera";
     
-    self.view.backgroundColor = [UIColor redColor];
-    
-    UIToolbar* _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
-    UIImage* _image = [UIImage imageNamed:@"list.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(16, 15.5));
-    [_image drawInRect:CGRectMake(0, 0, 16, 15.5)];
-    UIImage* _newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIBarButtonItem* btn01 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressList)];
-    
-    _image = [UIImage imageNamed:@"characters.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(18, 18));
-    [_image drawInRect:CGRectMake(0, 0, 18, 18)];
-    _newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIBarButtonItem* btn02 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCharacters)];
-    
-    _image = [UIImage imageNamed:@"camera.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(20, 16));
-    [_image drawInRect:CGRectMake(0, 0, 20, 16)];
-    _newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIBarButtonItem* btn03 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:self action:@selector(pressCamera)];
-    
-    _image = [UIImage imageNamed:@"item.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(22, 20));
-    [_image drawInRect:CGRectMake(0, 0, 22, 20)];
-    _newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIBarButtonItem* btn04 = [[UIBarButtonItem alloc] initWithImage:_newImage style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    UIBarButtonItem* btnF01 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF01.width = 20;
-    UIBarButtonItem* btnF02 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    btnF02.width = [UIScreen mainScreen].bounds.size.width - 230;
-    
-    NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04, nil];
-    _toolbar.items = arrayBtns;
-    
-    _toolbar.barTintColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
-    _toolbar.tintColor = [UIColor whiteColor];
-    
-    [self.view addSubview:_toolbar];
-    
-}
-
-- (void)pressList {
-    VCCalendar* vcCalendar = [[VCCalendar alloc] init];
-    [self.navigationController pushViewController:vcCalendar animated:YES];
-}
-
-- (void)pressCharacters {
-    VCCharacters* vcCharacters = [[VCCharacters alloc] init];
-    [self.navigationController pushViewController:vcCharacters animated:YES];
-}
-
-- (void)pressCamera {
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+    UILabel* _label = [[UILabel alloc] initWithFrame:CGRectMake(30, 100, [UIScreen mainScreen].bounds.size.width - 60, 100)];
+    _label.textAlignment = NSTextAlignmentCenter;
+    _label.text = @"相机功能暂未开放";
+    _label.font = [UIFont systemFontOfSize:30];
+    [self.view addSubview:_label];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -101,6 +101,8 @@
     _arrayContent = [[NSMutableArray alloc] init];
     _arrayID = [[NSMutableArray alloc] init];
     _arrayMinute = [[NSMutableArray alloc] init];
+    _arraySubLocality = [[NSMutableArray alloc] init];
+    _arrayCity = [[NSMutableArray alloc] init];
 
 }
 
@@ -121,7 +123,7 @@
         cell = [[MyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
     }
     
-    [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section] Minute:[_arrayMinute objectAtIndex:indexPath.section]];
+    [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section] Minute:[_arrayMinute objectAtIndex:indexPath.section] SubLocality:[_arraySubLocality objectAtIndex:indexPath.section] City:[_arrayCity objectAtIndex:indexPath.section]];
     
     return cell;
 }
@@ -183,6 +185,8 @@
     [_arrayContent removeObjectAtIndex:indexPath.section];
     [_arrayID removeObjectAtIndex:indexPath.section];
     [_arrayMinute removeObjectAtIndex:indexPath.section];
+    [_arraySubLocality removeObjectAtIndex:indexPath.section];
+    [_arrayCity removeObjectAtIndex:indexPath.section];
     btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
     _toolbar.items = arrayBtns;
@@ -235,6 +239,8 @@
     [_arrayContent removeAllObjects];
     [_arrayID removeAllObjects];
     [_arrayMinute removeAllObjects];
+    [_arraySubLocality removeAllObjects];
+    [_arrayCity removeAllObjects];
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
@@ -248,6 +254,8 @@
             NSString* _content = [result stringForColumn:@"content"];
             NSInteger _id = [result intForColumn:@"id"];
             NSString* _minute = [result stringForColumn:@"minute"];
+            NSString* _sublocality = [result stringForColumn:@"sublocality"];
+            NSString* _city = [result stringForColumn:@"city"];
             [_arrayDay addObject:_day];
             [_arrayMonth addObject:_month];
             [_arrayWeek addObject:_week];
@@ -255,6 +263,8 @@
             [_arrayContent addObject:_content];
             [_arrayID addObject:[NSNumber numberWithInteger:_id]];
             [_arrayMinute addObject:_minute];
+            [_arraySubLocality addObject:_sublocality];
+            [_arrayCity addObject:_city];
         }
     }
     

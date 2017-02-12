@@ -29,9 +29,14 @@
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
-        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(300), minute varchar(10));";
+/*        NSString* strDel = @"drop table elements;";
+        [_mDB executeUpdate:strDel];
+        strDel = @"drop table diary;";
+        [_mDB executeUpdate:strDel];
+*/ 
+        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(300), minute varchar(10), sublocality varchar(20), city varchar(20));";
         [_mDB executeUpdate:strCreateTable];
-        strCreateTable = @"create table if not exists diary(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(500));";
+        strCreateTable = @"create table if not exists diary(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(500), sublocality varchar(20), city varchar(20));";
         [_mDB executeUpdate:strCreateTable];
     }
     
@@ -137,6 +142,8 @@
     _arrayContent = [[NSMutableArray alloc] init];
     _arrayID = [[NSMutableArray alloc] init];
     _arrayMinute = [[NSMutableArray alloc] init];
+    _arraySubLocality = [[NSMutableArray alloc] init];
+    _arrayCity = [[NSMutableArray alloc] init];
     if ([_mDB open]) {
         NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth,[self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];
@@ -148,6 +155,8 @@
             NSString* _content = [result stringForColumn:@"content"];
             NSInteger _id = [result intForColumn:@"id"];
             NSString* _minute = [result stringForColumn:@"minute"];
+            NSString* _sublocality = [result stringForColumn:@"sublocality"];
+            NSString* _city = [result stringForColumn:@"city"];
             [_arrayDay addObject:_day];
             [_arrayMonth addObject:_month];
             [_arrayWeek addObject:_week];
@@ -155,6 +164,8 @@
             [_arrayContent addObject:_content];
             [_arrayID addObject:[NSNumber numberWithInteger:_id]];
             [_arrayMinute addObject:_minute];
+            [_arraySubLocality addObject:_sublocality];
+            [_arrayCity addObject:_city];
         }
     }
     btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -184,6 +195,8 @@
     [_arrayContent removeAllObjects];
     [_arrayID removeAllObjects];
     [_arrayMinute removeAllObjects];
+    [_arraySubLocality removeAllObjects];
+    [_arrayCity removeAllObjects];
     if ([_mDB open]) {
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM"];
@@ -200,6 +213,8 @@
             NSString* _content = [result stringForColumn:@"content"];
             NSInteger _id = [result intForColumn:@"id"];
             NSString* _minute = [result stringForColumn:@"minute"];
+            NSString* _sublocality = [result stringForColumn:@"sublocality"];
+            NSString* _city = [result stringForColumn:@"city"];
             [_arrayDay addObject:_day];
             [_arrayMonth addObject:_month];
             [_arrayWeek addObject:_week];
@@ -207,6 +222,8 @@
             [_arrayContent addObject:_content];
             [_arrayID addObject:[NSNumber numberWithInteger:_id]];
             [_arrayMinute addObject:_minute];
+            [_arraySubLocality addObject:_sublocality];
+            [_arrayCity addObject:_city];
         }
     }
     btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -231,7 +248,7 @@
         cell = [[MyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
     }
     
-    [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section] Minute:[_arrayMinute objectAtIndex:indexPath.section]];
+    [cell setMonth:[_arrayMonth objectAtIndex:indexPath.section] Day:[_arrayDay objectAtIndex:indexPath.section] Week:[_arrayWeek objectAtIndex:indexPath.section] Title:[_arrayTitle objectAtIndex:indexPath.section] Content:[_arrayContent objectAtIndex:indexPath.section] Minute:[_arrayMinute objectAtIndex:indexPath.section] SubLocality:[_arraySubLocality objectAtIndex:indexPath.section] City:[_arrayCity objectAtIndex:indexPath.section]];
     
     return cell;
 }
@@ -261,6 +278,8 @@
     [_arrayContent removeAllObjects];
     [_arrayID removeAllObjects];
     [_arrayMinute removeAllObjects];
+    [_arraySubLocality removeAllObjects];
+    [_arrayCity removeAllObjects];
     if ([_mDB open]) {
         NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth,[self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];
@@ -272,6 +291,8 @@
             NSString* _content = [result stringForColumn:@"content"];
             NSInteger _id = [result intForColumn:@"id"];
             NSString* _minute = [result stringForColumn:@"minute"];
+            NSString* _sublocality = [result stringForColumn:@"sublocality"];
+            NSString* _city = [result stringForColumn:@"city"];
             [_arrayDay addObject:_day];
             [_arrayMonth addObject:_month];
             [_arrayWeek addObject:_week];
@@ -279,6 +300,8 @@
             [_arrayContent addObject:_content];
             [_arrayID addObject:[NSNumber numberWithInteger:_id]];
             [_arrayMinute addObject:_minute];
+            [_arraySubLocality addObject:_sublocality];
+            [_arrayCity addObject:_city];
         }
     }
     btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -304,6 +327,8 @@
     [_arrayContent removeObjectAtIndex:indexPath.section];
     [_arrayID removeObjectAtIndex:indexPath.section];
     [_arrayMinute removeObjectAtIndex:indexPath.section];
+    [_arraySubLocality removeObjectAtIndex:indexPath.section];
+    [_arrayCity removeObjectAtIndex:indexPath.section];
     btn05 = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%ld 项目",_arrayDay.count] style:UIBarButtonItemStylePlain target:nil action:nil];
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
     _toolbar.items = arrayBtns;

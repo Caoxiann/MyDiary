@@ -45,7 +45,7 @@
     [_lbContent setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:_lbContent];
     
-    _tvContent = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230)];
+    _tvContent = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 210)];
     _tvContent.delegate = self;
     _tvContent.layer.cornerRadius = 10;
     _tvContent.font = [UIFont systemFontOfSize:18];
@@ -78,7 +78,7 @@
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
-    _tvContent.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230);
+    _tvContent.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 210);
     [UIView commitAnimations];
 }
 
@@ -120,11 +120,14 @@
         NSString* strTitle = _tfTitle.text;
         NSString* strContent = _tvContent.text;
         
+        NSString* strSubLocality = @"~";
+        NSString* strCity = @"!";
+        
         NSString* strQuery = @"select id from diary;";
         FMResultSet* result = [_mDB executeQuery:strQuery];
         NSInteger maxid = 0;
         while ([result next]) if ([result intForColumn:@"id"] > maxid) maxid = [result intForColumn:@"id"];
-        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into diary values('%ld','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent];
+        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into diary values('%ld','%@','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strSubLocality, strCity];
         [_mDB executeUpdate:strInsert];
     }
     [self.navigationController popViewControllerAnimated:YES];

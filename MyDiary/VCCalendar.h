@@ -28,6 +28,8 @@
     NSMutableArray* _arrayContent;
     NSMutableArray* _arrayID;
     NSMutableArray* _arrayMinute;
+    NSMutableArray* _arraySubLocality;
+    NSMutableArray* _arrayCity;
     UITableView* _tableView;
     FSCalendar* _calendar;
 }

@@ -15,8 +15,10 @@
     UILabel* _week;
     UILabel* _content;
     UIView* _view03;
+    UILabel* _sublocality;
+    UILabel* _city;
 }
 
-- (void)setMonth:(NSString*)month Day:(NSString*)day Week:(NSString*)week Title:(NSString*)title Content:(NSString*)content;
+- (void)setMonth:(NSString*)month Day:(NSString*)day Week:(NSString*)week Title:(NSString*)title Content:(NSString*)content SubLocality:(NSString*)sublocality City:(NSString*)city;
 
 @end

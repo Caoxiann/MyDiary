@@ -21,6 +21,8 @@ UITableViewDataSource>
     NSMutableArray* _arrayTitle;
     NSMutableArray* _arrayContent;
     NSMutableArray* _arrayID;
+    NSMutableArray* _arraySubLocality;
+    NSMutableArray* _arrayCity;
     UISegmentedControl* _segControl;
     FMDatabase* _mDB;
     NSInteger total;

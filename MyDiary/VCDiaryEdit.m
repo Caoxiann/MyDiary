@@ -47,7 +47,7 @@
     [_lbContent setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:_lbContent];
     
-    _content = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230)];
+    _content = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 210)];
     _content.delegate = self;
     _content.layer.cornerRadius = 10;
     _content.layer.masksToBounds = YES;
@@ -93,7 +93,7 @@
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
-    _content.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230);
+    _content.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 210);
     [UIView commitAnimations];
 }
 

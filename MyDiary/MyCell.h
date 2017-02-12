@@ -15,8 +15,10 @@
     UILabel* _week;
     UILabel* _content;
     UILabel* _minute;
+    UILabel* _sublocality;
+    UILabel* _city;
 }
 
-- (void)setMonth:(NSString*)month Day:(NSString*)day Week:(NSString*)week Title:(NSString*)title Content:(NSString*)content Minute:(NSString*)minute;
+- (void)setMonth:(NSString*)month Day:(NSString*)day Week:(NSString*)week Title:(NSString*)title Content:(NSString*)content Minute:(NSString*)minute SubLocality:(NSString*)sublocality City:(NSString*)city;
 
 @end

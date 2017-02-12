@@ -8,8 +8,11 @@
 
 #import "VCCharacters.h"
 #import "FMDatabase.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface VCCharacters ()
+@interface VCCharacters () <CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager* locationManager;
 
 @end
 
@@ -39,14 +42,14 @@
     _tfTitle.font = [UIFont systemFontOfSize:25];
     _tfTitle.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_tfTitle];
-    _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, 50)];
+    _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, [UIScreen mainScreen].bounds.size.width, 50)];
     _lbContent.text = @"内容";
     _lbContent.font = [UIFont systemFontOfSize:20];
     _lbContent.textColor = [UIColor blackColor];
     [_lbContent setTextAlignment:NSTextAlignmentCenter];
     [self.view addSubview:_lbContent];
     
-    _tvContent = [[UITextView alloc] initWithFrame:CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230)];
+    _tvContent = [[UITextView alloc] initWithFrame:CGRectMake(20, 230, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 260)];
     _tvContent.delegate = self;
     _tvContent.layer.cornerRadius = 10;
     _tvContent.font = [UIFont systemFontOfSize:18];
@@ -57,6 +60,53 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+    _lbLocation = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, 80, 40)];
+    _lbLocation.text = @"当前位置:";
+    _lbLocation.font = [UIFont systemFontOfSize:18];
+    _lbLocation.textColor = [UIColor blackColor];
+    [self.view addSubview:_lbLocation];
+
+    _tfCity = [[UITextField alloc] initWithFrame:CGRectMake(120, 140, [UIScreen mainScreen].bounds.size.width/2 - 80, 40)];
+    _tfCity.borderStyle = UITextBorderStyleRoundedRect;
+    _tfCity.keyboardType = UIKeyboardTypeDefault;
+    _tfCity.font = [UIFont systemFontOfSize:18];
+    _tfCity.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
+
+    _tfSublocality = [[UITextField alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 + 50, 140, [UIScreen mainScreen].bounds.size.width/2 - 80, 40)];
+    _tfSublocality.borderStyle = UITextBorderStyleRoundedRect;
+    _tfSublocality.keyboardType = UIKeyboardTypeDefault;
+    _tfSublocality.font = [UIFont systemFontOfSize:18];
+    _tfSublocality.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
+    [self.view addSubview:_tfCity];
+    [self.view addSubview:_tfSublocality];
+    
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        if (!_locationManager) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager requestAlwaysAuthorization];
+            }
+            //设置代理
+            [self.locationManager setDelegate:self];
+            //设置定位精度
+            [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+            //设置距离筛选
+            [self.locationManager setDistanceFilter:100];
+            //开始定位
+            [self.locationManager startUpdatingLocation];
+            //设置开始识别方向
+            [self.locationManager startUpdatingHeading];
+        }
+    }
+    else {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:@"您没有开启定位功能,请手动输入位置信息" delegate:nil cancelButtonTitle:@"确定"otherButtonTitles:nil, nil];
+        _tfCity.placeholder = @"城市";
+        _tfSublocality.placeholder = @"地区";
+        [alertView show];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -66,12 +116,38 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    [self.locationManager stopUpdatingLocation];
+    CLLocation* location = locations.lastObject;
+    [self reverseGeocoder:location];
+}
+
+- (void)reverseGeocoder:(CLLocation *)currentLocation {
+    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error || placemarks.count == 0) {
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:nil message:@"定位失败,请手动输入位置信息" delegate:nil cancelButtonTitle:@"确定"otherButtonTitles:nil, nil];
+            _tfCity.placeholder = @"城市";
+            _tfSublocality.placeholder = @"地区";
+            [alertView show];
+        }
+        else {
+            CLPlacemark* placemark = placemarks.firstObject;
+            strSubLocality = [[placemark addressDictionary] objectForKey:@"SubLocality"];
+            strCity = [[placemark addressDictionary] objectForKey:@"City"];
+            _tfCity.text = strCity;
+            _tfSublocality.text = strSubLocality;
+        }
+    }];
+}
+
+
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGRect keyboardRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
-    _tvContent.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 180 - keyboardRect.size.height);
+    _tvContent.frame = CGRectMake(20, 230, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230 - keyboardRect.size.height);
     [UIView commitAnimations];
 }
 
@@ -79,7 +155,7 @@
     NSTimeInterval animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
-    _tvContent.frame = CGRectMake(20, 180, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 230);
+    _tvContent.frame = CGRectMake(20, 230, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 260);
     [UIView commitAnimations];
 }
 
@@ -128,7 +204,7 @@
         FMResultSet* result = [_mDB executeQuery:strQuery];
         NSInteger maxid = 0;
         while ([result next]) if ([result intForColumn:@"id"] > maxid) maxid = [result intForColumn:@"id"];
-        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute];
+        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute, _tfSublocality.text, _tfCity.text];
         [_mDB executeUpdate:strInsert];
     }
     [self.navigationController popViewControllerAnimated:YES];

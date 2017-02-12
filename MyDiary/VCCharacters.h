@@ -13,8 +13,13 @@
     FMDatabase* _mDB;
     UILabel* _lbTitle;
     UILabel* _lbContent;
+    UILabel* _lbLocation;
     UITextField* _tfTitle;
     UITextView* _tvContent;
+    UITextField* _tfCity;
+    UITextField* _tfSublocality;
+    NSString* strSubLocality;
+    NSString* strCity;
 }
 
 @end

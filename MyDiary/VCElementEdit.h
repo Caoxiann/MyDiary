@@ -19,10 +19,15 @@
     FMDatabase* _mDB;
     UILabel* _lbTitle;
     UILabel* _lbContent;
+    UILabel* _lbLocation;
     UITextField* _title;
     UITextView* _content;
     NSNumber* _id;
     NSInteger maxid;
+    NSString* strSubLocality;
+    NSString* strCity;
+    UITextField* _tfCity;
+    UITextField* _tfSublocality;
 }
 
 @property (retain, nonatomic) NSNumber* myID;
