@@ -10,10 +10,12 @@
 #import "myTableViewCell.h"
 #import "ElementPage.h"
 #import "TimeDealler.h"
-#import "DateDeal.h"
 #import "UIColorCategory.h"
+#import "SqlService.h"
+
 #define INITIALHEIGHT Iphone6ScaleHeight(100)
 @interface ElementViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,strong) NSString *numOfElements;
 
 @end
 
@@ -29,9 +31,35 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+
 - (void)reloadDate {
-    _elementForMonthArray=[DateDeal dateDealFor:ViewControllerElement andDate:nil];
+    _elementForMonthArray=[self dateDeal];
+    [self.delegate updateNumOfItems:_numOfElements];
     [_tableView reloadData];
+}
+- (NSMutableArray <__kindof NSMutableArray *> *)dateDeal{
+    NSMutableArray <__kindof NSMutableArray *> *resultArr=[[NSMutableArray alloc]init];
+    NSArray *array=[[SqlService sqlInstance] queryElementDBtable];
+    if(array.count) {
+        _numOfElements=[NSString stringWithFormat:@"%lu",array.count];
+        for(int i=1;i<13;i++) {
+            NSMutableArray *arr=[[NSMutableArray alloc]init];
+            [resultArr addObject:arr];
+        }
+        for(Element * ele in array) {
+            for(int i=1;i<13;i++){
+                NSString * monthStr=[NSString stringWithFormat:@"%02d",i];
+                if([ele.month isEqualToString:monthStr]) {
+                    //NSLog(@"%@",monthStr);
+                    [resultArr[i-1] addObject:ele];
+                    break;
+                }
+            }
+        }
+    }else {
+        _numOfElements=[NSString stringWithFormat:@"%d",0];
+    }
+    return resultArr;
 }
 -(void)setMyTableView{
     NSLog(@"%f",_tableViewHeight);
@@ -40,7 +68,7 @@
     UIImageView* backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
     [backgroundView setFrame:self.view.bounds];
     [_tableView setBackgroundView:backgroundView];
-    
+   
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -126,7 +126,7 @@
 - (IBAction)photoButton:(UIButton *)sender {
 }
 #pragma mark - ElementPageDelegate
--(void)turnToElementPage:(Element *)element {
+- (void)turnToElementPage:(Element *)element {
     CATransition* amin=[CATransition animation];
     [amin setDuration:1];
     [amin setType:@"cube"];
@@ -139,7 +139,7 @@
     [self.navigationController pushViewController:elementPage animated:amin];
 }
 #pragma mark - DiaryPageDelegate
--(void)turnToDiaryPage:(Diary *)diary {
+- (void)turnToDiaryPage:(Diary *)diary {
     CATransition* amin=[CATransition animation];
     [amin setDuration:1];
     [amin setType:@"cube"];
@@ -152,6 +152,8 @@
     [diaryPage setDiary:diary];
     [self.navigationController pushViewController:diaryPage animated:amin];
 }
+- (void)updateNumOfItems:(NSString *)num {
+    _numOfItems.text=num;
+}
 @end
-
 

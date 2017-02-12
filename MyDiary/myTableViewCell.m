@@ -79,9 +79,11 @@
     self.timeLabel.text=element.time;
     self.contentLabel.text=element.content;
     self.titleLabel.text=element.title;
+    self.locationLabel.text=element.location;
     self.dayLabel2.text=element.day;
     self.timeLabel2.text=element.time;
     self.titleLabel2.text=element.title;
+    self.locationLabel2.text=element.location;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     UIFont *font=[UIFont fontWithName:@"HelveticaNeue" size:14.0f];
     [_contentLabel setFont:font];

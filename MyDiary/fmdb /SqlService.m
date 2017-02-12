@@ -203,6 +203,7 @@ static SqlService *sqlService;
             element.month=[rs stringForColumn:@"month"];
             element.day=[rs stringForColumn:@"day"];
             element.title=[rs stringForColumn:@"title"];
+            element.location=[rs stringForColumn:@"location"];
             [array addObject:element];
         }
         [db close];
@@ -236,6 +237,7 @@ static SqlService *sqlService;
                     element.month=[rs stringForColumn:@"month"];
                     element.day=[rs stringForColumn:@"day"];
                     element.title=[rs stringForColumn:@"title"];
+                    element.location=[rs stringForColumn:@"location"];
                     [array addObject:element];
                 }
             }

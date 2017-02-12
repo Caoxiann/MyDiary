@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0504DA311E499915007CEEB7 /* DateDeal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0504DA301E499915007CEEB7 /* DateDeal.m */; };
 		0504DA421E4AED60007CEEB7 /* UIColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0504DA411E4AED60007CEEB7 /* UIColorCategory.m */; };
 		0558FB861E2CDEAF001C328D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FB851E2CDEAF001C328D /* main.m */; };
 		0558FB891E2CDEAF001C328D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FB881E2CDEAF001C328D /* AppDelegate.m */; };
@@ -59,8 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0504DA2F1E499915007CEEB7 /* DateDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateDeal.h; sourceTree = "<group>"; };
-		0504DA301E499915007CEEB7 /* DateDeal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateDeal.m; sourceTree = "<group>"; };
 		0504DA401E4AED60007CEEB7 /* UIColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorCategory.h; sourceTree = "<group>"; };
 		0504DA411E4AED60007CEEB7 /* UIColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorCategory.m; sourceTree = "<group>"; };
 		0558FB811E2CDEAF001C328D /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,8 +209,6 @@
 		0558FBD41E2CDEDA001C328D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0504DA2F1E499915007CEEB7 /* DateDeal.h */,
-				0504DA301E499915007CEEB7 /* DateDeal.m */,
 				0558FBEE1E2CEA1B001C328D /* Diary.h */,
 				0558FBEF1E2CEA1B001C328D /* Diary.m */,
 				0558FBE51E2CE55B001C328D /* Element.h */,
@@ -362,6 +357,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 63K2TD6THT;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0558FB991E2CDEAF001C328D = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -439,7 +439,6 @@
 				0558FB861E2CDEAF001C328D /* main.m in Sources */,
 				0558FC011E2CEA25001C328D /* FMDatabase.m in Sources */,
 				0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */,
-				0504DA311E499915007CEEB7 /* DateDeal.m in Sources */,
 				0568C4341E39ED85002ED451 /* CalendarViewController.m in Sources */,
 				0558FC071E2CEA25001C328D /* TimeDealler.m in Sources */,
 				0558FC051E2CEA25001C328D /* FMResultSet.m in Sources */,

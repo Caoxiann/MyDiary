@@ -11,8 +11,8 @@
 
 @protocol ElementPageDelegateInCVC <NSObject>
 
-@required -(void)turnToElementPage:(Element *)element;
-
+@required - (void)turnToElementPage:(Element *)element;
+@required - (void)updateNumOfItems:(NSString *)num;
 @end
 
 @class MonthModel;

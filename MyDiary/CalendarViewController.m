@@ -9,9 +9,8 @@
 #import "CalendarViewController.h"
 #import "NSDate+Formatter.h"
 #import "myTableViewCell.h"
-#import "DateDeal.h"
 #import "TimeDealler.h"
-
+#import "SqlService.h"
 #define HeaderViewHeight 30
 #define WeekViewHeight 40
 #define INITIALHEIGHT Iphone6ScaleHeight(100)
@@ -29,8 +28,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *cellHeights;
 @property (nonatomic,strong) NSMutableArray *elementArray;
-
 @property (strong, nonatomic) NSDate *tempDate;
+
 @end
 
 @implementation CalendarViewController
@@ -50,25 +49,38 @@
     self.dateLabel.text = self.tempDate.yyyyMMByLineWithDate;
     
     [self getDataDayModel:self.tempDate];
-    [self setData];
 }
 - (void)setData {
-    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[NSDate date]];
-    if(arr.count) {
-        _elementArray=arr[0];
-    }else{
-        [_elementArray removeAllObjects];
-    }
+    self.elementArray=[self dateDeal:[NSDate date]];
+    [self.delegate updateNumOfItems:[NSString stringWithFormat:@"%lu",(unsigned long)self.elementArray.count]];
     [self.tableView reloadData];
 }
 - (void)reloadData {
-    NSMutableArray * arr=[DateDeal dateDealFor:ViewControllerCalendar andDate:[self.dayModelArray[_selecedDay.row] dateValue]];
-    if(arr.count) {
-        _elementArray=arr[0];
-    }else{
-        [_elementArray removeAllObjects];
-    }
+    self.elementArray=[self dateDeal:[self.dayModelArray[_selecedDay.row] dateValue]];
+    [self.delegate updateNumOfItems:[NSString stringWithFormat:@"%lu",(unsigned long)self.elementArray.count]];
     [self.tableView reloadData];
+}
+- (NSMutableArray *)dateDeal:(NSDate *)date{
+    NSMutableArray *arr=[[NSMutableArray alloc]init];
+    NSArray *array=[[SqlService sqlInstance] queryElementDBtable:date];
+    if(array.count) {
+        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        NSString *selectedDateStr=[formatter stringFromDate:date];
+        for(Element *ele in array) {
+            NSString *dateStr=[[ele.year stringByAppendingString:ele.month]stringByAppendingString:ele.day];
+            if([selectedDateStr isEqualToString:dateStr]) {
+                [arr addObject:ele];
+            }
+        }
+    }
+    return arr;
+}
+- (NSMutableArray *)elementArray {
+    if(!_elementArray) {
+        _elementArray=[[NSMutableArray alloc]init];
+    }
+    return _elementArray;
 }
 #pragma mark -view
 -(void)drawView{
@@ -241,8 +253,8 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"_elementArray.count:%lu",(unsigned long)_elementArray.count);
-    return _elementArray.count;
+    //NSLog(@"_elementArray.count:%lu",(unsigned long)_elementArray.count);
+    return self.elementArray.count;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -258,9 +270,9 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"myTableViewCell" owner:self options:nil] objectAtIndex:0];
         NSLog(@"%@",cell);
     }
-    Element * ele=_elementArray[indexPath.row];
-    [_elementArray replaceObjectAtIndex:indexPath.row withObject:[cell setMyElement:ele]];
-    ele=_elementArray[indexPath.row];
+    Element * ele=self.elementArray[indexPath.row];
+    [self.elementArray replaceObjectAtIndex:indexPath.row withObject:[cell setMyElement:ele]];
+    ele=self.elementArray[indexPath.row];
     if(ele.isSelected) {
         [cell drawDetailView];
         if(!(self.cellHeights.count>indexPath.row)){
@@ -290,14 +302,14 @@
     return [height floatValue];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Element * element =_elementArray[indexPath.row];
+    Element * element =self.elementArray[indexPath.row];
     if([self.cellHeights[indexPath.row] isEqualToString:[[NSString alloc]initWithFormat:@"%f",INITIALHEIGHT]]){
         element.isSelected=YES;
     }else{
         element.isSelected=NO;
         [self.delegate turnToElementPage:element];
     }
-    [_elementArray replaceObjectAtIndex:indexPath.row withObject:element];
+    [self.elementArray replaceObjectAtIndex:indexPath.row withObject:element];
     //NSLog(@"ElementDidSelectRowAtIndexPath");
     //NSLog(@"%@",element.cellHeight);
     NSArray * arr=[[NSArray alloc]initWithObjects:indexPath, nil];
@@ -311,9 +323,9 @@
     return UITableViewCellEditingStyleDelete;
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Element * ele=_elementArray[indexPath.row];
+    Element * ele=self.elementArray[indexPath.row];
     [ele deleteElement];
-    [_elementArray removeObjectAtIndex:indexPath.row];
+    [self.elementArray removeObjectAtIndex:indexPath.row];
     [self reloadData];
 }
 

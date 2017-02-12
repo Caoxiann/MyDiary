@@ -10,8 +10,8 @@
 #import "Diary.h"
 @protocol DiaryPageDelegate <NSObject>
 
-@required -(void)turnToDiaryPage:(Diary *)diary;
-
+@required - (void)turnToDiaryPage:(Diary *)diary;
+@required - (void)updateNumOfItems:(NSString *)num;
 @end
 @interface DiaryViewController : UIViewController
 @property (nonatomic,strong) UITableView *tableView;

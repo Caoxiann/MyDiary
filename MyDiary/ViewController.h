@@ -23,6 +23,7 @@
 - (IBAction)photoButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *testTimeLabel;
 @property (nonatomic ,strong) UIViewController *currentVC;
+@property (weak, nonatomic) IBOutlet UILabel *numOfItems;
 @property (nonatomic,strong)NSMutableArray *childControllersArray;
 @end
 

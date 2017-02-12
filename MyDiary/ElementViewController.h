@@ -11,8 +11,8 @@
 
 @protocol ElementPageDelegate <NSObject>
 
-@required -(void)turnToElementPage:(Element *)element;
-
+@required - (void)turnToElementPage:(Element *)element;
+@required - (void)updateNumOfItems:(NSString *)num;
 @end
 
 @interface ElementViewController : UIViewController
@@ -22,4 +22,5 @@
 @property (nonatomic,strong) UIViewController<ElementPageDelegate> * delegate;
 @property (nonatomic,assign) CGFloat tableViewHeight;
 @property (nonatomic,strong) NSMutableArray *monthArr;
+
 @end

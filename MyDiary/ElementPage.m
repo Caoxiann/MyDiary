@@ -8,12 +8,14 @@
 
 #import "ElementPage.h"
 #import "TimeDealler.h"
+#import <CoreLocation/CoreLocation.h>
 #define LL_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define LL_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 #define Iphone6ScaleWidth(x) ((x) * LL_SCREEN_WIDTH /375.0f)
 #define Iphone6ScaleHeight(x) ((x)*LL_SCREEN_HEIGHT/667.0f)
-@interface ElementPage ()<UITextViewDelegate>
-
+@interface ElementPage ()<UITextViewDelegate,CLLocationManagerDelegate>
+@property (strong,nonatomic) CLGeocoder *geocoder;
+@property (strong,nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation ElementPage
@@ -23,7 +25,8 @@
     [self drawView];
     // Do any additional setup after loading the view from its nib.
 }
--(void)drawView{
+
+- (void)drawView {
     _timeSetBtn.layer.cornerRadius=15;
     _timeSetBtn.layer.masksToBounds = YES;
     _locationSetBtn.layer.cornerRadius=15;
@@ -118,6 +121,7 @@
 }
 
 - (IBAction)setLocation:(UIButton *)sender {
+    [self getPermission];
 }
 
 - (IBAction)setDate:(UIButton *)sender {
@@ -187,5 +191,71 @@
         
     }
 }
+#pragma mark - getLocation
+
+- (void)getPermission {
+    _locationManager=[[CLLocationManager alloc]init];
+    [_locationManager setDelegate:self];
+    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [_locationManager requestAlwaysAuthorization];
+        }
+        [_locationManager startUpdatingLocation];
+    }else {
+        [self permissionDenyAlart];
+    }
+}
+- (void)setLocationStr:(CLPlacemark*)placemark{
+    NSString *locationStr=[[NSString alloc]init];
+    if(placemark.country!=nil) {
+        locationStr=[[NSString alloc]initWithString:placemark.country];
+        if(placemark.administrativeArea!=nil) {
+            locationStr=[locationStr stringByAppendingString:placemark.administrativeArea];
+            if(placemark.locality!=nil){
+                locationStr=[locationStr stringByAppendingString:placemark.locality];
+            }
+        }
+    }
+    NSLog(@"locationStr:%@",locationStr);
+    _element.location=locationStr;
+    _locationLabel.text=_element.location;
+}
+- (void)permissionDenyAlart {
+    UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"您未授权地点定位功能" message:@"请到设置中开启权限" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDestructive handler:
+                      ^(UIAlertAction*action){
+                          //
+                      }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)networkError {
+    UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
+                      ^(UIAlertAction*action){
+                          //
+                      }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    [_locationManager stopUpdatingLocation];
+    _geocoder=[[CLGeocoder alloc]init];
+    [_geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
+     ^(NSArray< CLPlacemark *> * placemarks, NSError * error){
+         if (error != nil) {
+             [self networkError];
+         }
+         
+         if (placemarks.count > 0) {
+             CLPlacemark *pm = placemarks[0];
+             [self setLocationStr:pm];
+         } else {
+            //错误
+         }
+     }];
+}
+
 
 @end

@@ -12,10 +12,9 @@
 #import "DiaryPage.h"
 #import "TimeDealler.h"
 #import "UIColorCategory.h"
-#import "DateDeal.h"
-
+#import "SqlService.h"
 @interface DiaryViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic,strong) NSString *numOfDiarys;
 @end
 
 @implementation DiaryViewController
@@ -31,8 +30,33 @@
     // Do any additional setup after loading the view.
 }
 - (void)reloadDate {
-    _diaryForMonthArray=[DateDeal dateDealFor:ViewControllerDiary andDate:nil];
+    _diaryForMonthArray=[self dateDeal];
+    [self.delegate updateNumOfItems:_numOfDiarys];
     [_tableView reloadData];
+}
+- (NSMutableArray <__kindof NSMutableArray *> *)dateDeal{
+    NSMutableArray <__kindof NSMutableArray *> *resultArr=[[NSMutableArray alloc]init];
+    NSArray *array=[[SqlService sqlInstance] queryDiaryDBtable];
+    if(array.count) {
+        _numOfDiarys=[NSString stringWithFormat:@"%lu",array.count];
+        for(int i=1;i<13;i++) {
+            NSMutableArray *arr=[[NSMutableArray alloc]init];
+            [resultArr addObject:arr];
+        }
+        for(Diary * diary in array) {
+            for(int i=1;i<13;i++){
+                NSString * monthStr=[NSString stringWithFormat:@"%02d",i];
+                if([diary.month isEqualToString:monthStr]) {
+                    //NSLog(@"%@",monthStr);
+                    [resultArr[i-1] addObject:diary];
+                    break;
+                }
+            }
+        }
+    }else {
+        _numOfDiarys=[NSString stringWithFormat:@"%d",0];
+    }
+    return resultArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
