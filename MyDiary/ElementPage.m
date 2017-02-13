@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self drawView];
+    //[self getPermission];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -207,21 +208,6 @@
         [self permissionDenyAlart];
     }
 }
-- (void)setLocationStr:(CLPlacemark*)placemark{
-    NSString *locationStr=[[NSString alloc]init];
-    if(placemark.country!=nil) {
-        locationStr=[[NSString alloc]initWithString:placemark.country];
-        if(placemark.administrativeArea!=nil) {
-            locationStr=[locationStr stringByAppendingString:placemark.administrativeArea];
-            if(placemark.locality!=nil){
-                locationStr=[locationStr stringByAppendingString:placemark.locality];
-            }
-        }
-    }
-    NSLog(@"locationStr:%@",locationStr);
-    _element.location=locationStr;
-    _locationLabel.text=_element.location;
-}
 - (void)permissionDenyAlart {
     UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"您未授权地点定位功能" message:@"请到设置中开启权限" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDestructive handler:
@@ -240,6 +226,7 @@
 }
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+
     [_locationManager stopUpdatingLocation];
     _geocoder=[[CLGeocoder alloc]init];
     [_geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
@@ -250,7 +237,19 @@
          
          if (placemarks.count > 0) {
              CLPlacemark *pm = placemarks[0];
-             [self setLocationStr:pm];
+             NSString *locationStr=[[NSString alloc]init];
+             if(pm.country!=nil) {
+                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
+                 if(pm.administrativeArea!=nil) {
+                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     if(pm.locality!=nil){
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                     }
+                 }
+             }
+             NSLog(@"locationStr:%@",locationStr);
+             _element.location=locationStr;
+             _locationLabel.text=_element.location;
          } else {
             //错误
          }

@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *textViewBackView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic,strong) UIViewController <DiaryReloadDelegate> *delegate;
+- (IBAction)getLocation:(UIButton *)sender;
 
 @property (nonatomic ,strong)Diary *diary;
 @property (assign, nonatomic) BOOL isNew;

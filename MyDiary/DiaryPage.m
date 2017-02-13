@@ -8,13 +8,16 @@
 
 #import "DiaryPage.h"
 #import "TimeDealler.h"
+#import <CoreLocation/CoreLocation.h>
 #define LL_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define LL_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 #define Iphone6ScaleWidth(x) ((x) * LL_SCREEN_WIDTH /375.0f)
 #define Iphone6ScaleHeight(x) ((x)*LL_SCREEN_HEIGHT/667.0f)
-@interface DiaryPage ()<UITextViewDelegate> {
+@interface DiaryPage ()<UITextViewDelegate,CLLocationManagerDelegate>{
     CGRect textViewFrame;
 }
+@property (strong,nonatomic) CLGeocoder *geocoder;
+@property (strong,nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -23,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self drawView];
+    [self getPermission];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)drawView{
@@ -128,5 +132,69 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_textField resignFirstResponder];
     [_textView resignFirstResponder];
+}
+- (IBAction)getLocation:(UIButton *)sender {
+    [self getPermission];
+}
+- (void)getPermission {
+    _locationManager=[[CLLocationManager alloc]init];
+    [_locationManager setDelegate:self];
+    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [_locationManager requestAlwaysAuthorization];
+        }
+        [_locationManager startUpdatingLocation];
+    }else {
+        [self permissionDenyAlart];
+    }
+}
+- (void)permissionDenyAlart {
+    UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"您未授权地点定位功能" message:@"请到设置中开启权限" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDestructive handler:
+                      ^(UIAlertAction*action){
+                          //
+                      }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)networkError {
+    UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
+                      ^(UIAlertAction*action){
+                          //
+                      }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    
+    [_locationManager stopUpdatingLocation];
+    _geocoder=[[CLGeocoder alloc]init];
+    [_geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
+     ^(NSArray< CLPlacemark *> * placemarks, NSError * error){
+         if (error != nil) {
+             [self networkError];
+         }
+         
+         if (placemarks.count > 0) {
+             CLPlacemark *pm = placemarks[0];
+             NSString *locationStr=[[NSString alloc]init];
+             if(pm.country!=nil) {
+                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
+                 if(pm.administrativeArea!=nil) {
+                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     if(pm.locality!=nil){
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                     }
+                 }
+             }
+             NSLog(@"locationStr:%@",locationStr);
+             _diary.location=locationStr;
+             _locationLabel.text=_diary.location;
+         } else {
+             //错误
+         }
+     }];
 }
 @end
