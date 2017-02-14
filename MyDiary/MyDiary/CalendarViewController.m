@@ -10,7 +10,7 @@
 #import "CalendarTable.h"
 #import "CalendarItems.h"
 
-@interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate>
+@interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate,NotePageUpdateDelegate>
 
 @property (nonatomic,strong) CalendarTable *calendar;
 
@@ -204,6 +204,27 @@
     
     return 100;
 }
+
+//编辑
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NoteEditViewController *editVC = [[NoteEditViewController alloc]init];
+    editVC.noteDelegate = self;
+    editVC.currentPage = _dataArray[indexPath.row];
+    [self.navigationController pushViewController:editVC animated:YES];
+}
+//删除
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        
+        Note *noteTemp = _dataArray[indexPath.row];
+        NoteBL *bl = [[NoteBL alloc]init];
+        self.dataArray = [bl removeNote:noteTemp];
+        [_noteListTableView reloadData];
+    }
+}
+
 //传入选中的日期
 - (void)selectedUpdate:(NSString*)string{
     

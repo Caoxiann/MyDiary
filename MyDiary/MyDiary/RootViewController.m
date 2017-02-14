@@ -78,6 +78,7 @@
     [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_calendarVC];
     [self.view addSubview:self.calendarVC.view];
+
 }
 
 - (void)buildSegmentControl {
