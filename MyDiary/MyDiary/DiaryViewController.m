@@ -111,7 +111,7 @@
     }];
     [_listData removeAllObjects];
     _listData = [sortData mutableCopy];
-    
+     
     if([_listData count] > 1){
         
         for(int i = 0; i < [_listData count] - 1; i++){

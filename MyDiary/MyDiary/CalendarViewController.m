@@ -176,14 +176,14 @@
     [_dateLabel setBackgroundColor:[UIColor clearColor]];
     [_cellView addSubview:_dateLabel];
     //星期显示
-    int yearShow = [[_time substringWithRange:NSMakeRange(0, 4)]intValue];
-    int monthShow = [[_time substringWithRange:NSMakeRange(5, 2)]intValue];
+    NSInteger yearShow = [[timeShow substringWithRange:NSMakeRange(0, 4)]intValue];
+    NSInteger monthShow = [[timeShow substringWithRange:NSMakeRange(5, 2)]intValue];
     if (monthShow ==1 || monthShow == 2){
         
         monthShow += 12;
         yearShow--;
     }
-    int weekDayShow = (dateShow + 2 * monthShow + 3 * (monthShow + 1) / 5 + yearShow + yearShow / 4 - yearShow / 100 + yearShow / 400) % 7;
+    NSInteger weekDayShow = (dateShow + 2 * monthShow + 3 * (monthShow + 1) / 5 + yearShow + yearShow / 4 - yearShow / 100 + yearShow / 400) % 7;
     NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"何曜日", nil];
     UILabel *_weekLabel = [[UILabel alloc]init];
     [_weekLabel setFrame:CGRectMake(0, 50, 60, 20)];
