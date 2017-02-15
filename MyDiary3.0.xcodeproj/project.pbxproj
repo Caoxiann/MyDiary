@@ -8,13 +8,45 @@
 
 /* Begin PBXBuildFile section */
 		4D5915B11E548C9E0090B8CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915B01E548C9E0090B8CB /* main.m */; };
-		4D5915B41E548C9E0090B8CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915B31E548C9E0090B8CB /* AppDelegate.m */; };
-		4D5915B71E548C9E0090B8CB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915B61E548C9E0090B8CB /* ViewController.m */; };
 		4D5915BA1E548C9E0090B8CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915B81E548C9E0090B8CB /* Main.storyboard */; };
 		4D5915BC1E548C9F0090B8CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915BB1E548C9F0090B8CB /* Assets.xcassets */; };
 		4D5915BF1E548C9F0090B8CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915BD1E548C9F0090B8CB /* LaunchScreen.storyboard */; };
 		4D5915CA1E548CA00090B8CB /* MyDiary3_0Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915C91E548CA00090B8CB /* MyDiary3_0Tests.m */; };
 		4D5915D51E548CA00090B8CB /* MyDiary3_0UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915D41E548CA00090B8CB /* MyDiary3_0UITests.m */; };
+		4D5915EC1E548D1D0090B8CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915EB1E548D1C0090B8CB /* AppDelegate.m */; };
+		4D5916211E548D5E0090B8CB /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915ED1E548D5E0090B8CB /* camera.png */; };
+		4D5916221E548D5E0090B8CB /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915EE1E548D5E0090B8CB /* camera@2x.png */; };
+		4D5916231E548D5E0090B8CB /* camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915EF1E548D5E0090B8CB /* camera@3x.png */; };
+		4D5916241E548D5E0090B8CB /* characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915F01E548D5E0090B8CB /* characters.png */; };
+		4D5916251E548D5E0090B8CB /* characters@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915F11E548D5E0090B8CB /* characters@2x.png */; };
+		4D5916261E548D5E0090B8CB /* characters@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915F21E548D5E0090B8CB /* characters@3x.png */; };
+		4D5916271E548D5E0090B8CB /* cloud.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915F31E548D5E0090B8CB /* cloud.jpg */; };
+		4D5916281E548D5E0090B8CB /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915F51E548D5E0090B8CB /* FMDatabase.m */; };
+		4D5916291E548D5E0090B8CB /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915F71E548D5E0090B8CB /* FMDatabaseAdditions.m */; };
+		4D59162A1E548D5E0090B8CB /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915F91E548D5E0090B8CB /* FMDatabasePool.m */; };
+		4D59162B1E548D5E0090B8CB /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915FB1E548D5E0090B8CB /* FMDatabaseQueue.m */; };
+		4D59162C1E548D5E0090B8CB /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5915FE1E548D5E0090B8CB /* FMResultSet.m */; };
+		4D59162D1E548D5E0090B8CB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D5915FF1E548D5E0090B8CB /* Info.plist */; };
+		4D59162E1E548D5E0090B8CB /* item.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916001E548D5E0090B8CB /* item.png */; };
+		4D59162F1E548D5E0090B8CB /* item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916011E548D5E0090B8CB /* item@2x.png */; };
+		4D5916301E548D5E0090B8CB /* item@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916021E548D5E0090B8CB /* item@3x.png */; };
+		4D5916311E548D5E0090B8CB /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916031E548D5E0090B8CB /* list.png */; };
+		4D5916321E548D5E0090B8CB /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916041E548D5E0090B8CB /* list@2x.png */; };
+		4D5916331E548D5E0090B8CB /* list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916051E548D5E0090B8CB /* list@3x.png */; };
+		4D5916351E548D5E0090B8CB /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916081E548D5E0090B8CB /* MyTableViewCell.m */; };
+		4D5916361E548D5E0090B8CB /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D5916091E548D5E0090B8CB /* MyTableViewCell.xib */; };
+		4D5916371E548D5E0090B8CB /* PDTSimpleCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D59160C1E548D5E0090B8CB /* PDTSimpleCalendarViewCell.m */; };
+		4D5916381E548D5E0090B8CB /* PDTSimpleCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D59160E1E548D5E0090B8CB /* PDTSimpleCalendarViewController.m */; };
+		4D5916391E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916101E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.m */; };
+		4D59163A1E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916121E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.m */; };
+		4D59163B1E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916141E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.m */; };
+		4D59163C1E548D5E0090B8CB /* TableViewCellDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916161E548D5E0090B8CB /* TableViewCellDataSource.m */; };
+		4D59163D1E548D5E0090B8CB /* VCDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916181E548D5E0090B8CB /* VCDiary.m */; };
+		4D59163E1E548D5E0090B8CB /* VCDiaryWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D59161A1E548D5E0090B8CB /* VCDiaryWrite.m */; };
+		4D59163F1E548D5E0090B8CB /* VCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D59161C1E548D5E0090B8CB /* VCProject.m */; };
+		4D5916401E548D5E0090B8CB /* VCProjectWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D59161E1E548D5E0090B8CB /* VCProjectWrite.m */; };
+		4D5916411E548D5E0090B8CB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5916201E548D5E0090B8CB /* ViewController.m */; };
+		4D5916441E548E450090B8CB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5916431E548E450090B8CB /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +69,6 @@
 /* Begin PBXFileReference section */
 		4D5915AC1E548C9E0090B8CB /* MyDiary3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D5915B01E548C9E0090B8CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4D5915B21E548C9E0090B8CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4D5915B31E548C9E0090B8CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4D5915B51E548C9E0090B8CB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4D5915B61E548C9E0090B8CB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4D5915B91E548C9E0090B8CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D5915BB1E548C9F0090B8CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D5915BE1E548C9F0090B8CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +79,60 @@
 		4D5915D01E548CA00090B8CB /* MyDiary3.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiary3.0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D5915D41E548CA00090B8CB /* MyDiary3_0UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiary3_0UITests.m; sourceTree = "<group>"; };
 		4D5915D61E548CA00090B8CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D5915EA1E548D1C0090B8CB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../../../MyDiary03/MyDiary03/AppDelegate.h; sourceTree = "<group>"; };
+		4D5915EB1E548D1C0090B8CB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../../../MyDiary03/MyDiary03/AppDelegate.m; sourceTree = "<group>"; };
+		4D5915ED1E548D5E0090B8CB /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = ../../../../MyDiary03/MyDiary03/camera.png; sourceTree = "<group>"; };
+		4D5915EE1E548D5E0090B8CB /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera@2x.png"; path = "../../../../MyDiary03/MyDiary03/camera@2x.png"; sourceTree = "<group>"; };
+		4D5915EF1E548D5E0090B8CB /* camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera@3x.png"; path = "../../../../MyDiary03/MyDiary03/camera@3x.png"; sourceTree = "<group>"; };
+		4D5915F01E548D5E0090B8CB /* characters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = characters.png; path = ../../../../MyDiary03/MyDiary03/characters.png; sourceTree = "<group>"; };
+		4D5915F11E548D5E0090B8CB /* characters@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characters@2x.png"; path = "../../../../MyDiary03/MyDiary03/characters@2x.png"; sourceTree = "<group>"; };
+		4D5915F21E548D5E0090B8CB /* characters@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characters@3x.png"; path = "../../../../MyDiary03/MyDiary03/characters@3x.png"; sourceTree = "<group>"; };
+		4D5915F31E548D5E0090B8CB /* cloud.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cloud.jpg; path = ../../../../MyDiary03/MyDiary03/cloud.jpg; sourceTree = "<group>"; };
+		4D5915F41E548D5E0090B8CB /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = ../../../../MyDiary03/MyDiary03/FMDatabase.h; sourceTree = "<group>"; };
+		4D5915F51E548D5E0090B8CB /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = ../../../../MyDiary03/MyDiary03/FMDatabase.m; sourceTree = "<group>"; };
+		4D5915F61E548D5E0090B8CB /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = ../../../../MyDiary03/MyDiary03/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		4D5915F71E548D5E0090B8CB /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = ../../../../MyDiary03/MyDiary03/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		4D5915F81E548D5E0090B8CB /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = ../../../../MyDiary03/MyDiary03/FMDatabasePool.h; sourceTree = "<group>"; };
+		4D5915F91E548D5E0090B8CB /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = ../../../../MyDiary03/MyDiary03/FMDatabasePool.m; sourceTree = "<group>"; };
+		4D5915FA1E548D5E0090B8CB /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = ../../../../MyDiary03/MyDiary03/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		4D5915FB1E548D5E0090B8CB /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = ../../../../MyDiary03/MyDiary03/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		4D5915FC1E548D5E0090B8CB /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = ../../../../MyDiary03/MyDiary03/FMDB.h; sourceTree = "<group>"; };
+		4D5915FD1E548D5E0090B8CB /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = ../../../../MyDiary03/MyDiary03/FMResultSet.h; sourceTree = "<group>"; };
+		4D5915FE1E548D5E0090B8CB /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = ../../../../MyDiary03/MyDiary03/FMResultSet.m; sourceTree = "<group>"; };
+		4D5915FF1E548D5E0090B8CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../../../MyDiary03/MyDiary03/Info.plist; sourceTree = "<group>"; };
+		4D5916001E548D5E0090B8CB /* item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = item.png; path = ../../../../MyDiary03/MyDiary03/item.png; sourceTree = "<group>"; };
+		4D5916011E548D5E0090B8CB /* item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item@2x.png"; path = "../../../../MyDiary03/MyDiary03/item@2x.png"; sourceTree = "<group>"; };
+		4D5916021E548D5E0090B8CB /* item@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item@3x.png"; path = "../../../../MyDiary03/MyDiary03/item@3x.png"; sourceTree = "<group>"; };
+		4D5916031E548D5E0090B8CB /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = list.png; path = ../../../../MyDiary03/MyDiary03/list.png; sourceTree = "<group>"; };
+		4D5916041E548D5E0090B8CB /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list@2x.png"; path = "../../../../MyDiary03/MyDiary03/list@2x.png"; sourceTree = "<group>"; };
+		4D5916051E548D5E0090B8CB /* list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list@3x.png"; path = "../../../../MyDiary03/MyDiary03/list@3x.png"; sourceTree = "<group>"; };
+		4D5916071E548D5E0090B8CB /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTableViewCell.h; path = ../../../../MyDiary03/MyDiary03/MyTableViewCell.h; sourceTree = "<group>"; };
+		4D5916081E548D5E0090B8CB /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTableViewCell.m; path = ../../../../MyDiary03/MyDiary03/MyTableViewCell.m; sourceTree = "<group>"; };
+		4D5916091E548D5E0090B8CB /* MyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyTableViewCell.xib; path = ../../../../MyDiary03/MyDiary03/MyTableViewCell.xib; sourceTree = "<group>"; };
+		4D59160A1E548D5E0090B8CB /* PDTSimpleCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendar.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendar.h; sourceTree = "<group>"; };
+		4D59160B1E548D5E0090B8CB /* PDTSimpleCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewCell.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewCell.h; sourceTree = "<group>"; };
+		4D59160C1E548D5E0090B8CB /* PDTSimpleCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewCell.m; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewCell.m; sourceTree = "<group>"; };
+		4D59160D1E548D5E0090B8CB /* PDTSimpleCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewController.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewController.h; sourceTree = "<group>"; };
+		4D59160E1E548D5E0090B8CB /* PDTSimpleCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewController.m; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewController.m; sourceTree = "<group>"; };
+		4D59160F1E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewFlowLayout.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewFlowLayout.h; sourceTree = "<group>"; };
+		4D5916101E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewFlowLayout.m; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewFlowLayout.m; sourceTree = "<group>"; };
+		4D5916111E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewHeader.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewHeader.h; sourceTree = "<group>"; };
+		4D5916121E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewHeader.m; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewHeader.m; sourceTree = "<group>"; };
+		4D5916131E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewWeekdayHeader.h; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewWeekdayHeader.h; sourceTree = "<group>"; };
+		4D5916141E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewWeekdayHeader.m; path = ../../../../MyDiary03/MyDiary03/PDTSimpleCalendarViewWeekdayHeader.m; sourceTree = "<group>"; };
+		4D5916151E548D5E0090B8CB /* TableViewCellDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewCellDataSource.h; path = ../../../../MyDiary03/MyDiary03/TableViewCellDataSource.h; sourceTree = "<group>"; };
+		4D5916161E548D5E0090B8CB /* TableViewCellDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewCellDataSource.m; path = ../../../../MyDiary03/MyDiary03/TableViewCellDataSource.m; sourceTree = "<group>"; };
+		4D5916171E548D5E0090B8CB /* VCDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCDiary.h; path = ../../../../MyDiary03/MyDiary03/VCDiary.h; sourceTree = "<group>"; };
+		4D5916181E548D5E0090B8CB /* VCDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCDiary.m; path = ../../../../MyDiary03/MyDiary03/VCDiary.m; sourceTree = "<group>"; };
+		4D5916191E548D5E0090B8CB /* VCDiaryWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCDiaryWrite.h; path = ../../../../MyDiary03/MyDiary03/VCDiaryWrite.h; sourceTree = "<group>"; };
+		4D59161A1E548D5E0090B8CB /* VCDiaryWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCDiaryWrite.m; path = ../../../../MyDiary03/MyDiary03/VCDiaryWrite.m; sourceTree = "<group>"; };
+		4D59161B1E548D5E0090B8CB /* VCProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCProject.h; path = ../../../../MyDiary03/MyDiary03/VCProject.h; sourceTree = "<group>"; };
+		4D59161C1E548D5E0090B8CB /* VCProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCProject.m; path = ../../../../MyDiary03/MyDiary03/VCProject.m; sourceTree = "<group>"; };
+		4D59161D1E548D5E0090B8CB /* VCProjectWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCProjectWrite.h; path = ../../../../MyDiary03/MyDiary03/VCProjectWrite.h; sourceTree = "<group>"; };
+		4D59161E1E548D5E0090B8CB /* VCProjectWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCProjectWrite.m; path = ../../../../MyDiary03/MyDiary03/VCProjectWrite.m; sourceTree = "<group>"; };
+		4D59161F1E548D5E0090B8CB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../../../../MyDiary03/MyDiary03/ViewController.h; sourceTree = "<group>"; };
+		4D5916201E548D5E0090B8CB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../../../../MyDiary03/MyDiary03/ViewController.m; sourceTree = "<group>"; };
+		4D5916431E548E450090B8CB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5916441E548E450090B8CB /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +168,7 @@
 				4D5915C81E548CA00090B8CB /* MyDiary3.0Tests */,
 				4D5915D31E548CA00090B8CB /* MyDiary3.0UITests */,
 				4D5915AD1E548C9E0090B8CB /* Products */,
+				4D5916421E548E450090B8CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,10 +185,59 @@
 		4D5915AE1E548C9E0090B8CB /* MyDiary3.0 */ = {
 			isa = PBXGroup;
 			children = (
-				4D5915B21E548C9E0090B8CB /* AppDelegate.h */,
-				4D5915B31E548C9E0090B8CB /* AppDelegate.m */,
-				4D5915B51E548C9E0090B8CB /* ViewController.h */,
-				4D5915B61E548C9E0090B8CB /* ViewController.m */,
+				4D5915EA1E548D1C0090B8CB /* AppDelegate.h */,
+				4D5915EB1E548D1C0090B8CB /* AppDelegate.m */,
+				4D5915ED1E548D5E0090B8CB /* camera.png */,
+				4D5915EE1E548D5E0090B8CB /* camera@2x.png */,
+				4D5915EF1E548D5E0090B8CB /* camera@3x.png */,
+				4D5915F01E548D5E0090B8CB /* characters.png */,
+				4D5915F11E548D5E0090B8CB /* characters@2x.png */,
+				4D5915F21E548D5E0090B8CB /* characters@3x.png */,
+				4D5915FF1E548D5E0090B8CB /* Info.plist */,
+				4D5916001E548D5E0090B8CB /* item.png */,
+				4D5916011E548D5E0090B8CB /* item@2x.png */,
+				4D5916021E548D5E0090B8CB /* item@3x.png */,
+				4D5916031E548D5E0090B8CB /* list.png */,
+				4D5916041E548D5E0090B8CB /* list@2x.png */,
+				4D5916051E548D5E0090B8CB /* list@3x.png */,
+				4D5915F31E548D5E0090B8CB /* cloud.jpg */,
+				4D5915F41E548D5E0090B8CB /* FMDatabase.h */,
+				4D5915F51E548D5E0090B8CB /* FMDatabase.m */,
+				4D5915F61E548D5E0090B8CB /* FMDatabaseAdditions.h */,
+				4D5915F71E548D5E0090B8CB /* FMDatabaseAdditions.m */,
+				4D5915F81E548D5E0090B8CB /* FMDatabasePool.h */,
+				4D5915F91E548D5E0090B8CB /* FMDatabasePool.m */,
+				4D5915FA1E548D5E0090B8CB /* FMDatabaseQueue.h */,
+				4D5915FB1E548D5E0090B8CB /* FMDatabaseQueue.m */,
+				4D5915FC1E548D5E0090B8CB /* FMDB.h */,
+				4D5915FD1E548D5E0090B8CB /* FMResultSet.h */,
+				4D5915FE1E548D5E0090B8CB /* FMResultSet.m */,
+				4D5916071E548D5E0090B8CB /* MyTableViewCell.h */,
+				4D5916081E548D5E0090B8CB /* MyTableViewCell.m */,
+				4D5916091E548D5E0090B8CB /* MyTableViewCell.xib */,
+				4D5916151E548D5E0090B8CB /* TableViewCellDataSource.h */,
+				4D5916161E548D5E0090B8CB /* TableViewCellDataSource.m */,
+				4D59160A1E548D5E0090B8CB /* PDTSimpleCalendar.h */,
+				4D59160B1E548D5E0090B8CB /* PDTSimpleCalendarViewCell.h */,
+				4D59160C1E548D5E0090B8CB /* PDTSimpleCalendarViewCell.m */,
+				4D59160D1E548D5E0090B8CB /* PDTSimpleCalendarViewController.h */,
+				4D59160E1E548D5E0090B8CB /* PDTSimpleCalendarViewController.m */,
+				4D59160F1E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.h */,
+				4D5916101E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.m */,
+				4D5916111E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.h */,
+				4D5916121E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.m */,
+				4D5916131E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.h */,
+				4D5916141E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.m */,
+				4D59161F1E548D5E0090B8CB /* ViewController.h */,
+				4D5916201E548D5E0090B8CB /* ViewController.m */,
+				4D5916171E548D5E0090B8CB /* VCDiary.h */,
+				4D5916181E548D5E0090B8CB /* VCDiary.m */,
+				4D5916191E548D5E0090B8CB /* VCDiaryWrite.h */,
+				4D59161A1E548D5E0090B8CB /* VCDiaryWrite.m */,
+				4D59161B1E548D5E0090B8CB /* VCProject.h */,
+				4D59161C1E548D5E0090B8CB /* VCProject.m */,
+				4D59161D1E548D5E0090B8CB /* VCProjectWrite.h */,
+				4D59161E1E548D5E0090B8CB /* VCProjectWrite.m */,
 				4D5915B81E548C9E0090B8CB /* Main.storyboard */,
 				4D5915BB1E548C9F0090B8CB /* Assets.xcassets */,
 				4D5915BD1E548C9F0090B8CB /* LaunchScreen.storyboard */,
@@ -138,6 +271,14 @@
 				4D5915D61E548CA00090B8CB /* Info.plist */,
 			);
 			path = MyDiary3.0UITests;
+			sourceTree = "<group>";
+		};
+		4D5916421E548E450090B8CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D5916431E548E450090B8CB /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +390,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D59162E1E548D5E0090B8CB /* item.png in Resources */,
 				4D5915BF1E548C9F0090B8CB /* LaunchScreen.storyboard in Resources */,
+				4D5916361E548D5E0090B8CB /* MyTableViewCell.xib in Resources */,
+				4D5916241E548D5E0090B8CB /* characters.png in Resources */,
+				4D5916261E548D5E0090B8CB /* characters@3x.png in Resources */,
+				4D5916231E548D5E0090B8CB /* camera@3x.png in Resources */,
+				4D5916271E548D5E0090B8CB /* cloud.jpg in Resources */,
+				4D5916331E548D5E0090B8CB /* list@3x.png in Resources */,
+				4D5916311E548D5E0090B8CB /* list.png in Resources */,
 				4D5915BC1E548C9F0090B8CB /* Assets.xcassets in Resources */,
 				4D5915BA1E548C9E0090B8CB /* Main.storyboard in Resources */,
+				4D5916301E548D5E0090B8CB /* item@3x.png in Resources */,
+				4D59162F1E548D5E0090B8CB /* item@2x.png in Resources */,
+				4D59162D1E548D5E0090B8CB /* Info.plist in Resources */,
+				4D5916251E548D5E0090B8CB /* characters@2x.png in Resources */,
+				4D5916211E548D5E0090B8CB /* camera.png in Resources */,
+				4D5916221E548D5E0090B8CB /* camera@2x.png in Resources */,
+				4D5916321E548D5E0090B8CB /* list@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +432,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5915B71E548C9E0090B8CB /* ViewController.m in Sources */,
-				4D5915B41E548C9E0090B8CB /* AppDelegate.m in Sources */,
+				4D5916411E548D5E0090B8CB /* ViewController.m in Sources */,
+				4D59163E1E548D5E0090B8CB /* VCDiaryWrite.m in Sources */,
 				4D5915B11E548C9E0090B8CB /* main.m in Sources */,
+				4D5916391E548D5E0090B8CB /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
+				4D59163C1E548D5E0090B8CB /* TableViewCellDataSource.m in Sources */,
+				4D59162A1E548D5E0090B8CB /* FMDatabasePool.m in Sources */,
+				4D5916371E548D5E0090B8CB /* PDTSimpleCalendarViewCell.m in Sources */,
+				4D59162B1E548D5E0090B8CB /* FMDatabaseQueue.m in Sources */,
+				4D59163A1E548D5E0090B8CB /* PDTSimpleCalendarViewHeader.m in Sources */,
+				4D5916381E548D5E0090B8CB /* PDTSimpleCalendarViewController.m in Sources */,
+				4D5916401E548D5E0090B8CB /* VCProjectWrite.m in Sources */,
+				4D5915EC1E548D1D0090B8CB /* AppDelegate.m in Sources */,
+				4D5916281E548D5E0090B8CB /* FMDatabase.m in Sources */,
+				4D59162C1E548D5E0090B8CB /* FMResultSet.m in Sources */,
+				4D59163D1E548D5E0090B8CB /* VCDiary.m in Sources */,
+				4D59163B1E548D5E0090B8CB /* PDTSimpleCalendarViewWeekdayHeader.m in Sources */,
+				4D5916291E548D5E0090B8CB /* FMDatabaseAdditions.m in Sources */,
+				4D5916351E548D5E0090B8CB /* MyTableViewCell.m in Sources */,
+				4D59163F1E548D5E0090B8CB /* VCProject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 689U57J86G;
 				INFOPLIST_FILE = MyDiary3.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wei-Xiang.MyDiary3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -441,6 +614,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 689U57J86G;
 				INFOPLIST_FILE = MyDiary3.0/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Wei-Xiang.MyDiary3-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -516,6 +690,7 @@
 				4D5915DB1E548CA00090B8CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D5915DC1E548CA00090B8CB /* Build configuration list for PBXNativeTarget "MyDiary3.0Tests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +699,7 @@
 				4D5915DE1E548CA00090B8CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D5915DF1E548CA00090B8CB /* Build configuration list for PBXNativeTarget "MyDiary3.0UITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +708,7 @@
 				4D5915E11E548CA00090B8CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
