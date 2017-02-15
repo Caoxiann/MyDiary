@@ -254,7 +254,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
     }
     
-    NotePage *notePage = noteListArray[indexPath.row];
+    NotePage *notePage = noteListArray[[noteListArray count]-indexPath.row-1];
 //大的UIView对象
     _cellView=[[UIView alloc]init];
     _cellView.frame=CGRectMake(20, 10, deviceWidth-40, 80);
@@ -381,7 +381,7 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
 {
-        NotePage *notePage = noteListArray[indexPath.row];
+        NotePage *notePage = noteListArray[[noteListArray count]-indexPath.row-1];
         [NotePageSearvice deleteNotePage:nil title:nil currentNotePage:notePage];
         noteListArray = [[SqlService sqlInstance]queryDBtable];
         [_noteListTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];

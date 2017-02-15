@@ -68,6 +68,7 @@
     _warnTitle.textColor=color;
     _warnTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
     [_cancel setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+    _pageTextView.scrollEnabled=YES;
 //模糊主色调
 //    NSString *colorname =@"0x69D7DD";
 //    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);

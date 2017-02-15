@@ -35,4 +35,6 @@
 
 @property (nonatomic,strong) UILabel *rightLabel;
 
+@property (nonatomic,strong) UISegmentedControl *mainSegmentControl;
+
 @end

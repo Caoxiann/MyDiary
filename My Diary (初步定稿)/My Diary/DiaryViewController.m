@@ -104,7 +104,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
     }
     
-    NotePage *notePage = noteListArray[indexPath.row];
+    NotePage *notePage = noteListArray[[noteListArray count]-indexPath.row-1];
     
 //    NSString *colorname =@"0x69D7DD";
 //    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);

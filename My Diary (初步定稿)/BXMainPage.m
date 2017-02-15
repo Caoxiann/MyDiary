@@ -19,6 +19,8 @@
 
 @implementation BXMainPage
 
+@synthesize mainSegmentControl;
+
 -(instancetype)init
 {
     self=[super init];
@@ -53,7 +55,7 @@
     //UIColor *theme=[UIColor colorWithRed:30/255.0 green:144/255.0 blue:255/255.0 alpha:1.0];
     
 //创建UISegmentControl对象
-    UISegmentedControl *mainSegmentControl=[[UISegmentedControl alloc]init];
+    mainSegmentControl=[[UISegmentedControl alloc]init];
     mainSegmentControl.frame=CGRectMake(30,deviceHeight*4/100,deviceWidth-60,24);
     [mainSegmentControl setTintColor:themecolor];
     [mainSegmentControl insertSegmentWithTitle:@"项目" atIndex:1 animated:NO];
@@ -103,6 +105,7 @@
     UIButton *btn1=[UIButton buttonWithType:UIButtonTypeCustom];
     btn1.frame=CGRectMake(0, 0,20, 20);
     [btn1 setImage:[UIImage imageNamed:@"list@2x.png"] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(jumpToOne) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn01=[[UIBarButtonItem alloc]initWithCustomView:btn1];
     
     UIButton *btn2=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,6 +117,7 @@
     UIButton *btn3=[UIButton buttonWithType:UIButtonTypeCustom];
     btn3.frame=CGRectMake(0, 0, 20, 20);
     [btn3 setImage:[UIImage imageNamed:@"camera@2x.png"] forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn03=[[UIBarButtonItem alloc]initWithCustomView:btn3];
     
     UIBarButtonItem *btnZ=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -145,20 +149,28 @@
     // Do any additional setup after loading the view.
 }
 
-//切换视图
--(void)change:(UISegmentedControl*)mainSegmentControl
+-(void)camera
 {
-    if(mainSegmentControl.selectedSegmentIndex==0)
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"作者" message:@"徐贤达" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction=[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+//切换视图
+-(void)change:(UISegmentedControl*)mainSegmentControl2
+{
+    if(mainSegmentControl2.selectedSegmentIndex==0)
     {
         [self jumpToOne];
         page1=YES;
     }
-    if (mainSegmentControl.selectedSegmentIndex==1)
+    if (mainSegmentControl2.selectedSegmentIndex==1)
     {
         [self jumpToTwo];
         page1=NO;
     }
-    if (mainSegmentControl.selectedSegmentIndex==2)
+    if (mainSegmentControl2.selectedSegmentIndex==2)
     {
         [self jumpToThree];
         page1=NO;
@@ -169,6 +181,7 @@
 -(void)jumpToOne
 {
     _label.text=@"Elements";
+    mainSegmentControl.selectedSegmentIndex=0;
     [self.view bringSubviewToFront:self.elements.view];
 }
 
