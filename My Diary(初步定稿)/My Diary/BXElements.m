@@ -370,7 +370,7 @@
     
     noteController.backFirst=self;
     
-    noteController.currentPage = noteListArray[indexPath.row];
+    noteController.currentPage = noteListArray[[noteListArray count]-indexPath.row-1];
     
     [self.navigationController pushViewController:noteController animated:YES];
     
