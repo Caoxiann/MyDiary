@@ -76,7 +76,7 @@
 {
     if ([_textArray count]!=0)
     {
-        NSString * textArray = [_textArray objectAtIndex:indexPath.row];
+        NSString * textArray = [_textArray objectAtIndex:[_textArray count]-indexPath.row-1];
         CGSize labelSize = {0, 0};
         labelSize = [textArray sizeWithFont:[UIFont systemFontOfSize:15]
                      
@@ -115,7 +115,7 @@
     
     UIColor *themecolor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     
-    NSString * textArray = [_textArray objectAtIndex:indexPath.row];
+    NSString * textArray = [_textArray objectAtIndex:[_textArray count]-indexPath.row-1];
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:15.0]};
     CGSize textSize1 = [textArray boundingRectWithSize:_size options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading  |NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
     
