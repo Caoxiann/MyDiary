@@ -10,9 +10,35 @@
 #import "CalendarTable.h"
 #import "CalendarItems.h"
 
-@interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate>
+@interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate,NotePageUpdateDelegate>
 
-@property (nonatomic,strong)CalendarTable *calendar;
+@property (nonatomic,strong) CalendarTable *calendar;
+
+@property (nonatomic) CGSize deviceScreenSize;
+
+@property (nonatomic,strong) UIColor *themeColor;
+
+@property (nonatomic,strong) NSString *stringTime;
+
+@property (nonatomic,strong) UITableView *noteListTableView;
+
+@property (nonatomic,strong) NSMutableArray *noteListArray;
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
+
+@property (nonatomic,strong) UILabel *titleLabel;
+
+@property (nonatomic,strong) UIView *cellView;
+
+@property (nonatomic,strong) UILabel *dateLabel;
+
+@property (nonatomic,strong) UILabel *hourLabel;
+
+@property (nonatomic,strong) NSString *time;
+
+@property (nonatomic,strong) NSString *cellTitle;
+
+@property int date, hour, minute;
 
 @end
 
@@ -20,8 +46,8 @@
 
 @synthesize calendar;
 
-
 - (void)viewDidLoad{
+    
     [super viewDidLoad];
     [self themeSetting];
     _bl = [[NoteBL alloc]init];
@@ -34,12 +60,16 @@
     [self updateList];
 }
 
--(instancetype)init{
+- (void)didReceiveMemoryWarning {
+    
+    [super didReceiveMemoryWarning];
+}
+
+- (instancetype)init{
     
     self=[super init];
     if (self){
-        
-
+    
         calendar = [[CalendarTable alloc] initWithCurrentDate:[NSDate date]];
         calendar.selectedDelegate=self;
         CGRect frame = calendar.frame;
@@ -71,7 +101,7 @@
 }
 
 - (void)initSelectedDate{
-    if (k != 1){
+    if (key != 1){
     
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -80,25 +110,22 @@
         selectedMonth = [[dateTime substringWithRange:NSMakeRange(5, 2)]integerValue];
         selectedDay = [[dateTime substringWithRange:NSMakeRange(8, 2)]integerValue];
     }
-    k = 1;
+    key = 1;
 }
-
 //自定义cell
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *indetifier = @"key";
     UITableViewCell *baseTableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     if(!baseTableViewCell)
         baseTableViewCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
     Note *noteData = _dataArray[indexPath.row];
-    
     //_cellView设置
     _cellView=[[UIView alloc]init];
     [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, 80)];
     [_cellView.layer setCornerRadius:10];
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
-    
     //标题显示
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
     [_titleLabel setTextColor:_themeColor];
@@ -108,7 +135,6 @@
     [_titleLabel setText:noteData.title];
     [_titleLabel setTag: indexPath.row];
     [_cellView addSubview:_titleLabel];
-    
     //位置显示
     UILabel *_locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
@@ -118,8 +144,6 @@
     [_locationLabel setText:noteData.location];
     [_locationLabel setTag: indexPath.row];
     [_cellView addSubview:_locationLabel];
-    
-    
     //显示时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -134,7 +158,6 @@
     [_timeLabel setTextColor:_themeColor];
     [_timeLabel setFont:[UIFont systemFontOfSize:12]];
     [_cellView addSubview:_timeLabel];
-    
     //右侧底色
     UILabel *_maskLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 80)];
     [_maskLabel setBackgroundColor:_themeColor];
@@ -143,7 +166,6 @@
     maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_maskLabel.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii: (CGSize){10, 10}].CGPath;
     _maskLabel.layer.mask = maskLayer;
     [_cellView addSubview:_maskLabel];
-    
     //日期显示
     NSInteger dateShow = [[timeShow substringWithRange:NSMakeRange(8, 2)]intValue];
     _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -153,17 +175,15 @@
     [_dateLabel setTextColor:[UIColor whiteColor]];
     [_dateLabel setBackgroundColor:[UIColor clearColor]];
     [_cellView addSubview:_dateLabel];
-    
     //星期显示
-    
-    int yearShow = [[_time substringWithRange:NSMakeRange(0, 4)]intValue];
-    int monthShow = [[_time substringWithRange:NSMakeRange(5, 2)]intValue];
+    NSInteger yearShow = [[timeShow substringWithRange:NSMakeRange(0, 4)]intValue];
+    NSInteger monthShow = [[timeShow substringWithRange:NSMakeRange(5, 2)]intValue];
     if (monthShow ==1 || monthShow == 2){
         
         monthShow += 12;
         yearShow--;
     }
-    int weekDayShow = (dateShow + 2 * monthShow + 3 * (monthShow + 1) / 5 + yearShow + yearShow / 4 - yearShow / 100 + yearShow / 400) % 7;
+    NSInteger weekDayShow = (dateShow + 2 * monthShow + 3 * (monthShow + 1) / 5 + yearShow + yearShow / 4 - yearShow / 100 + yearShow / 400) % 7;
     NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"何曜日", nil];
     UILabel *_weekLabel = [[UILabel alloc]init];
     [_weekLabel setFrame:CGRectMake(0, 50, 60, 20)];
@@ -180,20 +200,39 @@
     return baseTableViewCell;
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     return 100;
 }
 
-//传入选中的那一天
--(void)selectedUpdate:(NSString*)string{
+//编辑
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NoteEditViewController *editVC = [[NoteEditViewController alloc]init];
+    editVC.noteDelegate = self;
+    editVC.currentPage = _dataArray[indexPath.row];
+    [self.navigationController pushViewController:editVC animated:YES];
+}
+//删除
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        
+        Note *noteTemp = _dataArray[indexPath.row];
+        NoteBL *bl = [[NoteBL alloc]init];
+        self.dataArray = [bl removeNote:noteTemp];
+        [_noteListTableView reloadData];
+    }
+}
+
+//传入选中的日期
+- (void)selectedUpdate:(NSString*)string{
     
     _stringTime = string;
     [self updateSelectedDate];
 }
-
-//更新选中天数
--(void) updateSelectedDate{
+//更新选中日期
+- (void)updateSelectedDate{
     
     NSInteger year;
     NSInteger month;
@@ -206,9 +245,8 @@
     selectedDay=day;
     [self updateList];
 }
-
 //更新tabelview
--(void) updateDataArray{
+- (void)updateDataArray{
 
     _noteListArray = [self.bl findAll];
     [_dataArray removeAllObjects];
@@ -235,28 +273,27 @@
     }
     [self update];
 }
-
 //tableview刷新数据
--(void)update{
+- (void)update{
     
     [self.noteListTableView setDelegate:self];
     [self.noteListTableView setDataSource:self];
     [self.noteListTableView reloadData];
 }
-//从本地更新数据
+//更新数据
 - (void)updateList{
     
     [self updateDataArray];
 }
 
+//更新TableView
+-(void)updateTheNoteList{
+
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return [_dataArray count];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

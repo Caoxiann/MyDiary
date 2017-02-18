@@ -8,15 +8,24 @@
 
 #import "RootViewController.h"
 
-
-
 @interface ViewController ()
+
+@property (nonatomic) CGSize deviceScreenSize;
+
+@property (nonatomic) CGRect buttonRect;
+//主题颜色
+@property (nonatomic,strong) UIColor *themeColor;
+
+@property (nonatomic,retain) UILabel *titleLabel;
+
+@property (nonatomic,retain) UILabel *itemShowLabel;
 
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [self themeSetting];
     [self viewControllersInit];
@@ -24,6 +33,12 @@
     [self buildSegmentControl];
     [self buildToolBar];
 }
+
+- (void)didReceiveMemoryWarning {
+    
+    [super didReceiveMemoryWarning];
+}
+
 //主题设置
 - (void)themeSetting {
     //主题颜色
@@ -38,11 +53,6 @@
     self.navigationController.toolbar.hidden=NO;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)titleLableInit {
     
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake( _deviceScreenSize.width / 2 - 100, 66, 200, 20)];
@@ -50,7 +60,6 @@
     [_titleLabel setTextColor:_themeColor];
     [_titleLabel setFont:[UIFont fontWithName:@"AppleGothic" size:20]];
     [self.view addSubview:_titleLabel];
-    
 }
 
 - (void)viewControllersInit {
@@ -64,6 +73,12 @@
     [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_diaryVC];
     [self.view addSubview:self.diaryVC.view];
+    
+    _calendarVC = [[CalendarViewController alloc]init];
+    [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+    [self addChildViewController:_calendarVC];
+    [self.view addSubview:self.calendarVC.view];
+
 }
 
 - (void)buildSegmentControl {
@@ -84,10 +99,9 @@
     
     [self.view addSubview:baseSegmentControl];
 }
-
 //切换视图
-- (void)selectView:(UISegmentedControl*)baseSegmentControl
-{
+- (void)selectView:(UISegmentedControl*)baseSegmentControl{
+    
     if(baseSegmentControl.selectedSegmentIndex == 0){
         
         [_titleLabel setText:@"ELEMENTS"];
@@ -96,10 +110,6 @@
     if (baseSegmentControl.selectedSegmentIndex == 1){
 
         [_titleLabel setText:@"CALENDER"];
-        _calendarVC = [[CalendarViewController alloc]init];
-        [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-        [self addChildViewController:_calendarVC];
-        [self.view addSubview:self.calendarVC.view];
         [self.view bringSubviewToFront:_calendarVC.view];
     }
     if (baseSegmentControl.selectedSegmentIndex == 2){
@@ -111,10 +121,8 @@
 
 - (void)buildToolBar {
 
-
     UIToolbar *baseToolbar=[[UIToolbar alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 50, [UIScreen mainScreen].bounds.size.width, 50)];
     [baseToolbar setBarTintColor:_themeColor];
-    
     //自定义按钮
     UIButton *listButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [listButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateNormal];
@@ -130,9 +138,7 @@
     [itemButton setFrame:_buttonRect];
     
     [listButton addTarget:self.elementVC action:@selector(note) forControlEvents:UIControlEventTouchUpInside];
-    
     [charactersButton addTarget:self.diaryVC action:@selector(diary) forControlEvents:UIControlEventTouchUpInside];
-    
     //添加按钮到toolBar
     UIBarButtonItem *listBarButton = [[UIBarButtonItem alloc]initWithCustomView:listButton];
     UIBarButtonItem *itemBarButton = [[UIBarButtonItem alloc]initWithCustomView:itemButton];
@@ -156,7 +162,6 @@
     NSArray *baseToolBarItem=[NSArray arrayWithObjects:listBarButton,blankBarButton1,charactersBarButton,blankBarButton1,cameraBarButton,blankBarButton2,itemBarButton,nil];
     [baseToolbar setItems:baseToolBarItem];
     [self.view addSubview:baseToolbar];
-    
     //项目数显示lable
     _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake(_deviceScreenSize.width - 70,_deviceScreenSize.height - 24 - (_buttonRect.size.height / 2), 60, _buttonRect.size.height)];
     [_itemShowLabel setTextAlignment:NSTextAlignmentRight];
@@ -166,12 +171,11 @@
     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(catchItemNumber) userInfo:nil repeats:YES];
 }
 
-
-
 -(void)catchItemNumber{
 
     itemNumber = [_elementVC.listData count];
     NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
     [_itemShowLabel setText:itemNumberShow];
 }
+
 @end

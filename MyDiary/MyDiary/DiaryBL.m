@@ -18,16 +18,14 @@
     
     return [dao findAll];
 }
-
 //修改
-- (NSMutableArray*)modifyDiary:(Diary*)model
-{
+- (NSMutableArray*)modifyDiary:(Diary*)model{
+    
     DiaryDAO *dao = [DiaryDAO sharedManager];
     [dao modify:model];
     
     return [dao findAll];
 }
-
 //删除
 - (NSMutableArray*)removeDiary:(Diary*)model {
     
@@ -36,7 +34,6 @@
     
     return [dao findAll];
 }
-
 //查询所用数据
 - (NSMutableArray*)findAll{
     

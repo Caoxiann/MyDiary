@@ -20,6 +20,11 @@
 @property (strong, nonatomic) IBOutlet UITextView *contentText;
 
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (nonatomic,strong) NSString *date;
+
+@property (nonatomic,strong) UIColor *themeColor;
+
 //------------------location----------------------
 
 @property(nonatomic, strong) CLLocationManager *locationManager;
@@ -33,26 +38,21 @@
 
 @implementation NoteEditViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
+    
     [super viewDidLoad];
-    
-    //定位服务管理对象初始化-------------------------
+    //定位服务管理对象初始化
     self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 1000.0f;
-    
+    [self.locationManager setDelegate:self];
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [self.locationManager setDistanceFilter:1000.0f];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager requestAlwaysAuthorization];
-    //------------------------------------
-    
-    
-    
     //主题颜色
     UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
     _themeColor = blueThemeColor;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self buildNavBar];
     [self buildTitleTextField];
@@ -61,10 +61,13 @@
     [self buildLocation];
     //设置背景
     [self.view setBackgroundColor:[UIColor colorWithRed:1 green:252/255.0 blue:235/255.0 alpha:0.5]];
+}
+
+- (void)didReceiveMemoryWarning {
     
+    [super didReceiveMemoryWarning];
 }
 //content------------------------------------------------
-
 - (void)buildContentText{
     //标题显示
     UILabel *contentTitleLable = [[UILabel alloc]initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width - 80) / 2, 130, 80, 20)];
@@ -124,10 +127,6 @@
     _contentText.frame= CGRectMake(5, 155,[UIScreen mainScreen].bounds.size.width - 10, [UIScreen mainScreen].bounds.size.height - 210);
     [UIView commitAnimations];
 }
-
-
-//--------------------------------------------------------
-
 //location------------------------------------------------
 - (void)buildLocation{
     
@@ -157,17 +156,15 @@
     [locationButton addTarget:self action:@selector(reverseGeocode) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     //开始定位
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated{
+    
     [super viewWillDisappear:animated];
     //停止定位
     [self.locationManager stopUpdatingLocation];
@@ -192,27 +189,21 @@
                                              objectForKey:(NSString *)kABPersonAddressCityKey];
                            city = city == nil ? @"": city;
                            NSLog(@"%@ \n%@ \n%@",state, address,city);
-                           _locationView.text = [NSString stringWithFormat:@"%@ %@ %@\n",state, address,city];
+                           _locationView.text = [NSString stringWithFormat:@"%@ %@ %@\n",state, city, address];
                        }
                    }
      ];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    
     self.currLocation = [locations lastObject];
-    NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
-    NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
-    NSLog(@"%3.5f\n",self.currLocation.altitude);
-    //NSString *blank = [NSString stringWithFormat:@"%@   ",_currentPage.location];
-    NSString *location3 = [NSString stringWithFormat:@"经度:%3.2f 纬度:%3.2f 高度:%3.2f",self.currLocation.coordinate.longitude,self.currLocation.coordinate.latitude,self.currLocation.altitude];
+    //NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
+    //NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
+    //NSLog(@"%3.5f\n",self.currLocation.altitude);
     if(_currentPage.location){
         
         _locationView.text = _currentPage.location;
-    }
-    else{
-        
-        _locationView.text = location3;
     }
 }
 
@@ -235,100 +226,9 @@
         NSLog(@"NotDetermined");
     }
 }
-
-//--------------------------------------------------------
-
-//nav==================================
-- (void)buildNavBar{
-    //自定义navbar
-    UINavigationBar *baseNav = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
-    [baseNav setBackgroundColor:_themeColor];
-    [baseNav setBarTintColor:_themeColor];
-    [baseNav setTranslucent:NO];
-    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
-    [cancel setTitle:@"返回" forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
-    [cancel.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [cancel.titleLabel setFont:[UIFont systemFontOfSize:20]];
-    [cancel.titleLabel setTextColor:[UIColor whiteColor]];
-    [cancel setBackgroundColor:[UIColor clearColor]];
-    [cancel addTarget:self action:@selector(cancelEdit) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancel];
-    UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [save setTitle:@"保存" forState:UIControlStateNormal];
-    [save.titleLabel setTextAlignment:NSTextAlignmentRight];
-    [save.titleLabel setFont:[UIFont systemFontOfSize:20]];
-    [save.titleLabel setTextColor:[UIColor whiteColor]];
-    [save setBackgroundColor:[UIColor clearColor]];
-    [save addTarget:self action:@selector(saveEdit) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:save];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancel];
-    UIBarButtonItem *saveButton=[[UIBarButtonItem alloc]initWithCustomView:save];
-    UINavigationItem *item = [[UINavigationItem alloc]init];
-    
-    [item setLeftBarButtonItem:cancelButton];
-    [item setRightBarButtonItem:saveButton];
-    
-    UILabel *barTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
-    [barTitle setTextAlignment:NSTextAlignmentCenter];
-    [barTitle setText:@"编辑项目"];
-    [barTitle setTextColor:[UIColor whiteColor]];
-    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
-    [item setTitleView:barTitle];
-    [baseNav pushNavigationItem:item animated:NO];
-    
-    [self.view addSubview:baseNav];
-    
-    
-}
-
-- (void)cancelEdit{
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)saveEdit{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    if(_currentPage){
-        
-        //修改操作
-        NoteBL *bl = [[NoteBL alloc]init];
-        //_currentPage = [[Note alloc]init];
-        Note *note = _currentPage;
-        note.date = [dateFormatter dateFromString:_dateSettingField.text];
-        if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
-            [_titleSettingField setText:noTitle];
-        }
-        note.title = _titleSettingField.text;
-        note.content = _contentText.text;
-        note.location = _locationView.text;
-        [bl modifyNote: note];
-        //操作成功返回home界面 做更新操作
-        [self.noteDelegate updateTheNoteList];
-    }
-    else{
-        
-        NoteBL *bl = [[NoteBL alloc]init];
-        _currentPage = [[Note alloc]init];
-        Note *note = _currentPage;
-        note.date = [dateFormatter dateFromString:_dateSettingField.text];
-        if(_titleSettingField.text.length == 0){
-            NSString *noTitle = @"未命名项目";
-            [_titleSettingField setText:noTitle];
-        }
-        note.title = _titleSettingField.text;
-        note.content = _contentText.text;
-        note.location = _locationView.text;
-        [bl createNote: note];
-        [self.noteDelegate updateTheNoteList];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
 //时间设置-----------------------------------
 - (void)buildTimeTextField{
+    
     //标题
     UILabel *dateSettingTitle = [[UILabel alloc]init];
     [dateSettingTitle setFrame:CGRectMake(20, 100, 100, 20)];
@@ -369,6 +269,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
     //时间选取
     if([_dateSettingField isFirstResponder]){
         
@@ -404,9 +305,6 @@
     [_dateSettingField setText:_date];
     [_dateSettingField resignFirstResponder];
 }
-
-//------------------------------------------------------------
-
 //标题设置------------------------------------
 - (void)buildTitleTextField{
     
@@ -418,7 +316,6 @@
     [titleSettingTitle setTextAlignment:NSTextAlignmentLeft];
     [titleSettingTitle setText:@"标题设定:"];
     [self.view addSubview:titleSettingTitle];
-    
     
     _titleSettingField = [[UITextField alloc]initWithFrame:CGRectMake(120, 70,[UIScreen mainScreen].bounds.size.width - 140, 20)];
     [_titleSettingField setKeyboardType:UIKeyboardTypeDefault];
@@ -450,19 +347,105 @@
         [_titleSettingField setPlaceholder:@"填写项目标题"];
     }
 }
+//导航栏-------------------------------------------------------
+- (void)buildNavBar{
+    
+    //自定义navbar
+    UINavigationBar *baseNav = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+    [baseNav setBackgroundColor:_themeColor];
+    [baseNav setBarTintColor:_themeColor];
+    [baseNav setTranslucent:NO];
+    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
+    [cancel setTitle:@"返回" forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+    [cancel.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [cancel.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    [cancel.titleLabel setTextColor:[UIColor whiteColor]];
+    [cancel setBackgroundColor:[UIColor clearColor]];
+    [cancel addTarget:self action:@selector(cancelEdit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancel];
+    UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [save setTitle:@"保存" forState:UIControlStateNormal];
+    [save.titleLabel setTextAlignment:NSTextAlignmentRight];
+    [save.titleLabel setFont:[UIFont systemFontOfSize:20]];
+    [save.titleLabel setTextColor:[UIColor whiteColor]];
+    [save setBackgroundColor:[UIColor clearColor]];
+    [save addTarget:self action:@selector(saveEdit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:save];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithCustomView:cancel];
+    UIBarButtonItem *saveButton=[[UIBarButtonItem alloc]initWithCustomView:save];
+    UINavigationItem *item = [[UINavigationItem alloc]init];
+    
+    [item setLeftBarButtonItem:cancelButton];
+    [item setRightBarButtonItem:saveButton];
+    
+    UILabel *barTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 35)];
+    [barTitle setTextAlignment:NSTextAlignmentCenter];
+    [barTitle setText:@"编辑项目"];
+    [barTitle setTextColor:[UIColor whiteColor]];
+    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
+    [item setTitleView:barTitle];
+    [baseNav pushNavigationItem:item animated:NO];
+    
+    [self.view addSubview:baseNav];
+}
+
+- (void)cancelEdit{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)saveEdit{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    if(_currentPage){
+        //修改操作
+        NoteBL *bl = [[NoteBL alloc]init];
+        [bl removeNote:_currentPage];
+        Note *note = [[Note alloc]init];
+        note.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_contentText setText:noContent];
+        }
+        note.title = _titleSettingField.text;
+        note.content = _contentText.text;
+        note.location = _locationView.text;
+        [bl createNote:note];
+        //操作成功返回home界面 做更新操作
+        [self.noteDelegate updateTheNoteList];
+    }
+    else{
+        
+        NoteBL *bl = [[NoteBL alloc]init];
+        Note *note = [[Note alloc]init];
+        note.date = [dateFormatter dateFromString:_dateSettingField.text];
+        if(_titleSettingField.text.length == 0){
+            NSString *noTitle = @"未命名项目";
+            [_titleSettingField setText:noTitle];
+        }
+        if(_contentText.text.length == 0){
+            NSString *noContent = @"未添加内容";
+            [_contentText setText:noContent];
+        }
+        note.title = _titleSettingField.text;
+        note.content = _contentText.text;
+        note.location = _locationView.text;
+        [bl createNote: note];
+        [self.noteDelegate updateTheNoteList];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [_titleSettingField resignFirstResponder];
     return YES;
-}
-
-//------------------------------------------
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

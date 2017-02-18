@@ -9,7 +9,6 @@
 #import "NoteBL.h"
 
 @implementation NoteBL
-
 //插入
 - (NSMutableArray*)createNote:(Note*)model{
     
@@ -18,8 +17,6 @@
     
     return [dao findAll];
 }
-
-
 //修改
 - (NSMutableArray*)modifyNote:(Note *)model{
     
@@ -28,7 +25,6 @@
     
     return [dao findAll];
 }
-
 //删除
 - (NSMutableArray*)removeNote:(Note*)model{
     
@@ -37,7 +33,6 @@
     
     return [dao findAll];
 }
-
 //查找
 - (NSMutableArray*)findID:(Note *)model{
     
@@ -49,17 +44,12 @@
     
     return noteWithID;
 }
-//查询所用数据方法
+//查询所用数据
 - (NSMutableArray*)findAll{
     
     NoteDAO *dao = [NoteDAO sharedManager];
     
     return [dao findAll];
-}
-
-- (void)setdata{
-    
-
 }
 
 @end

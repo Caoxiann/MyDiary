@@ -23,5 +23,4 @@
 //查询所用数据
 - (NSMutableArray*)findAll;
 
-- (void)setdata;
 @end

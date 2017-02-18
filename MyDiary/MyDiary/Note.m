@@ -10,7 +10,7 @@
 
 @implementation Note
 
--(id)initWithDate:(NSDate*)date title:(NSString *)title content:(NSString *)content location:(NSString *)location{
+- (id)initWithDate:(NSDate*)date title:(NSString *)title content:(NSString *)content location:(NSString *)location{
     
     self = [super init];
     
@@ -21,12 +21,7 @@
         self.location = location;
         
     }
-    
     return self;
 }
-
-
-
-//var note = Note(date: NSDate(), content: self.txtView.text)
 
 @end

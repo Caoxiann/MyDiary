@@ -10,11 +10,10 @@
 
 @implementation NoteDAO
 
-
 static NoteDAO *sharedManager = nil;
 
-+ (NoteDAO*)sharedManager
-{
++ (NoteDAO*)sharedManager{
+    
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         
@@ -26,16 +25,17 @@ static NoteDAO *sharedManager = nil;
     return sharedManager;
 }
 
-
 - (void)createEditableCopyOfDatabaseIfNeeded {
     
     NSString *writableDBPath = [self applicationDocumentsDirectoryFile];
     const char* cpath = [writableDBPath UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         char *err;
         NSString *sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS Note (cdate TEXT PRIMARY KEY, title TEXT, content TEXT, location TEXT);"];
         const char* cSql = [sql UTF8String];
@@ -49,24 +49,24 @@ static NoteDAO *sharedManager = nil;
 }
 
 - (NSString *)applicationDocumentsDirectoryFile {
+    
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *path = [documentDirectory stringByAppendingPathComponent:NOTE_DBFILE_NAME];
     
     return path;
 }
-
-
-//插入Note方法
--(int) create:(Note*)model
-{
+//插入
+- (int)create:(Note*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         
         NSString *sql = @"INSERT OR REPLACE INTO note (cdate, title, content, location) VALUES (?,?,?,?)";
         const char* cSql = [sql UTF8String];
@@ -87,30 +87,29 @@ static NoteDAO *sharedManager = nil;
             sqlite3_bind_text(statement, 2, cTitle, -1, NULL);
             sqlite3_bind_text(statement, 3, cContent, -1, NULL);
             sqlite3_bind_text(statement, 4, cLocation, -1, NULL);
-            
             //执行插入
             if (sqlite3_step(statement) != SQLITE_DONE) {
+                
                 NSAssert(NO, @"插入数据失败。");
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
-    
     return 0;
 }
-
-//删除Note方法
--(int) remove:(Note*)model
-{
+//删除
+- (int)remove:(Note*)model{
+    
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         NSString *sql = @"DELETE  from note where cdate =?";
         const char* cSql = [sql UTF8String];
         
@@ -121,7 +120,6 @@ static NoteDAO *sharedManager = nil;
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *strDate = [dateFormatter stringFromDate:model.date];
             const char* cDate  = [strDate UTF8String];
-            
             //绑定参数开始
             sqlite3_bind_text(statement, 1, cDate, -1, NULL);
             //执行
@@ -129,25 +127,23 @@ static NoteDAO *sharedManager = nil;
                 NSAssert(NO, @"删除数据失败。");
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
-    
     return 0;
 }
-
-//修改Note方法
--(int) modify:(Note*)model
-{
+//修改
+- (int)modify:(Note*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         
         NSString *sql = @"UPDATE note set title=? content=? location=? where cdate =?";
         const char* cSql = [sql UTF8String];
@@ -173,16 +169,14 @@ static NoteDAO *sharedManager = nil;
                 NSAssert(NO, @"修改数据失败。");
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
     }
     return 0;
 }
-
-//查询所有数据方法
--(NSMutableArray*) findAll
-{
+//查询所有数据
+-(NSMutableArray*) findAll{
+    
     NSMutableArray *listData = [[NSMutableArray alloc] init];
     
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -202,7 +196,6 @@ static NoteDAO *sharedManager = nil;
             
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            
             //执行
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 char *bufDate = (char *) sqlite3_column_text(statement, 0);
@@ -220,7 +213,6 @@ static NoteDAO *sharedManager = nil;
                 [listData addObject:note];
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
         
@@ -228,17 +220,18 @@ static NoteDAO *sharedManager = nil;
     return listData;
 }
 
-//按照主键查询数据方法
--(Note*) findById:(Note*)model
-{
+//按照主键查询数据
+- (Note*)findById:(Note*)model{
     
     NSString *path = [self applicationDocumentsDirectoryFile];
     const char* cpath = [path UTF8String];
     
     if (sqlite3_open(cpath, &db) != SQLITE_OK) {
+        
         sqlite3_close(db);
         NSAssert(NO,@"数据库打开失败。");
-    } else {
+    }
+    else {
         
         NSString *sql = @"SELECT cdate,title,content,location FROM Note where cdate =?";
         const char* cSql = [sql UTF8String];
@@ -251,10 +244,8 @@ static NoteDAO *sharedManager = nil;
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *strDate = [dateFormatter stringFromDate:model.date];
             const char* cDate  = [strDate UTF8String];
-            
             //绑定参数开始
             sqlite3_bind_text(statement, 1, cDate, -1, NULL);
-            
             //执行
             if (sqlite3_step(statement) == SQLITE_ROW) {
                 
@@ -276,13 +267,10 @@ static NoteDAO *sharedManager = nil;
                 return note;
             }
         }
-        
         sqlite3_finalize(statement);
         sqlite3_close(db);
-        
     }
     return nil;
 }
-
 
 @end

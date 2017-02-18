@@ -17,7 +17,9 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 
 @property (strong, nonatomic) CalendarItems *lastMonthItem;
+
 @property (strong, nonatomic) CalendarItems *theMonthItem;
+
 @property (strong, nonatomic) CalendarItems *nextMonthItem;
 
 @property (strong, nonatomic) UIView *backgroundView;

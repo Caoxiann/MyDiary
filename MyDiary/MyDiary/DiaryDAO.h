@@ -12,7 +12,6 @@
 
 #define DIARY_DBFILE_NAME @"DiaryList.sqlite3"
 
-
 @interface DiaryDAO : NSObject
 {
     sqlite3 *db;
@@ -23,7 +22,6 @@
 - (NSString *)applicationDocumentsDirectoryFile;
 
 - (void)createEditableCopyOfDatabaseIfNeeded;
-
 
 //插入
 -(int) create:(Diary*)model;

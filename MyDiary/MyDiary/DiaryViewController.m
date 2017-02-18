@@ -10,25 +10,47 @@
 
 @interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource,DiaryPageUpdateDelegate>
 
+@property (nonatomic,strong) NSMutableArray *monthInTable;
 
-@property (nonatomic,strong)NSMutableArray *monthInTable;
+@property (nonatomic,strong) NSMutableArray *monthDetail;
 
-@property (nonatomic,strong)NSMutableArray *monthDetail;
+@property (nonatomic,strong) UITableView *diaryShowTableView;
 
-@property (nonatomic,strong)UITableView *diaryShowTableView;
+@property (nonatomic,strong) UILabel *titleLabel;
+
+@property (nonatomic,strong) UILabel *contentLabel;
+
+@property (nonatomic,strong) UILabel *locationLabel;
+
+@property (nonatomic,strong) UILabel *weekLabel;
+
+@property (nonatomic,strong) UIView *cellView;
+
+@property (nonatomic,strong) UILabel *dateLabel;
+
+@property (nonatomic,strong) UILabel *timeLabel;
+
+@property (nonatomic,strong) UILabel *maskLabel;
+
+@property (nonatomic,strong) NSString *time;
+
+@property (nonatomic) CGSize deviceScreenSize;
+
+@property (nonatomic,strong) UIColor *themeColor;
+
+@property int year, month, date, hour, minute, weekDay;
 
 
 @end
 
 @implementation DiaryViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
     [self themeSetting];
     
     _diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
     [_diaryShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    //_diaryShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [self.view addSubview:_diaryShowTableView];
     UIImage *backImage=[UIImage imageNamed:@"background1"];
     _diaryShowTableView.layer.contents=(id)backImage.CGImage;
@@ -40,21 +62,23 @@
     
     self.listData = [self.bl findAll];
     [self groupByMonth];
-    //[elementShowTableView reloadData];
 }
 
+- (void)didReceiveMemoryWarning{
+    
+    [super didReceiveMemoryWarning];
+}
 //主题设置
--(void)themeSetting {
+- (void)themeSetting{
     //主题颜色
     UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
     _themeColor = blueThemeColor;
     //控件大小设置
     _deviceScreenSize = [UIScreen mainScreen].bounds.size;
-    
 }
 
--(void)groupByMonth{
+- (void)groupByMonth{
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -87,7 +111,7 @@
     }];
     [_listData removeAllObjects];
     _listData = [sortData mutableCopy];
-    
+     
     if([_listData count] > 1){
         
         for(int i = 0; i < [_listData count] - 1; i++){
@@ -153,18 +177,16 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 30;
 }
-
 //设置Section标题
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *collectionTitle = [[UIView alloc] init];
     collectionTitle.backgroundColor = [UIColor clearColor];
     UILabel *collectionTitleLable = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 30)];
-    //[collectionTitleLable setBackgroundColor:[UIColor redColor]];
     if ([_monthInTable count] >= 1){
         for (int i = 0; i < [_monthInTable count]; i++)
             if (section == i){
@@ -183,23 +205,13 @@
 }
 
 //分组
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     [self groupByMonth];
     return [_monthInTable count];
 }
-
-//编辑按钮点击
-- (void)diary
-{
-    DiaryEditViewController *createVC = [[DiaryEditViewController alloc]init];
-    createVC.diaryDelegate = self;
-    [self.navigationController pushViewController:createVC animated:YES];
-}
-
 //获取cell数
-#pragma mark -tableViewdelegate
--(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     [self groupByMonth];
     if([_monthInTable count] != 0){
@@ -217,7 +229,7 @@
 }
 
 //自定义cell风格
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *indetifier = @"key";
     UITableViewCell *baseTableViewCell = [tableView cellForRowAtIndexPath:indexPath];
@@ -229,8 +241,6 @@
     [_cellView.layer setCornerRadius:10];
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
-    
-    
     //顶部底色
     _maskLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width - 30, 60)];
     [_maskLabel setBackgroundColor:_themeColor];
@@ -239,50 +249,41 @@
     maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:_maskLabel.bounds byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: (CGSize){10, 10}].CGPath;
     _maskLabel.layer.mask = maskLayer;
     [_cellView addSubview:_maskLabel];
-    
     //标题显示
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 20, _deviceScreenSize.width - 120, 20)];
     [_titleLabel setTextColor:[UIColor whiteColor]];
-    //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     _titleLabel.font = [UIFont systemFontOfSize:22];
     [_titleLabel setNumberOfLines:0];
     [_titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [_titleLabel setText:diaryData.title];
     [_titleLabel setTag: indexPath.row];
     [_cellView addSubview:_titleLabel];
-    
     //内容显示
-    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, _deviceScreenSize.width - 60, 120)];
+    _contentLabel = [[UILabel alloc]init];
     [_contentLabel setTextColor:_themeColor];
-    //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     _contentLabel.font = [UIFont systemFontOfSize:14];
     [_contentLabel setNumberOfLines:0];
     [_contentLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [_contentLabel setText:diaryData.content];
     [_contentLabel setTag: indexPath.row];
+    CGSize autoContentSize = {0, 0};    //初始autoSize
+    CGSize size = CGSizeMake(_deviceScreenSize.width - 60, 160); //autoSize最大限制
+    NSDictionary * contentFontDic = [NSDictionary dictionaryWithObjectsAndKeys:_contentLabel.font,NSFontAttributeName,nil];
+    autoContentSize = [diaryData.content boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin  attributes:contentFontDic context:nil].size;
+    [_contentLabel setFrame:CGRectMake(10, 70, _deviceScreenSize.width - 50, autoContentSize.height)];
     [_cellView addSubview:_contentLabel];
-    /*
-     CGSize labelSize = {0, 0};
-     labelSize = [diaryData.content sizeWithFont:[UIFont systemFontOfSize:14]
-     constrainedToSize:CGSizeMake(_deviceScreenSize.width - 60, 100)
-     lineBreakMode:NSLineBreakByCharWrapping];
-     */
-    
     //_cellView设置
-    NSInteger tag = 80;
-    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, tag + 100)];
-    
+    NSInteger tag = _contentLabel.frame.size.height;
+    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, tag + 80)];
     //位置显示
     _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 45, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:[UIColor whiteColor]];
-    //[_contentLabel setBackgroundColor:[UIColor yellowColor]];
     [_locationLabel setFont:[UIFont systemFontOfSize:12]];
     [_locationLabel setNumberOfLines:0];
     [_locationLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [_locationLabel setText:diaryData.location];
     [_locationLabel setTag: indexPath.row];
     [_cellView addSubview:_locationLabel];
-    
     //显示时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -297,7 +298,6 @@
     [_timeLabel setTextColor:[UIColor whiteColor]];
     [_timeLabel setFont:[UIFont systemFontOfSize:12]];
     [_cellView addSubview:_timeLabel];
-    
     //日期显示
     _date = [[_time substringWithRange:NSMakeRange(8, 2)]intValue];
     _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 40)];
@@ -307,7 +307,6 @@
     [_dateLabel setTextColor:[UIColor whiteColor]];
     [_dateLabel setBackgroundColor:[UIColor clearColor]];
     [_cellView addSubview:_dateLabel];
-    
     //星期显示
     _year = [[_time substringWithRange:NSMakeRange(0, 4)]intValue];
     _month = [[_time substringWithRange:NSMakeRange(5, 2)]intValue];
@@ -332,13 +331,18 @@
     
     return baseTableViewCell;
 }
-
 //设置cell行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 200;
+    //根据内容多少动态调整，上下clear间距各10
+    return _contentLabel.frame.size.height + 100;
 }
-
+//创建
+- (void)diary{
+    
+    DiaryEditViewController *createVC = [[DiaryEditViewController alloc]init];
+    createVC.diaryDelegate = self;
+    [self.navigationController pushViewController:createVC animated:YES];
+}
 //编辑
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -346,9 +350,7 @@
     editVC.diaryDelegate = self;
     editVC.currentPage = _listData[indexPath.row];
     [self.navigationController pushViewController:editVC animated:YES];
-    
 }
-
 //删除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -365,14 +367,8 @@
     
     return @"Delete";
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 //更新TableView
--(void)updateTheDiaryList{
+- (void)updateTheDiaryList{
     
     _listData = [self.bl findAll];
     [_diaryShowTableView reloadData];

@@ -11,10 +11,13 @@
 @interface Note : NSObject
 
 @property(nonatomic, strong) NSDate* date;
+
 @property(nonatomic, strong) NSString* title;
+
 @property(nonatomic, strong) NSString* content;
+
 @property(nonatomic, strong) NSString* location;
 
--(id)initWithDate:(NSDate*)date title:(NSString*)title content:(NSString*)content location:(NSString*)location;
+- (id)initWithDate:(NSDate*)date title:(NSString*)title content:(NSString*)content location:(NSString*)location;
 
 @end
