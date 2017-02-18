@@ -286,6 +286,11 @@
     [self updateDataArray];
 }
 
+//更新TableView
+-(void)updateTheNoteList{
+
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return [_dataArray count];

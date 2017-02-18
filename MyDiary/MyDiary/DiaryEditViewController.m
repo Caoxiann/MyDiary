@@ -191,7 +191,7 @@
                                              objectForKey:(NSString *)kABPersonAddressCityKey];
                            city = city == nil ? @"": city;
                            NSLog(@"%@ \n%@ \n%@",state, address,city);
-                           _locationView.text = [NSString stringWithFormat:@"%@ %@ %@\n",state, address,city];
+                           _locationView.text = [NSString stringWithFormat:@"%@ %@ %@\n",state, city, address];
                        }
                    }
      ];
@@ -203,14 +203,9 @@
     NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
     NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
     NSLog(@"%3.5f\n",self.currLocation.altitude);
-    NSString *location3 = [NSString stringWithFormat:@"经度:%3.2f 纬度:%3.2f 高度:%3.2f",self.currLocation.coordinate.longitude,self.currLocation.coordinate.latitude,self.currLocation.altitude];
     if(_currentPage.location){
         
         _locationView.text = _currentPage.location;
-    }
-    else{
-        
-        _locationView.text = location3;
     }
 }
 
