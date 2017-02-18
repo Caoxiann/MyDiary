@@ -200,9 +200,9 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     
     self.currLocation = [locations lastObject];
-    NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
-    NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
-    NSLog(@"%3.5f\n",self.currLocation.altitude);
+    //NSLog(@"%3.5f\n",self.currLocation.coordinate.latitude);
+    //NSLog(@"%3.5f\n",self.currLocation.coordinate.longitude);
+    //NSLog(@"%3.5f\n",self.currLocation.altitude);
     if(_currentPage.location){
         
         _locationView.text = _currentPage.location;
