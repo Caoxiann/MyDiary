@@ -73,6 +73,12 @@
     [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_diaryVC];
     [self.view addSubview:self.diaryVC.view];
+    
+    _calendarVC = [[CalendarViewController alloc]init];
+    [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+    [self addChildViewController:_calendarVC];
+    [self.view addSubview:self.calendarVC.view];
+
 }
 
 - (void)buildSegmentControl {
@@ -104,10 +110,6 @@
     if (baseSegmentControl.selectedSegmentIndex == 1){
 
         [_titleLabel setText:@"CALENDER"];
-        _calendarVC = [[CalendarViewController alloc]init];
-        [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-        [self addChildViewController:_calendarVC];
-        [self.view addSubview:self.calendarVC.view];
         [self.view bringSubviewToFront:_calendarVC.view];
     }
     if (baseSegmentControl.selectedSegmentIndex == 2){

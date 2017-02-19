@@ -184,8 +184,8 @@
 //设置Section标题
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    UIView *collectionTitle = [[UIView alloc] init];
-    collectionTitle.backgroundColor = [UIColor clearColor];
+    UIView *sectionTitle = [[UIView alloc] init];
+    sectionTitle.backgroundColor = [UIColor clearColor];
     UILabel *collectionTitleLable = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 30)];
     if ([_monthInTable count] >= 1){
         for (int i = 0; i < [_monthInTable count]; i++)
@@ -199,9 +199,9 @@
     }
     [collectionTitleLable setTextColor:[UIColor whiteColor]];
     [collectionTitleLable setFont:[UIFont fontWithName:@"Futura" size:22]];
-    [collectionTitle addSubview:collectionTitleLable];
+    [sectionTitle addSubview:collectionTitleLable];
     
-    return collectionTitle;
+    return sectionTitle;
 }
 //分组
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

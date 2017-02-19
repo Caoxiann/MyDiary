@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Note.h"
 #import "NoteBL.h"
+#import "NoteEditViewController.h"
 
 @protocol selectedUpdate <NSObject>
 
