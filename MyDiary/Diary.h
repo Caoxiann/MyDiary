@@ -9,17 +9,21 @@
 #import <Foundation/Foundation.h>
 
 @interface Diary : NSObject
-@property (nonatomic,strong)NSString *content;
-@property (nonatomic,strong)NSString *time;
-@property (nonatomic,strong)NSString *title;
-@property (nonatomic,strong)NSString *day;
-@property (nonatomic,strong)NSString *month;
-@property (nonatomic,strong)NSString *year;
-@property (nonatomic,assign)NSInteger diaryID;
-@property (nonatomic,strong)NSMutableDictionary* date;
+@property (nonatomic,strong) NSString *content;
+@property (nonatomic,strong) NSString *time;
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *day;
+@property (nonatomic,strong) NSString *month;
+@property (nonatomic,strong) NSString *year;
+@property (nonatomic,strong) NSString *location;
+@property (nonatomic,assign) NSInteger diaryID;
+@property (nonatomic,strong) NSString * cellHeight;
+@property (nonatomic,strong) NSMutableDictionary *date;
 
-+(void)creatdiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSString *)date;
-+(void)updateDiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSString *)date currentDiary:(Diary *)diary;
-+(void)deletediary:(Diary *)diary;
--(void)setDates;
+//+(void)creatdiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSString *)date;
+//+(void)updateDiaryWithContent:(NSString *)content andTime:(NSString *)time andDate:(NSString *)date currentDiary:(Diary *)diary;
+- (void)creatDiary;
+- (void)updateDiary;
+- (void)deleteDiary;
+- (void)setDates;
 @end

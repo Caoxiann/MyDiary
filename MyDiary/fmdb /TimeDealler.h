@@ -10,5 +10,6 @@
 
 @interface TimeDealler : NSObject
 +(NSMutableDictionary *)getCurrentDate;
+//+(NSString *)getCurrentDate;
 +(NSString *)getCurrentTime;
 @end

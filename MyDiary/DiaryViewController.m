@@ -11,48 +11,60 @@
 #import "Diary.h"
 #import "DiaryPage.h"
 #import "TimeDealler.h"
+#import "UIColorCategory.h"
+#import "SqlService.h"
 @interface DiaryViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic,strong) NSString *numOfDiarys;
 @end
 
 @implementation DiaryViewController
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadDate];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _cellHeights = [[NSMutableArray alloc]init];
     [self setMyTableView];
     
-    //测试数据
-    Diary * dia=[[Diary alloc]init];
-    [dia setDate:[TimeDealler getCurrentDate]];
-    [dia setDates];
-    [dia setTime:[TimeDealler getCurrentTime]];
-    [dia setTitle:@"今天的日记"];
-    [dia setContent:@"在使用 table view 的时侯经常会遇到这样的需求：table view 的 cell 中的内容是动态的，导致在开发的时候不知道一个 cell 的高度具体是多少，所以需要提供一个计算 cell 高度的算法，在每次加载到这个 cell 的时候计算出 cell 真正的高度"];
-    Diary * dia2=[[Diary alloc]init];
-    [dia2 setDate:[TimeDealler getCurrentDate]];
-    [dia2 setDates];
-    [dia2 setTime:[TimeDealler getCurrentTime]];
-    [dia2 setTitle:@"今天的日记"];
-    [dia2 setContent:@"今天打了一下午麻将，输了一下午"];
-    
-    NSMutableArray * arr=[[NSMutableArray alloc]initWithObjects:dia,dia2, nil];
-    _diaryForMonthArray=[[NSMutableArray alloc]init];
-    [_diaryForMonthArray addObject:arr];
     // Do any additional setup after loading the view.
 }
-
+- (void)reloadDate {
+    _diaryForMonthArray=[self dateDeal];
+    [self.delegate updateNumOfItems:_numOfDiarys];
+    [_tableView reloadData];
+}
+- (NSMutableArray <__kindof NSMutableArray *> *)dateDeal{
+    NSMutableArray <__kindof NSMutableArray *> *resultArr=[[NSMutableArray alloc]init];
+    NSArray *array=[[SqlService sqlInstance] queryDiaryDBtable];
+    if(array.count) {
+        _numOfDiarys=[NSString stringWithFormat:@"%lu",array.count];
+        for(int i=1;i<13;i++) {
+            NSMutableArray *arr=[[NSMutableArray alloc]init];
+            [resultArr addObject:arr];
+        }
+        for(Diary * diary in array) {
+            for(int i=1;i<13;i++){
+                NSString * monthStr=[NSString stringWithFormat:@"%02d",i];
+                if([diary.month isEqualToString:monthStr]) {
+                    //NSLog(@"%@",monthStr);
+                    [resultArr[i-1] addObject:diary];
+                    break;
+                }
+            }
+        }
+    }else {
+        _numOfDiarys=[NSString stringWithFormat:@"%d",0];
+    }
+    return resultArr;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(instancetype)initWithBackgroundColor:(UIColor *)color{
-    self=[self init];
 
-    return self;
-}
 -(void)setMyTableView{
-    _tableView=[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    [_tableView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-155)];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,_tableViewHeight) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     UIImageView* backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"background1"]];
     [backgroundView setFrame:self.view.bounds];
@@ -73,22 +85,30 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *indetifier = @"myTableViewCell";
-    
-    diaryTableViewCell *cell = (diaryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:indetifier];
-    
-    if(!cell){
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"diaryTableViewCell" owner:self options:nil] objectAtIndex:0];
-    }
-    Diary *diary=_diaryForMonthArray[indexPath.section][indexPath.row];
-    [cell setDiary:diary];
-    return cell.height;
-}
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(_diaryForMonthArray.count) {
+        _monthArr=[[NSMutableArray alloc]init];
+        //NSLog(@"_diaryForMonthArray.count:%lu",(unsigned long)_diaryForMonthArray.count);
+        NSInteger numOfSection=0;
+        for(int i=1;i<13;i++) {
+            NSArray *arr=_diaryForMonthArray[i-1];
+            if(arr.count) {
+                numOfSection++;
+                //NSLog(@"%d",i);
+                [_monthArr addObject:[NSString stringWithFormat:@"%d",i]];
+            }
+        }
+        //NSLog(@"numOfSection:%ld",(long)numOfSection);
+        return numOfSection;
+    }
+    return _diaryForMonthArray.count;
+}// Default is 1 if not implemented
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _diaryForMonthArray[section].count;
+    //NSLog(@"[_monthArr[section] integerValue]:%ld",(long)[_monthArr[section] integerValue]);
+    //NSLog(@"_diaryForMonthArray[[_monthArr[section] integerValue]-1].count:%ld",(long) _diaryForMonthArray[[_monthArr[section] integerValue]-1].count);
+    return _diaryForMonthArray[[_monthArr[section] integerValue]-1].count;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -102,19 +122,57 @@
     if(!cell){
         cell = [[[NSBundle mainBundle] loadNibNamed:@"diaryTableViewCell" owner:self options:nil] objectAtIndex:0];
     }
-    Diary *diary=_diaryForMonthArray[indexPath.section][indexPath.row];
+    Diary *diary=_diaryForMonthArray[[_monthArr[indexPath.section] integerValue]-1][indexPath.row];
     [cell setDiary:diary];
+    if(!(_cellHeights.count>indexPath.section)){
+        NSMutableArray * arr=[[NSMutableArray alloc]init];
+        [arr addObject:[NSString stringWithFormat:@"%ld",(long)cell.height]];
+        [_cellHeights addObject:arr];
+    }else if (_cellHeights[indexPath.section].count>indexPath.row) {
+        [_cellHeights[indexPath.section] replaceObjectAtIndex:indexPath.row withObject:[NSString stringWithFormat:@"%ld",(long)cell.height]];
+    }else {
+        [_cellHeights[indexPath.section] addObject:[NSString stringWithFormat:@"%ld",(long)cell.height]];
+    }
+    //NSLog(@"diaryCellForRowAtIndexPath");
     return cell;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _diaryForMonthArray.count;
-}// Default is 1 if not implemented
-
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    Diary * diary= _diaryForMonthArray[section][0];
-    NSString * month=[diary.month stringByAppendingString:@"月"];
+    NSString *month=_monthArr[section];
+    month=[month stringByAppendingString:@"月"];
     return month;
+}
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"DiaryHeightForRowAtIndexPath" );
+    NSString * height=(NSString *)_cellHeights[indexPath.section][indexPath.row];
+    //NSLog(@"%@",height);
+    return [height floatValue];
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return Iphone6ScaleHeight(40);
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    Diary * diary =_diaryForMonthArray[[_monthArr[indexPath.section] integerValue]-1][indexPath.row];
+    [self.delegate turnToDiaryPage:diary];
+    //NSLog(@"DiaryDidSelectRowAtIndexPath");
+    NSArray * arr=[[NSArray alloc]initWithObjects:indexPath, nil];
+    [_tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationMiddle];
+    
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Diary * diary=_diaryForMonthArray[[_monthArr[indexPath.section] integerValue]-1][indexPath.row];
+    [diary deleteDiary];
+    [_diaryForMonthArray[[_monthArr[indexPath.section] integerValue]-1] removeObjectAtIndex:indexPath.row];
+    [self reloadDate];
 }
 
 /*

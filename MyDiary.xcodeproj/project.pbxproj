@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0504DA421E4AED60007CEEB7 /* UIColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0504DA411E4AED60007CEEB7 /* UIColorCategory.m */; };
 		0558FB861E2CDEAF001C328D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FB851E2CDEAF001C328D /* main.m */; };
 		0558FB891E2CDEAF001C328D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FB881E2CDEAF001C328D /* AppDelegate.m */; };
 		0558FB8C1E2CDEAF001C328D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FB8B1E2CDEAF001C328D /* ViewController.m */; };
@@ -31,8 +32,6 @@
 		0558FCF71E2E60B7001C328D /* ElementPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FCF51E2E60B7001C328D /* ElementPage.xib */; };
 		0558FD031E2E6751001C328D /* DiaryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558FD011E2E6751001C328D /* DiaryPage.m */; };
 		0558FD041E2E6751001C328D /* DiaryPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0558FD021E2E6751001C328D /* DiaryPage.xib */; };
-		0568C4291E34A260002ED451 /* otherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C4271E34A260002ED451 /* otherTableViewCell.m */; };
-		0568C42A1E34A260002ED451 /* otherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0568C4281E34A260002ED451 /* otherTableViewCell.xib */; };
 		0568C42E1E34B189002ED451 /* diaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C42C1E34B189002ED451 /* diaryTableViewCell.m */; };
 		0568C42F1E34B189002ED451 /* diaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0568C42D1E34B189002ED451 /* diaryTableViewCell.xib */; };
 		0568C4341E39ED85002ED451 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0568C4331E39ED85002ED451 /* CalendarViewController.m */; };
@@ -59,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0504DA401E4AED60007CEEB7 /* UIColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorCategory.h; sourceTree = "<group>"; };
+		0504DA411E4AED60007CEEB7 /* UIColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorCategory.m; sourceTree = "<group>"; };
 		0558FB811E2CDEAF001C328D /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0558FB851E2CDEAF001C328D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0558FB871E2CDEAF001C328D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,9 +105,6 @@
 		0558FD001E2E6751001C328D /* DiaryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryPage.h; sourceTree = "<group>"; };
 		0558FD011E2E6751001C328D /* DiaryPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryPage.m; sourceTree = "<group>"; };
 		0558FD021E2E6751001C328D /* DiaryPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiaryPage.xib; sourceTree = "<group>"; };
-		0568C4261E34A260002ED451 /* otherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = otherTableViewCell.h; sourceTree = "<group>"; };
-		0568C4271E34A260002ED451 /* otherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = otherTableViewCell.m; sourceTree = "<group>"; };
-		0568C4281E34A260002ED451 /* otherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = otherTableViewCell.xib; sourceTree = "<group>"; };
 		0568C42B1E34B189002ED451 /* diaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diaryTableViewCell.h; sourceTree = "<group>"; };
 		0568C42C1E34B189002ED451 /* diaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = diaryTableViewCell.m; sourceTree = "<group>"; };
 		0568C42D1E34B189002ED451 /* diaryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = diaryTableViewCell.xib; sourceTree = "<group>"; };
@@ -229,10 +227,10 @@
 			children = (
 				0558FB8A1E2CDEAF001C328D /* ViewController.h */,
 				0558FB8B1E2CDEAF001C328D /* ViewController.m */,
-				0568C4321E39ED7F002ED451 /* CalendarViewController.h */,
-				0568C4331E39ED85002ED451 /* CalendarViewController.m */,
 				05FCB4831E2F8D0F009F21E7 /* ElementViewController.h */,
 				05FCB4841E2F8D0F009F21E7 /* ElementViewController.m */,
+				0568C4321E39ED7F002ED451 /* CalendarViewController.h */,
+				0568C4331E39ED85002ED451 /* CalendarViewController.m */,
 				05FCB4801E2F8CD5009F21E7 /* DiaryViewController.h */,
 				05FCB4811E2F8CD5009F21E7 /* DiaryViewController.m */,
 				0558FCF31E2E60B7001C328D /* ElementPage.h */,
@@ -241,8 +239,6 @@
 				0558FD011E2E6751001C328D /* DiaryPage.m */,
 				0558FCE41E2E062C001C328D /* myTableViewCell.h */,
 				0558FCE51E2E062C001C328D /* myTableViewCell.m */,
-				0568C4261E34A260002ED451 /* otherTableViewCell.h */,
-				0568C4271E34A260002ED451 /* otherTableViewCell.m */,
 				0568C42B1E34B189002ED451 /* diaryTableViewCell.h */,
 				0568C42C1E34B189002ED451 /* diaryTableViewCell.m */,
 			);
@@ -255,10 +251,11 @@
 				0558FB8D1E2CDEAF001C328D /* Main.storyboard */,
 				0558FB921E2CDEAF001C328D /* LaunchScreen.storyboard */,
 				0558FCE61E2E062C001C328D /* myTableViewCell.xib */,
-				0568C4281E34A260002ED451 /* otherTableViewCell.xib */,
 				0568C42D1E34B189002ED451 /* diaryTableViewCell.xib */,
 				0558FD021E2E6751001C328D /* DiaryPage.xib */,
 				0558FCF51E2E60B7001C328D /* ElementPage.xib */,
+				0504DA401E4AED60007CEEB7 /* UIColorCategory.h */,
+				0504DA411E4AED60007CEEB7 /* UIColorCategory.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -358,7 +355,13 @@
 				TargetAttributes = {
 					0558FB801E2CDEAF001C328D = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 63K2TD6THT;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0558FB991E2CDEAF001C328D = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -401,7 +404,6 @@
 				0558FCF71E2E60B7001C328D /* ElementPage.xib in Resources */,
 				0558FCE81E2E062C001C328D /* myTableViewCell.xib in Resources */,
 				0568C42F1E34B189002ED451 /* diaryTableViewCell.xib in Resources */,
-				0568C42A1E34A260002ED451 /* otherTableViewCell.xib in Resources */,
 				0558FD041E2E6751001C328D /* DiaryPage.xib in Resources */,
 				0558FB911E2CDEAF001C328D /* Assets.xcassets in Resources */,
 				0558FB8F1E2CDEAF001C328D /* Main.storyboard in Resources */,
@@ -435,7 +437,6 @@
 				0558FCF61E2E60B7001C328D /* ElementPage.m in Sources */,
 				0558FB891E2CDEAF001C328D /* AppDelegate.m in Sources */,
 				0558FB861E2CDEAF001C328D /* main.m in Sources */,
-				0568C4291E34A260002ED451 /* otherTableViewCell.m in Sources */,
 				0558FC011E2CEA25001C328D /* FMDatabase.m in Sources */,
 				0558FCE71E2E062C001C328D /* myTableViewCell.m in Sources */,
 				0568C4341E39ED85002ED451 /* CalendarViewController.m in Sources */,
@@ -447,6 +448,7 @@
 				0558FD031E2E6751001C328D /* DiaryPage.m in Sources */,
 				0558FBF01E2CEA1B001C328D /* Diary.m in Sources */,
 				0558FC061E2CEA25001C328D /* SqlService.m in Sources */,
+				0504DA421E4AED60007CEEB7 /* UIColorCategory.m in Sources */,
 				0558FC041E2CEA25001C328D /* FMDatabaseQueue.m in Sources */,
 				05FCB4851E2F8D0F009F21E7 /* ElementViewController.m in Sources */,
 				0568C42E1E34B189002ED451 /* diaryTableViewCell.m in Sources */,
@@ -598,7 +600,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 63K2TD6THT;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -609,7 +613,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 63K2TD6THT;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HRK.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";

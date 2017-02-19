@@ -22,6 +22,7 @@
 -(BOOL)deleteElement:(Element *) element;
 -(BOOL)deleteDiary:(Diary *)diary;
 
+-(NSArray *)queryElementDBtable:(NSDate *)date;
 -(NSArray *)queryElementDBtable;
 -(NSArray *)queryDiaryDBtable;
 @end
