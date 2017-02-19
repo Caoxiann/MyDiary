@@ -13,12 +13,23 @@
 #import "NotePageController.h"
 #import "BXElements.h"
 
-
 @interface BXMainPage ()
 
 @end
 
 @implementation BXMainPage
+
+@synthesize mainSegmentControl;
+
+-(instancetype)init
+{
+    self=[super init];
+    if (self)
+    {
+        update=0;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -27,20 +38,24 @@
     self.view.backgroundColor=[UIColor whiteColor];
     
     numbers=0;
+    subNumbers=0;
     page1=YES;
     
+    
 //主题颜色调配
-    NSString *colorname =@"0x69D7DD";
-    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
-    int R = (colorLong & 0xFF0000 )>>16;
-    int G = (colorLong & 0x00FF00 )>>8;
-    int B =  colorLong & 0x0000FF;
-    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+//    NSString *colorname =@"0x69D7DD";
+//    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+//    int R = (colorLong & 0xFF0000 )>>16;
+//    int G = (colorLong & 0x00FF00 )>>8;
+//    int B =  colorLong & 0x0000FF;
+//    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+    
+    UIColor *themecolor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     
     //UIColor *theme=[UIColor colorWithRed:30/255.0 green:144/255.0 blue:255/255.0 alpha:1.0];
     
 //创建UISegmentControl对象
-    UISegmentedControl *mainSegmentControl=[[UISegmentedControl alloc]init];
+    mainSegmentControl=[[UISegmentedControl alloc]init];
     mainSegmentControl.frame=CGRectMake(30,deviceHeight*4/100,deviceWidth-60,24);
     [mainSegmentControl setTintColor:themecolor];
     [mainSegmentControl insertSegmentWithTitle:@"项目" atIndex:1 animated:NO];
@@ -90,6 +105,7 @@
     UIButton *btn1=[UIButton buttonWithType:UIButtonTypeCustom];
     btn1.frame=CGRectMake(0, 0,20, 20);
     [btn1 setImage:[UIImage imageNamed:@"list@2x.png"] forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(jumpToOne) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn01=[[UIBarButtonItem alloc]initWithCustomView:btn1];
     
     UIButton *btn2=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,6 +117,7 @@
     UIButton *btn3=[UIButton buttonWithType:UIButtonTypeCustom];
     btn3.frame=CGRectMake(0, 0, 20, 20);
     [btn3 setImage:[UIImage imageNamed:@"camera@2x.png"] forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(camera) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *btn03=[[UIBarButtonItem alloc]initWithCustomView:btn3];
     
     UIBarButtonItem *btnZ=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -127,26 +144,33 @@
     _rightLabel.font=[UIFont fontWithName:@"Helvetica" size:15];
     _rightLabel.textColor=[UIColor whiteColor];
     [self.view addSubview:_rightLabel];
-    NSLog(@"更新 %ld",numbers);
     NSTimer *time=[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimes) userInfo:nil repeats:YES];
     
     // Do any additional setup after loading the view.
 }
 
-//切换视图
--(void)change:(UISegmentedControl*)mainSegmentControl
+-(void)camera
 {
-    if(mainSegmentControl.selectedSegmentIndex==0)
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"作者" message:@"徐贤达" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction=[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+//切换视图
+-(void)change:(UISegmentedControl*)mainSegmentControl2
+{
+    if(mainSegmentControl2.selectedSegmentIndex==0)
     {
         [self jumpToOne];
         page1=YES;
     }
-    if (mainSegmentControl.selectedSegmentIndex==1)
+    if (mainSegmentControl2.selectedSegmentIndex==1)
     {
         [self jumpToTwo];
         page1=NO;
     }
-    if (mainSegmentControl.selectedSegmentIndex==2)
+    if (mainSegmentControl2.selectedSegmentIndex==2)
     {
         [self jumpToThree];
         page1=NO;
@@ -157,6 +181,7 @@
 -(void)jumpToOne
 {
     _label.text=@"Elements";
+    mainSegmentControl.selectedSegmentIndex=0;
     [self.view bringSubviewToFront:self.elements.view];
 }
 
@@ -180,21 +205,18 @@
     _rightLabel.text=string;
     _rightLabel.frame=CGRectMake(deviceWidth*85/100,deviceHeight*93/100, 70,deviceHeight*6.5/100);
     [self.view addSubview:_rightLabel];
+    if (update!=[_elements update])
+    {
+        [_diary updateTheNote];
+        [_calendar updateTheNoteList];
+        update=[_elements update];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

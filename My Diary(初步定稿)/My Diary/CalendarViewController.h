@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BXCalendar.h"
 
 #define deviceWidth [UIScreen mainScreen].bounds.size.width
 #define deviceHeight [UIScreen mainScreen].bounds.size.height
 
+@protocol selectedUpdate <NSObject>
+
+-(void)selectedUpdate:(NSString*)string;
+
+@end
+
 @interface CalendarViewController : UIViewController
-<timeDelegate,UITableViewDelegate,UITableViewDataSource>
+<UITableViewDelegate,UITableViewDataSource,selectedUpdate>
 {
     NSInteger selectedYear;
     NSInteger selectedMonth;
@@ -21,6 +26,8 @@
     CGRect fuckFrame;
     int k;
 }
+
+-(void)updateTheNoteList;
 
 @property (nonatomic,strong)NSString *stringTime;
 

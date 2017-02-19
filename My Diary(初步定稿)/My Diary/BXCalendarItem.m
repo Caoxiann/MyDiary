@@ -193,12 +193,14 @@ typedef NS_ENUM(NSUInteger, BXCalendarMonth) {
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *colorname =@"0x69D7DD";
-    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
-    int R = (colorLong & 0xFF0000 )>>16;
-    int G = (colorLong & 0x00FF00 )>>8;
-    int B =  colorLong & 0x0000FF;
-    UIColor *color = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+//    NSString *colorname =@"0x69D7DD";
+//    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+//    int R = (colorLong & 0xFF0000 )>>16;
+//    int G = (colorLong & 0x00FF00 )>>8;
+//    int B =  colorLong & 0x0000FF;
+//    UIColor *color = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0];
+    
+    UIColor *color = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
     
     static NSString *identifier = @"CalendarCell";
     BXCalendarCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];

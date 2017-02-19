@@ -15,6 +15,7 @@
 @interface BXCalendarItem : UIView
 
 @property (strong, nonatomic) NSDate *date;
+
 @property (weak, nonatomic) id<BXCalendarItemDelegate> delegate;
 
 - (NSDate *)nextMonthDate;

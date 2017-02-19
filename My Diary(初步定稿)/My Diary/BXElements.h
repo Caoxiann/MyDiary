@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DiaryViewController.h"
 
 #define deviceWidth [UIScreen mainScreen].bounds.size.width
 #define deviceHeight [UIScreen mainScreen].bounds.size.height
 
-
-@interface BXElements : UIViewController
+@interface BXElements: UIViewController
 
 -(void)rightButtonAction;
 
@@ -22,6 +22,8 @@
 
 @property (nonatomic,strong) UIView *cellView;
 
+@property (nonatomic,strong) UIView *cellLeftView;
+
 @property (nonatomic,strong) UILabel *dateLabel;
 
 @property (nonatomic,strong) UILabel *hourLabel;
@@ -30,6 +32,11 @@
 
 @property (nonatomic,strong) NSString *cellTitle;
 
+@property (nonatomic,strong) UILabel *xinTitle;
+
+@property (nonatomic,strong) UILabel *locationTitle;
+
+@property (nonatomic,strong) id<diaryUpdateDelegate> diaryDelegate;
 
 @property int date;
 
@@ -37,9 +44,22 @@
 
 @property int minute;
 
+@property int update;
+
+@property int year;
+
+@property int month;
+
 @end
 
 @interface  HomeNavigationController: UINavigationController
 
 @end
+
+@protocol backFirst <NSObject>
+
+-(NSInteger)backFirst;
+
+@end
+
 

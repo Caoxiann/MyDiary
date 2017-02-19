@@ -15,14 +15,13 @@
 #define deviceWidth [UIScreen mainScreen].bounds.size.width
 #define deviceHeight [UIScreen mainScreen].bounds.size.height
 
-
 @interface BXMainPage : UIViewController
 {
+    NSInteger update;
     NSInteger numbers;
+    NSInteger subNumbers;
     BOOL page1;
 }
-
-@property (nonatomic,strong) HomeNavigationController*elementsNavigation;
 
 @property (nonatomic,strong) BXElements *elements;
 
@@ -36,8 +35,6 @@
 
 @property (nonatomic,strong) UILabel *rightLabel;
 
-
--(void)updateTimes;
-
+@property (nonatomic,strong) UISegmentedControl *mainSegmentControl;
 
 @end

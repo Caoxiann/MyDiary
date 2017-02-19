@@ -32,8 +32,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *cancel;
 
-@property (nonatomic,strong) BXMainPage *mainPage;
-
 @end
 
 @implementation NotePageController
@@ -52,8 +50,6 @@
         _currentTimeLabel.text = _currentPage.time;
         _pageLabelTextView.text=_currentPage.titile;
     }
-    _pageTextView.keyboardType=UIKeyboardTypeNamePhonePad;
-    _pageLabelTextView.keyboardType=UIKeyboardTypeNamePhonePad;
     _warnTitle.textAlignment=NSTextAlignmentCenter;
 //设置背景
     UIImage *backImage=[UIImage imageNamed:@"inputBackground.jpg"];
@@ -71,15 +67,17 @@
     _myMainTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
     _warnTitle.textColor=color;
     _warnTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
-    _cancel.tintColor=[UIColor blackColor];
-    _cancel.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
+    [_cancel setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+    _pageTextView.scrollEnabled=YES;
 //模糊主色调
-    NSString *colorname =@"0x69D7DD";
-    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
-    int R = (colorLong & 0xFF0000 )>>16;
-    int G = (colorLong & 0x00FF00 )>>8;
-    int B =  colorLong & 0x0000FF;
-    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:0.5];
+//    NSString *colorname =@"0x69D7DD";
+//    long colorLong = strtoul([colorname cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
+//    int R = (colorLong & 0xFF0000 )>>16;
+//    int G = (colorLong & 0x00FF00 )>>8;
+//    int B =  colorLong & 0x0000FF;
+//    UIColor *themecolor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:0.5];
+    UIColor *themecolor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:0.5];
+    
 //清晰主色调
     NSString *colorname2 =@"0x69D7DD";
     long colorLong2 = strtoul([colorname2 cStringUsingEncoding:NSUTF8StringEncoding], 0, 16);
@@ -87,24 +85,23 @@
     int G2 = (colorLong2 & 0x00FF00 )>>8;
     int B2 =  colorLong2 & 0x0000FF;
     UIColor *themecolor2 = [UIColor colorWithRed:R2/255.0 green:G2/255.0 blue:B2/255.0 alpha:1.0];
+    
     _pageTextView.backgroundColor=themecolor;
     _pageLabelTextView.backgroundColor=themecolor;
     _currentTimeLabel.font=[UIFont fontWithName:@"MarkerFelt-Thin" size:17];
     _currentTimeLabel.textColor=themecolor2;
 //手动调整控件位置
-    _pageTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*50/100, deviceWidth*80/100, deviceHeight*40/100);
-    _pageLabelTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*25/100, deviceWidth*80/100, deviceHeight*15/100);
-    _myMainTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*42/100,60, deviceHeight*6/100);
+    _pageTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*40/100, deviceWidth*80/100, deviceHeight*50/100);
+    _pageLabelTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*25/100, deviceWidth*80/100, deviceHeight*5/100);
+    _myMainTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*32/100,60, deviceHeight*6/100);
     _myTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*12/100, 60, deviceHeight*6/100);
-    _warnTitle.frame=CGRectMake((deviceWidth/2)-80, deviceHeight*17/100, 160, deviceHeight*6/100);
-    _cancel.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*92/100, 60, deviceHeight*6/100);
+    _warnTitle.frame=CGRectMake((deviceWidth/2)-110, deviceHeight*17/100,220, deviceHeight*6/100);
+    _cancel.frame=CGRectMake((deviceWidth/2)-deviceHeight*3/100, deviceHeight*92/100, deviceHeight*6/100, deviceHeight*6/100);
     _currentTimeLabel.frame=CGRectMake((deviceWidth/2)-deviceWidth*40/100, deviceHeight*6/100, deviceWidth*80/100, deviceHeight*6/100);
     _currentTimeLabel.textAlignment=NSTextAlignmentCenter;
     _myTitle.textAlignment=NSTextAlignmentCenter;
     _myMainTitle.textAlignment=NSTextAlignmentCenter;
     
-    _mainPage=[[BXMainPage alloc]init];
-
 }
 
 //删除提示
@@ -166,7 +163,7 @@
     {
         [NotePageSearvice creatNotepage:_pageTextView.text title:_pageLabelTextView.text];
     }
-    [_mainPage updateTimes];
+    [self.backFirst backFirst];
     [self.noteDelegate updateTheNoteList];
     [self.navigationController popViewControllerAnimated:YES];
 }
