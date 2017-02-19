@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "VCList.h"
+#import "VCCalendar.h"
 
 @interface AppDelegate ()
 
@@ -23,7 +23,7 @@
     
     [self.window makeKeyAndVisible];
     
-    VCList* Root = [[VCList alloc] init];
+    VCCalendar* Root = [[VCCalendar alloc] init];
     
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:Root];
     
