@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIView *normalView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic,strong) UIViewController <ElementReloadDelegate> *delegate;
-@property (assign, nonatomic) BOOL isSaved;
 @property (assign, nonatomic) BOOL isNew;
 - (IBAction)editingDidEnd:(UITextField *)sender;
 - (IBAction)saveBtn:(UIButton *)sender;

@@ -35,14 +35,9 @@
     _dateSetBtn.layer.cornerRadius=15;
     _dateSetBtn.layer.masksToBounds = YES;
     
-    if(_isNew) {
-        _element.time=[TimeDealler getCurrentTime];
-        _element.date=[TimeDealler getCurrentDate];
-        [_element setDates];
-        _isSaved=NO;
-    }else{
-        _isSaved=YES;
-    }
+    _element.time=[TimeDealler getCurrentTime];
+    _element.date=[TimeDealler getCurrentDate];
+    [_element setDates];
     _timeLabel.text=_element.time;
     _locationLabel.text=_element.location;
     _dateLabel.text=[[_element.year stringByAppendingString:_element.month]stringByAppendingString:_element.day];
@@ -60,7 +55,6 @@
 - (IBAction)editingDidEnd:(UITextField *)sender {
     if(![_textField.text isEqualToString:_element.title]){
         _element.title=_textField.text;
-        _isSaved=NO;
     }
     
 }
@@ -71,30 +65,32 @@
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"保存成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
     _element.title=_textField.text;
     _element.content=_textView.text;
+    if(!_locationLabel.text){
+        _element.location=@"";
+        _locationLabel.text=_element.location;
+    }
     _element.isSelected=NO;
     if(_isNew){
         [_element creatElement];
+        _isNew=NO;
     }else{
         [_element updateElement];
     }
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action)
                       {
-                          _isSaved=YES;
+                          CATransition* amin=[CATransition animation];
+                          [amin setDuration:1];
+                          [amin setType:@"cube"];
+                          [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                          [amin setSubtype:kCATransitionFromLeft];
+                          [self.navigationController.view.layer addAnimation:amin forKey:nil];
+                          [self.navigationController popViewControllerAnimated:YES];
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)cancelBtn:(UIButton *)sender {
-    if(_isSaved) {
-        CATransition* amin=[CATransition animation];
-        [amin setDuration:1];
-        [amin setType:@"cube"];
-        [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [amin setSubtype:kCATransitionFromLeft];
-        [self.navigationController.view.layer addAnimation:amin forKey:nil];
-        [self.navigationController popViewControllerAnimated:YES];
-    }else {
         UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"你还没保存呐！" message:@"确定要退出编辑吗？" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDestructive handler:
                           ^(UIAlertAction*action)
@@ -114,7 +110,6 @@
                               NSLog(@"点击了Cancel按钮");
                           }]];
         [self presentViewController:alert animated:YES completion:nil];
-    }
 }
 
 - (IBAction)setTime:(UIButton *)sender {
@@ -135,7 +130,6 @@
     if(![[formatter stringFromDate:_timePicker.date] isEqualToString:_element.time]) {
         _element.time=[formatter stringFromDate:_timePicker.date];
         _timeLabel.text=_element.time;
-        _isSaved=NO;
     }
     [self.view bringSubviewToFront:_normalView];
 }
@@ -154,13 +148,12 @@
     [formatter setDateFormat:@"dd"];
     NSString * day=[formatter stringFromDate:_datePicker.date];
     if(!([_element.year isEqualToString:year]&&[_element.month isEqualToString:month]&&[_element.day isEqualToString:day])) {
-        _isSaved=NO;
         [dateDic setObject:year forKey:@"year"];
         [dateDic setObject:month forKey:@"month"];
         [dateDic setObject:day forKey:@"day"];
         _element.date=dateDic;
         [_element setDates];
-        _dateLabel.text=[[_element.year stringByAppendingString:_element.month]stringByAppendingString:_element.day];
+        _dateLabel.text=[[[[[_element.year stringByAppendingString:@"年"] stringByAppendingString:_element.month]stringByAppendingString:@"月"]stringByAppendingString:_element.day]stringByAppendingString:@"日"];
     }
     [self.view bringSubviewToFront:_normalView];
 }
@@ -212,7 +205,7 @@
     UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"您未授权地点定位功能" message:@"请到设置中开启权限" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action){
-                          //
+                          _dateLabel.text=@"";
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -220,7 +213,7 @@
     UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action){
-                          //
+                          _dateLabel.text=@"";
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

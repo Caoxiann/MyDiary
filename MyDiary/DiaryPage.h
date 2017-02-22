@@ -27,5 +27,4 @@
 
 @property (nonatomic ,strong)Diary *diary;
 @property (assign, nonatomic) BOOL isNew;
-@property (assign, nonatomic) BOOL isSaved;
 @end
