@@ -20,6 +20,8 @@
 
 @property (nonatomic,retain) UILabel *itemShowLabel;
 
+@property (nonatomic) NSInteger page;
+
 @end
 
 @implementation ViewController
@@ -95,6 +97,7 @@
     [baseSegmentControl setSelectedSegmentIndex:0];
     [_titleLabel setText:@"ELEMENTS"];
     [self.view bringSubviewToFront:_elementVC.view];
+    _page = 0;
     [baseSegmentControl addTarget:self action:@selector(selectView:) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:baseSegmentControl];
@@ -106,16 +109,19 @@
         
         [_titleLabel setText:@"ELEMENTS"];
         [self.view bringSubviewToFront:_elementVC.view];
+        _page = 0;
     }
     if (baseSegmentControl.selectedSegmentIndex == 1){
 
         [_titleLabel setText:@"CALENDER"];
         [self.view bringSubviewToFront:_calendarVC.view];
+        _page = 1;
     }
     if (baseSegmentControl.selectedSegmentIndex == 2){
         
         [_titleLabel setText:@"DIARY"];
         [self.view bringSubviewToFront:_diaryVC.view];
+        _page = 2;
     }
 }
 

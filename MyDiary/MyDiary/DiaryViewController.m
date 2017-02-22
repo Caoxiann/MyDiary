@@ -8,7 +8,7 @@
 
 #import "DiaryViewController.h"
 
-@interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource,DiaryPageUpdateDelegate>
+@interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource,DiaryPageUpdateDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) NSMutableArray *monthInTable;
 
@@ -250,14 +250,17 @@
     _maskLabel.layer.mask = maskLayer;
     [_cellView addSubview:_maskLabel];
     //标题显示
-    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 20, _deviceScreenSize.width - 120, 20)];
-    [_titleLabel setTextColor:[UIColor whiteColor]];
-    _titleLabel.font = [UIFont systemFontOfSize:22];
-    [_titleLabel setNumberOfLines:0];
-    [_titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [_titleLabel setText:diaryData.title];
-    [_titleLabel setTag: indexPath.row];
-    [_cellView addSubview:_titleLabel];
+    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 20, _deviceScreenSize.width - 110, 20)];
+    [titleField setKeyboardType:UIKeyboardTypeDefault];
+    [titleField setTextAlignment:NSTextAlignmentLeft];
+    [titleField setBackgroundColor:[UIColor clearColor]];
+    [titleField setTextColor:[UIColor whiteColor]];
+    [titleField setUserInteractionEnabled:NO];
+    [titleField setText:diaryData.title];
+    [titleField setTag:indexPath.row];
+    [titleField setDelegate:self];
+    [titleField setFont:[UIFont systemFontOfSize:22]];
+    [_cellView addSubview:titleField];
     //内容显示
     _contentLabel = [[UILabel alloc]init];
     [_contentLabel setTextColor:_themeColor];
@@ -284,21 +287,10 @@
     [_locationLabel setText:diaryData.location];
     [_locationLabel setTag: indexPath.row];
     [_cellView addSubview:_locationLabel];
-    //显示时间
+    //日期显示
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     _time = [dateFormatter stringFromDate:diaryData.date];
-    _hour = [[_time substringWithRange:NSMakeRange(11, 2)]intValue];
-    _minute = [[_time substringWithRange:NSMakeRange(14,2)]intValue];
-    _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 5, 200, 10)];
-    if(_minute >= 0 && _minute <= 9)
-        [_timeLabel setText:[NSString stringWithFormat:@"%d:0%d",_hour,_minute]];
-    else
-        [_timeLabel setText:[NSString stringWithFormat:@"%d:%d",_hour,_minute]];
-    [_timeLabel setTextColor:[UIColor whiteColor]];
-    [_timeLabel setFont:[UIFont systemFontOfSize:12]];
-    [_cellView addSubview:_timeLabel];
-    //日期显示
     _date = [[_time substringWithRange:NSMakeRange(8, 2)]intValue];
     _dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 40)];
     [_dateLabel setText:[NSString stringWithFormat:@"%d",_date]];
@@ -316,10 +308,10 @@
         _year--;
     }
     _weekDay = (_date + 2 * _month + 3 * (_month + 1) / 5 + _year + _year / 4 - _year / 100 + _year / 400) % 7;
-    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"何曜日", nil];
+    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"日曜日", nil];
     _weekLabel = [[UILabel alloc]init];
     [_weekLabel setFrame:CGRectMake(0, 40, 60, 20)];
-    [_weekLabel setText:[weekDaySet objectAtIndex:_weekDay - 1]];
+    [_weekLabel setText:[weekDaySet objectAtIndex:_weekDay]];
     [_weekLabel setFont:[UIFont systemFontOfSize:12]];
     [_weekLabel setTextAlignment:NSTextAlignmentCenter];
     [_weekLabel setBackgroundColor:[UIColor clearColor]];

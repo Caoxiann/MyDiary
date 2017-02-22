@@ -237,19 +237,18 @@
     [dateSettingTitle setBackgroundColor:[UIColor clearColor]];
     [dateSettingTitle setFont:[UIFont fontWithName:@"Futura" size:18]];
     [dateSettingTitle setTextAlignment:NSTextAlignmentLeft];
-    [dateSettingTitle setText:@"时间设定:"];
+    [dateSettingTitle setText:@"创建时间:"];
     [self.view addSubview:dateSettingTitle];
     //时间显示
     _dateSettingField = [[UITextField alloc]initWithFrame:CGRectMake(120, 100,[UIScreen mainScreen].bounds.size.width - 140, 20)];
-    [_dateSettingField setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [_dateSettingField setTextAlignment:NSTextAlignmentCenter];
     [_dateSettingField setTextAlignment:NSTextAlignmentLeft];
+    [_dateSettingField setAllowsEditingTextAttributes:NO];
+    [_dateSettingField setUserInteractionEnabled:NO];
     [_dateSettingField setBackgroundColor:[UIColor clearColor]];
     [_dateSettingField setTextColor:[UIColor blackColor]];
     [_dateSettingField setDelegate:self];
     [_dateSettingField setTag:10008];
     [_dateSettingField setFont:[UIFont fontWithName:@"Futura" size:18]];
-    [_dateSettingField setReturnKeyType:UIReturnKeyNext];
     UIView *underline = [[UIView alloc] initWithFrame:CGRectMake(110, 120, [UIScreen mainScreen].bounds.size.width - 130, 1)];
     underline.backgroundColor = [UIColor grayColor];
     [self.view addSubview:underline];
@@ -267,43 +266,6 @@
         _date = [dateFormatter stringFromDate:now];
         [_dateSettingField setText:_date];
     }
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    //时间选取
-    if([_dateSettingField isFirstResponder]){
-        
-        _datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0.0,0.0,0.0,0.0)];
-        [_datePicker setDatePickerMode:UIDatePickerModeDateAndTime];
-        _datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSString *minDateString = @"2010-01-01 00:00:00";
-        NSString *maxDateString = @"2020-12-31 00:00:00";
-        NSDate *minDate = [dateFormatter dateFromString:minDateString];
-        NSDate *maxDate = [dateFormatter dateFromString:maxDateString];
-        [_datePicker setMinimumDate:minDate];
-        [_datePicker setMaximumDate:maxDate];
-        [_datePicker setDate:[dateFormatter dateFromString:_date] animated:YES];
-        [_dateSettingField setInputView:_datePicker];
-        
-        UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40)];
-        UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(cancelPicker)];
-        UIBarButtonItem *blankBarButton1=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [blankBarButton1 setWidth:[UIScreen mainScreen].bounds.size.width -70];
-        [toolBar setItems:[NSArray arrayWithObjects:blankBarButton1, right,nil]];
-        
-        [_dateSettingField setInputAccessoryView:toolBar];
-    }
-}
-
-- (void)cancelPicker {
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    _date = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:_datePicker.date]];
-    [_dateSettingField setText:_date];
-    [_dateSettingField resignFirstResponder];
 }
 
 //标题设置------------------------------------

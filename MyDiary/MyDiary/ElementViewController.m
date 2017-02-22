@@ -8,7 +8,7 @@
 
 #import "ElementViewController.h"
 
-@interface ElementViewController () <UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate>
+@interface ElementViewController () <UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) NSMutableArray *monthInTable;
 
@@ -241,14 +241,17 @@
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
     //标题显示
-    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
-    [_titleLabel setTextColor:_themeColor];
-    [_titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [_titleLabel setNumberOfLines:0];
-    [_titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [_titleLabel setText:noteData.title];
-    [_titleLabel setTag: indexPath.row];
-    [_cellView addSubview:_titleLabel];
+    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
+    [titleField setKeyboardType:UIKeyboardTypeDefault];
+    [titleField setTextAlignment:NSTextAlignmentLeft];
+    [titleField setBackgroundColor:[UIColor clearColor]];
+    [titleField setUserInteractionEnabled:NO];
+    [titleField setTextColor:_themeColor];
+    [titleField setText:noteData.title];
+    [titleField setTag:indexPath.row];
+    [titleField setDelegate:self];
+    [titleField setFont:[UIFont systemFontOfSize:22]];
+    [_cellView addSubview:titleField];
     //位置显示
     _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
@@ -299,10 +302,10 @@
         _year--;
     }
     _weekDay = (_date + 2 * _month + 3 * (_month + 1) / 5 + _year + _year / 4 - _year / 100 + _year / 400) % 7;
-    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"何曜日", nil];
+    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"日曜日", nil];
     _weekLabel = [[UILabel alloc]init];
     [_weekLabel setFrame:CGRectMake(0, 50, 60, 20)];
-    [_weekLabel setText:[weekDaySet objectAtIndex:_weekDay - 1]];
+    [_weekLabel setText:[weekDaySet objectAtIndex:_weekDay]];
     [_weekLabel setFont:[UIFont systemFontOfSize:12]];
     [_weekLabel setTextAlignment:NSTextAlignmentCenter];
     [_weekLabel setBackgroundColor:[UIColor clearColor]];
@@ -343,6 +346,20 @@
         NoteBL *bl = [[NoteBL alloc]init];
         self.listData = [bl removeNote:noteTemp];
         [_elementShowTableView reloadData];
+    }
+}
+
+-(void)modifiDeleteBtn{
+    for (UIView *subView in _elementShowTableView.subviews) {
+        if ([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
+            
+            [subView setBackgroundColor:[UIColor clearColor]];
+            for (UIButton *btn in subView.subviews) {
+                if ([btn isKindOfClass:[UIButton class]]) {
+                    btn.backgroundColor=[UIColor blueColor];
+                }
+            }
+        }
     }
 }
 
