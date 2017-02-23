@@ -30,18 +30,12 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(void)drawView{
-    
-    if(_isNew) {
-        _diary.time=[TimeDealler getCurrentTime];
-        _diary.date=[TimeDealler getCurrentDate];
-        [_diary setDates];
-        _isSaved=NO;
-    }else{
-        _isSaved=YES;
-    }
+    _diary.time=[TimeDealler getCurrentTime];
+    _diary.date=[TimeDealler getCurrentDate];
+    [_diary setDates];
     _timeLabel.text=_diary.time;
     _locationLabel.text=_diary.location;
-    _dateLabel.text=[[_diary.year stringByAppendingString:_diary.month]stringByAppendingString:_diary.day];
+    _dateLabel.text=[[[[[_diary.year stringByAppendingString:@"年"] stringByAppendingString:_diary.month]stringByAppendingString:@"月"]stringByAppendingString:_diary.day]stringByAppendingString:@"日"];
     _textField.text=_diary.title;
     _textView.text=_diary.content;
     
@@ -64,15 +58,6 @@
 */
 
 - (IBAction)backBtn:(UIButton *)sender {
-    if(_isSaved) {
-        CATransition* amin=[CATransition animation];
-        [amin setDuration:1];
-        [amin setType:@"cube"];
-        [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [amin setSubtype:kCATransitionFromLeft];
-        [self.navigationController.view.layer addAnimation:amin forKey:nil];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"你还没保存呐！" message:@"确定要退出编辑吗？" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action)
@@ -100,15 +85,27 @@
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"保存成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
     _diary.title=_textField.text;
     _diary.content=_textView.text;
+    if(!_locationLabel.text){
+        _diary.location=@"";
+        _locationLabel.text=_diary.location;
+    }
     if(_isNew){
         [_diary creatDiary];
+        _isNew=NO;
     }else{
         [_diary updateDiary];
     }
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action)
                       {
-                          _isSaved=YES;
+                          CATransition* amin=[CATransition animation];
+                          [amin setDuration:1];
+                          [amin setType:@"cube"];
+                          [amin setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                          [amin setSubtype:kCATransitionFromLeft];
+                          [self.navigationController.view.layer addAnimation:amin forKey:nil];
+                          [self.navigationController popViewControllerAnimated:YES];
+ 
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -154,7 +151,8 @@
     UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"您未授权地点定位功能" message:@"请到设置中开启权限" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action){
-                          //
+                          _diary.location=@"";
+                          _locationLabel.text=_diary.location;
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -162,7 +160,8 @@
     UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
                       ^(UIAlertAction*action){
-                          //
+                          _diary.location=@"";
+                          _locationLabel.text=_diary.location;
                       }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -189,7 +188,6 @@
                      }
                  }
              }
-             NSLog(@"locationStr:%@",locationStr);
              _diary.location=locationStr;
              _locationLabel.text=_diary.location;
          } else {
