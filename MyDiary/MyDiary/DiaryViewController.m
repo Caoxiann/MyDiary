@@ -333,7 +333,7 @@
     
     DiaryEditViewController *createVC = [[DiaryEditViewController alloc]init];
     createVC.diaryDelegate = self;
-    [self.navigationController pushViewController:createVC animated:YES];
+    [self.navigationController pushViewController:createVC animated:NO];
 }
 //编辑
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -341,7 +341,7 @@
     DiaryEditViewController *editVC = [[DiaryEditViewController alloc]init];
     editVC.diaryDelegate = self;
     editVC.currentPage = _listData[indexPath.row];
-    [self.navigationController pushViewController:editVC animated:YES];
+    [self.navigationController pushViewController:editVC animated:NO];
 }
 //删除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

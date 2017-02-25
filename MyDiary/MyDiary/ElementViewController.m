@@ -335,7 +335,7 @@
     NoteEditViewController *editVC = [[NoteEditViewController alloc]init];
     editVC.noteDelegate = self;
     editVC.currentPage = _listData[indexPath.row];
-    [self.navigationController pushViewController:editVC animated:YES];
+    [self.navigationController pushViewController:editVC animated:NO];
 }
 //删除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
