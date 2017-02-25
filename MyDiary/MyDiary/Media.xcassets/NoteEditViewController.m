@@ -356,9 +356,9 @@
     [baseNav setBackgroundColor:_themeColor];
     [baseNav setBarTintColor:_themeColor];
     [baseNav setTranslucent:NO];
-    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UIButton *cancel = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
     [cancel setTitle:@"返回" forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+    //[cancel setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
     [cancel.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [cancel.titleLabel setFont:[UIFont systemFontOfSize:20]];
     [cancel.titleLabel setTextColor:[UIColor whiteColor]];
