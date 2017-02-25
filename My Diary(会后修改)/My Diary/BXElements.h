@@ -50,6 +50,10 @@
 
 @property int month;
 
+@property int total;
+
+@property BOOL isFirst;
+
 @end
 
 @interface  HomeNavigationController: UINavigationController

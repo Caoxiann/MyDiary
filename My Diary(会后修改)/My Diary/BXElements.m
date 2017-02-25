@@ -38,6 +38,8 @@
     self = [super init];
     if(self)
     {
+        _isFirst=YES;
+        _total=0;
         _update=0;
         [self setUpNavigationBar];
         
@@ -254,7 +256,19 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:indetifier];
     }
     
-    NotePage *notePage = noteListArray[[noteListArray count]-indexPath.row-1];
+    int i=0;
+    int total=0;
+    if (indexPath.section!=0)
+    {
+        for (i=0;i<=indexPath.section-1;i++)
+        {
+            NSNumber *number=[_monthArray objectAtIndex:i];
+            int numbers=[number intValue];
+            total+=numbers;
+        }
+    }
+    NotePage *notePage = noteListArray[total+indexPath.row];
+    total=0;
 //大的UIView对象
     _cellView=[[UIView alloc]init];
     _cellView.frame=CGRectMake(20, 10, deviceWidth-40, 80);
@@ -290,7 +304,7 @@
     [_cellView addSubview:_titleLabel];
 //显示地理位置(偷懒没做定位==)
     _locationTitle=[[UILabel alloc]init];
-    _locationTitle.text=[NSString stringWithFormat:@"江苏省 江阴市"];
+    _locationTitle.text=notePage.location;
     _locationTitle.textColor=themecolor;
     _locationTitle.frame=CGRectMake(100, 52, 200, 20);
     _locationTitle.font=[UIFont systemFontOfSize:13];
@@ -370,7 +384,25 @@
     
     noteController.backFirst=self;
     
-    noteController.currentPage = noteListArray[[noteListArray count]-indexPath.row-1];
+    if (indexPath.section!=0)
+{
+    int i=0;
+    int total=0;
+    if ([_monthArray count]>1&&_isFirst==YES)
+    {
+        for (i=0;i<=indexPath.section-1;i++)
+        {
+            NSNumber *number=[_monthArray objectAtIndex:i];
+            int numbers=[number intValue];
+            total+=numbers;
+        }
+    }
+    noteController.currentPage = noteListArray[total+indexPath.row];
+}
+    else
+    {
+        noteController.currentPage = noteListArray[indexPath.row];
+    }
     
     [self.navigationController pushViewController:noteController animated:YES];
     
@@ -381,10 +413,28 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
 {
-        NotePage *notePage = noteListArray[[noteListArray count]-indexPath.row-1];
-        [NotePageSearvice deleteNotePage:nil title:nil currentNotePage:notePage];
+    if (indexPath.section!=0)
+    {
+        int i=0;
+        int total=0;
+        if (indexPath.section!=0)
+        {
+            for (i=0;i<=indexPath.section-1;i++)
+            {
+                NSNumber *number=[_monthArray objectAtIndex:i];
+                int numbers=[number intValue];
+                total+=numbers;
+            }
+        }
+        NotePage *notePage = noteListArray[total+indexPath.row];
+        [NotePageSearvice deleteNotePage:nil title:nil location:nil time:nil currentNotePage:notePage];
+    }
+    else
+    {
+        NotePage *notePage = noteListArray[indexPath.row];
+        [NotePageSearvice deleteNotePage:nil title:nil location:nil time:nil currentNotePage:notePage];
+    }
         noteListArray = [[SqlService sqlInstance]queryDBtable];
-        [_noteListTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self backFirst];
         [_noteListTableView reloadData];
 }

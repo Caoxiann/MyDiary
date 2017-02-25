@@ -14,5 +14,6 @@
 @property (nonatomic,strong)NSString *content;
 @property (nonatomic,strong)NSString *time;
 @property (nonatomic,assign)NSInteger noteID;
+@property (nonatomic,strong)NSString *location;
 
 @end

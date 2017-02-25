@@ -11,6 +11,7 @@
 #import "NotePageUpdateDelegate.h"
 #import "BXMainPage.h"
 
+
 #define deviceWidth [UIScreen mainScreen].bounds.size.width
 #define deviceHeight [UIScreen mainScreen].bounds.size.height
 

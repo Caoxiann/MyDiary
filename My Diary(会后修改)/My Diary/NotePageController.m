@@ -11,8 +11,13 @@
 #import "TimeDealler.h"
 #import "NotePageSearvice.h"
 #import "BXElements.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface NotePageController ()<UIActionSheetDelegate>
+@interface NotePageController ()<UIActionSheetDelegate,CLLocationManagerDelegate>
+{
+    CLGeocoder *_geocoder;
+    CLLocationManager *_locationManager;
+}
 
 @property (strong, nonatomic) IBOutlet UITextView *pageTextView;
 
@@ -28,9 +33,13 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *currentTimeLabel;
 
-@property (strong, nonatomic) IBOutlet UILabel *warnTitle;
-
 @property (strong, nonatomic) IBOutlet UIButton *cancel;
+
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (strong,nonatomic) NSString* location;
+
+@property (strong,nonatomic) NSString* time;
 
 @end
 
@@ -39,7 +48,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//定位实现
+    _geocoder=[[CLGeocoder alloc]init];
+    //定位管理器
+    _locationManager=[[CLLocationManager alloc]init];
+    
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"定位服务当前可能尚未打开，请设置打开！");
+        return;
+    }
+    
+    //如果没有授权则请求用户授权
+    [_locationManager requestWhenInUseAuthorization];//当应用使用期间请求运行定位
+    
+    if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorizedWhenInUse){
+        //设置代理
+        _locationManager.delegate=self;
+        //设置定位精度
+        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        //定位频率,每隔多少米定位一次
+        CLLocationDistance distance=10.0;//十米定位一次
+        _locationManager.distanceFilter=distance;
+        //启动跟踪定位
+        [_locationManager startUpdatingLocation];
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
+    _time=[TimeDealler getCurrentTime];
+    _currentTimeLabel.text=[TimeDealler getCurrentTime];
     if(_pageLabelTextView.text.length>=5)
     {
         _pageLabelTextView.text=[_pageLabelTextView.text substringWithRange:NSMakeRange(0, 5)];
@@ -50,8 +85,7 @@
         _currentTimeLabel.text = _currentPage.time;
         _pageLabelTextView.text=_currentPage.titile;
     }
-    _warnTitle.textAlignment=NSTextAlignmentCenter;
-//设置背景
+    //设置背景
     UIImage *backImage=[UIImage imageNamed:@"inputBackground.jpg"];
     self.view.layer.contents=(id)backImage.CGImage;
     self.view.layer.backgroundColor=[UIColor clearColor].CGColor;
@@ -65,9 +99,7 @@
     _myTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
     _myMainTitle.textColor=color;
     _myMainTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
-    _warnTitle.textColor=color;
-    _warnTitle.font=[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20];
-    [_cancel setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+        [_cancel setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
     _pageTextView.scrollEnabled=YES;
 //模糊主色调
 //    NSString *colorname =@"0x69D7DD";
@@ -94,13 +126,32 @@
     _pageTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*40/100, deviceWidth*80/100, deviceHeight*50/100);
     _pageLabelTextView.frame=CGRectMake(deviceWidth*10/100, deviceHeight*25/100, deviceWidth*80/100, deviceHeight*5/100);
     _myMainTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*32/100,60, deviceHeight*6/100);
-    _myTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*12/100, 60, deviceHeight*6/100);
-    _warnTitle.frame=CGRectMake((deviceWidth/2)-110, deviceHeight*17/100,220, deviceHeight*6/100);
+    _myTitle.frame=CGRectMake((deviceWidth/2)-30, deviceHeight*17/100, 60, deviceHeight*6/100);
+    _datePicker.frame=CGRectMake(deviceWidth*20/100, deviceHeight*8/100, deviceWidth*70/100, deviceHeight*8/100);
     _cancel.frame=CGRectMake((deviceWidth/2)-deviceHeight*3/100, deviceHeight*92/100, deviceHeight*6/100, deviceHeight*6/100);
-    _currentTimeLabel.frame=CGRectMake((deviceWidth/2)-deviceWidth*40/100, deviceHeight*6/100, deviceWidth*80/100, deviceHeight*6/100);
+    _currentTimeLabel.frame=CGRectMake((deviceWidth/2)-deviceWidth*40/100, deviceHeight*3/100, deviceWidth*80/100, deviceHeight*6/100);
     _currentTimeLabel.textAlignment=NSTextAlignmentCenter;
     _myTitle.textAlignment=NSTextAlignmentCenter;
     _myMainTitle.textAlignment=NSTextAlignmentCenter;
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *location=[locations firstObject];//取出第一个位置
+    CLLocationCoordinate2D coordinate=location.coordinate;//位置坐标
+    //如果不需要实时定位，使用完即使关闭定位服务
+    [_locationManager stopUpdatingLocation];
+    [self getAddressByLatitude:coordinate.latitude longitude:coordinate.longitude];
+}
+
+-(void)getAddressByLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude{
+    //反地理编码
+    CLLocation *location=[[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark=[placemarks firstObject];
+        NSLog(@"定位：%@-%@",placemark.administrativeArea,placemark.locality);
+        _location=[[NSString alloc]initWithFormat:@"%@-%@",placemark.administrativeArea,placemark.locality ];
+    }];
     
 }
 
@@ -117,7 +168,7 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 0){
         if(_currentPage){
-            [NotePageSearvice deleteNotePage:nil title:nil currentNotePage:_currentPage];
+            [NotePageSearvice deleteNotePage:nil title:nil location:nil time:nil currentNotePage:_currentPage];
                 [self.noteDelegate updateTheNoteList];
         }
         [self.navigationController popViewControllerAnimated:YES];
@@ -151,17 +202,25 @@
         //修改操作
         if([_pageTextView.text length] == 0)
         {
-            [NotePageSearvice deleteNotePage:_pageTextView.text title:_pageLabelTextView.text currentNotePage:_currentPage];
+            [NotePageSearvice deleteNotePage:_pageTextView.text title:_pageLabelTextView.text location:_location time:_time currentNotePage:_currentPage];
         }
         else
         {
-            [NotePageSearvice updateNotePage:_pageTextView.text title:_pageLabelTextView.text currentNotePage:_currentPage];
+            NSDate *select = [_datePicker date]; // 获取被选中的时间
+            NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+            selectDateFormatter.dateFormat = @"yyyy-MM-dd HH:mm"; // 设置时间和日期的格式
+            _time= [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
+            [NotePageSearvice updateNotePage:_pageTextView.text title:_pageLabelTextView.text location:_location time:_time currentNotePage:_currentPage];
         }
         //操作成功返回home界面 做更新操作
     }
     else
     {
-        [NotePageSearvice creatNotepage:_pageTextView.text title:_pageLabelTextView.text];
+        NSDate *select = [_datePicker date]; // 获取被选中的时间
+        NSDateFormatter *selectDateFormatter = [[NSDateFormatter alloc] init];
+        selectDateFormatter.dateFormat = @"yyyy-MM-dd HH:mm"; // 设置时间和日期的格式
+        _time= [selectDateFormatter stringFromDate:select]; // 把date类型转为设置好格式的string类型
+        [NotePageSearvice creatNotepage:_pageTextView.text title:_pageLabelTextView.text location:_location time:_time];
     }
     [self.backFirst backFirst];
     [self.noteDelegate updateTheNoteList];

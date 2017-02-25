@@ -15,6 +15,7 @@
 #define TITLE @"title"
 #define CONTENT @"content"
 #define TIME @"time"
+#define LOCATION @"location"
 #define ID @"id"
 #define DBNAME @"noteinfo.sqlite"
 
@@ -71,7 +72,7 @@ static SqlService *sqlService;
 -(void)createDBList
 {
     if([db open]){
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS NOTETABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,TITLE TEXT,CONTENT TEXT,TIME TEXT)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS NOTETABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT,TITLE TEXT,CONTENT TEXT,TIME TEXT,LOCATION TEXT)"];
         BOOL res = [db executeUpdate:sqlCreateTable];
         if(!res){
             NSLog(@"create error");
@@ -86,7 +87,7 @@ static SqlService *sqlService;
 {
     [self createDBList];
     if([db open]){
-        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@')VALUES ('%@','%@','%@')",TABLENAME,TITLE,CONTENT,TIME,notePage.titile,notePage.content,notePage.time];
+        NSString *sqlInsertTable = [NSString stringWithFormat:@"INSERT INTO '%@' ('%@','%@','%@','%@')VALUES ('%@','%@','%@','%@')",TABLENAME,TITLE,CONTENT,TIME,LOCATION,notePage.titile,notePage.content,notePage.time,notePage.location];
         BOOL res = [db executeUpdate:sqlInsertTable];
         if(!res){
             NSLog(@"插入失败");
@@ -100,7 +101,7 @@ static SqlService *sqlService;
 -(void)updateDBtable:(NotePage *)notePage
 {
     if([db open]){
-        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE %@ SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@' WHERE %@ = %lu",TABLENAME,TITLE,notePage.titile,CONTENT,notePage.content,TIME,notePage.time,ID,notePage.noteID];
+        NSString *sqlUpdeteTable = [NSString stringWithFormat:@"UPDATE %@ SET '%@' = '%@' , '%@' = '%@' , '%@' = '%@','%@'='%@' WHERE %@ = %lu",TABLENAME,TITLE,notePage.titile,CONTENT,notePage.content,TIME,notePage.time,LOCATION,notePage.location,ID,notePage.noteID];
         NSLog(@"%@",sqlUpdeteTable);
         BOOL res = [db executeUpdate:sqlUpdeteTable];
         if(!res){
@@ -141,6 +142,7 @@ static SqlService *sqlService;
             notePage.titile = [rs stringForColumn:TITLE];
             notePage.content = [rs stringForColumn:CONTENT];
             notePage.time = [rs stringForColumn:TIME];
+            notePage.location=[rs stringForColumn:LOCATION];
             [array addObject:notePage];
         }
         [db close];
