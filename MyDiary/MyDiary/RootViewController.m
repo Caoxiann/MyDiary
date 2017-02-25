@@ -20,6 +20,8 @@
 
 @property (nonatomic,retain) UILabel *itemShowLabel;
 
+@property (nonatomic) NSInteger page;
+
 @end
 
 @implementation ViewController
@@ -49,8 +51,12 @@
     _deviceScreenSize = [UIScreen mainScreen].bounds.size;
     _buttonRect = CGRectMake(0, 0, 20, 20);
     //属性设置
-    self.navigationController.navigationBar.hidden=YES;
     self.navigationController.toolbar.hidden=NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)titleLableInit {
@@ -73,12 +79,6 @@
     [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
     [self addChildViewController:_diaryVC];
     [self.view addSubview:self.diaryVC.view];
-    
-    _calendarVC = [[CalendarViewController alloc]init];
-    [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
-    [self addChildViewController:_calendarVC];
-    [self.view addSubview:self.calendarVC.view];
-
 }
 
 - (void)buildSegmentControl {
@@ -95,6 +95,7 @@
     [baseSegmentControl setSelectedSegmentIndex:0];
     [_titleLabel setText:@"ELEMENTS"];
     [self.view bringSubviewToFront:_elementVC.view];
+    _page = 0;
     [baseSegmentControl addTarget:self action:@selector(selectView:) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:baseSegmentControl];
@@ -106,16 +107,23 @@
         
         [_titleLabel setText:@"ELEMENTS"];
         [self.view bringSubviewToFront:_elementVC.view];
+        _page = 0;
     }
     if (baseSegmentControl.selectedSegmentIndex == 1){
 
         [_titleLabel setText:@"CALENDER"];
+        _calendarVC = [[CalendarViewController alloc]init];
+        [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+        [self addChildViewController:_calendarVC];
+        [self.view addSubview:self.calendarVC.view];
         [self.view bringSubviewToFront:_calendarVC.view];
+        _page = 1;
     }
     if (baseSegmentControl.selectedSegmentIndex == 2){
         
         [_titleLabel setText:@"DIARY"];
         [self.view bringSubviewToFront:_diaryVC.view];
+        _page = 2;
     }
 }
 
@@ -137,8 +145,7 @@
     [itemButton setImage:[UIImage imageNamed:@"item"] forState:UIControlStateNormal];
     [itemButton setFrame:_buttonRect];
     
-    [listButton addTarget:self.elementVC action:@selector(note) forControlEvents:UIControlEventTouchUpInside];
-    [charactersButton addTarget:self.diaryVC action:@selector(diary) forControlEvents:UIControlEventTouchUpInside];
+    [charactersButton addTarget:self action:@selector(create) forControlEvents:UIControlEventTouchUpInside];
     //添加按钮到toolBar
     UIBarButtonItem *listBarButton = [[UIBarButtonItem alloc]initWithCustomView:listButton];
     UIBarButtonItem *itemBarButton = [[UIBarButtonItem alloc]initWithCustomView:itemButton];
@@ -171,11 +178,27 @@
     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(catchItemNumber) userInfo:nil repeats:YES];
 }
 
--(void)catchItemNumber{
+- (void)create{
+    if(_page == 0){
+        [self.elementVC note];
+    }
+    if(_page == 2){
+        [self.diaryVC diary];
+    }
+}
 
-    itemNumber = [_elementVC.listData count];
-    NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
-    [_itemShowLabel setText:itemNumberShow];
+- (void)catchItemNumber{
+
+    NSUInteger itemNumber = [_elementVC.listData count];
+    NSUInteger diaryNumber = [_diaryVC.listData count];
+    if(_page == 0){
+        NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
+        [_itemShowLabel setText:itemNumberShow];
+    }
+    if(_page == 2){
+        NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 日记",diaryNumber];
+        [_itemShowLabel setText:itemNumberShow];
+    }
 }
 
 @end

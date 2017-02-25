@@ -10,10 +10,9 @@
 #import "ElementViewController.h"
 #import "DiaryViewController.h"
 #import "CalendarViewController.h"
-@interface ViewController : UIViewController{
-    
-    NSInteger itemNumber;
-}
+#import "NoteEditViewController.h"
+#import "DiaryEditViewController.h"
+@interface ViewController : UIViewController
 
 @property (nonatomic,strong) ElementViewController *elementVC;
 
