@@ -51,8 +51,12 @@
     _deviceScreenSize = [UIScreen mainScreen].bounds.size;
     _buttonRect = CGRectMake(0, 0, 20, 20);
     //属性设置
-    self.navigationController.navigationBar.hidden=YES;
     self.navigationController.toolbar.hidden=NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)titleLableInit {

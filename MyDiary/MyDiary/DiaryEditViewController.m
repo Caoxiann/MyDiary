@@ -345,7 +345,7 @@
     [barTitle setTextAlignment:NSTextAlignmentCenter];
     [barTitle setText:@"编辑日记"];
     [barTitle setTextColor:[UIColor whiteColor]];
-    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
+    [barTitle setFont:[UIFont fontWithName:@"Futura" size:20]];
     [item setTitleView:barTitle];
     [baseNav pushNavigationItem:item animated:NO];
     

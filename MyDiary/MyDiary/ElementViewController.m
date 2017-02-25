@@ -327,7 +327,7 @@
     
     NoteEditViewController *createVC = [[NoteEditViewController alloc]init];
     createVC.noteDelegate = self;
-    [self.navigationController pushViewController:createVC animated:YES];
+    [self.navigationController pushViewController:createVC animated:NO];
 }
 //编辑
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -346,20 +346,6 @@
         NoteBL *bl = [[NoteBL alloc]init];
         self.listData = [bl removeNote:noteTemp];
         [_elementShowTableView reloadData];
-    }
-}
-
--(void)modifiDeleteBtn{
-    for (UIView *subView in _elementShowTableView.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
-            
-            [subView setBackgroundColor:[UIColor clearColor]];
-            for (UIButton *btn in subView.subviews) {
-                if ([btn isKindOfClass:[UIButton class]]) {
-                    btn.backgroundColor=[UIColor blueColor];
-                }
-            }
-        }
     }
 }
 

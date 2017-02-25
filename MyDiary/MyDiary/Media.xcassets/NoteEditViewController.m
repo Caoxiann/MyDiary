@@ -159,6 +159,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
     //开始定位
     [self.locationManager startUpdatingLocation];
 }
@@ -383,7 +384,7 @@
     [barTitle setTextAlignment:NSTextAlignmentCenter];
     [barTitle setText:@"编辑项目"];
     [barTitle setTextColor:[UIColor whiteColor]];
-    [barTitle setFont:[UIFont fontWithName:@"Futura" size:22]];
+    [barTitle setFont:[UIFont fontWithName:@"Futura" size:20]];
     [item setTitleView:barTitle];
     [baseNav pushNavigationItem:item animated:NO];
     
