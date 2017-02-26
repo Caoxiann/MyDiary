@@ -103,7 +103,16 @@
     _arrayMinute = [[NSMutableArray alloc] init];
     _arraySubLocality = [[NSMutableArray alloc] init];
     _arrayCity = [[NSMutableArray alloc] init];
-
+    
+    _labelNull = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, [UIScreen mainScreen].bounds.size.width - 40, 100)];
+    _labelNull.text = @"还没有备忘\n\n 快去新建一个吧！";
+    _labelNull.numberOfLines = 0;
+    _labelNull.font = [UIFont systemFontOfSize:23];
+    [_labelNull setTextAlignment:NSTextAlignmentCenter];
+    _labelNull.backgroundColor = [UIColor clearColor];
+    _labelNull.textColor = [UIColor blackColor];
+    [self.view addSubview:_labelNull];
+    _labelNull.hidden = YES;
 }
 
 
@@ -191,6 +200,12 @@
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
     _toolbar.items = arrayBtns;
     [_tableView reloadData];
+    if (_arrayDay.count == 0) {
+        _labelNull.hidden = NO;
+    }
+    else {
+        _labelNull.hidden = YES;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -244,7 +259,7 @@
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
-        NSString* strQuery = @"select * from elements order by id desc;";
+        NSString* strQuery = @"select * from elements order by time;";
         FMResultSet* result = [_mDB executeQuery:strQuery];
         while ([result next]) {
             NSString* _month = [result stringForColumn:@"month"];
@@ -272,7 +287,13 @@
     NSArray* arrayBtns = [NSArray arrayWithObjects:btn01,btnF01,btn02,btnF01,btn03,btnF02,btn04,btn05, nil];
     _toolbar.items = arrayBtns;
     [_tableView reloadData];
-
+    
+    if (_arrayDay.count == 0) {
+        _labelNull.hidden = NO;
+    }
+    else {
+        _labelNull.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

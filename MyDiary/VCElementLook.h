@@ -13,6 +13,7 @@
 @interface VCElementLook : UIViewController <UITextViewDelegate,VCElementEditDelegate> {
     FMDatabase* _mDB;
     UITextField* _title;
+    UITextField* _time;
     UITextView* _content;
     NSNumber* _id;
 }

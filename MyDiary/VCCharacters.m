@@ -31,18 +31,18 @@
     UIBarButtonItem* btnFinish = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(pressFinish)];
     self.navigationItem.rightBarButtonItem = btnFinish;
     
-    _lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 80, 80, 50)];
+    _lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 75, 80, 40)];
     _lbTitle.text = @"标题：";
-    _lbTitle.font = [UIFont systemFontOfSize:25];
+    _lbTitle.font = [UIFont systemFontOfSize:20];
     _lbTitle.textColor = [UIColor blackColor];
     [self.view addSubview:_lbTitle];
-    _tfTitle = [[UITextField alloc] initWithFrame:CGRectMake(100, 80, [UIScreen mainScreen].bounds.size.width - 120, 50)];
+    _tfTitle = [[UITextField alloc] initWithFrame:CGRectMake(100, 75, [UIScreen mainScreen].bounds.size.width - 120, 40)];
     _tfTitle.borderStyle = UITextBorderStyleRoundedRect;
     _tfTitle.keyboardType = UIKeyboardTypeDefault;
-    _tfTitle.font = [UIFont systemFontOfSize:25];
+    _tfTitle.font = [UIFont systemFontOfSize:20];
     _tfTitle.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_tfTitle];
-    _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, [UIScreen mainScreen].bounds.size.width, 50)];
+    _lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0, 188, [UIScreen mainScreen].bounds.size.width, 50)];
     _lbContent.text = @"内容";
     _lbContent.font = [UIFont systemFontOfSize:20];
     _lbContent.textColor = [UIColor blackColor];
@@ -61,26 +61,45 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-    _lbLocation = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, 80, 40)];
-    _lbLocation.text = @"当前位置:";
+    _lbLocation = [[UILabel alloc] initWithFrame:CGRectMake(20, 125, 80, 30)];
+    _lbLocation.text = @"位置：";
     _lbLocation.font = [UIFont systemFontOfSize:18];
     _lbLocation.textColor = [UIColor blackColor];
     [self.view addSubview:_lbLocation];
 
-    _tfCity = [[UITextField alloc] initWithFrame:CGRectMake(120, 140, [UIScreen mainScreen].bounds.size.width/2 - 80, 40)];
+    _tfCity = [[UITextField alloc] initWithFrame:CGRectMake(100, 125, [UIScreen mainScreen].bounds.size.width/2 - 65, 30)];
     _tfCity.borderStyle = UITextBorderStyleRoundedRect;
     _tfCity.keyboardType = UIKeyboardTypeDefault;
     _tfCity.font = [UIFont systemFontOfSize:18];
     _tfCity.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
 
-    _tfSublocality = [[UITextField alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 + 50, 140, [UIScreen mainScreen].bounds.size.width/2 - 80, 40)];
+    _tfSublocality = [[UITextField alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/2 + 45, 125, [UIScreen mainScreen].bounds.size.width/2 - 65, 30)];
     _tfSublocality.borderStyle = UITextBorderStyleRoundedRect;
     _tfSublocality.keyboardType = UIKeyboardTypeDefault;
-    _tfSublocality.font = [UIFont systemFontOfSize:18];
+    _tfSublocality.borderStyle = UITextBorderStyleRoundedRect;
     _tfSublocality.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     [self.view addSubview:_tfCity];
     [self.view addSubview:_tfSublocality];
     
+    _lbTime = [[UILabel alloc] initWithFrame:CGRectMake(20, 165, 80, 30)];
+    _lbTime.text = @"时间：";
+    _lbTime.font = [UIFont systemFontOfSize:18];
+    _lbTime.textColor = [UIColor blackColor];
+    [self.view addSubview:_lbTime];
+    
+    datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode =  UIDatePickerModeDateAndTime;
+    [datePicker addTarget:self action:@selector(dateChanged) forControlEvents:UIControlEventValueChanged];
+    _tfTime = [[UITextField alloc] initWithFrame:CGRectMake(100, 165, [UIScreen mainScreen].bounds.size.width - 120, 30)];
+    _tfTime.borderStyle = UITextBorderStyleRoundedRect;
+    _tfTime.textColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
+    _tfTime.inputView = datePicker;
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日 HH:mm"];
+    NSString* dateStr = [dateFormatter stringFromDate:datePicker.date];
+    _tfTime.text = dateStr;
+    [_tfTime setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:_tfTime];
     
     if ([CLLocationManager locationServicesEnabled]) {
         if (!_locationManager) {
@@ -89,15 +108,10 @@
                 [self.locationManager requestWhenInUseAuthorization];
                 [self.locationManager requestAlwaysAuthorization];
             }
-            //设置代理
             [self.locationManager setDelegate:self];
-            //设置定位精度
             [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-            //设置距离筛选
             [self.locationManager setDistanceFilter:100];
-            //开始定位
             [self.locationManager startUpdatingLocation];
-            //设置开始识别方向
             [self.locationManager startUpdatingHeading];
         }
     }
@@ -107,6 +121,13 @@
         _tfSublocality.placeholder = @"地区";
         [alertView show];
     }
+}
+
+- (void)dateChanged {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日 HH:mm"];
+    NSString* dateStr = [dateFormatter stringFromDate:datePicker.date];
+    _tfTime.text = dateStr;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -163,6 +184,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_tfTitle resignFirstResponder];
     [_tvContent resignFirstResponder];
+    [_tfTime resignFirstResponder];
 }
 
 - (NSString*)shortDay:(NSString*)day {
@@ -182,7 +204,7 @@
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
     if ([_mDB open]) {
-        NSDate* date = [NSDate date];
+        NSDate* date = datePicker.date;
 /*        NSTimeZone* zone = [NSTimeZone systemTimeZone];
         NSInteger interval = [zone secondsFromGMTForDate:date];
         NSDate* localDate = [date dateByAddingTimeInterval:interval];
@@ -196,7 +218,8 @@
         NSString* strWeek = [dateFormatter stringFromDate:date];
         [dateFormatter setDateFormat:@"HH:mm"];
         NSString* strMinute = [dateFormatter stringFromDate:date];
-        
+        [dateFormatter setDateFormat:@"MMddHHmm"];
+        NSString* strTime = [dateFormatter stringFromDate:date];
         NSString* strTitle = _tfTitle.text;
         NSString* strContent = _tvContent.text;
         
@@ -204,7 +227,7 @@
         FMResultSet* result = [_mDB executeQuery:strQuery];
         NSInteger maxid = 0;
         while ([result next]) if ([result intForColumn:@"id"] > maxid) maxid = [result intForColumn:@"id"];
-        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute, _tfSublocality.text, _tfCity.text];
+        NSString* strInsert = [[NSString alloc] initWithFormat:@"insert into elements values('%ld','%@','%@','%@','%@','%@','%@','%@','%@','%@');",maxid + 1, strMonth, strDay, strWeek, strTitle, strContent, strMinute, _tfSublocality.text, _tfCity.text,strTime];
         [_mDB executeUpdate:strInsert];
     }
     [self.navigationController popViewControllerAnimated:YES];

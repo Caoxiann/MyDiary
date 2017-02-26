@@ -70,7 +70,7 @@
     _day.backgroundColor = [UIColor colorWithDisplayP3Red:123/255.0 green:181/255.0 blue:217/255.0 alpha:255];
     
     _week.text = [self transformIntoChinese:week];
-    _week.font = [UIFont systemFontOfSize:10];
+    _week.font = [UIFont systemFontOfSize:11];
     _week.textColor = [UIColor whiteColor];
     _week.layer.borderWidth = 0;
     [_week setTextAlignment:NSTextAlignmentCenter];
