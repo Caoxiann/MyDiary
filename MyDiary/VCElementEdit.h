@@ -20,6 +20,7 @@
     UILabel* _lbTitle;
     UILabel* _lbContent;
     UILabel* _lbLocation;
+    UILabel* _lbTime;
     UITextField* _title;
     UITextView* _content;
     NSNumber* _id;
@@ -28,6 +29,8 @@
     NSString* strCity;
     UITextField* _tfCity;
     UITextField* _tfSublocality;
+    UITextField* _tfTime;
+    UIDatePicker* datePicker;
 }
 
 @property (retain, nonatomic) NSNumber* myID;

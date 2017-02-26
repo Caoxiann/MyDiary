@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view./Users/fjm/Git/MyDiary/MyDiary/VCCalendar.h
    
     NSString* strPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/datebase.db"];
     _mDB = [[FMDatabase alloc] initWithPath:strPath];
@@ -34,7 +34,7 @@
         strDel = @"drop table diary;";
         [_mDB executeUpdate:strDel];
 */ 
-        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(300), minute varchar(10), sublocality varchar(20), city varchar(20));";
+        NSString* strCreateTable = @"create table if not exists elements(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(300), minute varchar(10), sublocality varchar(20), city varchar(20), time varchar(50));";
         [_mDB executeUpdate:strCreateTable];
         strCreateTable = @"create table if not exists diary(id integer primary key, month varchar(5), day varchar(5), week varchar(10), title varchar(30), content varchar(500), sublocality varchar(20), city varchar(20));";
         [_mDB executeUpdate:strCreateTable];
@@ -145,7 +145,7 @@
     _arraySubLocality = [[NSMutableArray alloc] init];
     _arrayCity = [[NSMutableArray alloc] init];
     if ([_mDB open]) {
-        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth,[self shortDay:strDay]];
+        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by time;",strMonth,[self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];
         while ([result next]) {
             NSString* _month = [result stringForColumn:@"month"];
@@ -203,7 +203,7 @@
         NSString* strMonth = [dateFormatter stringFromDate:date];
         [dateFormatter setDateFormat:@"dd"];
         NSString* strDay = [dateFormatter stringFromDate:date];
-        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth, [self shortDay:strDay]];
+        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by time;",strMonth, [self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];
         while ([result next]) {
             NSString* _month = [result stringForColumn:@"month"];
@@ -281,7 +281,7 @@
     [_arraySubLocality removeAllObjects];
     [_arrayCity removeAllObjects];
     if ([_mDB open]) {
-        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by id desc;",strMonth,[self shortDay:strDay]];
+        NSString* strQuery = [[NSString alloc] initWithFormat:@"select * from elements where month='%@' and day='%@' order by time;",strMonth,[self shortDay:strDay]];
         FMResultSet* result = [_mDB executeQuery:strQuery];
         while ([result next]) {
             NSString* _month = [result stringForColumn:@"month"];

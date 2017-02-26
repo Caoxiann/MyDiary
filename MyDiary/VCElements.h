@@ -34,6 +34,7 @@ UITableViewDataSource>
     UIBarButtonItem* btnF01;
     UIBarButtonItem* btnF02;
     UIToolbar* _toolbar;
+    UILabel* _labelNull;
 }
 
 @end

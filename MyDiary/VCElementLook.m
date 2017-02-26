@@ -31,7 +31,7 @@
     UIBarButtonItem* btnChange = [[UIBarButtonItem alloc] initWithTitle:@"修改" style:UIBarButtonItemStyleDone target:self action:@selector(pressChange)];
     self.navigationItem.rightBarButtonItem = btnChange;
     
-    _title = [[UITextField alloc] initWithFrame:CGRectMake(0, 80, [UIScreen mainScreen].bounds.size.width, 50)];
+    _title = [[UITextField alloc] initWithFrame:CGRectMake(0, 70, [UIScreen mainScreen].bounds.size.width, 50)];
     [_title setTextAlignment:NSTextAlignmentCenter];
     _title.font = [UIFont systemFontOfSize:30];
     _title.layer.cornerRadius = 10;
@@ -40,7 +40,14 @@
     _title.textColor = [UIColor blackColor];
     [self.view addSubview:_title];
     
-    _content = [[UITextView alloc] initWithFrame:CGRectMake(20, 150, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 180)];
+    _time = [[UITextField alloc] initWithFrame:CGRectMake(0, 110, [UIScreen mainScreen].bounds.size.width, 40)];
+    [_time setTextAlignment:NSTextAlignmentCenter];
+    _time.font = [UIFont systemFontOfSize:20];
+    _time.userInteractionEnabled = NO;
+    _time.textColor = [UIColor blackColor];
+    [self.view addSubview:_time];
+    
+    _content = [[UITextView alloc] initWithFrame:CGRectMake(20, 155, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height - 175)];
     _content.font = [UIFont systemFontOfSize:18];
     _content.layer.cornerRadius = 10;
     _content.layer.masksToBounds = YES;
@@ -69,12 +76,18 @@
     BOOL find = NO;
     NSInteger maxid = 0;
     if ([_mDB open]) {
+        NSString* strMonth;
+        NSString* strDay;
+        NSString* strMinute;
         NSString* strQuery = @"select * from elements;";
         FMResultSet* result = [_mDB executeQuery:strQuery];
         while ([result next]) {
             if ([result intForColumn:@"id"] == [self.myID intValue]) {
                 _title.text = [result stringForColumn:@"title"];
                 _content.text = [result stringForColumn:@"content"];
+                strMonth = [result stringForColumn:@"month"];
+                strDay = [result stringForColumn:@"day"];
+                strMinute = [result stringForColumn:@"minute"];
                 find = YES;
                 break;
             }
@@ -82,9 +95,26 @@
                 maxid = [result intForColumn:@"id"];
                 _title.text = [result stringForColumn:@"title"];
                 _content.text = [result stringForColumn:@"content"];
+                strMonth = [result stringForColumn:@"month"];
+                strDay = [result stringForColumn:@"day"];
+                strMinute = [result stringForColumn:@"minute"];
             }
         }
+        _time.text = [NSString stringWithFormat:@"%@月%@日 %@",strMonth,[self longDay:strDay],strMinute];
     }
+}
+
+- (NSString*)longDay:(NSString*)day {
+    if ([day isEqualToString:@"1"]) return @"01";
+    if ([day isEqualToString:@"2"]) return @"02";
+    if ([day isEqualToString:@"3"]) return @"03";
+    if ([day isEqualToString:@"4"]) return @"04";
+    if ([day isEqualToString:@"5"]) return @"05";
+    if ([day isEqualToString:@"6"]) return @"06";
+    if ([day isEqualToString:@"7"]) return @"07";
+    if ([day isEqualToString:@"8"]) return @"08";
+    if ([day isEqualToString:@"9"]) return @"09";
+    return day;
 }
 
 - (void)didReceiveMemoryWarning {

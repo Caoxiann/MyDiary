@@ -14,12 +14,15 @@
     UILabel* _lbTitle;
     UILabel* _lbContent;
     UILabel* _lbLocation;
+    UILabel* _lbTime;
     UITextField* _tfTitle;
+    UITextField* _tfTime;
     UITextView* _tvContent;
     UITextField* _tfCity;
     UITextField* _tfSublocality;
     NSString* strSubLocality;
     NSString* strCity;
+    UIDatePicker* datePicker;
 }
 
 @end
