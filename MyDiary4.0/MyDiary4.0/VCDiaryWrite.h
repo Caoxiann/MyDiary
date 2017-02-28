@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewCellDataSource.h"
+
+@class TableViewCellDataSource;
 
 @protocol VCDiaryWriteDelegate <NSObject>
 
@@ -20,7 +21,7 @@
 @end
 
 
-@interface VCDiaryWrite : UIViewController
+@interface VCDiaryWrite : UIViewController<UITextViewDelegate>
 
 @property (nonatomic, retain) UITextView *textView;
 

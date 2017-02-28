@@ -18,8 +18,12 @@
 
 @property (nonatomic, assign) NSInteger minute;
 
+@property (nonatomic, assign) NSInteger year;
+
+@property (nonatomic, assign) NSInteger month;
+
 @property (nonatomic, retain) NSString *place;
 
--(id)initWithText:(NSString *)text Day:(NSInteger)day Hour:(NSInteger)hour Minute:(NSInteger)minute Place:(NSString *)place;
+-(id)initWithText:(NSString *)text Year:(NSInteger)year Month:(NSInteger) month Day:(NSInteger)day Hour:(NSInteger)hour Minute:(NSInteger)minute Place:(NSString *)place;
 
 @end

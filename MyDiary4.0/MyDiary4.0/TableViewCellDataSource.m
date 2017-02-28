@@ -10,11 +10,13 @@
 
 @implementation TableViewCellDataSource
 
--(id)initWithText:(NSString *)text Day:(NSInteger)day Hour:(NSInteger)hour Minute:(NSInteger)minute Place:(NSString *)place
+-(id)initWithText:(NSString *)text Year:(NSInteger)year Month:(NSInteger) month Day:(NSInteger)day Hour:(NSInteger)hour Minute:(NSInteger)minute Place:(NSString *)place
 {
     self=[super init];
     if (self) {
         self.text=text;
+        self.year=year;
+        self.month=month;
         self.day=day;
         self.hour=hour;
         self.minute=minute;

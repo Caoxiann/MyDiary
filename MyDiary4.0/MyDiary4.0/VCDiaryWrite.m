@@ -9,6 +9,8 @@
 #import "VCDiaryWrite.h"
 #import "TableViewCellDataSource.h"
 
+static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute;
+
 @interface VCDiaryWrite ()
 
 @end
@@ -19,18 +21,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
-    //set navigationItem.
-    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setLeftBarButtonItem:leftBtn];
-    
-    UIBarButtonItem *rightBtn=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinishBtn)];
-    [self.navigationItem setRightBarButtonItem:rightBtn];
-    
-}
-//
--(void)viewWillAppear:(BOOL)animated
-{
+    [self.textView setFrame:CGRectMake(5, 20, self.view.frame.size.width-10, self.view.frame.size.height-150)];
+    [self.textView setDelegate:self];
+    [self.view addSubview:self.textView];
+    [self.textView becomeFirstResponder];
+    [self.textView setFont:[UIFont systemFontOfSize:16]];
+    self.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
+    [self.textView.layer setBorderWidth:1];
+    [self.textView.layer setMasksToBounds:YES];
+    [self.textView.layer setCornerRadius:10];
     if ([self.textView.text isEqualToString:@"开始记录你的生活吧"])
     {
         [self doWithoutText];
@@ -40,10 +39,14 @@
         [self doWithText];
     }
 }
+//
+-(void)viewWillAppear:(BOOL)animated
+{
+}
 //if the textview is "开始记录你的生活吧",new a diary
 -(void)doWithoutText
 {
-    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithoutText)];
+    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithoutText)];
     [self.navigationItem setLeftBarButtonItem:leftBtn];
     //set toolBarItems
     UIBarButtonItem *trashBtn=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(pressTrashWithoutText)];
@@ -56,7 +59,7 @@
 //if the textView has origin text,do something with the text
 -(void)doWithText
 {
-    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithText)];
+    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithText)];
     [self.navigationItem setLeftBarButtonItem:leftBtn];
     //set toolBarItems
     UIBarButtonItem *trashBtn=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(pressTrashWithText)];
@@ -79,8 +82,8 @@
     {
         NSDate *currentTime=[NSDate date];
         NSCalendar *calendar=[NSCalendar currentCalendar];
-        NSDateComponents *components=[calendar components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitDay fromDate:currentTime];
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Day:[components day] Hour:[components hour] Minute:[components minute] Place:@" 四川成都"];
+        NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:currentTime];
+        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@""];
         [self.delegate addDiary:data];
     }
 }
@@ -92,7 +95,7 @@
         [self pressTrashWithText];
         return;
     }
-    TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Day:self.originData.day Hour:self.originData.hour Minute:self.originData.minute Place:@"四川成都"];
+    TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:self.originData.year Month:self.originData.month Day:self.originData.day Hour:self.originData.hour Minute:self.originData.minute Place:@""];
     [self.delegate changeDiary:data];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -104,13 +107,17 @@
 
 -(void)pressTrashWithoutText
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView *deleteAlert=[[UIAlertView alloc]initWithTitle:@"警告" message:@"确定是否删除项目" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [deleteAlert setTag:101];
+    [deleteAlert show];
 }
 
 -(void)pressTrashWithText
 {
-    [self.delegate deleteDiary];
+    UIAlertView *deleteAlert=[[UIAlertView alloc]initWithTitle:@"警告" message:@"确定是否删除项目" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [deleteAlert setTag:102];
+    [deleteAlert show];
+
 }
 
 -(void)pressAdd
@@ -121,6 +128,36 @@
 -(void)pressAction
 {
 
+}
+#pragma mark - UITextView delegate
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    UIBarButtonItem *rightBtn=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinishBtn)];
+    [self.navigationItem setRightBarButtonItem:rightBtn];
+    if ([self.textView.text isEqualToString:@"开始记录你的生活吧"])
+    {
+        [self.textView setText:@""];
+    }
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    [self.navigationItem setRightBarButtonItem:nil];
+}
+
+#pragma  mark - UIAlertView Delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==101 && buttonIndex==1)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if(alertView.tag==102 && buttonIndex==1)
+    {
+        [self.delegate deleteDiary];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

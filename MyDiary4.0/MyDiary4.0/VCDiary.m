@@ -34,6 +34,7 @@
     self.diaries=[[NSMutableArray alloc]init];
     //load diaries from file
     [self loadDiaries];
+    //[self deleteTable];
     //set toolBatItem
     UIButton *btnInToolBarBtn01=[self.toolBtn01 customView];
     [btnInToolBarBtn01 addTarget:self action:@selector(pressToolBtn01) forControlEvents:UIControlEventTouchUpInside];
@@ -54,8 +55,8 @@
     UILabel *labMonth=[[UILabel alloc]initWithFrame:CGRectMake(20, 10, 40, 30)];
     NSDate *currentTime=[NSDate date];
     NSCalendar *calendar=[NSCalendar currentCalendar];
-    NSDateComponents *components=[calendar components:NSCalendarUnitMonth fromDate:currentTime];
-    labMonth.text=[NSString stringWithFormat:@"%ld月",[components month]];
+    NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
+    labMonth.text=[NSString stringWithFormat:@"%ld年%ld月",[components year],[components month]];
     [self.tableView setTableHeaderView:labMonth];
     [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCellForDiary" bundle:nil] forCellReuseIdentifier:@"CellForDiary"];
     [self.view addSubview:self.tableView];
@@ -79,15 +80,8 @@
     {
         VCDiaryWrite *diaryWrite=[[VCDiaryWrite alloc]init];
         [diaryWrite setDelegate:self];
-        diaryWrite.textView=[[UITextView alloc]initWithFrame:CGRectMake(5, 20, diaryWrite.view.frame.size.width-10, diaryWrite.view.frame.size.height-150)];
-        [diaryWrite.view addSubview:diaryWrite.textView];
-        [diaryWrite.textView becomeFirstResponder];
-        [diaryWrite.textView setFont:[UIFont systemFontOfSize:16]];
+        diaryWrite.textView=[[UITextView alloc]init];
         [diaryWrite.textView setText:@"开始记录你的生活吧"];
-        diaryWrite.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
-        [diaryWrite.textView.layer setBorderWidth:1];
-        [diaryWrite.textView.layer setMasksToBounds:YES];
-        [diaryWrite.textView.layer setCornerRadius:10];
         [self.navigationController pushViewController:diaryWrite animated:YES];
     }
 }
@@ -226,7 +220,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.day,data.hour,data.minute,data.place];
+        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and Year= %ld and day=%ld and month=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.day,data.month,data.hour,data.minute,data.place];
         BOOL isDelete=[self.dataBase executeUpdate:strDelete];
         NSLog(@"%d",isDelete);
         [self.dataBase close];
@@ -243,14 +237,7 @@
     {
         VCDiaryWrite *diaryShow=[[VCDiaryWrite alloc]init];
         [diaryShow setDelegate:self];
-        diaryShow.textView=[[UITextView alloc]initWithFrame:CGRectMake(5, 20, diaryShow.view.frame.size.width-10, diaryShow.view.frame.size.height-150)];
-        [diaryShow.view addSubview:diaryShow.textView];
-        diaryShow.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
-        [diaryShow.textView.layer setBorderWidth:1];
-        [diaryShow.textView.layer setMasksToBounds:YES];
-        [diaryShow.textView.layer setCornerRadius:10];
-        [diaryShow.textView becomeFirstResponder];
-        [diaryShow.textView setFont:[UIFont systemFontOfSize:16]];
+        diaryShow.textView=[[UITextView alloc]init];
         TableViewCellDataSource *data=[self.diaries objectAtIndex:indexPath.row+indexPath.section];
         [diaryShow setOriginData:data];
         [diaryShow.textView setText:data.text];
@@ -274,7 +261,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,%ld,'%@','%@');",tableName,data.hour,data.minute,data.day,data.text,data.place];
+        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,%ld,%ld,%ld,'%@','%@');",tableName,data.year,data.month,data.day,data.hour,data.minute,data.text,data.place];
         BOOL isAdd=[self.dataBase executeUpdate:strInsert];
         if (isAdd)
         {
@@ -299,7 +286,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-        NSString *strUpdate=[NSString stringWithFormat:@"update %@ set diary='%@',hour=%ld,minute=%ld where diary='%@' and hour=%ld and minute=%ld and day=%ld and place='%@';",tableName,data.text,data.hour,data.minute,originData.text,originData.hour,originData.minute,data.day,originData.place];
+        NSString *strUpdate=[NSString stringWithFormat:@"update %@ set diary='%@',year=%ld,month=%ld,hour=%ld,minute=%ld where diary='%@' and year=%ld and month=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.hour,data.minute,originData.text,originData.year,originData.month,originData.hour,originData.minute,originData.place];
         BOOL isUpDated=[self.dataBase executeUpdate:strUpdate];
         NSLog(@"%d",isUpDated);
         [self.dataBase close];
@@ -324,7 +311,7 @@
             NSCalendar *calendar=[NSCalendar currentCalendar];
             NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
             NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and hour=%ld and minute=%ld and day=%ld and place='%@';",tableName,data.text,data.hour,data.minute,data.day,data.place];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and year=%ld and month=%ld hour=%ld and day=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
             [self.dataBase close];
@@ -348,7 +335,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(hour integer,minute integer,day integer,diary varchar(500),place varchar(50));",tableName];
+        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,diary varchar(500),place varchar(50));",tableName];
         BOOL isExecuted=[self.dataBase executeUpdate:strCreateTable];
         if (isExecuted)
         {
@@ -358,7 +345,7 @@
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"diary"] Day:[resultForProjects intForColumn:@"day"]Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"diary"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
                 [self.diaries addObject:data];
             }
             [self.dataBase close];
