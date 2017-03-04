@@ -180,19 +180,23 @@
     //NSCalendar *calendar=[NSCalendar currentCalendar];
     //NSDateComponents *components=[calendar components:NSCalendarUnitDay fromDate:currentTime];
     cell.labDate.text=[NSString stringWithFormat:@"%ld",data.day];
-    UIBezierPath *maskPathForLabDate=[UIBezierPath bezierPathWithRoundedRect:cell.labDate.bounds byRoundingCorners:UIRectCornerTopLeft cornerRadii:CGSizeMake(10, 10)];
-    UIBezierPath *maskPathForLabPalce=[UIBezierPath bezierPathWithRoundedRect:cell.labPlace.bounds byRoundingCorners:UIRectCornerTopRight  cornerRadii:CGSizeMake(10, 10)];
-    CAShapeLayer *maskLayer =[[CAShapeLayer alloc]init];
-    //
-    maskLayer.frame=cell.labDate.bounds;
-    maskLayer.path=maskPathForLabDate.CGPath;
-    cell.labDate.layer.mask=maskLayer;
-    //
-    maskLayer.frame=cell.labPlace.bounds;
-    maskLayer.path=maskPathForLabPalce.CGPath;
-    cell.labPlace.layer.mask=maskLayer;
+//    UIBezierPath *maskPathForLabDate=[UIBezierPath bezierPathWithRoundedRect:cell.labDate.bounds byRoundingCorners:UIRectCornerTopLeft cornerRadii:CGSizeMake(10, 10)];
+//    UIBezierPath *maskPathForLabPalce=[UIBezierPath bezierPathWithRoundedRect:cell.labPlace.bounds byRoundingCorners:UIRectCornerTopRight  cornerRadii:CGSizeMake(10, 10)];
+//    
+//    CAShapeLayer *maskLayer =[[CAShapeLayer alloc]init];
+//    //
+//    maskLayer.frame=cell.labDate.bounds;
+//    maskLayer.path=maskPathForLabDate.CGPath;
+//    cell.labDate.layer.mask=maskLayer;
+//    //
+//    
+//    maskLayer.frame=cell.labPlace.bounds;
+//    maskLayer.path=maskPathForLabPalce.CGPath;
+//    cell.labPlace.layer.mask=maskLayer;
+
     //
     //NSString *str=data.text;
+//    cell.backgroundColor=[UIColor clearColor];
     [cell.labPlace setText:data.place];
     [cell.labContent setText:data.text];
     [cell.layer setMasksToBounds:YES];

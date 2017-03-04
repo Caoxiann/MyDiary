@@ -52,6 +52,7 @@
 		4D2EBDFA1E5A9337004FBB16 /* VCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE51E5A9337004FBB16 /* VCProject.m */; };
 		4D2EBDFB1E5A9337004FBB16 /* VCProjectWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */; };
 		4D2EBDFC1E5A9337004FBB16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE91E5A9337004FBB16 /* ViewController.m */; };
+		ECF578121E66BC8B00B4B9B4 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ECF578111E66BC8B00B4B9B4 /* timg.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCProjectWrite.m; sourceTree = "<group>"; };
 		4D2EBDE81E5A9337004FBB16 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4D2EBDE91E5A9337004FBB16 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		ECF578111E66BC8B00B4B9B4 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timg.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 		EC1ED5BB1E62E19300E164A7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ECF578111E66BC8B00B4B9B4 /* timg.jpeg */,
 				4D2EBDB91E5A9320004FBB16 /* item.png */,
 				4D2EBDBA1E5A9320004FBB16 /* item@2x.png */,
 				4D2EBDBB1E5A9320004FBB16 /* item@3x.png */,
@@ -466,6 +469,7 @@
 				4D2EBD721E5A9167004FBB16 /* LaunchScreen.storyboard in Resources */,
 				4D2EBDC31E5A9320004FBB16 /* list@2x.png in Resources */,
 				4D2EBDAE1E5A9311004FBB16 /* camera@2x.png in Resources */,
+				ECF578121E66BC8B00B4B9B4 /* timg.jpeg in Resources */,
 				4D2EBDB01E5A9311004FBB16 /* characters.png in Resources */,
 				4D2EBDC01E5A9320004FBB16 /* item@2x.png in Resources */,
 				4D2EBDC41E5A9320004FBB16 /* list@3x.png in Resources */,

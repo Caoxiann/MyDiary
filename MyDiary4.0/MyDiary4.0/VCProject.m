@@ -15,7 +15,7 @@
 #import "TableViewCellDataSource.h"
 #import "FMDatabase.h"
 
-
+//static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute;
 
 @interface VCProject ()<VCProjectWriteDelegate>
 
@@ -134,7 +134,7 @@
             NSCalendar *calendar=[NSCalendar currentCalendar];
             NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
             NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' year=%ld month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and year=%ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
         }
@@ -217,7 +217,6 @@
         NSLog(@"%d",isDelete);
         [self.dataBase close];
     }
-
     [self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
     [self.tableView reloadData];
     UILabel *label=[self.toolBtn05 customView];
@@ -231,11 +230,20 @@
         TableViewCellDataSource *data=[self.projects objectAtIndex:indexPath.row+indexPath.section];
         VCProjectWrite *projShow=[[VCProjectWrite alloc]init];
         [projShow setDelegate:self];
+        //NSDate *currentDate=[NSDate date];
+        //NSCalendar *calendar=[NSCalendar currentCalendar];
+        //NSDateComponents *componentsForNow=[calendar components:NSCalendarUnitYMDHM fromDate:currentDate];
+        //NSDate *date=[NSDate dateWithTimeIntervalSinceNow:(data.year-[componentsForNow year])*365*(data.month-[componentsForNow month]*30];
         projShow.textView=[[UITextView alloc]init];
         [projShow.textView setDelegate:projShow];
         projShow.textView.text=data.text;
         [self.navigationController pushViewController:projShow animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @" ";
 }
 //
 #pragma mark-VCProject delegate
@@ -282,7 +290,6 @@
         NSLog(@"%d",isUpDated);
         [self.dataBase close];
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 //
 -(void)deleteProject

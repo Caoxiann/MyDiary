@@ -8,10 +8,13 @@
 
 #import "VCDiaryWrite.h"
 #import "TableViewCellDataSource.h"
+#import <CoreLocation/CoreLocation.h>
 
 static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute;
 
-@interface VCDiaryWrite ()
+@interface VCDiaryWrite ()<CLLocationManagerDelegate>
+
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 @end
 
@@ -83,7 +86,27 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
         NSDate *currentTime=[NSDate date];
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:currentTime];
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@""];
+        if (_locationManager == nil)
+        {
+            _locationManager = [[CLLocationManager alloc] init];
+            // 设置定位精度
+            [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+            _locationManager.delegate = self;
+            
+            if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0)
+            {//ios8.0以上版本CLLocationManager定位服务需要授权
+                [_locationManager requestWhenInUseAuthorization];
+            }
+            if([CLLocationManager locationServicesEnabled])
+            {
+                // 开始时时定位
+                [self.locationManager startUpdatingLocation];
+                
+            }
+        }
+        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:[userDefault objectForKey:@"location"]];
+        [userDefault removeObjectForKey:@"location"];
         [self.delegate addDiary:data];
     }
 }
@@ -129,6 +152,12 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
 {
 
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark - UITextView delegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -159,11 +188,49 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     }
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - CLLocation Delegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    
+    [_locationManager stopUpdatingLocation];
+    CLGeocoder *geocoder=[[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
+     ^(NSArray< CLPlacemark *> * placemarks, NSError * error){
+         if (error != nil)
+         {
+             UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
+             [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
+                               ^(UIAlertAction*action){
+                                   //
+                               }]];
+             [self presentViewController:alert animated:YES completion:nil];
+         }
+         
+         if (placemarks.count > 0)
+         {
+             CLPlacemark *pm = placemarks[0];
+             NSString *locationStr=[[NSString alloc]init];
+             if(pm.country!=nil)
+             {
+                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
+                 if(pm.administrativeArea!=nil)
+                 {
+                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     if(pm.locality!=nil)
+                     {
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                     }
+                 }
+             }
+             NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+             [userDefault setObject:locationStr forKey:@"location"];
+             NSLog(@"locationStr:%@",locationStr);
+             
+         } else
+         {
+             //错误
+         }
+     }];
 }
-
 /*
 #pragma mark - Navigation
 
