@@ -85,7 +85,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
 {
     if ([self.textView.text isEqualToString:@""] || [self.textView.text isEqualToString:@"写下你的计划吧"])
     {
-        return;
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
@@ -115,9 +115,8 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
         [userDefault removeObjectForKey:@"location"];
         NSLog(@"%@",self.timePicker.date);
         [self.delegate addProject:data];
-        
+        //[self.navigationController popViewControllerAnimated:YES];
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
 //
 -(void)pressBackBtnWithText
@@ -208,7 +207,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
              UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
              [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
                                ^(UIAlertAction*action){
-                                   //
+                                   [self.navigationController popViewControllerAnimated:YES];
                                }]];
              [self presentViewController:alert animated:YES completion:nil];
          }
@@ -232,7 +231,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
              NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
              [userDefault setObject:locationStr forKey:@"location"];
              NSLog(@"locationStr:%@",locationStr);
-             
+             [self.navigationController popViewControllerAnimated:YES];
          }
          else
          {

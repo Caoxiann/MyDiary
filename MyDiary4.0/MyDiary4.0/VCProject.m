@@ -243,7 +243,7 @@
 }
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @" ";
+    return @"     ";
 }
 //
 #pragma mark-VCProject delegate

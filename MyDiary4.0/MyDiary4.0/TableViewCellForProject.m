@@ -37,25 +37,17 @@
     {
         if([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")])
         {
-            //CGRect cRect = subView.frame;
-            //cRect.origin.y=_view1.frame.origin.y;
-            //cRect.size.height=_view1.frame.size.height;
-            //subView.frame = CGRectMake(self.frame.origin.x+self.frame.size.width, 0, 60, self.frame.size.height);
             subView.backgroundColor=[UIColor clearColor];
             UIButton *confirmView=(UIButton *)[subView.subviews firstObject];
             [confirmView setBackgroundColor:[UIColor clearColor]];
             [confirmView setImage:[UIImage imageNamed:@"timg.jpeg"] forState:UIControlStateNormal];
-            confirmView.imageEdgeInsets=UIEdgeInsetsMake(20, 10, 20, 0);
+            confirmView.imageEdgeInsets=UIEdgeInsetsMake(self.frame.size.height-50, 10, 0, 0);
 //            for(UIView *sub in confirmView.subviews)
 //            {
 ////                [sub removeFromSuperview];
 //            }
 //            UIImageView *imageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"timg.jpeg"]];
 //            [imageView setFrame:CGRectMake(30, self.frame.size.height-40, 30, 40)];
-//            //cRect=imageView.frame;
-//            //cRect.origin.x=confirmView.bounds.size.width/2-cRect.size.width/2;
-//            //cRect.origin.y=confirmView.bounds.size.height/2-cRect.size.height/2;
-//            //[imageView setFrame:cRect];
 //            [confirmView addSubview:imageView];
         }
     }

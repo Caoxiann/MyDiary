@@ -75,11 +75,10 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
 //
 -(void)pressBackBtnWithoutText
 {
-    [self.navigationController popViewControllerAnimated:YES];
     if ([self.textView.text isEqualToString:@"开始记录你的生活吧"] ||
         [self.textView.text isEqualToString:@""])
     {
-        return;
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
@@ -92,22 +91,17 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
             // 设置定位精度
             [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
             _locationManager.delegate = self;
-            
-            if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0)
-            {//ios8.0以上版本CLLocationManager定位服务需要授权
-                [_locationManager requestWhenInUseAuthorization];
-            }
             if([CLLocationManager locationServicesEnabled])
             {
                 // 开始时时定位
                 [self.locationManager startUpdatingLocation];
-                
             }
         }
         NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
         TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:[userDefault objectForKey:@"location"]];
         [userDefault removeObjectForKey:@"location"];
         [self.delegate addDiary:data];
+        //[self.navigationController popViewControllerAnimated:YES];
     }
 }
 //
@@ -200,7 +194,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
              UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
              [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
                                ^(UIAlertAction*action){
-                                   //
+                                   [self.navigationController popViewControllerAnimated:YES];
                                }]];
              [self presentViewController:alert animated:YES completion:nil];
          }
@@ -224,7 +218,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
              NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
              [userDefault setObject:locationStr forKey:@"location"];
              NSLog(@"locationStr:%@",locationStr);
-             
+             [self.navigationController popViewControllerAnimated:YES];
          } else
          {
              //错误

@@ -52,6 +52,7 @@
 		4D2EBDFA1E5A9337004FBB16 /* VCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE51E5A9337004FBB16 /* VCProject.m */; };
 		4D2EBDFB1E5A9337004FBB16 /* VCProjectWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */; };
 		4D2EBDFC1E5A9337004FBB16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE91E5A9337004FBB16 /* ViewController.m */; };
+		ECD5E9A31E6BF9F900BECCA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */; };
 		ECF578121E66BC8B00B4B9B4 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ECF578111E66BC8B00B4B9B4 /* timg.jpeg */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +150,7 @@
 		4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCProjectWrite.m; sourceTree = "<group>"; };
 		4D2EBDE81E5A9337004FBB16 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4D2EBDE91E5A9337004FBB16 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		ECF578111E66BC8B00B4B9B4 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timg.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD5E9A31E6BF9F900BECCA5 /* CoreLocation.framework in Frameworks */,
 				4D2EBD971E5A92E3004FBB16 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +245,7 @@
 		4D2EBD951E5A92E2004FBB16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */,
 				4D2EBD961E5A92E3004FBB16 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
