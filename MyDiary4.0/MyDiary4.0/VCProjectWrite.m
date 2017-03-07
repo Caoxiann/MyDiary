@@ -8,29 +8,40 @@
 
 #import "VCProjectWrite.h"
 #import "TableViewCellDataSource.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface VCProjectWrite ()
+static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute;
+
+@interface VCProjectWrite ()<UIAlertViewDelegate,CLLocationManagerDelegate>
+
+@property(nonatomic, retain) CLLocationManager *locationManager;
 
 @end
 
 @implementation VCProjectWrite
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    //set navigationItem.
-    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setLeftBarButtonItem:leftBtn];
-    UIBarButtonItem *rightBtn=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinishBtn)];
-    [self.navigationItem setRightBarButtonItem:rightBtn];
+    [self.textView setFrame:CGRectMake(5, 20, self.view.frame.size.width-10, self.view.frame.size.height/2)];
+    [self.textView setDelegate:self];
+    [self.view addSubview:self.textView];
+    //[projWrite.textView becomeFirstResponder];
+    [self.textView setFont:[UIFont systemFontOfSize:16]];
+    self.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
+    [self.textView.layer setBorderWidth:1];
+    [self.textView.layer setMasksToBounds:YES];
+    [self.textView.layer setCornerRadius:10];
+    self.timePicker=[[UIDatePicker alloc]initWithFrame:CGRectMake(5, 40+self.view.frame.size.height/2, self.view.frame.size.width-10, self.view.frame.size.height/2-200)];
     [self.view addSubview:self.timePicker];
-    [self.timePicker setDelegate:self];
-}
-//
--(void)viewDidAppear:(BOOL)animated
-{
-    if ([self.textView.text isEqualToString:@"写下你的计划吧"]) {
+    UILabel *tipLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 10+self.view.frame.size.height/2, 80, 40)];
+    //[tipLab setFont:[UIFont systemFontOfSize:15]];
+    [tipLab setText:@"执行时间"];
+    [self.view addSubview:tipLab];
+    if ([self.textView.text isEqualToString:@"写下你的计划吧"])
+    {
         [self doWithoutText];
     }
     else
@@ -39,15 +50,14 @@
     }
 }
 //
--(void)textViewDidBeginEditing:(UITextView *)textView
+-(void)viewDidAppear:(BOOL)animated
 {
-    
 }
 //
 -(void)doWithoutText
 {
     [self setTitle:@" 新建项目"];
-    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithoutText)];
+    UIBarButtonItem *leftBtn=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(pressBackBtnWithoutText)];
     [self.navigationItem setLeftBarButtonItem:leftBtn];
     //set toolBarItems
     UIBarButtonItem *trashBtn=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(pressTrashWithoutText)];
@@ -73,16 +83,39 @@
 //
 -(void)pressBackBtnWithoutText
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    if ([self.textView.text isEqualToString:@"写下你的计划吧"] ||
-        [self.textView.text isEqualToString:@""])
+    if ([self.textView.text isEqualToString:@""] || [self.textView.text isEqualToString:@"写下你的计划吧"])
     {
-        return;
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else
     {
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Day:0 Hour:[self.timePicker selectedRowInComponent:0] Minute:[self.timePicker selectedRowInComponent:1] Place:@"四川成都"];
+        if (_locationManager == nil)
+        {
+            _locationManager = [[CLLocationManager alloc] init];
+            // 设置定位精度
+            [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+            _locationManager.delegate = self;
+            
+            if([CLLocationManager locationServicesEnabled])
+            {
+                // 开始时时定位
+                [self.locationManager startUpdatingLocation];
+                
+            }
+        }
+        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+        NSCalendar *calendar=[NSCalendar currentCalendar];
+        NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:self.timePicker.date];
+        NSString *str=[userDefault objectForKey:@"location"];
+        if (str==nil)
+        {
+            str=@"";
+        }
+        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:str];
+        [userDefault removeObjectForKey:@"location"];
+        NSLog(@"%@",self.timePicker.date);
         [self.delegate addProject:data];
+        //[self.navigationController popViewControllerAnimated:YES];
     }
 }
 //
@@ -94,9 +127,12 @@
     }
     else
     {
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Day:0 Hour:[self.timePicker selectedRowInComponent:0] Minute:[self.timePicker selectedRowInComponent:1] Place:@"四川成都"];
+        NSCalendar *calendar=[NSCalendar currentCalendar];
+        NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:self.timePicker.date];
+        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@""];
         [self.delegate changeProject:data];
         [self.navigationController popViewControllerAnimated:YES];
+        
     }
     
 }
@@ -108,13 +144,16 @@
 //
 -(void)pressTrashWithoutText
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView *deleteAlert=[[UIAlertView alloc]initWithTitle:@"警告" message:@"确定是否删除项目" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [deleteAlert setTag:101];
+    [deleteAlert show];
 }
 //
 -(void)pressTrashWithText
 {
-    [self.delegate deleteProject];
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView *deleteAlert=[[UIAlertView alloc]initWithTitle:@"警告" message:@"确定是否删除项目" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [deleteAlert setTag:102];
+    [deleteAlert show];
 }
 //
 -(void)pressAdd
@@ -126,33 +165,85 @@
 {
 
 }
-#pragma UIPickerView data source
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 2;
-}
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+#pragma mark - UITextView delegate
+-(void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (component==0) {
-        return 24;
-    }
-    else
+    UIBarButtonItem *rightBtn=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(pressFinishBtn)];
+    [self.navigationItem setRightBarButtonItem:rightBtn];
+    if ([textView.text isEqualToString:@"写下你的计划吧"])
     {
-        return 60;
+        [textView setText:@""];
     }
 }
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+-(void)textViewDidEndEditing:(UITextView *)textView
 {
-    return [NSString stringWithFormat:@"%02ld",row];
+    [self.navigationItem setRightBarButtonItem:nil];
+}
+#pragma  mark - UIAlertView Delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==101 && buttonIndex==1)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if(alertView.tag==102 && buttonIndex==1)
+    {
+        [self.delegate deleteProject];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+#pragma mark - CLLocation Delegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    
+    [_locationManager stopUpdatingLocation];
+    CLGeocoder *geocoder=[[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
+     ^(NSArray< CLPlacemark *> * placemarks, NSError * error)
+    {
+         if (error != nil)
+         {
+             UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
+             [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
+                               ^(UIAlertAction*action){
+                                   [self.navigationController popViewControllerAnimated:YES];
+                               }]];
+             [self presentViewController:alert animated:YES completion:nil];
+         }
+         
+         if (placemarks.count > 0)
+         {
+             CLPlacemark *pm = placemarks[0];
+             NSString *locationStr=[[NSString alloc]init];
+             if(pm.country!=nil)
+             {
+                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
+                 if(pm.administrativeArea!=nil)
+                 {
+                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     if(pm.locality!=nil)
+                     {
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                     }
+                 }
+             }
+             NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+             [userDefault setObject:locationStr forKey:@"location"];
+             NSLog(@"locationStr:%@",locationStr);
+             [self.navigationController popViewControllerAnimated:YES];
+         }
+         else
+         {
+             //错误
+         }
+     }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 

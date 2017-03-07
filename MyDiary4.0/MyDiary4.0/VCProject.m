@@ -15,9 +15,9 @@
 #import "TableViewCellDataSource.h"
 #import "FMDatabase.h"
 
+//static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute;
 
-
-@interface VCProject ()
+@interface VCProject ()<VCProjectWriteDelegate>
 
 @end
 
@@ -47,8 +47,8 @@
     UILabel *labMonth=[[UILabel alloc]initWithFrame:CGRectMake(20, 10, 40, 30)];
     NSDate *currentTime=[NSDate date];
     NSCalendar *calendar=[NSCalendar currentCalendar];
-    NSDateComponents *components=[calendar components:NSCalendarUnitMonth fromDate:currentTime];
-    labMonth.text=[NSString stringWithFormat:@"%ld月",[components month]];
+    NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
+    labMonth.text=[NSString stringWithFormat:@"%ld年%ld月",[components year],[components month]];
     [self.tableView setTableHeaderView:labMonth];
     [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCellForProject" bundle:nil] forCellReuseIdentifier:@"CellForProject"];
     //set navigationBarItems
@@ -72,7 +72,6 @@
     [self.projects removeAllObjects];
     //load projects from file
     [self loadProjects];
-    //[self deleteTable];
     UILabel *labInToolBarBtn05=[self.toolBtn05 customView];
     labInToolBarBtn05.text=[NSString stringWithFormat:@"%ld项目",self.projects.count];
     [self.tableView reloadData];
@@ -92,23 +91,9 @@
     if (self.tableView.editing==NO)
     {
         VCProjectWrite *projWrite=[[VCProjectWrite alloc]init];
-        projWrite.textView=[[UITextView alloc]initWithFrame:CGRectMake(5, 20, projWrite.view.frame.size.width-10, projWrite.view.frame.size.height/2)];
+        projWrite.textView=[[UITextView alloc]init];
         [projWrite.textView setText:@"写下你的计划吧"];
-        [projWrite.view addSubview:projWrite.textView];
-        //[projWrite.textView becomeFirstResponder];
-        [projWrite.textView setFont:[UIFont systemFontOfSize:16]];
-        projWrite.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
-        [projWrite.textView.layer setBorderWidth:1];
-        [projWrite.textView.layer setMasksToBounds:YES];
-        [projWrite.textView.layer setCornerRadius:10];
         [projWrite setDelegate:self];
-        projWrite.timePicker=[[UIPickerView alloc]initWithFrame:CGRectMake(5, 40+projWrite.view.frame.size.height/2, projWrite.view.frame.size.width-10, projWrite.view.frame.size.height/2-200)];
-        [projWrite.view addSubview:projWrite.timePicker];
-        [projWrite.timePicker setDelegate:projWrite];
-        UILabel *tipLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 10+projWrite.view.frame.size.height/2, 80, 40)];
-        //[tipLab setFont:[UIFont systemFontOfSize:15]];
-        [tipLab setText:@"执行时间"];
-        [projWrite.view addSubview:tipLab];
         [self.navigationController pushViewController:projWrite animated:YES];
     }
 }
@@ -149,7 +134,7 @@
             NSCalendar *calendar=[NSCalendar currentCalendar];
             NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
             NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.minute,data.place];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and year=%ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
         }
@@ -203,7 +188,7 @@
     [cell.labContent setText:data.text];
     cell.hour=data.hour;
     cell.minute=data.minute;
-    cell.labTime.text=[NSString stringWithFormat:@"%02ld:%02ld",cell.hour,cell.minute];
+    cell.labTime.text=[NSString stringWithFormat:@"执行时间%ld年%ld月%ld日 %02ld:%02ld",data.year,data.month,data.day,data.hour,data.minute];
     [cell.labPlace setText:data.place];
     [cell.layer setMasksToBounds:YES];
     [cell.layer setCornerRadius:10];
@@ -212,13 +197,8 @@
 //
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 62;
+    return 83;
 }
-//
-//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-    //return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
-//}
 //
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -232,12 +212,11 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.minute,data.place];
+        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and Year= %ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
         BOOL isDelete=[self.dataBase executeUpdate:strDelete];
         NSLog(@"%d",isDelete);
         [self.dataBase close];
     }
-
     [self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
     [self.tableView reloadData];
     UILabel *label=[self.toolBtn05 customView];
@@ -248,29 +227,23 @@
 {
     if (self.tableView.editing==NO)
     {
+        TableViewCellDataSource *data=[self.projects objectAtIndex:indexPath.row+indexPath.section];
         VCProjectWrite *projShow=[[VCProjectWrite alloc]init];
         [projShow setDelegate:self];
-        projShow.textView=[[UITextView alloc]initWithFrame:CGRectMake(5, 20, projShow.view.frame.size.width, projShow.view.frame.size.height/2)];
-        [projShow.view addSubview:projShow.textView];
-        [projShow.textView setFont:[UIFont systemFontOfSize:16]];
-        //[projShow.textView becomeFirstResponder];
-        projShow.timePicker=[[UIPickerView alloc]initWithFrame:CGRectMake(5, 40+projShow.view.frame.size.height/2, projShow.view.frame.size.width-5, projShow.view.frame.size.height/2-200)];
-        [projShow.view addSubview:projShow.timePicker];
-        [projShow.timePicker setDelegate:projShow];
-        projShow.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
-        [projShow.textView.layer setBorderWidth:1];
-        [projShow.textView.layer setMasksToBounds:YES];
-        [projShow.textView.layer setCornerRadius:10];
-        TableViewCellForProject *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-        projShow.textView.text=cell.labContent.text;
-        [projShow.timePicker selectRow:cell.hour inComponent:0 animated:NO];
-        [projShow.timePicker selectRow:cell.minute inComponent:1 animated:NO];
-        UILabel *tipLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 10+projShow.view.frame.size.height/2, 80, 40)];
-        //[tipLab setFont:[UIFont systemFontOfSize:15]];
-        [tipLab setText:@"执行时间"];
-        [projShow.view addSubview:tipLab];
+        //NSDate *currentDate=[NSDate date];
+        //NSCalendar *calendar=[NSCalendar currentCalendar];
+        //NSDateComponents *componentsForNow=[calendar components:NSCalendarUnitYMDHM fromDate:currentDate];
+        //NSDate *date=[NSDate dateWithTimeIntervalSinceNow:(data.year-[componentsForNow year])*365*(data.month-[componentsForNow month]*30];
+        projShow.textView=[[UITextView alloc]init];
+        [projShow.textView setDelegate:projShow];
+        projShow.textView.text=data.text;
         [self.navigationController pushViewController:projShow animated:YES];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"     ";
 }
 //
 #pragma mark-VCProject delegate
@@ -289,7 +262,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,'%@','%@');",tableName,data.hour,data.minute,data.text,data.place];
+        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,%ld,%ld,%ld,'%@','%@');",tableName,data.year,data.month,data.day,data.hour,data.minute,data.text,data.place];
         BOOL isAdd=[self.dataBase executeUpdate:strInsert];
         if (isAdd)
         {
@@ -302,11 +275,6 @@
 -(void)changeProject:(TableViewCellDataSource *)data
 {
     NSIndexPath *indexPath=[self.tableView indexPathForSelectedRow];
-    TableViewCellForProject *cell=[self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.labContent setText:data.text];
-    cell.hour=data.hour;
-    cell.minute=data.minute;
-    cell.labTime.text=[NSString stringWithFormat:@"%02ld:%02ld",cell.hour,cell.minute];
     TableViewCellDataSource *originData=[self.projects objectAtIndex:indexPath.row+indexPath.section];
     NSString *dataBasePath=[NSHomeDirectory() stringByAppendingString:@"/Documents/MyDiary02"];
     self.dataBase=[FMDatabase databaseWithPath:dataBasePath];
@@ -317,12 +285,11 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strUpdate=[NSString stringWithFormat:@"update %@ set project='%@',hour=%ld,minute=%ld where project='%@' and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.minute,originData.text,originData.hour,originData.minute,originData.place];
+        NSString *strUpdate=[NSString stringWithFormat:@"update %@ set project='%@',year=%ld,month=%ld,day=%ld,hour=%ld,minute=%ld and place='%@'where project='%@' and year=%ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place,originData.text,originData.year,originData.month,originData.day,originData.hour,originData.minute,originData.place];
         BOOL isUpDated=[self.dataBase executeUpdate:strUpdate];
         NSLog(@"%d",isUpDated);
         [self.dataBase close];
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 //
 -(void)deleteProject
@@ -340,7 +307,7 @@
             NSCalendar *calendar=[NSCalendar currentCalendar];
             NSDateComponents *components=[calendar components:NSCalendarUnitDay fromDate:currentTime];
             NSString *tableName=[NSString stringWithFormat:@"projectsIn%ld",[components day]];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.minute,data.place];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and year=%ld and month=%ld and day=%ld hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
             [self.dataBase close];
@@ -363,7 +330,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
+        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
         BOOL isExecuted=[self.dataBase executeUpdate:strCreateTable];
         if (isExecuted)
         {
@@ -372,7 +339,7 @@
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Day:0 Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
                 [self.projects addObject:data];
             }
             [self.dataBase close];
@@ -391,7 +358,7 @@
     [self.dataBase open];
     NSDate *currentTime=[NSDate date];
     NSCalendar *calendar=[NSCalendar currentCalendar];
-    NSDateComponents *components=[calendar components:NSCalendarUnitYear fromDate:currentTime];
+    NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
     NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
     NSString *str=[NSString stringWithFormat:@"DROP TABLE %@",tableName];
     BOOL isdelete=[self.dataBase executeUpdate:str];

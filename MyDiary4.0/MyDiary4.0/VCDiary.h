@@ -7,7 +7,8 @@
 //
 #import "ViewController.h"
 #import "VCDiaryWrite.h"
-#import "FMDatabase.h"
+
+@class FMDatabase;
 
 
 @interface VCDiary : ViewController

@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "VCProjectWrite.h"
-#import "FMDatabase.h"
+
+@class FMDatabase;
 
 
 @interface VCProject : ViewController
-<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,VCProjectWriteDelegate>
+<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
 /* a tableView to show projects*/
 @property(nonatomic,retain)UITableView *tableView;

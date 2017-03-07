@@ -293,9 +293,12 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     [self.overlayView setBackgroundColor:[self.backgroundColor colorWithAlphaComponent:0.90]];
     [self.overlayView setFont:[UIFont boldSystemFontOfSize:PDTSimpleCalendarOverlaySize]];
     [self.overlayView setTextColor:self.overlayTextColor];
-    [self.overlayView setAlpha:0.0];
+    //[self.overlayView setAlpha:0.0];
     [self.overlayView setTextAlignment:NSTextAlignmentCenter];
-
+    NSArray *indexPaths = [self.collectionView indexPathsForVisibleItems];
+    NSArray *sortedIndexPaths = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
+    NSIndexPath *firstIndexPath = [sortedIndexPaths firstObject];
+    self.overlayView.text = [self.headerDateFormatter stringFromDate:[self firstOfMonthForSection:firstIndexPath.section]];
     [self.view addSubview:self.overlayView];
     [self.overlayView setTranslatesAutoresizingMaskIntoConstraints:NO];
     
@@ -322,7 +325,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     UIColor *designedColor=[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0];
     UIView *view=[[UIView alloc]initWithFrame:self.navigationController.navigationBar.frame];
     [self.navigationItem setTitleView:view];
-    self.seg=[[UISegmentedControl alloc]initWithFrame:CGRectMake(view.frame.size.width/2.0-105, 1, 210, 20)];
+    self.seg=[[UISegmentedControl alloc]initWithFrame:CGRectMake(40, 1, view.frame.size.width-80, 20)];
     [self.seg insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
     [self.seg insertSegmentWithTitle:@"日历" atIndex:1 animated:NO];
     [self.seg insertSegmentWithTitle:@"日记" atIndex:2 animated:NO];
@@ -433,11 +436,10 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     {
         [self.dataBase open];
         NSDate *currentTime=[NSDate date];
-        self.selectedDate=currentTime;
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
+        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
         BOOL isExecuted=[self.dataBase executeUpdate:strCreateTable];
         if (isExecuted)
         {
@@ -446,7 +448,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Day:0 Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
                 [self.projects addObject:data];
             }
             [self.dataBase close];
@@ -471,10 +473,11 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TableViewCellForProject *cell=[tableView dequeueReusableCellWithIdentifier:@"CellForProject"];
-    if (cell==nil) {
+    if (cell==nil)
+    {
         cell=[[NSBundle mainBundle]loadNibNamed:@"TableViewCellForProject" owner:nil options:nil].firstObject;
     }
-    NSDate *currentTime=self.selectedDate;
+    NSDate *currentTime=[NSDate date];
     NSCalendar *calendar=[NSCalendar currentCalendar];
     NSDateComponents *components=[calendar components:NSCalendarUnitDay fromDate:currentTime];
     cell.labDate.text=[NSString stringWithFormat:@"%ld",[components day]];
@@ -483,22 +486,25 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     maskLayer.frame=cell.labDate.bounds;
     maskLayer.path=maskPath.CGPath;
     cell.labDate.layer.mask=maskLayer;
-    [cell.labPlace setText:@"四川成都"];
     TableViewCellDataSource *data=[self.projects objectAtIndex:indexPath.row+indexPath.section];
     [cell.labContent setText:data.text];
     cell.hour=data.hour;
     cell.minute=data.minute;
-    cell.labTime.text=[NSString stringWithFormat:@"%02ld:%02ld",cell.hour,cell.minute];
-    cell.labContent.text=data.text;
+    cell.labTime.text=[NSString stringWithFormat:@"执行时间%ld年%ld月%ld日 %02ld:%02ld",data.year,data.month,data.day,data.hour,data.minute];
+    [cell.labPlace setText:data.place];
     [cell.layer setMasksToBounds:YES];
     [cell.layer setCornerRadius:10];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     return cell;
 }
 //
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 62;
+    return 83;
+}
+//
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"     ";
 }
 //
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -509,14 +515,16 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     {
         [self.dataBase open];
         TableViewCellDataSource *data=[self.projects objectAtIndex:indexPath.row+indexPath.section];
+        NSDate *currentTime=[NSDate date];
         NSCalendar *calendar=[NSCalendar currentCalendar];
-        NSDateComponents *components=[calendar components:kCalendarUnitYMD fromDate:self.selectedDate];
+        NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.minute,data.place];
+        NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and Year= %ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
         BOOL isDelete=[self.dataBase executeUpdate:strDelete];
         NSLog(@"%d",isDelete);
         [self.dataBase close];
     }
+    
     [self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
     [self.tableView reloadData];
     UILabel *label=[self.toolBtn05 customView];
@@ -661,7 +669,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Day:0 Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
                 [self.projects addObject:data];
             }
             [self.tableView reloadData];
@@ -717,8 +725,8 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSTimeInterval delay = (decelerate) ? 1.5 : 0.0;
-    [self performSelector:@selector(hideOverlayView) withObject:nil afterDelay:delay];
+    //NSTimeInterval delay = (decelerate) ? 1.5 : 0.0;
+    //[self performSelector:@selector(hideOverlayView) withObject:nil afterDelay:delay];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -732,12 +740,12 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     self.overlayView.text = [self.headerDateFormatter stringFromDate:[self firstOfMonthForSection:firstIndexPath.section]];
 }
 
-- (void)hideOverlayView
-{
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.overlayView setAlpha:0.0];
-    }];
-}
+//- (void)hideOverlayView
+//{
+    //[UIView animateWithDuration:0.25 animations:^{
+        //[self.overlayView setAlpha:0.0];
+    //}];
+//}
 
 #pragma mark -
 #pragma mark - Calendar calculations

@@ -52,6 +52,8 @@
 		4D2EBDFA1E5A9337004FBB16 /* VCProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE51E5A9337004FBB16 /* VCProject.m */; };
 		4D2EBDFB1E5A9337004FBB16 /* VCProjectWrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */; };
 		4D2EBDFC1E5A9337004FBB16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EBDE91E5A9337004FBB16 /* ViewController.m */; };
+		ECD5E9A31E6BF9F900BECCA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */; };
+		ECF578121E66BC8B00B4B9B4 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ECF578111E66BC8B00B4B9B4 /* timg.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +150,8 @@
 		4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCProjectWrite.m; sourceTree = "<group>"; };
 		4D2EBDE81E5A9337004FBB16 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4D2EBDE91E5A9337004FBB16 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		ECF578111E66BC8B00B4B9B4 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timg.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD5E9A31E6BF9F900BECCA5 /* CoreLocation.framework in Frameworks */,
 				4D2EBD971E5A92E3004FBB16 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,73 +205,12 @@
 		4D2EBD611E5A9167004FBB16 /* MyDiary4.0 */ = {
 			isa = PBXGroup;
 			children = (
-				4D2EBD981E5A92F3004FBB16 /* AppDelegate.h */,
-				4D2EBD991E5A92F3004FBB16 /* AppDelegate.m */,
-				4D2EBDB91E5A9320004FBB16 /* item.png */,
-				4D2EBDBA1E5A9320004FBB16 /* item@2x.png */,
-				4D2EBDBB1E5A9320004FBB16 /* item@3x.png */,
-				4D2EBDBC1E5A9320004FBB16 /* list.png */,
-				4D2EBDBD1E5A9320004FBB16 /* list@2x.png */,
-				4D2EBDBE1E5A9320004FBB16 /* list@3x.png */,
-				4D2EBD9B1E5A9311004FBB16 /* camera.png */,
-				4D2EBD9C1E5A9311004FBB16 /* camera@2x.png */,
-				4D2EBD9D1E5A9311004FBB16 /* camera@3x.png */,
-				4D2EBD9E1E5A9311004FBB16 /* characters.png */,
-				4D2EBD9F1E5A9311004FBB16 /* characters@2x.png */,
-				4D2EBDA01E5A9311004FBB16 /* characters@3x.png */,
-				4D2EBDA11E5A9311004FBB16 /* cloud.jpg */,
-				4D2EBDA21E5A9311004FBB16 /* FMDatabase.h */,
-				4D2EBDA31E5A9311004FBB16 /* FMDatabase.m */,
-				4D2EBDA41E5A9311004FBB16 /* FMDatabaseAdditions.h */,
-				4D2EBDA51E5A9311004FBB16 /* FMDatabaseAdditions.m */,
-				4D2EBDA61E5A9311004FBB16 /* FMDatabasePool.h */,
-				4D2EBDA71E5A9311004FBB16 /* FMDatabasePool.m */,
-				4D2EBDA81E5A9311004FBB16 /* FMDatabaseQueue.h */,
-				4D2EBDA91E5A9311004FBB16 /* FMDatabaseQueue.m */,
-				4D2EBDAA1E5A9311004FBB16 /* FMDB.h */,
-				4D2EBDAB1E5A9311004FBB16 /* FMResultSet.h */,
-				4D2EBDAC1E5A9311004FBB16 /* FMResultSet.m */,
-				4D2EBDC51E5A9337004FBB16 /* PDTSimpleCalendar.h */,
-				4D2EBDC61E5A9337004FBB16 /* PDTSimpleCalendarViewCell.h */,
-				4D2EBDC71E5A9337004FBB16 /* PDTSimpleCalendarViewCell.m */,
-				4D2EBDC81E5A9337004FBB16 /* PDTSimpleCalendarViewController.h */,
-				4D2EBDC91E5A9337004FBB16 /* PDTSimpleCalendarViewController.m */,
-				4D2EBDCA1E5A9337004FBB16 /* PDTSimpleCalendarViewFlowLayout.h */,
-				4D2EBDCB1E5A9337004FBB16 /* PDTSimpleCalendarViewFlowLayout.m */,
-				4D2EBDCC1E5A9337004FBB16 /* PDTSimpleCalendarViewHeader.h */,
-				4D2EBDCD1E5A9337004FBB16 /* PDTSimpleCalendarViewHeader.m */,
-				4D2EBDCE1E5A9337004FBB16 /* PDTSimpleCalendarViewWeekdayHeader.h */,
-				4D2EBDCF1E5A9337004FBB16 /* PDTSimpleCalendarViewWeekdayHeader.m */,
-				4D2EBDD01E5A9337004FBB16 /* TableViewCellDataSource.h */,
-				4D2EBDD11E5A9337004FBB16 /* TableViewCellDataSource.m */,
-				4D2EBDD21E5A9337004FBB16 /* TableViewCellForDiary.h */,
-				4D2EBDD31E5A9337004FBB16 /* TableViewCellForDiary.m */,
-				4D2EBDD41E5A9337004FBB16 /* TableViewCellForDiary.xib */,
-				4D2EBDD51E5A9337004FBB16 /* TableViewCellForProject.h */,
-				4D2EBDD61E5A9337004FBB16 /* TableViewCellForProject.m */,
-				4D2EBDD71E5A9337004FBB16 /* TableViewCellForProject.xib */,
-				4D2EBDD81E5A9337004FBB16 /* UITableView+FDIndexPathHeightCache.h */,
-				4D2EBDD91E5A9337004FBB16 /* UITableView+FDIndexPathHeightCache.m */,
-				4D2EBDDA1E5A9337004FBB16 /* UITableView+FDKeyedHeightCache.h */,
-				4D2EBDDB1E5A9337004FBB16 /* UITableView+FDKeyedHeightCache.m */,
-				4D2EBDDC1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCell.h */,
-				4D2EBDDD1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCell.m */,
-				4D2EBDDE1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCellDebug.h */,
-				4D2EBDDF1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCellDebug.m */,
-				4D2EBDE81E5A9337004FBB16 /* ViewController.h */,
-				4D2EBDE91E5A9337004FBB16 /* ViewController.m */,
-				4D2EBDE41E5A9337004FBB16 /* VCProject.h */,
-				4D2EBDE51E5A9337004FBB16 /* VCProject.m */,
-				4D2EBDE61E5A9337004FBB16 /* VCProjectWrite.h */,
-				4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */,
-				4D2EBDE01E5A9337004FBB16 /* VCDiary.h */,
-				4D2EBDE11E5A9337004FBB16 /* VCDiary.m */,
-				4D2EBDE21E5A9337004FBB16 /* VCDiaryWrite.h */,
-				4D2EBDE31E5A9337004FBB16 /* VCDiaryWrite.m */,
-				4D2EBD6B1E5A9167004FBB16 /* Main.storyboard */,
-				4D2EBD6E1E5A9167004FBB16 /* Assets.xcassets */,
-				4D2EBD701E5A9167004FBB16 /* LaunchScreen.storyboard */,
-				4D2EBD731E5A9167004FBB16 /* Info.plist */,
+				EC1ED5BB1E62E19300E164A7 /* Images */,
+				EC1ED5BC1E62E1AF00E164A7 /* CustomedCells */,
+				EC1ED5BD1E62E1DF00E164A7 /* Diary */,
+				EC1ED5BE1E62E21600E164A7 /* FMDataBase.m */,
+				EC1ED5BF1E62E23500E164A7 /* PDT */,
+				EC1ED5C01E62E25100E164A7 /* UITableView+FDTemplateLayoutCell */,
 				4D2EBD621E5A9167004FBB16 /* Supporting Files */,
 			);
 			path = MyDiary4.0;
@@ -301,9 +245,120 @@
 		4D2EBD951E5A92E2004FBB16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECD5E9A21E6BF9F900BECCA5 /* CoreLocation.framework */,
 				4D2EBD961E5A92E3004FBB16 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC1ED5BB1E62E19300E164A7 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				ECF578111E66BC8B00B4B9B4 /* timg.jpeg */,
+				4D2EBDB91E5A9320004FBB16 /* item.png */,
+				4D2EBDBA1E5A9320004FBB16 /* item@2x.png */,
+				4D2EBDBB1E5A9320004FBB16 /* item@3x.png */,
+				4D2EBDBC1E5A9320004FBB16 /* list.png */,
+				4D2EBDBD1E5A9320004FBB16 /* list@2x.png */,
+				4D2EBDBE1E5A9320004FBB16 /* list@3x.png */,
+				4D2EBD9B1E5A9311004FBB16 /* camera.png */,
+				4D2EBD9C1E5A9311004FBB16 /* camera@2x.png */,
+				4D2EBD9D1E5A9311004FBB16 /* camera@3x.png */,
+				4D2EBD9E1E5A9311004FBB16 /* characters.png */,
+				4D2EBD9F1E5A9311004FBB16 /* characters@2x.png */,
+				4D2EBDA01E5A9311004FBB16 /* characters@3x.png */,
+				4D2EBDA11E5A9311004FBB16 /* cloud.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		EC1ED5BC1E62E1AF00E164A7 /* CustomedCells */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EBDD21E5A9337004FBB16 /* TableViewCellForDiary.h */,
+				4D2EBDD31E5A9337004FBB16 /* TableViewCellForDiary.m */,
+				4D2EBDD41E5A9337004FBB16 /* TableViewCellForDiary.xib */,
+				4D2EBDD51E5A9337004FBB16 /* TableViewCellForProject.h */,
+				4D2EBDD61E5A9337004FBB16 /* TableViewCellForProject.m */,
+				4D2EBDD71E5A9337004FBB16 /* TableViewCellForProject.xib */,
+			);
+			name = CustomedCells;
+			sourceTree = "<group>";
+		};
+		EC1ED5BD1E62E1DF00E164A7 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EBDD01E5A9337004FBB16 /* TableViewCellDataSource.h */,
+				4D2EBDD11E5A9337004FBB16 /* TableViewCellDataSource.m */,
+				4D2EBD981E5A92F3004FBB16 /* AppDelegate.h */,
+				4D2EBD991E5A92F3004FBB16 /* AppDelegate.m */,
+				4D2EBDE81E5A9337004FBB16 /* ViewController.h */,
+				4D2EBDE91E5A9337004FBB16 /* ViewController.m */,
+				4D2EBDE41E5A9337004FBB16 /* VCProject.h */,
+				4D2EBDE51E5A9337004FBB16 /* VCProject.m */,
+				4D2EBDE61E5A9337004FBB16 /* VCProjectWrite.h */,
+				4D2EBDE71E5A9337004FBB16 /* VCProjectWrite.m */,
+				4D2EBDE01E5A9337004FBB16 /* VCDiary.h */,
+				4D2EBDE11E5A9337004FBB16 /* VCDiary.m */,
+				4D2EBDE21E5A9337004FBB16 /* VCDiaryWrite.h */,
+				4D2EBDE31E5A9337004FBB16 /* VCDiaryWrite.m */,
+				4D2EBD6B1E5A9167004FBB16 /* Main.storyboard */,
+				4D2EBD6E1E5A9167004FBB16 /* Assets.xcassets */,
+				4D2EBD701E5A9167004FBB16 /* LaunchScreen.storyboard */,
+				4D2EBD731E5A9167004FBB16 /* Info.plist */,
+			);
+			name = Diary;
+			sourceTree = "<group>";
+		};
+		EC1ED5BE1E62E21600E164A7 /* FMDataBase.m */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EBDA21E5A9311004FBB16 /* FMDatabase.h */,
+				4D2EBDA31E5A9311004FBB16 /* FMDatabase.m */,
+				4D2EBDA41E5A9311004FBB16 /* FMDatabaseAdditions.h */,
+				4D2EBDA51E5A9311004FBB16 /* FMDatabaseAdditions.m */,
+				4D2EBDA61E5A9311004FBB16 /* FMDatabasePool.h */,
+				4D2EBDA71E5A9311004FBB16 /* FMDatabasePool.m */,
+				4D2EBDA81E5A9311004FBB16 /* FMDatabaseQueue.h */,
+				4D2EBDA91E5A9311004FBB16 /* FMDatabaseQueue.m */,
+				4D2EBDAA1E5A9311004FBB16 /* FMDB.h */,
+				4D2EBDAB1E5A9311004FBB16 /* FMResultSet.h */,
+				4D2EBDAC1E5A9311004FBB16 /* FMResultSet.m */,
+			);
+			name = FMDataBase.m;
+			sourceTree = "<group>";
+		};
+		EC1ED5BF1E62E23500E164A7 /* PDT */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EBDC51E5A9337004FBB16 /* PDTSimpleCalendar.h */,
+				4D2EBDC61E5A9337004FBB16 /* PDTSimpleCalendarViewCell.h */,
+				4D2EBDC71E5A9337004FBB16 /* PDTSimpleCalendarViewCell.m */,
+				4D2EBDC81E5A9337004FBB16 /* PDTSimpleCalendarViewController.h */,
+				4D2EBDC91E5A9337004FBB16 /* PDTSimpleCalendarViewController.m */,
+				4D2EBDCA1E5A9337004FBB16 /* PDTSimpleCalendarViewFlowLayout.h */,
+				4D2EBDCB1E5A9337004FBB16 /* PDTSimpleCalendarViewFlowLayout.m */,
+				4D2EBDCC1E5A9337004FBB16 /* PDTSimpleCalendarViewHeader.h */,
+				4D2EBDCD1E5A9337004FBB16 /* PDTSimpleCalendarViewHeader.m */,
+				4D2EBDCE1E5A9337004FBB16 /* PDTSimpleCalendarViewWeekdayHeader.h */,
+				4D2EBDCF1E5A9337004FBB16 /* PDTSimpleCalendarViewWeekdayHeader.m */,
+			);
+			name = PDT;
+			sourceTree = "<group>";
+		};
+		EC1ED5C01E62E25100E164A7 /* UITableView+FDTemplateLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EBDD81E5A9337004FBB16 /* UITableView+FDIndexPathHeightCache.h */,
+				4D2EBDD91E5A9337004FBB16 /* UITableView+FDIndexPathHeightCache.m */,
+				4D2EBDDA1E5A9337004FBB16 /* UITableView+FDKeyedHeightCache.h */,
+				4D2EBDDB1E5A9337004FBB16 /* UITableView+FDKeyedHeightCache.m */,
+				4D2EBDDC1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCell.h */,
+				4D2EBDDD1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCell.m */,
+				4D2EBDDE1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCellDebug.h */,
+				4D2EBDDF1E5A9337004FBB16 /* UITableView+FDTemplateLayoutCellDebug.m */,
+			);
+			name = "UITableView+FDTemplateLayoutCell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,6 +473,7 @@
 				4D2EBD721E5A9167004FBB16 /* LaunchScreen.storyboard in Resources */,
 				4D2EBDC31E5A9320004FBB16 /* list@2x.png in Resources */,
 				4D2EBDAE1E5A9311004FBB16 /* camera@2x.png in Resources */,
+				ECF578121E66BC8B00B4B9B4 /* timg.jpeg in Resources */,
 				4D2EBDB01E5A9311004FBB16 /* characters.png in Resources */,
 				4D2EBDC01E5A9320004FBB16 /* item@2x.png in Resources */,
 				4D2EBDC41E5A9320004FBB16 /* list@3x.png in Resources */,
@@ -720,6 +776,7 @@
 				4D2EBD8E1E5A9167004FBB16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D2EBD8F1E5A9167004FBB16 /* Build configuration list for PBXNativeTarget "MyDiary4.0Tests" */ = {
 			isa = XCConfigurationList;
@@ -728,6 +785,7 @@
 				4D2EBD911E5A9167004FBB16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D2EBD921E5A9167004FBB16 /* Build configuration list for PBXNativeTarget "MyDiary4.0UITests" */ = {
 			isa = XCConfigurationList;
@@ -736,6 +794,7 @@
 				4D2EBD941E5A9167004FBB16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

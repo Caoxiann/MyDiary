@@ -27,7 +27,7 @@
     UIColor *designedColor=[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0];
     self.centreView=[[UIView alloc]initWithFrame:self.navigationController.navigationBar.frame];
     [self.navigationItem setTitleView:self.centreView];
-    self.seg=[[UISegmentedControl alloc]initWithFrame:CGRectMake(self.centreView.frame.size.width/2.0-105, 1, 210, 20)];
+    self.seg=[[UISegmentedControl alloc]initWithFrame:CGRectMake(40, 1, self.centreView.frame.size.width-80, 20)];
     [self.seg insertSegmentWithTitle:@"项目" atIndex:0 animated:NO];
     [self.seg insertSegmentWithTitle:@"日历" atIndex:1 animated:NO];
     [self.seg insertSegmentWithTitle:@"日记" atIndex:2 animated:NO];

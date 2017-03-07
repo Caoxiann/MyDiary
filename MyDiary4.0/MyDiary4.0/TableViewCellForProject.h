@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface TableViewCellForProject : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *labContent;
@@ -16,4 +17,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *labPlace;
 @property (nonatomic, assign) NSInteger hour;
 @property (nonatomic, assign) NSInteger minute;
+@property (nonatomic, weak) id delegate;
 @end

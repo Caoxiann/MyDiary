@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewCellDataSource.h"
+
+@class TableViewCellDataSource;
 
 @protocol VCProjectWriteDelegate <NSObject>
 /* add projcet in VCproject when created a new project*/
@@ -18,12 +19,11 @@
 -(void)deleteProject;
 @end
 
-@interface VCProjectWrite : UIViewController
-<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface VCProjectWrite : UIViewController<UITextViewDelegate>
 
 @property (nonatomic,retain) UITextView *textView;
 
-@property (nonatomic,retain) UIPickerView *timePicker;
+@property (nonatomic,retain) UIDatePicker *timePicker;
 
 @property (nonatomic,weak) id<VCProjectWriteDelegate> delegate;
 
