@@ -29,4 +29,6 @@
 
 @property (nonatomic, retain) TableViewCellDataSource *originData;
 
+@property (nonatomic, retain) TableViewCellDataSource *data;
+
 @end

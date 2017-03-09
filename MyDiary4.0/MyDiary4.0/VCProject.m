@@ -143,18 +143,48 @@
     }
     UILabel *label=[self.toolBtn05 customView];
     label.text=[NSString stringWithFormat:@"%ld日记",self.projects.count];
-    [self.tableView reloadData];
+    [_tableView reloadData];
     [self pressFinish];
 }
 //
 -(void)pressFinish
 {
     [self setTitle:nil];
-    [self.tableView setEditing:NO];
+    [_tableView setEditing:NO];
     [self.navigationItem setRightBarButtonItem:nil];
     [self.navigationItem setLeftBarButtonItem:nil];
     [self.centreView setFrame:self.navigationController.navigationBar.frame];
     [self.navigationItem setTitleView:self.centreView];
+}
+//
+-(NSString *)switchWeekdays:(NSInteger) weekday
+{
+    switch (weekday-1) {
+        case 1:
+            return @"星期一";
+            break;
+        case 2:
+            return @"星期二";
+            break;
+        case 3:
+            return @"星期三";
+            break;
+        case 4:
+            return @"星期四";
+            break;
+        case 5:
+            return @"星期五";
+            break;
+        case 6:
+            return @"星期六";
+            break;
+        case 7:
+            return @"星期日";
+            break;
+        default:
+            break;
+    }
+    return @"";
 }
 //
 #pragma tableview data source
@@ -188,8 +218,9 @@
     [cell.labContent setText:data.text];
     cell.hour=data.hour;
     cell.minute=data.minute;
-    cell.labTime.text=[NSString stringWithFormat:@"执行时间%ld年%ld月%ld日 %02ld:%02ld",data.year,data.month,data.day,data.hour,data.minute];
+    cell.labTime.text=[NSString stringWithFormat:@"%ld年%ld月%ld日 %02ld:%02ld执行",data.year,data.month,data.day,data.hour,data.minute];
     [cell.labPlace setText:data.place];
+    cell.labWeekday.text=[self switchWeekdays:data.weekday];
     [cell.layer setMasksToBounds:YES];
     [cell.layer setCornerRadius:10];
     return cell;
@@ -217,8 +248,8 @@
         NSLog(@"%d",isDelete);
         [self.dataBase close];
     }
-    [self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
-    [self.tableView reloadData];
+    [_projects removeObjectAtIndex:indexPath.row+indexPath.section];
+    [_tableView reloadData];
     UILabel *label=[self.toolBtn05 customView];
     label.text=[NSString stringWithFormat:@"%ld日记",self.projects.count];
 }
@@ -241,6 +272,7 @@
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
+//
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"     ";
@@ -262,7 +294,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,%ld,%ld,%ld,'%@','%@');",tableName,data.year,data.month,data.day,data.hour,data.minute,data.text,data.place];
+        NSString *strInsert=[NSString stringWithFormat:@"insert into %@ values(%ld,%ld,%ld,%ld,%ld,'%@','%@',%ld);",tableName,data.year,data.month,data.day,data.hour,data.minute,data.text,data.place,data.weekday];
         BOOL isAdd=[self.dataBase executeUpdate:strInsert];
         if (isAdd)
         {
@@ -305,15 +337,15 @@
             [self.dataBase open];
             NSDate *currentTime=[NSDate date];
             NSCalendar *calendar=[NSCalendar currentCalendar];
-            NSDateComponents *components=[calendar components:NSCalendarUnitDay fromDate:currentTime];
-            NSString *tableName=[NSString stringWithFormat:@"projectsIn%ld",[components day]];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and year=%ld and month=%ld and day=%ld hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.hour,data.month,data.day,data.hour,data.minute,data.place];
+            NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
+            NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where project='%@' and year=%ld and month=%ld and day=%ld and hour=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
             [self.dataBase close];
         }
-        [self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
-        [self.tableView reloadData];
+        //[self.projects removeObjectAtIndex:indexPath.row+indexPath.section];
+        //[self.tableView reloadData];
         UILabel *label=[self.toolBtn05 customView];
         label.text=[NSString stringWithFormat:@"%ld日记",self.projects.count];
     }
@@ -330,7 +362,7 @@
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
+        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50),weekday integer);",tableName];
         BOOL isExecuted=[self.dataBase executeUpdate:strCreateTable];
         if (isExecuted)
         {
@@ -339,7 +371,7 @@
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"] Weekday:[resultForProjects intForColumn:@"weekday"]];
                 [self.projects addObject:data];
             }
             [self.dataBase close];

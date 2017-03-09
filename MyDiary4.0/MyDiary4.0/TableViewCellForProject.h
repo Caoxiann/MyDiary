@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *labDate;
 @property (strong, nonatomic) IBOutlet UILabel *labTime;
 @property (strong, nonatomic) IBOutlet UILabel *labPlace;
+@property (weak, nonatomic) IBOutlet UILabel *labWeekday;
 @property (nonatomic, assign) NSInteger hour;
 @property (nonatomic, assign) NSInteger minute;
 @property (nonatomic, weak) id delegate;

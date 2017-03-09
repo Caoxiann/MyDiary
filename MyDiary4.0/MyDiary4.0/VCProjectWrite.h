@@ -27,4 +27,6 @@
 
 @property (nonatomic,weak) id<VCProjectWriteDelegate> delegate;
 
+@property (nonatomic,retain) TableViewCellDataSource *data;
+
 @end
