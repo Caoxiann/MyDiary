@@ -109,7 +109,11 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
         NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:currentTime];
         _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@"" Weekday:0];
         [self locate];
-        //[self.navigationController popViewControllerAnimated:YES];
+        if (![CLLocationManager locationServicesEnabled])
+        {
+            [self.delegate addDiary:_data];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 //

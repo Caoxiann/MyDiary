@@ -112,13 +112,16 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     {
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:self.timePicker.date];
-        _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:nil Weekday:0];
+        _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@"" Weekday:0];
         components=[calendar components:NSCalendarUnitWeekday fromDate:[NSDate date]];
         [_data setWeekday:components.weekday];
         NSLog(@"%@",self.timePicker.date);
         [self locate];
-        //[self.delegate addProject:_data];
-        //[self.navigationController popViewControllerAnimated:YES];
+        if (![CLLocationManager locationServicesEnabled])
+        {
+            [self.delegate addProject:_data];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 //
