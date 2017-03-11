@@ -316,7 +316,7 @@
             NSCalendar *calendar=[NSCalendar currentCalendar];
             NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:currentTime];
             NSString *tableName=[NSString stringWithFormat:@"diariesInYear%ldMonth%ld",components.year,components.month];
-            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and year=%ld and month=%ld hour=%ld and day=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
+            NSString *strDelete=[NSString stringWithFormat:@"delete from %@ where diary='%@' and year=%ld and month=%ld and hour=%ld and day=%ld and minute=%ld and place='%@';",tableName,data.text,data.year,data.month,data.day,data.hour,data.minute,data.place];
             BOOL isDelete=[self.dataBase executeUpdate:strDelete];
             NSLog(@"%d",isDelete);
             [self.dataBase close];
@@ -350,7 +350,7 @@
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"diary"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"diary"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"] Weekday:0];
                 [self.diaries addObject:data];
             }
             [self.dataBase close];

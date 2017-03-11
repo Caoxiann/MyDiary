@@ -40,7 +40,7 @@
             subView.backgroundColor=[UIColor clearColor];
             UIButton *confirmView=(UIButton *)[subView.subviews firstObject];
             [confirmView setBackgroundColor:[UIColor clearColor]];
-            [confirmView setImage:[UIImage imageNamed:@"timg.jpeg"] forState:UIControlStateNormal];
+            [confirmView setImage:[UIImage imageNamed:@"trashcan.png"] forState:UIControlStateNormal];
             confirmView.imageEdgeInsets=UIEdgeInsetsMake(self.frame.size.height-50, 10, 0, 0);
 //            for(UIView *sub in confirmView.subviews)
 //            {

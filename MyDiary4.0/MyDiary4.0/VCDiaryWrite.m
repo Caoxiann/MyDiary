@@ -73,6 +73,28 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     [self setToolbarItems:toolBarItems];
 }
 //
+-(void)locate
+{
+    if (_locationManager == nil)
+    {
+        _locationManager = [[CLLocationManager alloc] init];
+        // 设置定位精度
+        [_locationManager setDesiredAccuracy:kCLLocationAccuracyKilometer];
+        _locationManager.distanceFilter = 10000;
+        _locationManager.delegate = self;
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0)
+    {//ios8.0以上版本CLLocationManager定位服务需要授权
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    if([CLLocationManager locationServicesEnabled])
+    {
+        // 开始时时定位
+        //[_locationManager requestAlwaysAuthorization];
+        [self.locationManager startUpdatingLocation];
+    }
+}
+//
 -(void)pressBackBtnWithoutText
 {
     if ([self.textView.text isEqualToString:@"开始记录你的生活吧"] ||
@@ -85,23 +107,13 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
         NSDate *currentTime=[NSDate date];
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:currentTime];
-        if (_locationManager == nil)
+        _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@"" Weekday:0];
+        [self locate];
+        if (![CLLocationManager locationServicesEnabled])
         {
-            _locationManager = [[CLLocationManager alloc] init];
-            // 设置定位精度
-            [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
-            _locationManager.delegate = self;
-            if([CLLocationManager locationServicesEnabled])
-            {
-                // 开始时时定位
-                [self.locationManager startUpdatingLocation];
-            }
+            [self.delegate addDiary:_data];
+            [self.navigationController popViewControllerAnimated:YES];
         }
-        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:[userDefault objectForKey:@"location"]];
-        [userDefault removeObjectForKey:@"location"];
-        [self.delegate addDiary:data];
-        //[self.navigationController popViewControllerAnimated:YES];
     }
 }
 //
@@ -112,8 +124,8 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
         [self pressTrashWithText];
         return;
     }
-    TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:self.originData.year Month:self.originData.month Day:self.originData.day Hour:self.originData.hour Minute:self.originData.minute Place:@""];
-    [self.delegate changeDiary:data];
+    _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:self.originData.year Month:self.originData.month Day:self.originData.day Hour:self.originData.hour Minute:self.originData.minute Place:@"" Weekday:0];
+    [self.delegate changeDiary:_data];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -134,7 +146,6 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     UIAlertView *deleteAlert=[[UIAlertView alloc]initWithTitle:@"警告" message:@"确定是否删除项目" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [deleteAlert setTag:102];
     [deleteAlert show];
-
 }
 
 -(void)pressAdd
@@ -183,40 +194,69 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     
 }
 #pragma mark - CLLocation Delegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
     [_locationManager stopUpdatingLocation];
     CLGeocoder *geocoder=[[CLGeocoder alloc]init];
     [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
-     ^(NSArray< CLPlacemark *> * placemarks, NSError * error){
+     ^(NSArray< CLPlacemark *> * placemarks, NSError * error)
+    {
          if (error != nil)
          {
              UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
              [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
-                               ^(UIAlertAction*action){
+                               ^(UIAlertAction *action){
+                                   
+                               }]];
+             
+             [alert addAction:[UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:
+                               ^(UIAlertAction *action){
+                                   [_data setPlace:@""];
+                                   [self.delegate addDiary:_data];
                                    [self.navigationController popViewControllerAnimated:YES];
                                }]];
+             
+             [alert addAction:[UIAlertAction actionWithTitle:@"手动添加位置" style:UIAlertActionStyleDefault handler:
+                               ^(UIAlertAction *action)
+             {
+                 UIAlertController *locationAlert=[UIAlertController alertControllerWithTitle:@"定位" message:@"请手动输入位置信息" preferredStyle:UIAlertControllerStyleAlert];
+                                   
+                 [locationAlert addTextFieldWithConfigurationHandler:^(UITextField *textFiled){
+                     textFiled.placeholder=@"请输入你的位置";
+                 }];
+                 [locationAlert addAction:[UIAlertAction actionWithTitle:@"完成" style:UIAlertActionStyleDefault handler:
+                                          ^(UIAlertAction *action){
+                                              UITextField *filed01=[locationAlert textFields].firstObject;
+                                              [_data setPlace:filed01.text];
+                                              [self.delegate addDiary:_data];
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }]];
+                 [locationAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:
+                                           ^(UIAlertAction *action){
+                                               
+                                           }]];
+                 [self presentViewController:locationAlert animated:YES completion:nil];
+             }]];
              [self presentViewController:alert animated:YES completion:nil];
          }
          
-         if (placemarks.count > 0)
+         else if (placemarks.count > 0)
          {
+             NSString *locationStr;
              CLPlacemark *pm = placemarks[0];
-             NSString *locationStr=[[NSString alloc]init];
              if(pm.country!=nil)
              {
-                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
                  if(pm.administrativeArea!=nil)
                  {
-                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@"%@",pm.administrativeArea]];
                      if(pm.locality!=nil)
                      {
-                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@"%@",pm.locality]];
                      }
                  }
              }
-             NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-             [userDefault setObject:locationStr forKey:@"location"];
+             [_data setPlace:locationStr];
+             [self.delegate addDiary:_data];
              NSLog(@"locationStr:%@",locationStr);
              [self.navigationController popViewControllerAnimated:YES];
          } else

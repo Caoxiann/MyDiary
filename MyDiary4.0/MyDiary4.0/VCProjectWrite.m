@@ -25,16 +25,16 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.textView setFrame:CGRectMake(5, 20, self.view.frame.size.width-10, self.view.frame.size.height/2)];
-    [self.textView setDelegate:self];
+    [_textView setFrame:CGRectMake(5, 20, self.view.frame.size.width-10, self.view.frame.size.height/2)];
+    [_textView setDelegate:self];
     [self.view addSubview:self.textView];
     //[projWrite.textView becomeFirstResponder];
-    [self.textView setFont:[UIFont systemFontOfSize:16]];
-    self.textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
-    [self.textView.layer setBorderWidth:1];
-    [self.textView.layer setMasksToBounds:YES];
-    [self.textView.layer setCornerRadius:10];
-    self.timePicker=[[UIDatePicker alloc]initWithFrame:CGRectMake(5, 40+self.view.frame.size.height/2, self.view.frame.size.width-10, self.view.frame.size.height/2-200)];
+    [_textView setFont:[UIFont systemFontOfSize:16]];
+    _textView.layer.borderColor=[[UIColor colorWithRed:105/255.0 green:215/255.0 blue:221/255.0 alpha:1.0] CGColor];
+    [_textView.layer setBorderWidth:1];
+    [_textView.layer setMasksToBounds:YES];
+    [_textView.layer setCornerRadius:10];
+    _timePicker=[[UIDatePicker alloc]initWithFrame:CGRectMake(5, 40+self.view.frame.size.height/2, self.view.frame.size.width-10, self.view.frame.size.height/2-200)];
     [self.view addSubview:self.timePicker];
     UILabel *tipLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 10+self.view.frame.size.height/2, 80, 40)];
     //[tipLab setFont:[UIFont systemFontOfSize:15]];
@@ -81,6 +81,27 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     [self setToolbarItems:toolBarItems];
 }
 //
+-(void)locate
+{
+    if (_locationManager == nil)
+    {
+        _locationManager = [[CLLocationManager alloc] init];
+        // 设置定位精度
+        [_locationManager setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
+        [_locationManager setDistanceFilter:10000];
+        _locationManager.delegate = self;
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0)
+    {//ios8.0以上版本CLLocationManager定位服务需要授权
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    if([CLLocationManager locationServicesEnabled])
+    {
+        // 开始时时定位
+        [_locationManager startUpdatingLocation];
+    }
+}
+//
 -(void)pressBackBtnWithoutText
 {
     if ([self.textView.text isEqualToString:@""] || [self.textView.text isEqualToString:@"写下你的计划吧"])
@@ -89,33 +110,18 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     }
     else
     {
-        if (_locationManager == nil)
-        {
-            _locationManager = [[CLLocationManager alloc] init];
-            // 设置定位精度
-            [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
-            _locationManager.delegate = self;
-            
-            if([CLLocationManager locationServicesEnabled])
-            {
-                // 开始时时定位
-                [self.locationManager startUpdatingLocation];
-                
-            }
-        }
-        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:self.timePicker.date];
-        NSString *str=[userDefault objectForKey:@"location"];
-        if (str==nil)
-        {
-            str=@"";
-        }
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:str];
-        [userDefault removeObjectForKey:@"location"];
+        _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@"" Weekday:0];
+        components=[calendar components:NSCalendarUnitWeekday fromDate:[NSDate date]];
+        [_data setWeekday:components.weekday];
         NSLog(@"%@",self.timePicker.date);
-        [self.delegate addProject:data];
-        //[self.navigationController popViewControllerAnimated:YES];
+        [self locate];
+        if (![CLLocationManager locationServicesEnabled])
+        {
+            [self.delegate addProject:_data];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 //
@@ -128,9 +134,9 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     else
     {
         NSCalendar *calendar=[NSCalendar currentCalendar];
-        NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM fromDate:self.timePicker.date];
-        TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@""];
-        [self.delegate changeProject:data];
+        NSDateComponents *components=[calendar components:NSCalendarUnitYMDHM | NSCalendarUnitWeekday fromDate:self.timePicker.date];
+        _data=[[TableViewCellDataSource alloc]initWithText:self.textView.text Year:components.year Month:components.month Day:components.day Hour:components.hour Minute:components.minute Place:@"" Weekday:components.weekday];
+        [self.delegate changeProject:_data];
         [self.navigationController popViewControllerAnimated:YES];
         
     }
@@ -195,8 +201,8 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
     
 }
 #pragma mark - CLLocation Delegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
     [_locationManager stopUpdatingLocation];
     CLGeocoder *geocoder=[[CLGeocoder alloc]init];
     [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:
@@ -206,30 +212,57 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
          {
              UIAlertController * alert=[UIAlertController alertControllerWithTitle:@"网络错误,无法定位" message:@"请再次尝试" preferredStyle:UIAlertControllerStyleAlert];
              [alert addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDestructive handler:
-                               ^(UIAlertAction*action){
+                               ^(UIAlertAction *action){
+                                   
+                               }]];
+             
+             [alert addAction:[UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:
+                               ^(UIAlertAction *action){
+                                   [_data setPlace:@""];
+                                   [self.delegate addProject:_data];
                                    [self.navigationController popViewControllerAnimated:YES];
+                               }]];
+             
+             [alert addAction:[UIAlertAction actionWithTitle:@"手动添加位置" style:UIAlertActionStyleDefault handler:
+                               ^(UIAlertAction *action)
+                               {
+                                   UIAlertController *locationAlert=[UIAlertController alertControllerWithTitle:@"定位" message:@"请手动输入位置信息" preferredStyle:UIAlertControllerStyleAlert];
+                                   
+                                   [locationAlert addTextFieldWithConfigurationHandler:^(UITextField *textFiled){
+                                       textFiled.placeholder=@"请输入你的位置";
+                                   }];
+                                   [locationAlert addAction:[UIAlertAction actionWithTitle:@"完成" style:UIAlertActionStyleDefault handler:
+                                                             ^(UIAlertAction *action){
+                                                                 UITextField *filed01=[locationAlert textFields].firstObject;
+                                                                 [_data setPlace:filed01.text];
+                                                                 [self.delegate addProject:_data];
+                                                                 [self.navigationController popViewControllerAnimated:YES];
+                                                             }]];
+                                   [locationAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:
+                                                             ^(UIAlertAction *action){
+                                                                 
+                                                             }]];
+                                   [self presentViewController:locationAlert animated:YES completion:nil];
                                }]];
              [self presentViewController:alert animated:YES completion:nil];
          }
-         
          if (placemarks.count > 0)
          {
+             NSString *locationStr;
              CLPlacemark *pm = placemarks[0];
-             NSString *locationStr=[[NSString alloc]init];
              if(pm.country!=nil)
              {
-                 locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@" %@",pm.country]];
                  if(pm.administrativeArea!=nil)
                  {
-                     locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.administrativeArea]];
+                     locationStr=[[NSString alloc]initWithString:[NSString stringWithFormat:@"%@",pm.administrativeArea]];
                      if(pm.locality!=nil)
                      {
-                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@" %@",pm.locality]];
+                         locationStr=[locationStr stringByAppendingString:[NSString stringWithFormat:@"%@",pm.locality]];
                      }
                  }
              }
-             NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-             [userDefault setObject:locationStr forKey:@"location"];
+             [_data setPlace:locationStr];
+             [self.delegate addProject:_data];
              NSLog(@"locationStr:%@",locationStr);
              [self.navigationController popViewControllerAnimated:YES];
          }
@@ -237,7 +270,7 @@ static NSCalendarUnit NSCalendarUnitYMDHM=NSCalendarUnitYear | NSCalendarUnitMon
          {
              //错误
          }
-     }];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

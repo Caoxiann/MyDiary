@@ -428,6 +428,36 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     }
 }
 //
+-(NSString *)switchWeekdays:(NSInteger) weekday
+{
+    switch (weekday) {
+        case 1:
+            return @"星期一";
+            break;
+        case 2:
+            return @"星期二";
+            break;
+        case 3:
+            return @"星期三";
+            break;
+        case 4:
+            return @"星期四";
+            break;
+        case 5:
+            return @"星期五";
+            break;
+        case 6:
+            return @"星期六";
+            break;
+        case 7:
+            return @"星期日";
+            break;
+        default:
+            break;
+    }
+    return @"";
+}
+//
 -(void)loadProjects
 {
     NSString *dataBasePath=[NSHomeDirectory() stringByAppendingString:@"/Documents/MyDiary02"];
@@ -439,7 +469,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
         NSCalendar *calendar=[NSCalendar currentCalendar];
         NSDateComponents *components=[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:currentTime];
         NSString *tableName=[NSString stringWithFormat:@"projectsInYear%ldMonth%ldDay%ld",components.year,components.month,components.day];
-        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50));",tableName];
+        NSString *strCreateTable=[NSString stringWithFormat:@"create table if not exists %@(year integer,month integer,day integer,hour integer,minute integer,project varchar(500),place varchar(50),weekday integer);",tableName];
         BOOL isExecuted=[self.dataBase executeUpdate:strCreateTable];
         if (isExecuted)
         {
@@ -448,7 +478,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"] Weekday:[resultForProjects intForColumn:@"weekday"]];
                 [self.projects addObject:data];
             }
             [self.dataBase close];
@@ -490,8 +520,9 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
     [cell.labContent setText:data.text];
     cell.hour=data.hour;
     cell.minute=data.minute;
-    cell.labTime.text=[NSString stringWithFormat:@"执行时间%ld年%ld月%ld日 %02ld:%02ld",data.year,data.month,data.day,data.hour,data.minute];
+    cell.labTime.text=[NSString stringWithFormat:@"%ld年%ld月%ld日 %02ld:%02ld执行",data.year,data.month,data.day,data.hour,data.minute];
     [cell.labPlace setText:data.place];
+    cell.labWeekday.text=[self switchWeekdays:data.weekday];
     [cell.layer setMasksToBounds:YES];
     [cell.layer setCornerRadius:10];
     return cell;
@@ -669,7 +700,7 @@ static const NSCalendarUnit kCalendarUnitYMD = NSCalendarUnitYear | NSCalendarUn
             FMResultSet *resultForProjects=[self.dataBase executeQuery:strQuery];
             while ([resultForProjects next])
             {
-                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"]];
+                TableViewCellDataSource *data=[[TableViewCellDataSource alloc]initWithText:[resultForProjects stringForColumn:@"project"] Year:[resultForProjects intForColumn:@"year"] Month:[resultForProjects intForColumn:@"month"] Day:[resultForProjects intForColumn:@"day"] Hour:[resultForProjects intForColumn:@"hour"] Minute:[resultForProjects intForColumn:@"minute"] Place:[resultForProjects stringForColumn:@"place"] Weekday:[resultForProjects intForColumn:@"weekday"]];
                 [self.projects addObject:data];
             }
             [self.tableView reloadData];
